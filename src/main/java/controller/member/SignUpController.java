@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MemberRepository;
+import service.MemberService;
 import validate.SignUpValidate;
 import static service.MyUtils.*;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import static converter.StringToDateConverter.*;
 public class SignUpController implements Initializable {
 
     private final MemberRepository repository = new MemberRepository();
+    private final MemberService service = new MemberService(repository);
     private final SignUpValidate validator = new SignUpValidate();
 
     @FXML
@@ -45,10 +47,6 @@ public class SignUpController implements Initializable {
         return null;
     }
 
-    public String getFullEmail(String emailId, String emailDomain) {
-        return emailId + "@" + emailDomain;
-    }
-
     @FXML
     private void signUp(ActionEvent event) throws IOException, ParseException {
 
@@ -62,8 +60,8 @@ public class SignUpController implements Initializable {
         member.setBirthDate(stringToDate(birth.getText().trim()));
         member.setPhone(phone.getText().trim());
 
-        repository.save(member);
-        showAlert("성공", "회원가입 완료", Alert.AlertType.INFORMATION);
+        Member signUpMember = service.signUp(member);
+        showAlert("성공", signUpMember.getName() + "님 회원가입 완료", Alert.AlertType.INFORMATION);
         goBack(event);
     }
 

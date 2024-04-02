@@ -12,6 +12,11 @@ public class MemberService {
         this.repository = repository;
     }
 
+    public Member signUp(Member member) {
+        return repository.save(member);
+    }
+
+
     public Member login(String phone, String password) {
 
         Member findMember = repository.findByPhone(phone);
