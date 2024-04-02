@@ -29,7 +29,6 @@ public class SignUpValidate {
     }
 
     public boolean isWrongBirth(String birth) {
-
         Integer month = Integer.valueOf(birth.substring(2, 4));
         Integer day = Integer.valueOf(birth.substring(4));
 

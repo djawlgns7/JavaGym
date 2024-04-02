@@ -26,15 +26,12 @@ public class MemberLoginController implements Initializable {
     @FXML
     private PasswordField password;
 
-    @FXML
-    private Button invisibleButton;
-
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
     private final LoginValidate validator = new LoginValidate();
 
     @FXML
-    private void login(ActionEvent event) throws IOException {
+    private void login() {
         String inputPhone = phone.getText();
         String inputPassword = password.getText();
 
@@ -121,6 +118,5 @@ public class MemberLoginController implements Initializable {
 
         stage.setScene(signUpScene);
         stage.show();
-        return;
     }
 }

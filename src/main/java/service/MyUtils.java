@@ -11,4 +11,8 @@ public class MyUtils {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public static String getFullEmail(String emailId, String emailDomain) {
+        return emailId + "@" + emailDomain;
+    }
 }

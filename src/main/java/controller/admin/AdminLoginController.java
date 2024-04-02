@@ -32,6 +32,16 @@ public class AdminLoginController {
         String id = this.id.getText();
         String password = this.password.getText();
 
+        if (id.isEmpty()) {
+            showAlert("로그인 실패", "아이디를 입력하세요.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            showAlert("로그인 실패", "비밀번호를 입력하세요.", Alert.AlertType.WARNING);
+            return;
+        }
+
         Admin admin = service.login(id, password);
 
         if (admin != null) {
@@ -43,6 +53,8 @@ public class AdminLoginController {
 
             stage.setScene(scene);
             stage.show();
+        } else {
+            showAlert("로그인 실패", "아이디 또는 비밀번호가 맞지 않습니다.", Alert.AlertType.WARNING);
         }
     }
 

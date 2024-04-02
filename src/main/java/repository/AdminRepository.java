@@ -14,7 +14,7 @@ import static connection.ConnectionUtils.getConnection;
 public class AdminRepository {
 
     public Admin findById(String id) {
-        String sql = "select * from admin where id = ?";
+        String sql = "select * from admin where a_id = ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -33,7 +33,7 @@ public class AdminRepository {
 
                 return admin;
             } else {
-                throw new NoSuchElementException("admin not found admin = " + id);
+                return null;
             }
 
         } catch (SQLException e) {
