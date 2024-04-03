@@ -1,8 +1,17 @@
 package service;
 
 import domain.Admin;
+import javafx.event.ActionEvent;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
+import util.AlertUtil;
+import util.ControllerUtil;
+import util.PageUtil;
+
+import java.io.IOException;
+
+import static util.AlertUtil.showAlertLoginFail;
+import static util.ControllerUtil.*;
 
 public class AdminService {
 
@@ -12,13 +21,26 @@ public class AdminService {
         this.repository = repository;
     }
 
-    public Admin login(String id, String password) {
+    public void login(String id, String password, ActionEvent event) throws IOException {
 
-        Admin findAdmin = repository.findById(id);
-
-        if (findAdmin != null && BCrypt.checkpw(password, findAdmin.getPassword())) {
-            return findAdmin;
+        if (id.isEmpty()) {
+            showAlertLoginFail("emptyId");
+            return;
         }
-        return null;
+
+        if (password.isEmpty()) {
+            showAlertLoginFail("emptyPw");
+            return;
+        }
+
+        Admin admin = repository.findById(id);
+
+        if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
+            PageUtil.movePage(event, "admin", "/view/admin/helloAdmin");
+        } else {
+            showAlertLoginFail("adminLoginFail");
+        }
     }
+
+
 }
