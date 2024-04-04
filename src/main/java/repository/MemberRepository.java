@@ -71,7 +71,7 @@ public class MemberRepository {
                 return member;
 
             } else {
-                throw new NoSuchElementException("member not found m_no=" + num);
+                return null;
             }
 
         } catch (SQLException e) {
@@ -145,7 +145,6 @@ public class MemberRepository {
                 member.setEnrolDate(rs.getDate("m_enrollment"));
 
                 return member;
-
             } else {
                 return null;
             }
@@ -183,7 +182,6 @@ public class MemberRepository {
 
                 members.add(member);
             }
-
             return members;
 
         } catch (SQLException e) {
