@@ -15,6 +15,7 @@ import static connection.ConnectionUtils.*;
 
 public class MemberRepository {
 
+    // insert one member into DB
     public Member save(Member member) {
         String sql = "insert into member(m_name, m_pw, m_sex, m_email, m_birthdate, m_phone) values(?, ?, ?, ?, ?, ?)";
 
@@ -38,7 +39,7 @@ public class MemberRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            clear(conn, pstmt, null);
+            close(conn, pstmt, null);
         }
     }
 
@@ -58,7 +59,7 @@ public class MemberRepository {
             if (rs.next()) {
                 Member member = new Member();
 
-                member.setId(rs.getInt("m_no"));
+                member.setNum(rs.getInt("m_no"));
                 member.setName(rs.getString("m_name"));
                 member.setPassword(rs.getString("m_pw"));
                 member.setGender(Gender.valueOf(rs.getString("m_sex")));
@@ -76,7 +77,7 @@ public class MemberRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            clear(conn, pstmt, rs);
+            close(conn, pstmt, rs);
         }
     }
 
@@ -96,7 +97,7 @@ public class MemberRepository {
             if (rs.next()) {
                 Member member = new Member();
 
-                member.setId(rs.getInt("m_no"));
+                member.setNum(rs.getInt("m_no"));
                 member.setName(rs.getString("m_name"));
                 member.setPassword(rs.getString("m_pw"));
                 member.setGender(Gender.valueOf(rs.getString("m_sex")));
@@ -114,7 +115,7 @@ public class MemberRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            clear(conn, pstmt, rs);
+            close(conn, pstmt, rs);
         }
     }
 
@@ -134,7 +135,7 @@ public class MemberRepository {
             if (rs.next()) {
                 Member member = new Member();
 
-                member.setId(rs.getInt("m_no"));
+                member.setNum(rs.getInt("m_no"));
                 member.setName(rs.getString("m_name"));
                 member.setPassword(rs.getString("m_pw"));
                 member.setGender(Gender.valueOf(rs.getString("m_sex")));
@@ -152,7 +153,7 @@ public class MemberRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            clear(conn, pstmt, rs);
+            close(conn, pstmt, rs);
         }
     }
 
@@ -171,13 +172,15 @@ public class MemberRepository {
 
             while (rs.next()) {
                 Member member = new Member();
-                member.setId(rs.getInt("m_no"));
+
+                member.setNum(rs.getInt("m_no"));
                 member.setName(rs.getString("m_name"));
                 member.setGender(Gender.valueOf(rs.getString("m_sex")));
                 member.setEmail(rs.getString("m_email"));
                 member.setBirthDate(rs.getDate("m_birthdate"));
                 member.setPhone(rs.getString("m_phone"));
                 member.setEnrolDate(rs.getDate("m_enrollment"));
+
                 members.add(member);
             }
 
@@ -186,8 +189,46 @@ public class MemberRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            clear(conn, pstmt, rs);
+            close(conn, pstmt, rs);
         }
+    }
 
+    public void updateMember(Member member) {
+        String sql = "update member set m_name = ?, m_sex = ?, m_email = ?, m_birthdate = ?, m_phone = ? where m_no = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, member.getName());
+            pstmt.setString(2, member.getGender().toString());
+            pstmt.setString(3, member.getEmail());
+            pstmt.setDate(4, member.getBirthDate());
+            pstmt.setString(5, member.getPhone());
+            pstmt.setInt(6, member.getNum());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    public void deleteMember(Integer num) {
+        String sql = "delete from member where m_no = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, num);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
     }
 }
