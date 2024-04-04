@@ -11,7 +11,7 @@ public class JavaGymApplication extends Application {
     public void start(Stage stage) throws Exception {
         Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         stage.setScene(new Scene(loginRoot));
-        stage.setTitle("Login");
+        stage.setTitle("JavaGym");
         stage.show();
     }
 

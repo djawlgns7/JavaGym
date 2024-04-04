@@ -28,6 +28,6 @@ public class AdminLoginController {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "Login", "/view/member/memberLogin");
+        movePage(event, "/view/member/memberLogin");
     }
 }

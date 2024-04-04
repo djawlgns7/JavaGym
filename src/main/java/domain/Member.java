@@ -1,6 +1,5 @@
 package domain;
 
-import javafx.beans.property.BooleanProperty;
 import lombok.Data;
 import java.sql.Date;
 
