@@ -1,12 +1,17 @@
 package domain;
 
+import javafx.beans.property.BooleanProperty;
 import lombok.Data;
 import java.sql.Date;
 
 @Data
 public class Member {
 
-    private Integer id;
+    /**
+     * java.util.Date 사용
+     */
+
+    private Integer num;
     private String name;
     private String password;
     private Gender gender;
