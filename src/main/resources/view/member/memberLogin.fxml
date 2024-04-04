@@ -11,12 +11,12 @@
 
     <HBox spacing="10" alignment="CENTER">
         <Label>전화번호</Label>
-        <TextField fx:id="phone" promptText="010 제외한 8자리"/>
+        <TextField fx:id="phoneField" promptText="010 제외한 8자리"/>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER">
         <Label>비밀번호</Label>
-        <PasswordField fx:id="password" promptText="비밀번호"/>
+        <PasswordField fx:id="passwordField" promptText="비밀번호"/>
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">

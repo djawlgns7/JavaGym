@@ -2,31 +2,29 @@ package util;
 
 import domain.Member;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 import repository.MemberRepository;
 
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.List;
 
-import static util.AlertUtil.showAlertLoginFail;
+import static util.AlertUtil.showAlertAddMemberFail;
 import static util.AlertUtil.showAlertSignUpFail;
 
 public class ControllerUtil {
 
-    private static final MemberRepository repository = new MemberRepository();
+    private static final MemberRepository memberRepository = new MemberRepository();
 
     public static String getFullEmail(String emailId, String emailDomain) {
         return emailId + "@" + emailDomain;
+    }
+
+    public static String formatPhone(String phone) {
+        return "010-" + phone.substring(0, 4) + "-" + phone.substring(4);
     }
 
     public static String getSelectedGender(RadioButton male, RadioButton female) {
@@ -51,7 +49,24 @@ public class ControllerUtil {
                 phone.getText().trim().isEmpty();
     }
 
+    public static boolean isEmptyAnyField(TextField name, TextField email,
+                                          TextField birth, TextField phone,
+                                          RadioButton male, RadioButton female) {
+
+        return  name.getText().trim().isEmpty() ||
+                getSelectedGender(male, female) == null ||
+                email.getText().trim().isEmpty() ||
+                birth.getText().trim().isEmpty() ||
+                phone.getText().trim().isEmpty();
+    }
+
     public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
+
+        if (isDuplicatePhone(phone)) {
+            showAlertSignUpFail("duplicatePhone");
+            return true;
+        }
+
         if (!pw.equals(pwConfirm)) {
             showAlertSignUpFail("wrongPw");
             return true;
@@ -59,6 +74,11 @@ public class ControllerUtil {
 
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
             showAlertSignUpFail("duplicatePhoneAndEmail");
+            return true;
+        }
+
+        if (isWrongEmail(email)) {
+            showAlertSignUpFail("wrongEmail");
             return true;
         }
 
@@ -72,16 +92,45 @@ public class ControllerUtil {
             return true;
         }
 
+        return false;
+    }
+
+    public static boolean addMemberValidate(String phone, String email, String birth) {
+        if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
+            showAlertAddMemberFail("duplicatePhoneAndEmail");
+            return true;
+        }
+
+        if (isDuplicateEmail(email)) {
+            showAlertAddMemberFail("duplicateEmail");
+            return true;
+        }
+
+        if (isWrongBirth(birth)) {
+            showAlertAddMemberFail("wrongBirth");
+            return true;
+        }
+
         if (isDuplicatePhone(phone)) {
-            showAlertSignUpFail("duplicatePhone");
+            showAlertAddMemberFail("duplicatePhone");
+            return true;
+        }
+
+        if (isWrongEmail(email)) {
+            showAlertAddMemberFail("wrongEmail");
             return true;
         }
         return false;
+    }
 
+    public static boolean isWrongEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        return !email.matches(emailRegex);
     }
 
     public static boolean isDuplicatePhone(String phone) {
-        Member member = repository.findByPhone(phone);
+        Member member = memberRepository.findByPhone(phone);
         if (member == null) {
             return false;
         } else {
@@ -90,7 +139,7 @@ public class ControllerUtil {
     }
 
     public static boolean isDuplicateEmail(String email) {
-        Member member = repository.findByEmail(email);
+        Member member = memberRepository.findByEmail(email);
         if (member == null) {
             return false;
         } else {
@@ -117,5 +166,39 @@ public class ControllerUtil {
         LocalDate localDate = sqlDate.toLocalDate();
         String formattedDate = localDate.format(formatter);
         return new SimpleStringProperty(formattedDate);
+    }
+
+    public static void columnBinding(TableColumn<Member, String> numCol, TableColumn<Member, String> nameCol, TableColumn<Member, String> genderCol,
+                                     TableColumn<Member, String> emailCol, TableColumn<Member, String> birthCol, TableColumn<Member, String> phoneCol,
+                                     TableColumn<Member, String> enrollCol) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        birthCol.setCellValueFactory(cellData -> {
+            Date sqlDate = cellData.getValue().getBirthDate();
+            return sqlDateToLocalDate(sqlDate, formatter);
+        });
+
+        phoneCol.setCellValueFactory(cellData -> {
+            String rawPhoneNumber = cellData.getValue().getPhone();
+            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
+            return new SimpleStringProperty(formattedPhoneNumber);
+        });
+
+        enrollCol.setCellValueFactory(cellData -> {
+            Date sqlDate = cellData.getValue().getEnrolDate();
+            return sqlDateToLocalDate(sqlDate, formatter);
+        });
+    }
+
+    public static void loadMemberData(TableView<Member> membersTable) {
+        List<Member> members = memberRepository.findAllMembers();
+
+        // 조회한 회원 정보를 TableView에 설정
+        membersTable.setItems(FXCollections.observableArrayList(members));
     }
 }

@@ -9,8 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MemberRepository;
-import service.MemberService;
-import util.PageUtil;
+import service.member.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +19,7 @@ import java.util.ResourceBundle;
 import static util.AlertUtil.showAlert;
 import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
+import static util.PageUtil.*;
 import static util.StyleUtil.stylePassword;
 
 public class SignUpController implements Initializable {
@@ -28,40 +28,40 @@ public class SignUpController implements Initializable {
     private final MemberService service = new MemberService(repository);
 
     @FXML
-    private TextField name, emailId, birth, phone;
+    private TextField nameField, emailIdField, birthField, phoneField;
 
     @FXML
-    private ComboBox<String> emailDomain;
+    private ComboBox<String> emailDomainField;
 
     @FXML
-    private PasswordField password, passwordConfirm;
+    private PasswordField passwordField, passwordConfirmField;
 
     @FXML
-    private RadioButton male, female;
+    private RadioButton maleButton, femaleButton;
 
     @FXML
     private void signUp(ActionEvent event) throws IOException, ParseException {
 
-        if (isEmptyAnyField(name, emailId, emailDomain, birth, phone, password, passwordConfirm, male, female)) {
+        if (isEmptyAnyField(nameField, emailIdField, emailDomainField, birthField, phoneField, passwordField, passwordConfirmField, maleButton, femaleButton)) {
             AlertUtil.showAlertSignUpFail("emptyAnyField");
             return;
         }
 
-        String inputPw = password.getText().trim();
-        String inputPwConfirm = passwordConfirm.getText().trim();
-        String inputPhone = phone.getText().trim();
-        String fullEmail = getFullEmail(emailId.getText().trim(), emailDomain.getValue().trim());
-        String inputBirth = birth.getText().trim();
+        String password = passwordField.getText().trim();
+        String passwordConfirm = passwordConfirmField.getText().trim();
+        String phone = phoneField.getText().trim();
+        String email = getFullEmail(emailIdField.getText().trim(), emailDomainField.getValue().trim());
+        String birth = birthField.getText().trim();
 
-        if (signUpValidate(inputPw, inputPwConfirm, inputPhone, fullEmail, inputBirth)) return;
+        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
 
         Member member = new Member();
-        member.setName(name.getText().trim());
-        member.setPassword(BCrypt.hashpw(inputPw, BCrypt.gensalt()));
-        member.setGender(Gender.valueOf(getSelectedGender(male, female)));
-        member.setEmail(fullEmail);
-        member.setBirthDate(stringToDate(inputBirth));
-        member.setPhone(inputPhone);
+        member.setName(nameField.getText().trim());
+        member.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+        member.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+        member.setEmail(email);
+        member.setBirthDate(stringToDate(birth));
+        member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
         showAlert("알림", signUpMember.getName() + "님 회원가입 완료^^", Alert.AlertType.INFORMATION);
@@ -70,18 +70,17 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        // static import
-        PageUtil.movePage(event, "Login", "/view/member/memberLogin");
+        movePage(event, "Login", "/view/member/memberLogin");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        password.textProperty().addListener((observable, oldValue, newValue) -> {
-            stylePassword(password, passwordConfirm);
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            stylePassword(passwordField, passwordConfirmField);
         });
-        passwordConfirm.textProperty().addListener((observable, oldValue, newValue) -> {
-            stylePassword(password, passwordConfirm);
+        passwordConfirmField.textProperty().addListener((observable, oldValue, newValue) -> {
+            stylePassword(passwordField, passwordConfirmField);
         });
 
         TextFormatter<String> passwordFormatter = new TextFormatter<>(change -> {
@@ -116,9 +115,9 @@ public class SignUpController implements Initializable {
             return null;
         });
 
-        password.setTextFormatter(passwordFormatter);
-        passwordConfirm.setTextFormatter(passwordConfirmFormatter);
-        birth.setTextFormatter(birthFormatter);
-        phone.setTextFormatter(phoneFormatter);
+        passwordField.setTextFormatter(passwordFormatter);
+        passwordConfirmField.setTextFormatter(passwordConfirmFormatter);
+        birthField.setTextFormatter(birthFormatter);
+        phoneField.setTextFormatter(phoneFormatter);
     }
 }

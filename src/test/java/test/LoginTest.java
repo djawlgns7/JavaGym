@@ -1,7 +1,7 @@
 package test;
 
 import repository.MemberRepository;
-import service.MemberService;
+import service.member.MemberService;
 
 public class LoginTest {
 
