@@ -1,10 +1,13 @@
-package service;
+package service.member;
 
 import domain.Member;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MemberRepository;
+import util.PageUtil;
 
 import java.io.IOException;
 
@@ -24,7 +27,10 @@ public class MemberService {
         return repository.save(member);
     }
 
-    public void login(String phone, String password, ActionEvent event) throws IOException {
+    public void login(TextField phoneField, PasswordField passwordField, ActionEvent event) throws IOException {
+
+        String phone = phoneField.getText().trim();
+        String password = passwordField.getText().trim();
 
         if (phone.isEmpty()) {
             showAlertLoginFail("emptyPhone");
@@ -52,6 +58,9 @@ public class MemberService {
             showAlertAndMove("로그인 성공", findMember.getName() + "님 환영합니다^^", Alert.AlertType.INFORMATION, "/view/member/helloMember", event);
         } else {
             showAlertLoginFail("wrongPw");
+
+            // 비밀번호 잘못 입력 시 비밀번호 필드 초기화!
+            passwordField.setText("");
         }
     }
 }

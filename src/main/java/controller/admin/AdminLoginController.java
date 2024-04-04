@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import repository.AdminRepository;
-import service.AdminService;
+import service.admin.AdminService;
 
 import java.io.IOException;
 
@@ -16,17 +16,14 @@ public class AdminLoginController {
     private final AdminService service = new AdminService(repository);
 
     @FXML
-    private TextField id;
+    private TextField idField;
 
     @FXML
-    private PasswordField password;
+    private PasswordField passwordField;
 
     @FXML
     public void login(ActionEvent event) throws IOException {
-        String id = this.id.getText();
-        String password = this.password.getText();
-
-        service.login(id, password, event);
+        service.login(idField, passwordField, event);
     }
 
     @FXML

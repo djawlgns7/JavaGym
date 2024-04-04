@@ -1,39 +1,65 @@
 package controller.admin;
 
+import domain.Gender;
 import domain.Member;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.mindrot.jbcrypt.BCrypt;
+import repository.AdminRepository;
 import repository.MemberRepository;
+import service.admin.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.text.ParseException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static util.ControllerUtil.sqlDateToLocalDate;
+import static converter.StringToDateConverter.stringToDate;
+import static util.AlertUtil.*;
+import static util.ControllerUtil.*;
 import static util.PageUtil.*;
 
 public class MemberInfoController implements Initializable {
 
-    @FXML
-    TextField nameField, birthField, phoneField;
+    private static final ResourceBundle config = ResourceBundle.getBundle("config.member");
+    private static final AdminRepository adminRepository = new AdminRepository();
+    private static final AdminService service = new AdminService(adminRepository);
 
     @FXML
-    private RadioButton male, female;
+    private TextField nameField, birthField, phoneField, emailField;
 
     @FXML
-    private void addMember(ActionEvent event) throws IOException {
+    private RadioButton maleButton, femaleButton;
 
+    @FXML
+    private void addMember(ActionEvent event) throws ParseException, IOException {
+        if (isEmptyAnyField(nameField, emailField, birthField, phoneField, maleButton, femaleButton)) {
+            showAlertAddMemberFail("emptyAnyField");
+            return;
+        }
+
+        String phone = phoneField.getText().trim();
+        String email = emailField.getText().trim();
+        String birth = birthField.getText().trim();
+
+        if (addMemberValidate(phone, email, birth)) return;
+
+        Member member = new Member();
+        member.setName(nameField.getText().trim());
+        member.setPassword(BCrypt.hashpw(config.getString("initial.password"), BCrypt.gensalt()));
+        member.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+        member.setEmail(email);
+        member.setBirthDate(stringToDate(birth));
+        member.setPhone(phone);
+
+        service.addMember(member);
+        showAlertAndMove("알림", "회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
     }
 
     @FXML
@@ -47,21 +73,10 @@ public class MemberInfoController implements Initializable {
     }
 
     @FXML
-    private void memberDetail(MouseEvent event) throws IOException {
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        columnBinding();
-        loadMemberData();
-    }
-
-    private void loadMemberData() {
-        MemberRepository memberRepository = new MemberRepository();
-        List<Member> members = memberRepository.findAllMembers();
-
-        // 조회한 회원 정보를 TableView에 설정
-        membersTable.setItems(FXCollections.observableArrayList(members));
+    private void memberDetail(Member member, MouseEvent event) throws IOException {
+        if (member != null && event.getClickCount() == 2) {
+            System.out.println(member);
+        }
     }
 
     @FXML
@@ -70,24 +85,41 @@ public class MemberInfoController implements Initializable {
     @FXML
     private TableColumn<Member, String> numCol, nameCol, genderCol, emailCol, birthCol, phoneCol, enrollCol;
 
-    private void columnBinding() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        columnBinding(numCol, nameCol, genderCol, emailCol, birthCol, phoneCol, enrollCol);
+        loadMemberData(membersTable);
 
-        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        birthCol.setCellValueFactory(cellData -> {
-            Date sqlDate = cellData.getValue().getBirthDate();
-            return sqlDateToLocalDate(sqlDate, formatter);
+        TextFormatter<String> birthFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d{0,6}")) {
+                return change;
+            }
+            return null;
         });
 
-        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d{0,8}")) {
+                return change;
+            }
+            return null;
+        });
 
-        enrollCol.setCellValueFactory(cellData -> {
-            Date sqlDate = cellData.getValue().getEnrolDate();
-            return sqlDateToLocalDate(sqlDate, formatter);
+        birthField.setTextFormatter(birthFormatter);
+        phoneField.setTextFormatter(phoneFormatter);
+
+        membersTable.setRowFactory(tv -> {
+            TableRow<Member> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                try {
+                    Member member = row.getItem();
+                    memberDetail(member, event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            return row;
         });
     }
 

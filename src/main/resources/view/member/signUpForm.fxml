@@ -14,35 +14,35 @@
 
     <HBox alignment="CENTER" spacing="10">
         <Label>이름</Label>
-        <TextField fx:id="name" promptText="이름" />
+        <TextField fx:id="nameField" promptText="이름" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label>전화번호</Label>
-        <TextField fx:id="phone" promptText="010 제외한 8자리" />
+        <TextField fx:id="phoneField" promptText="010 제외한 8자리" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label>비밀번호</Label>
-        <PasswordField fx:id="password" promptText="비밀번호 (4자리 숫자)" />
+        <PasswordField fx:id="passwordField" promptText="비밀번호 (4자리 숫자)" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label>비밀번호 확인</Label>
-        <PasswordField fx:id="passwordConfirm" promptText="비밀번호 확인" />
+        <PasswordField fx:id="passwordConfirmField" promptText="비밀번호 확인" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label>성별</Label>
-        <RadioButton fx:id="male" text="남" toggleGroup="$gender" />
-        <RadioButton fx:id="female" text="여" toggleGroup="$gender" />
+        <RadioButton fx:id="maleButton" text="남" toggleGroup="$gender" />
+        <RadioButton fx:id="femaleButton" text="여" toggleGroup="$gender" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label>이메일</Label>
-        <TextField fx:id="emailId" prefWidth="120" promptText="이메일 아이디" />
+        <TextField fx:id="emailIdField" prefWidth="120" promptText="이메일 아이디" />
         <Label>@</Label>
-        <ComboBox fx:id="emailDomain" promptText="선택 또는 직접 입력" prefWidth="170" editable="true">
+        <ComboBox fx:id="emailDomainField" promptText="선택 또는 직접 입력" prefWidth="170" editable="true">
             <items>
                 <FXCollections fx:factory="observableArrayList" >
                     <String fx:value="gmail.com" />
@@ -56,7 +56,7 @@
 
     <HBox alignment="CENTER" spacing="10">
         <Label>생년월일</Label>
-        <TextField fx:id="birth" promptText="주민등록번호 앞 6자리" />
+        <TextField fx:id="birthField" promptText="주민등록번호 앞 6자리" />
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">

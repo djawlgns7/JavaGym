@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import repository.MemberRepository;
-import service.MemberService;
+import service.member.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,25 +16,22 @@ import static util.PageUtil.*;
 public class MemberLoginController implements Initializable {
 
     @FXML
-    private TextField phone;
+    private TextField phoneField;
 
     @FXML
-    private PasswordField password;
+    private PasswordField passwordField;
 
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
 
     @FXML
     private void login(ActionEvent event) throws IOException {
-        String inputPhone = phone.getText();
-        String inputPassword = password.getText();
-
-        service.login(inputPhone, inputPassword, event);
+        service.login(phoneField, passwordField, event);
     }
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        movePageAddCss(event, "SignUp", "/view/member/signUpForm", "/css/style");
+        movePageAddCss(event, "SignUp", "/view/member/signUpForm", "/css/password");
     }
 
     @FXML
@@ -59,7 +56,7 @@ public class MemberLoginController implements Initializable {
             }
             return null; // 변경을 무시
         });
-        phone.setTextFormatter(phoneFormatter);
-        password.setTextFormatter(passwordFormatter);
+        phoneField.setTextFormatter(phoneFormatter);
+        passwordField.setTextFormatter(passwordFormatter);
     }
 }
