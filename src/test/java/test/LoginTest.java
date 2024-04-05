@@ -1,7 +1,7 @@
 package test;
 
 import repository.MemberRepository;
-import service.MemberService;
+import service.member.MemberService;
 
 public class LoginTest {
 
@@ -9,6 +9,5 @@ public class LoginTest {
     public static MemberService service = new MemberService(repository);
 
     public static void main(String[] args) {
-        System.out.println(service.login("31026950", "1234"));
     }
 }

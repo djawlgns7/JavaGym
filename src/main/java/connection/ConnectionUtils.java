@@ -10,7 +10,7 @@ public class ConnectionUtils {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public static void clear(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+    public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 
         if (rs != null) {
             try {
