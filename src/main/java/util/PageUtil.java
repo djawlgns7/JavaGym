@@ -11,28 +11,48 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PageUtil {
 
-    public static void movePage(ActionEvent event, String title, String viewPath) throws IOException {
+    private static final ResourceBundle init = ResourceBundle.getBundle("config.init");
+
+    // title JavaGym으로 통일 (성진)
+    public static void movePage(ActionEvent event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
+        stage.setTitle(init.getString("title"));
 
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void movePageCenter(ActionEvent event, String title, String viewPath) throws IOException {
+    // 오버로딩 형식으로 변경 (성진)
+    public static void movePage(ActionEvent event, String viewPath, String cssPath) throws IOException {
+        URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
+        Parent newRoot = FXMLLoader.load(url);
+        Scene scene = new Scene(newRoot);
+
+        String css = ControllerUtil.class.getResource(cssPath + ".css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(init.getString("title"));
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void movePageCenter(ActionEvent event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
+        stage.setTitle(init.getString("title"));
 
         stage.setScene(scene);
 
@@ -46,7 +66,7 @@ public class PageUtil {
         stage.show();
     }
 
-    public static void movePageCenter(ActionEvent event, String title, String viewPath, String cssPath) throws IOException {
+    public static void movePageCenter(ActionEvent event, String viewPath, String cssPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
@@ -55,7 +75,7 @@ public class PageUtil {
         scene.getStylesheets().add(css);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
+        stage.setTitle(init.getString("title"));
 
         stage.setScene(scene);
 
@@ -67,18 +87,5 @@ public class PageUtil {
         stage.show();
     }
 
-    public static void movePageAddCss(ActionEvent event, String title, String viewPath, String cssPath) throws IOException {
-        URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
-        Parent newRoot = FXMLLoader.load(url);
-        Scene scene = new Scene(newRoot);
 
-        String css = ControllerUtil.class.getResource(cssPath + ".css").toExternalForm();
-        scene.getStylesheets().add(css);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-
-        stage.setScene(scene);
-        stage.show();
-    }
 }

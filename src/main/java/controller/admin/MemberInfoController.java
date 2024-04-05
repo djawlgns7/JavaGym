@@ -27,7 +27,7 @@ import static util.PageUtil.*;
 
 public class MemberInfoController implements Initializable {
 
-    private static final ResourceBundle config = ResourceBundle.getBundle("config.member");
+    private static final ResourceBundle config = ResourceBundle.getBundle("config.init");
     private static final AdminRepository adminRepository = new AdminRepository();
     private static final AdminService service = new AdminService(adminRepository);
 
@@ -125,6 +125,6 @@ public class MemberInfoController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "Admin", "/view/admin/helloAdmin");
+        movePageCenter(event, "/view/admin/helloAdmin");
     }
 }

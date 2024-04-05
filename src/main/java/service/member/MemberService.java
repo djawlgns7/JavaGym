@@ -7,7 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MemberRepository;
-import util.PageUtil;
 
 import java.io.IOException;
 

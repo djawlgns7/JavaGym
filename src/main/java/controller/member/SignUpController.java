@@ -1,6 +1,5 @@
 package controller.member;
 
-import util.AlertUtil;
 import domain.Gender;
 import domain.Member;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
+import static util.AlertUtil.*;
 import static util.AlertUtil.showAlert;
 import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
@@ -43,7 +43,7 @@ public class SignUpController implements Initializable {
     private void signUp(ActionEvent event) throws IOException, ParseException {
 
         if (isEmptyAnyField(nameField, emailIdField, emailDomainField, birthField, phoneField, passwordField, passwordConfirmField, maleButton, femaleButton)) {
-            AlertUtil.showAlertSignUpFail("emptyAnyField");
+            showAlertSignUpFail("emptyAnyField");
             return;
         }
 
@@ -70,7 +70,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "Login", "/view/member/memberLogin");
+        movePage(event, "/view/member/memberLogin");
     }
 
     @Override
