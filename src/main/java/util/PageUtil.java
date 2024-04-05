@@ -1,6 +1,6 @@
 package util;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -17,8 +17,7 @@ public class PageUtil {
 
     private static final ResourceBundle init = ResourceBundle.getBundle("config.init");
 
-    // title JavaGym으로 통일 (성진)
-    public static void movePage(ActionEvent event, String viewPath) throws IOException {
+    public static void movePage(Event event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
@@ -30,8 +29,7 @@ public class PageUtil {
         stage.show();
     }
 
-    // 오버로딩 형식으로 변경 (성진)
-    public static void movePage(ActionEvent event, String viewPath, String cssPath) throws IOException {
+    public static void movePage(Event event, String viewPath, String cssPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
@@ -46,7 +44,7 @@ public class PageUtil {
         stage.show();
     }
 
-    public static void movePageCenter(ActionEvent event, String viewPath) throws IOException {
+    public static void movePageCenter(Event event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
@@ -66,7 +64,7 @@ public class PageUtil {
         stage.show();
     }
 
-    public static void movePageCenter(ActionEvent event, String viewPath, String cssPath) throws IOException {
+    public static void movePageCenter(Event event, String viewPath, String cssPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);

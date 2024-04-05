@@ -22,6 +22,7 @@
     <HBox alignment="CENTER" spacing="10">
         <Button text="회원가입" onAction="#showSignUp"/>
         <Button text="로그인" onAction="#login"/>
+        <Button text="바로 입장" onAction="#entry"/>
     </HBox>
 
     <Button text="관리자" onAction="#showAdminLogin"/>

@@ -75,4 +75,12 @@ public class AlertUtil {
             newStage.show();
         }
     }
+
+    public static Optional<ButtonType> showAlertChoose(String message) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("알림");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText(message);
+        return confirmationAlert.showAndWait();
+    }
 }
