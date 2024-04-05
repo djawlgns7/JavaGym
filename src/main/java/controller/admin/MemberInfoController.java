@@ -2,6 +2,7 @@ package controller.admin;
 
 import domain.Gender;
 import domain.Member;
+import domain.SelectedMember;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,19 +64,10 @@ public class MemberInfoController implements Initializable {
     }
 
     @FXML
-    private void updateMember(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    private void deleteMember(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
     private void memberDetail(Member member, MouseEvent event) throws IOException {
         if (member != null && event.getClickCount() == 2) {
-            System.out.println(member);
+            SelectedMember.currentMember = member;
+            movePageCenter(event, "/view/admin/memberDetail");
         }
     }
 
