@@ -16,7 +16,7 @@ import static util.AlertUtil.showAlertLoginFail;
 import static util.ControllerUtil.isWrongLengthPhone;
 
 public class TrainerService {
-
+/*
     private final TrainerRepository repository;
 
     public TrainerService(TrainerRepository repository) { this.repository = repository; }
@@ -54,5 +54,5 @@ public class TrainerService {
             // 비밀번호 잘못 입력하면 비밀번호 필드 초기화
             passwordField.setText("");
         }
-    }
+    }*/
 }
