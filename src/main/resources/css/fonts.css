@@ -1,0 +1,14 @@
+.title_label {
+    -fx-font-size: 72;
+    -fx-font-family: "Anton";
+}
+
+.id_label {
+    -fx-font-size: 20;
+    -fx-font-family: "BlackHanSans";
+}
+
+.pw_label {
+    -fx-font-size: 20;
+    -fx-font-family: "BlackHanSans";
+}

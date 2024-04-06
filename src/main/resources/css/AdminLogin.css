@@ -1,0 +1,39 @@
+#idField {
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+#passwordField {
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+.Btn {
+    -fx-spacing: 50;
+}
+
+.goBackBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+}
+
+.loginBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+}
+
+.goBackBtn:hover {
+    -fx-background-color: #DE14FF;
+}
+
+.loginBtn:hover {
+    -fx-background-color: #DE14FF;
+}
