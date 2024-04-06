@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import repository.MemberRepository;
 import service.member.MemberService;
-import util.PageUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,14 +15,14 @@ import static util.PageUtil.*;
 
 public class MemberLoginController implements Initializable {
 
-    private final MemberRepository repository = new MemberRepository();
-    private final MemberService service = new MemberService(repository);
-
     @FXML
     private TextField phoneField;
 
     @FXML
     private PasswordField passwordField;
+
+    private final MemberRepository repository = new MemberRepository();
+    private final MemberService service = new MemberService(repository);
 
     @FXML
     private void login(ActionEvent event) throws IOException {
@@ -32,12 +31,12 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        PageUtil.movePage(event, "/view/member/signUpForm", "/css/password");
+        movePageAddCss(event, "SignUp", "/view/member/signUpForm", "/css/password");
     }
 
     @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
+        movePage(event, "Admin", "/view/admin/adminLogin");
     }
 
     @Override
