@@ -3,9 +3,11 @@ package test;
 import domain.Admin;
 import domain.Gender;
 import domain.Member;
+import domain.Trainer;
 import org.junit.jupiter.api.Test;
 import repository.AdminRepository;
 import repository.MemberRepository;
+import repository.TrainerRepository;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ public class RepositoryTest {
 
     public static MemberRepository memberRepository = new MemberRepository();
     public static AdminRepository adminRepository = new AdminRepository();
+    public static TrainerRepository trainerRepository = new TrainerRepository();
 
     @Test
     void findMemberById() {
@@ -52,5 +55,15 @@ public class RepositoryTest {
     void findAdmin() {
         Admin admin = adminRepository.findById("admin");
         System.out.println(admin.getId());
+    }
+
+    @Test
+    void findTrainer() {
+        Trainer findTrainer = trainerRepository.findByNum(9000);
+        assertThat(findTrainer.getName()).isEqualTo("김트레이너");
+    }
+
+    @Test
+    void getLockerNum() {
     }
 }
