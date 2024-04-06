@@ -2,42 +2,44 @@
     -fx-background-color: #D9D9D9; /* 추후 제거 */
 }
 
-#idField {
-    -fx-pref-width: 150;
-    -fx-pref-height: 40;
-}
-
-#passwordField {
-    -fx-pref-width: 150;
-    -fx-pref-height: 40;
-}
-
 .Btn {
     -fx-spacing: 50;
 }
 
-.goBackBtn {
+.memberManagementBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
-    -fx-pref-width: 100;
+    -fx-pref-width: 120;
     -fx-pref-height: 40;
     -fx-border-color: transparent;
     -fx-border-radius: 5px;
 }
 
-.loginBtn {
+.trainerManagementBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
-    -fx-pref-width: 100;
+    -fx-pref-width: 120;
     -fx-pref-height: 40;
 }
 
-.goBackBtn:hover {
+.logOutBtn {
+    -fx-background-color: #De14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 120;
+    -fx-pref-height: 40;
+}
+
+.memberManagementBtn:hover {
     -fx-background-color: #EA8ABE;
 }
 
-.loginBtn:hover {
+.trainerManagementBtn:hover {
+    -fx-background-color: #EA8ABE;
+}
+
+.logOutBtn:hover {
     -fx-background-color: #EA8ABE;
 }
