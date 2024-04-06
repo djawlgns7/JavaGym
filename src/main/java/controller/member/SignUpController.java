@@ -1,14 +1,14 @@
 package controller.member;
 
 import domain.Gender;
-import domain.Member;
+import domain.member.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MemberRepository;
-import service.member.MemberService;
+import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +21,8 @@ import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
 import static util.PageUtil.*;
 import static util.StyleUtil.stylePassword;
+import static util.ValidateUtil.isEmptyAnyField;
+import static util.ValidateUtil.signUpValidate;
 
 public class SignUpController implements Initializable {
 

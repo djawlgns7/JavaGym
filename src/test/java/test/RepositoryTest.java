@@ -2,11 +2,13 @@ package test;
 
 import domain.Admin;
 import domain.Gender;
-import domain.Member;
-import domain.Trainer;
+import domain.member.Member;
+import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import org.junit.jupiter.api.Test;
 import repository.AdminRepository;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 import java.sql.Date;
@@ -20,6 +22,7 @@ public class RepositoryTest {
     public static MemberRepository memberRepository = new MemberRepository();
     public static AdminRepository adminRepository = new AdminRepository();
     public static TrainerRepository trainerRepository = new TrainerRepository();
+    public static ReservationRepository reservationRepository = new ReservationRepository();
 
     @Test
     void findMemberById() {
@@ -64,6 +67,14 @@ public class RepositoryTest {
     }
 
     @Test
-    void getLockerNum() {
+    void findAllTrainer() {
+        List<Trainer> trainers = trainerRepository.findAllTrainer();
+        assertThat(trainers.size()).isEqualTo(5);
+    }
+
+    @Test
+    void findTrainerSchedule() {
+        List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(9003);
+        assertThat(schedule.size()).isEqualTo(3);
     }
 }

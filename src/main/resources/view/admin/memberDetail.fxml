@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
+<SplitPane dividerPositions="0.7" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
 
         <!-- 회원 상세 정보 -->
@@ -38,11 +38,6 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Label>가입일</Label>
-                <DatePicker fx:id="enrollPicker" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
                 <Label>헬스장 이용권</Label>
                 <Spinner fx:id="gymTicketSpinner" min="0" max="999" editable="true"/>
             </HBox>
@@ -55,6 +50,11 @@
             <HBox alignment="CENTER" spacing="10">
                 <Label>담당 트레이너</Label>
                 <TextField fx:id="trainerField" promptText="없음"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>담당 트레이너</Label>
+                <ComboBox fx:id="trainerComboBox" promptText="없음"/>
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">

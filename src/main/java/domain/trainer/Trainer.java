@@ -1,5 +1,6 @@
-package domain;
+package domain.trainer;
 
+import domain.Gender;
 import lombok.Data;
 
 import java.sql.Date;
