@@ -3,12 +3,8 @@
     -fx-font-family: "Anton";
 }
 
-.id_label {
-    -fx-font-size: 20;
-    -fx-font-family: "BlackHanSans";
+.subtitle_label {
+    -fx-font-size: 36;
+    -fx-font-family: "Anton";
 }
 
-.pw_label {
-    -fx-font-size: 20;
-    -fx-font-family: "BlackHanSans";
-}
