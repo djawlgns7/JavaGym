@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import repository.MemberRepository;
-import service.member.MemberService;
+import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;

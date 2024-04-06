@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import repository.AdminRepository;
-import service.admin.AdminService;
+import service.AdminService;
 
 import java.io.IOException;
 
