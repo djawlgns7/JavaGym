@@ -10,6 +10,8 @@ import repository.MemberRepository;
 import service.member.MemberService;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import util.PageUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,8 +40,13 @@ public class MemberLoginController implements Initializable {
     }
 
     @FXML
+    private void showSignUp(ActionEvent event) throws IOException {
+        movePage(event, "/view/member/signUpForm", "/css/password");
+    }
+
+    @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
-        movePage(event, "Admin", "/view/admin/adminLogin");
+        movePage(event, "/view/admin/adminLogin");
     }
 
 
