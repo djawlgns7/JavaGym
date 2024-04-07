@@ -70,7 +70,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "Login", "/view/member/memberLogin");
+        movePage(event, "/view/member/memberLogin");
     }
 
     @Override
