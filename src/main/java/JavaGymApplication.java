@@ -13,7 +13,7 @@ public class JavaGymApplication extends Application {
         stage.setTitle("JavaGym");
         stage.show();
     }
-
+    
     public static void main(String[] args) {
         launch();
     }

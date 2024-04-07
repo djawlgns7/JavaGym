@@ -59,6 +59,7 @@ public class MemberDetailController implements Initializable {
     @FXML
     private TableColumn<EntryLog, String> entryLogColumn;
 
+    @FXML
     private final ToggleGroup genderRadio = new ToggleGroup();
 
     // 관리자가 선택한 회원의 정보를 불러온다.

@@ -42,6 +42,7 @@ public class MemberRepository {
         }
     }
 
+    //멤버의 고유 번호로 멤버의 정보를 담은 클래스를 반환
     public Member findByNum(Integer num) {
         String sql = "select * from member where m_no = ?";
 
@@ -80,6 +81,7 @@ public class MemberRepository {
         }
     }
 
+    //멤버의 전화번호로 멤버의 정보를 담은 클래스를 반환
     public Member findByPhone(String phone) {
         String sql = "select * from member where m_phone = ?";
 
@@ -118,6 +120,7 @@ public class MemberRepository {
         }
     }
 
+    //멤버의 이메일로 멤버의 정보를 담은 클래스를 반환
     public Member findByEmail(String email) {
         String sql = "select * from member where m_email = ?";
 
@@ -155,6 +158,7 @@ public class MemberRepository {
         }
     }
 
+    //모든 멤버들의 정보를 담은 리스트를 반환
     public List<Member> findAllMembers() {
         String sql = "select m_no, m_name, m_sex, m_email, m_birthdate, m_phone, m_enrollment from member";
 
@@ -190,6 +194,7 @@ public class MemberRepository {
         }
     }
 
+    //특정 멤버의 정보를 바꿔줌
     public void updateMember(Member member) {
         String sql = "update member set m_name = ?, m_sex = ?, m_email = ?, m_birthdate = ?, m_phone = ? where m_no = ?";
         Connection conn = null;
@@ -212,6 +217,7 @@ public class MemberRepository {
         }
     }
 
+    //특정 멤버의 정보를 지움
     public void deleteMember(Integer num) {
         String sql = "delete from member where m_no = ?";
         Connection conn = null;
