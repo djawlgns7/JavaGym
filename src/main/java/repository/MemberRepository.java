@@ -1,7 +1,7 @@
 package repository;
 
 import domain.Gender;
-import domain.Member;
+import domain.member.Member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static connection.ConnectionUtils.*;
 

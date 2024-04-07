@@ -1,6 +1,6 @@
-package service.member;
+package service;
 
-import domain.Member;
+import domain.member.Member;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static util.AlertUtil.showAlertAndMove;
 import static util.AlertUtil.showAlertLoginFail;
-import static util.ControllerUtil.isWrongLengthPhone;
+import static util.ValidateUtil.isWrongLengthPhone;
 
 public class MemberService {
 
