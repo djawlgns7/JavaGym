@@ -3,7 +3,9 @@ package repository;
 import domain.Gender;
 import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
+import javafx.scene.image.Image;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +43,66 @@ public class TrainerRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, null);
+        }
+    }
+
+    //트레이너의 번호와 사진을 입력하면 데이터베이스에 저장
+    public void savePhoto(int trainerNo, File photoFile){
+        String sql = "UPDATE trainer set t_photo = ? where t_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            FileInputStream fis = new FileInputStream(photoFile);
+
+            pstmt.setBlob(1, fis);
+            pstmt.setInt(2, trainerNo);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
+    public Image getImage(int trainerNo){
+        String sql = "select t_photo from trainer where t_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, trainerNo);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                byte[] photoBytes;
+
+                photoBytes = rs.getBytes("t_photo");
+
+                InputStream inputStream = new ByteArrayInputStream(photoBytes);
+                Image trainerPhoto = new Image(inputStream);
+
+                return trainerPhoto;
+
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
         }
     }
 
