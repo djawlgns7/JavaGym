@@ -154,7 +154,6 @@ public class TrainerRepository {
             close(conn, pstmt, rs);
         }
 
-        /*예약정보, 예약수정, 예약삭제 처리를 어디에다가?*/
 
     }
 }
