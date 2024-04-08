@@ -1,13 +1,15 @@
-package service.admin;
+package service;
 
 import domain.Admin;
-import domain.Member;
+import domain.member.Member;
+import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.MemberRepository;
+import repository.TrainerRepository;
 
 import java.io.IOException;
 
@@ -17,12 +19,12 @@ import static util.PageUtil.*;
 public class AdminService {
 
     private final AdminRepository adminRepository;
+    private final MemberRepository memberRepository = new MemberRepository();
+    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     public AdminService(AdminRepository repository) {
         this.adminRepository = repository;
     }
-
-    private final MemberRepository memberRepository = new MemberRepository();
 
     public void login(TextField idField, PasswordField passwordField, ActionEvent event) throws IOException {
         String id = idField.getText().trim();
@@ -49,5 +51,21 @@ public class AdminService {
 
     public void addMember(Member member) {
         memberRepository.save(member);
+    }
+
+    public void addTrainer(Trainer trainer) {
+        trainerRepository.save(trainer);
+    }
+
+    public void updateMember() {
+
+    }
+
+    public void updateTrainer() {
+
+    }
+
+    public void cancelReservation() {
+
     }
 }

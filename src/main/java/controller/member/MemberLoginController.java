@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import util.PageUtil;
 
+import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +42,12 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        PageUtil.movePage(event, "/view/member/signUpForm", "/css/password");
+        movePage(event, "/view/member/signUpForm", "/css/password");
+    }
+
+    @FXML
+    private void entry(ActionEvent event) throws IOException {
+        service.entry(phoneField, passwordField, event);
     }
 
     @FXML

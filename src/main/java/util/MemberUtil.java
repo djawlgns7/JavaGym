@@ -65,7 +65,7 @@ public class MemberUtil {
     /**
      * 회원 번호 -> 트레이너 번호
      */
-    public static Integer getTrainerNum(int memberNum) {
+    public static Integer getTrainerNumForMember(int memberNum) {
         Connection conn = null;
         CallableStatement cstmt = null;
 
@@ -95,4 +95,5 @@ public class MemberUtil {
 
         return Arrays.asList(remainGym, remainPT, remainClothes, remainLocker);
     }
+
 }

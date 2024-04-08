@@ -15,8 +15,8 @@ public class HelloAdminController {
     }
 
     @FXML
-    public void trainerInfo() {
-
+    public void trainerInfo(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/trainerInfo");
     }
 
     @FXML

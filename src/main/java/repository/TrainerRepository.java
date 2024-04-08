@@ -1,9 +1,8 @@
 package repository;
 
-import domain.Member;
-import domain.WorkingHour;
 import domain.Gender;
-import domain.Trainer;
+import domain.trainer.Trainer;
+import domain.trainer.WorkingHour;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import static connection.ConnectionUtils.*;
+import static connection.ConnectionUtils.close;
+import static connection.ConnectionUtils.getConnection;
 
 public class TrainerRepository {
 
-    //
     public Trainer save(Trainer trainer) {
         String sql = "insert into trainer(t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour) values(?, ?, ?, ?, ?, ?, ?)";
 
@@ -108,6 +106,7 @@ public class TrainerRepository {
                 pstmt.setString(7, trainer.getWorkingHour().toString());
 
                 return trainer;
+
             } else {
                 return null;
             }
@@ -153,7 +152,5 @@ public class TrainerRepository {
         } finally {
             close(conn, pstmt, rs);
         }
-
-
     }
 }

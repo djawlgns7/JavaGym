@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
+<?import javafx.scene.control.cell.*?>
+<SplitPane dividerPositions="0.4" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
 
         <!-- 회원 상세 정보 -->
@@ -38,11 +39,6 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Label>가입일</Label>
-                <DatePicker fx:id="enrollPicker" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
                 <Label>헬스장 이용권</Label>
                 <Spinner fx:id="gymTicketSpinner" min="0" max="999" editable="true"/>
             </HBox>
@@ -54,11 +50,11 @@
 
             <HBox alignment="CENTER" spacing="10">
                 <Label>담당 트레이너</Label>
-                <TextField fx:id="trainerField" promptText="없음"/>
+                <ComboBox fx:id="trainerComboBox" promptText="없음" editable="true"/>
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Label>운동복</Label>
+                <Label>운동복 기간</Label>
                 <Spinner fx:id="clothesSpinner" min="0" max="999" editable="true"/>
             </HBox>
 
@@ -76,19 +72,31 @@
                 <Button onAction="#goBack" text="뒤로 가기" />
                 <Button onAction="#updateMember" text="회원 수정" />
                 <Button onAction="#deleteMember" text="회원 삭제" />
+                <Button onAction="#showEntryLog" text="출입 일지" />
             </HBox>
         </VBox>
 
-        <!-- 입장 로그 -->
         <VBox fx:id="listArea" alignment="CENTER" spacing="10.0">
-            <Label>입장 로그</Label>
-            <VBox spacing="20" alignment="CENTER">
-                <TableView fx:id="entryTable" prefHeight="550.0">
+            <Label>PT 예약 정보</Label>
+            <VBox spacing="10" alignment="CENTER">
+                <TableView fx:id="ptTable" VBox.vgrow="ALWAYS" editable="true">
                     <columns>
-                        <TableColumn text="번호" fx:id="countColumn"/>
-                        <TableColumn text="입장 일시" fx:id="entryLogColumn"/>
+                        <TableColumn fx:id="selectCol" text="선택" prefWidth="50">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="selected" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="ptCountCol" text="순서" prefWidth="50"/>
+                        <TableColumn fx:id="ptNumCol" text="예약 번호" prefWidth="80"/>
+                        <TableColumn fx:id="ptDateCol" text="예약 날짜"/>
+                        <TableColumn fx:id="ptTimeCol" text="예약 시간"/>
+                        <TableColumn fx:id="trainerNumCol" text="트레이너 번호" prefWidth="100"/>
+                        <TableColumn fx:id="trainerNameCol" text="트레이너 이름" prefWidth="100"/>
                     </columns>
                 </TableView>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button onAction="#cancelReservation" text="예약 취소" />
+                </HBox>
             </VBox>
         </VBox>
     </items>
