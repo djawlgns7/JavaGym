@@ -11,6 +11,7 @@ public class Trainer {
     private String password;
     private String phone;
     private Date birthDate;
+    private byte[] photo;
     private Gender gender;
     private WorkingHour workingHour;
     private Double height;

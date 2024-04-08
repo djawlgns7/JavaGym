@@ -66,6 +66,7 @@ public class MemberDetailController implements Initializable {
     private TableColumn<MemberSchedule, String> ptCountCol, ptNumCol, ptDateCol, ptTimeCol, trainerNumCol, trainerNameCol;
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
+    @FXML
     private final ToggleGroup genderRadio = new ToggleGroup();
 
     // 관리자가 선택한 회원의 정보를 불러온다.

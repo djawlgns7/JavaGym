@@ -9,7 +9,7 @@
 
 
     <HBox alignment="CENTER" spacing="10">
-        <Button text="내 정보" />
+        <Button text="내 정보" onAction="#myInfo"/>
         <Button text="예약" />
         <Button text="입장" />
         <Button text="이용권 구매" />
