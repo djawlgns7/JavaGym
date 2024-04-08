@@ -2,6 +2,7 @@ package controller.member;
 
 import domain.member.Member;
 import domain.trainer.Trainer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,6 +12,7 @@ import javafx.scene.layout.HBox;
 import repository.MemberRepository;
 import repository.TrainerRepository;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.*;
 import static util.MemberUtil.*;
+import static util.PageUtil.movePage;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
@@ -100,5 +103,10 @@ public class MyInformationController implements Initializable {
             clothesAvailability.setText("대여 가능");
             clothesRemain.setText(expireDate + " (D-" + clothes + ")");
         }
+    }
+
+    @FXML
+    public void moveToMain(ActionEvent event) throws IOException {
+        movePage(event, "/view/member/helloMember");
     }
 }
