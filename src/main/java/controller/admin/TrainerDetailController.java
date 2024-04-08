@@ -93,7 +93,7 @@ public class TrainerDetailController implements Initializable {
         if (currentTrainer != null) {
             setTrainerInfo(currentTrainer, birthPicker);
             columnBinding();
-            loadSchedule();
+            loadTrainerSchedule();
         }
     }
 
@@ -133,7 +133,7 @@ public class TrainerDetailController implements Initializable {
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
     }
 
-    private void loadSchedule() {
+    private void loadTrainerSchedule() {
         List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(currentTrainer.getNum());
         ObservableList<TrainerSchedule> schedules = FXCollections.observableArrayList();
 

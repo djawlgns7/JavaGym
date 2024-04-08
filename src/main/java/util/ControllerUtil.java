@@ -1,15 +1,20 @@
 package util;
 
+import domain.member.EntryLog;
 import domain.member.Member;
 import domain.trainer.Trainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.TrainerRepository;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -103,5 +108,29 @@ public class ControllerUtil {
     public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
         List<Trainer> members = trainerRepository.findAllTrainer();
         membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+
+    public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
+        entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
+
+        TableColumn<EntryLog, String> entryLogColumn = new TableColumn<>("입장 일시");
+        entryLogColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cellData.getValue().getEntryTime())
+        ));
+
+        table.getColumns().addAll(entryNumColumn, entryLogColumn);
+        List<Timestamp> timestamps = entryLogRepository.findAllEntryLogs(memberNum);
+        ObservableList<EntryLog> entryLogs = FXCollections.observableArrayList();
+
+        int count = 1;
+        for (Timestamp timestamp : timestamps) {
+            EntryLog entryLog = new EntryLog();
+            entryLog.setEntryTime(timestamp);
+            entryLog.setEntryNum(count++);
+            entryLogs.add(entryLog);
+        }
+
+        table.setItems(entryLogs);
     }
 }
