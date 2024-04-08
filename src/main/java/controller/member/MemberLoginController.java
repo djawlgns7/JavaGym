@@ -4,13 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
-import service.MemberService;
+import service.member.MemberService;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import util.PageUtil;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,9 +19,6 @@ import java.util.ResourceBundle;
 import static util.PageUtil.*;
 
 public class MemberLoginController implements Initializable {
-
-    private final MemberRepository repository = new MemberRepository();
-    private final MemberService service = new MemberService(repository);
 
     @FXML
     private TextField phoneField;
@@ -34,6 +31,9 @@ public class MemberLoginController implements Initializable {
 
     // 이미지 추가
 
+    private final MemberRepository repository = new MemberRepository();
+    private final MemberService service = new MemberService(repository);
+
     @FXML
     private void login(ActionEvent event) throws IOException {
         service.login(phoneField, passwordField, event);
@@ -45,25 +45,23 @@ public class MemberLoginController implements Initializable {
     }
 
     @FXML
-    private void entry(ActionEvent event) throws IOException {
-        service.entry(phoneField, passwordField, event);
-    }
-
-    @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
         movePage(event, "/view/admin/adminLogin");
     }
 
+
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/trainer/trainerLogin");
+        movePage(event, "/view/admin/adminLogin");
     }
     // 바로입장 버튼에 대한 메소드 추가
     // @@@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@@
     @FXML
     public void immediateEntry(ActionEvent event) throws IOException {
-        movePage(event, "Admin", "/view/admin/adminLogin");
+        movePage(event, "/view/admin/adminLogin");
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
