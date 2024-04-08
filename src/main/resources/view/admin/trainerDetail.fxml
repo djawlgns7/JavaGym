@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.6" prefHeight="500.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.TrainerDetailController">
+    <items>
+
+        <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="10.0">
+            <Label>트레이너 상세 정보</Label>
+            <HBox alignment="CENTER" spacing="10">
+                <Label>이름</Label>
+                <TextField fx:id="nameField"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>아이디</Label>
+                <TextField fx:id="idField"/>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>전화번호</Label>
+                <TextField fx:id="phoneField" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>성별</Label>
+                <fx:define>
+                    <ToggleGroup fx:id="genderRadio"/>
+                </fx:define>
+                <RadioButton fx:id="maleButton" text="남" toggleGroup="$genderRadio" />
+                <RadioButton fx:id="femaleButton" text="여" toggleGroup="$genderRadio" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>생년월일</Label>
+                <DatePicker fx:id="birthPicker" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>근무 시간</Label>
+                <fx:define>
+                    <ToggleGroup fx:id="workTimeRadio"/>
+                </fx:define>
+                <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" />
+                <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Button onAction="#goBack" text="뒤로 가기" />
+                <Button onAction="#updateTrainer" text="트레이너 수정" />
+                <Button onAction="#deleteTrainer" text="트레이너 삭제" />
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="listArea" alignment="CENTER" spacing="10.0">
+            <Label>트레이너 PT 일정</Label>
+            <VBox spacing="20" alignment="CENTER">
+                <TableView fx:id="scheduleTable" prefHeight="420.0">
+                    <columns>
+                        <TableColumn text="번호" fx:id="countColumn"/>
+                        <TableColumn text="회원 이름" fx:id="memberNameColumn"/>
+                        <TableColumn text="예약 날짜" fx:id="dateColumn"/>
+                        <TableColumn text="예약 시간" fx:id="timeColumn"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </items>
+</SplitPane>

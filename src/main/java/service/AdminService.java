@@ -1,24 +1,60 @@
 package service;
 
 import domain.Admin;
+import domain.member.Member;
+import domain.trainer.Trainer;
+import javafx.event.ActionEvent;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
+import repository.MemberRepository;
+import repository.TrainerRepository;
+
+import java.io.IOException;
+
+import static util.AlertUtil.showAlertLoginFail;
+import static util.PageUtil.*;
 
 public class AdminService {
 
-    private final AdminRepository repository;
+    private final AdminRepository adminRepository;
 
     public AdminService(AdminRepository repository) {
-        this.repository = repository;
+        this.adminRepository = repository;
     }
 
-    public Admin login(String id, String password) {
+    private final MemberRepository memberRepository = new MemberRepository();
+    private final TrainerRepository trainerRepository = new TrainerRepository();
 
-        Admin findAdmin = repository.findById(id);
+    public void login(TextField idField, PasswordField passwordField, ActionEvent event) throws IOException {
+        String id = idField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        if (findAdmin != null && BCrypt.checkpw(password, findAdmin.getPassword())) {
-            return findAdmin;
+        if (id.isEmpty()) {
+            showAlertLoginFail("emptyId");
+            return;
         }
-        return null;
+
+        if (password.isEmpty()) {
+            showAlertLoginFail("emptyPw");
+            return;
+        }
+
+        Admin admin = adminRepository.findById(id);
+
+        if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
+            movePage(event, "/view/admin/helloAdmin");
+        } else {
+            showAlertLoginFail("adminLoginFail");
+        }
+    }
+
+    public void addMember(Member member) {
+        memberRepository.save(member);
+    }
+
+    public void addTrainer(Trainer trainer) {
+        trainerRepository.save(trainer);
     }
 }
