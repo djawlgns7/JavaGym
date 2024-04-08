@@ -15,4 +15,6 @@ public class Trainer {
     private Date birthDate;
     private Gender gender;
     private WorkingHour workingHour;
+    private Double height;
+    private Double weight;
 }

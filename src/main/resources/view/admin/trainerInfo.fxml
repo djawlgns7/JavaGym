@@ -36,6 +36,16 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
+                <Label>키</Label>
+                <TextField fx:id="heightField" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Label>몸무게</Label>
+                <TextField fx:id="weightField" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="10">
                 <Label>생년월일</Label>
                 <TextField fx:id="birthField" />
             </HBox>
