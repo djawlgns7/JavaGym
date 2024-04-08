@@ -2,23 +2,22 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="500.0" prefWidth="880.0"
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="controller.admin.TrainerInfoController">
+           fx:controller="controller.admin.MemberInfoController">
 
     <items>
 
         <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
-            <Label text="트레이너 등록" />
+            <Label text="회원 등록" />
 
             <HBox alignment="CENTER" spacing="10">
                 <Label>이름</Label>
                 <TextField fx:id="nameField"/>
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label>아이디</Label>
-                <TextField fx:id="idField"/>
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
@@ -36,13 +35,8 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Label>키</Label>
-                <TextField fx:id="heightField" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label>몸무게</Label>
-                <TextField fx:id="weightField" />
+                <Label>이메일</Label>
+                <TextField fx:id="emailField" prefWidth="185" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
@@ -51,31 +45,23 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Label>근무 시간</Label>
-                <fx:define>
-                    <ToggleGroup fx:id="workTimeRadio"/>
-                </fx:define>
-                <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" />
-                <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
                 <Button text="뒤로 가기" onAction="#goBack"/>
-                <Button text="트레이너 등록" onAction="#addTrainer"/>
+                <Button text="회원 등록" onAction="#addMember"/>
             </HBox>
         </VBox>
 
+        <!-- 회원 목록 영역 -->
         <VBox fx:id="listArea" spacing="20" alignment="CENTER">
-            <Label text="트레이너 정보" />
-            <TableView fx:id="trainerTable" prefHeight="400.0">
+            <Label text="회원 정보" />
+            <TableView fx:id="membersTable" prefHeight="550.0">
                 <columns>
                     <TableColumn text="번호" fx:id="numCol" />
                     <TableColumn text="이름" fx:id="nameCol" />
-                    <TableColumn text="아이디" fx:id="idCol" />
                     <TableColumn text="성별" fx:id="genderCol" />
-                    <TableColumn text="근무시간" fx:id="workTimeCol" />
+                    <TableColumn text="이메일" fx:id="emailCol" />
                     <TableColumn text="생년월일" fx:id="birthCol" />
                     <TableColumn text="전화번호" fx:id="phoneCol" />
+                    <TableColumn text="가입일" fx:id="enrollCol" />
                 </columns>
             </TableView>
         </VBox>

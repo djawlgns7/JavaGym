@@ -26,8 +26,8 @@ public class RepositoryTest {
 
     @Test
     void findMemberById() {
-        Member findMember = memberRepository.findByNum(1006);
-        assertThat(findMember.getNum()).isEqualTo(1006);
+        Member findMember = memberRepository.findByNum(1004);
+        assertThat(findMember.getNum()).isEqualTo(1004);
     }
 
     @Test
@@ -76,5 +76,10 @@ public class RepositoryTest {
     void findTrainerSchedule() {
         List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(9003);
         assertThat(schedule.size()).isEqualTo(3);
+    }
+
+    @Test
+    void saveTrainer() {
+        Trainer trainer = new Trainer();
     }
 }

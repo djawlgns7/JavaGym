@@ -1,5 +1,6 @@
 package repository;
 
+import domain.member.MemberSchedule;
 import domain.trainer.TrainerSchedule;
 
 import java.sql.Connection;
@@ -47,6 +48,61 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, rs);
+        }
+    }
+
+    /**
+     * 회원의 PT 예약 정보를 가져온다. 이미 지난 예약 내역은 가져오지 않는다. (조회 시점 기준 예약 정보)
+     */
+    public List<MemberSchedule> findMemberSchedule(int memberNum) {
+        String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
+                "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
+                "where m.m_no = ? and r_date > now()";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, memberNum);
+            rs = pstmt.executeQuery();
+            List<MemberSchedule> list = new ArrayList<>();
+            int count = 0;
+            while (rs.next()) {
+                MemberSchedule schedule = new MemberSchedule();
+                schedule.setSequence(++count);
+                schedule.setReservationNum(rs.getInt("r_no"));
+                schedule.setReservationDate(rs.getDate("r_date"));
+                schedule.setReservationTime(rs.getInt("r_time"));
+                schedule.setTrainerNum(rs.getInt("r.t_no"));
+                schedule.setTrainerName(rs.getString("t_name"));
+
+                list.add(schedule);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    public void delete(int num) {
+        String sql = "delete from reservation where r_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, num);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
         }
     }
 }
