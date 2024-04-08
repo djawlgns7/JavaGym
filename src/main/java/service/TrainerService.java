@@ -11,7 +11,7 @@ import repository.TrainerRepository;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
-import static util.AlertUtil.showAlertLoginFail;
+import static util.AlertUtil.*;
 import static util.PageUtil.*;
 
 public class TrainerService {
@@ -40,7 +40,7 @@ public class TrainerService {
         if (trainer != null && BCrypt.checkpw(password, trainer.getPassword())) {
             movePage(event, "/view/trainer/helloTrainer");
         } else {
-            showAlertLoginFail("trainerLoginFail");
+            showAlertLoginFail("adminLoginFail");
         }
     }
 }
