@@ -10,11 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static connection.ConnectionUtils.close;
 import static connection.ConnectionUtils.getConnection;
+import static converter.DateToStringConverter.dateToString;
 
 public class TrainerRepository {
 
@@ -289,5 +292,31 @@ public class TrainerRepository {
         } finally {
             close(conn, pstmt, null);
         }
+    }
+
+    public int getAge(Trainer trainer) throws ParseException {
+        LocalDate today = LocalDate.now();
+        String birthString = dateToString(trainer.getBirthDate());
+        int birthYear = Integer.parseInt(birthString.substring(0, 2));
+        int birthMonth = Integer.parseInt(birthString.substring(2, 4));
+        int birthDay = Integer.parseInt(birthString.substring(4, 6));
+        int todayYear = today.getYear();
+        int todayDay = today.getDayOfYear();
+
+        if(birthYear > 50){
+            birthYear += 1900;
+        }else{
+            birthYear += 2000;
+        }
+
+        LocalDate birth = LocalDate.of(birthYear, birthMonth, birthDay);
+        birthDay = birth.getDayOfYear();
+        int age = todayYear - birthYear - 2;
+
+        if(todayDay >= birthDay){
+            age++;
+        }
+
+        return age;
     }
 }

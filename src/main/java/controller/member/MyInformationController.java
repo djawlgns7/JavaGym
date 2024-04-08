@@ -5,11 +5,14 @@ import domain.trainer.Trainer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import repository.MemberRepository;
 import repository.TrainerRepository;
 
 import java.net.URL;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,17 +30,24 @@ public class MyInformationController implements Initializable {
     @FXML
     private HBox trainerView;
 
+    @FXML
+    private ImageView imageView;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (currentMember != null) {
             Member member = currentMember;
 
-            setMyInfo(member);
+            try {
+                setMyInfo(member);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     //내 정보 페이지의 정보를 바꿔주는 메소드
-    public void setMyInfo(Member member){
+    public void setMyInfo(Member member) throws ParseException {
         int memberNum = member.getNum();
         int trainerNum = getTrainerNum(memberNum);
         List<Integer> remain = getRemainAll(memberNum);
@@ -54,8 +64,13 @@ public class MyInformationController implements Initializable {
             trainerViewTitle.setVisible(false);
         }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
+            LocalDate expireDate = today;
+            int trainerAge = trainerRepository.getAge(trainer);
+            Image trainerImage = trainerRepository.getImage(trainer.getNum());
+
+            imageView.setImage(trainerImage);
             trainerName.setText(trainer.getName() + "트레이너");
-            trainerInfo.setText("DB 새로해야됨...");
+            trainerInfo.setText(trainer.getHeight() + "cm|" + trainer.getWeight() + "kg|" + trainerAge + "살");
         }
 
         if(gymTicket == 0) {
