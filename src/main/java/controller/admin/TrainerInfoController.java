@@ -34,7 +34,7 @@ public class TrainerInfoController implements Initializable {
     private final ResourceBundle config = ResourceBundle.getBundle("config.init");
 
     @FXML
-    private TextField nameField, idField, phoneField, birthField;
+    private TextField nameField, idField, phoneField, birthField, heightField, weightField;
 
     @FXML
     private RadioButton maleButton, femaleButton, amButton, pmButton;
@@ -66,7 +66,7 @@ public class TrainerInfoController implements Initializable {
 
     @FXML
     private void addTrainer(ActionEvent event) throws IOException, ParseException {
-        if (isEmptyAnyField(nameField, idField, birthField, phoneField, maleButton, femaleButton, amButton, pmButton)) {
+        if (isEmptyAnyField(nameField, idField, birthField, phoneField, maleButton, femaleButton, amButton, pmButton, heightField, weightField)) {
             showAlertAddTrainerFail("emptyAnyField");
             return;
         }
@@ -85,6 +85,8 @@ public class TrainerInfoController implements Initializable {
         trainer.setBirthDate(stringToDate(birth));
         trainer.setPhone(phone);
         trainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
+        trainer.setHeight(Double.valueOf(heightField.getText()));
+        trainer.setWeight(Double.valueOf(weightField.getText()));
 
         service.addTrainer(trainer);
         showAlertAndMove("알림", "트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);

@@ -77,4 +77,9 @@ public class RepositoryTest {
         List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(9003);
         assertThat(schedule.size()).isEqualTo(3);
     }
+
+    @Test
+    void saveTrainer() {
+        Trainer trainer = new Trainer();
+    }
 }
