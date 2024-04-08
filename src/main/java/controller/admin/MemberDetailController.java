@@ -16,10 +16,8 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import repository.EntryLogRepository;
-import repository.MemberRepository;
-import repository.ReservationRepository;
-import repository.TrainerRepository;
+import repository.*;
+import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +39,7 @@ public class MemberDetailController implements Initializable {
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
     private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final PurchaseRepository purchaseRepository = new PurchaseRepository();
 
     @FXML
     private TextField nameField, phoneField, emailField, lockerNumField;
@@ -112,13 +111,13 @@ public class MemberDetailController implements Initializable {
 
         for (int i = 0; i < 4; i++) {
             Integer remain = remains.get(i);
-            Spinner<Integer> spinner = spinners[i];
+//            Spinner<Integer> spinner = spinners[i];
             if (remain != 0) {
                 spinners[i].getValueFactory().setValue(remain);
             }
-            SpinnerValueFactory<Integer> valueFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, remain, remain); // 최소값, 최대값, 기본값
-            spinner.setValueFactory(valueFactory);
+//            SpinnerValueFactory<Integer> valueFactory =
+//                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, remain, remain); // 최소값, 최대값, 기본값
+//            spinner.setValueFactory(valueFactory);
         }
 
         // promptText를 사용하기 위해 값이 유효할 때만 값을 설정한다.
@@ -137,6 +136,7 @@ public class MemberDetailController implements Initializable {
         Integer trainerNum = getTrainerNumForMember(currentMember.getNum());
         if (trainerNum != 0) {
             trainerComboBox.getSelectionModel().select(trainerRepository.findByNum(trainerNum).getName());
+        } else {
         }
     }
 
@@ -173,13 +173,22 @@ public class MemberDetailController implements Initializable {
         currentMember.setPhone(phoneField.getText().trim());
         currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
 
-        int gymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString());
+        int inputGymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString());
         int ptTicket = Integer.parseInt(PTTicketSpinner.getValue().toString());
         int clothesPeriod = Integer.parseInt(clothesSpinner.getValue().toString());
         int lockerPeriod = Integer.parseInt(lockerSpinner.getValue().toString());
 
-        updateRemain(gymTicket, ptTicket, clothesPeriod, lockerPeriod);
+        if (isFirstPurchase(currentMember.getNum(), Item.GYM_TICKET)) {
+            purchaseRepository.setFirstGymTicket(currentMember.getNum(), inputGymTicket);
+        } else {
+            Integer currentRemain = getRemain(currentMember.getNum(), Item.GYM_TICKET);
+            int ticket = currentRemain - inputGymTicket;
+            if (currentRemain > ticket) {
+                setRemain(currentMember.getNum(), Item.GYM_TICKET, ticket);
+            } else if (ticket > currentRemain) {
 
+            }
+        }
 
         Optional<ButtonType> result = showAlertChoose("회원 정보를 수정하시겠습니까?");
 
@@ -187,10 +196,6 @@ public class MemberDetailController implements Initializable {
             memberRepository.updateMember(currentMember);
             showAlertAndMove("알림", "회원이 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
         }
-    }
-
-    private void updateRemain(int gymTicket, int ptTicket, int clothesPeriod, int lockerPeriod) {
-        
     }
 
     @FXML
