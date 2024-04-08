@@ -13,7 +13,6 @@
 
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
-
 <!-- 전체를 앵커팬으로 설정 -->
 <AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/memberLogin.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.MemberLoginController">
