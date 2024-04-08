@@ -1,9 +1,9 @@
-.memberInfo_title_1, .memberInfo_title_2 {
+.trainerInfo_title_1, .trainerInfo_title_2 {
     -fx-font-size: 36;
     -fx-font-family: "Jua";
 }
 
-.nameInput, .phoneInput, .emailInput, .birthInput {
+.nameInput, .idInput, .phoneInput, .heightInput, .weightInput, .birthInput {
     -fx-pref-width: 200;
     -fx-pref-height: 40;
 }
@@ -15,13 +15,13 @@
     -fx-font-weight: bold;
 }
 
-/* ============== Button ============== */
-.memberInfo_Btn {
-    -fx-spacing: 50;
+.worktime_radioBtn_title, .worktime_radioBtn_1, .worktime_radioBtn_2 {
     -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 
-.addMemberBtn {
+.addTrainerBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
@@ -39,12 +39,18 @@
     -fx-pref-height: 40;
 }
 
-.addMemberBtn:hover, .goBackBtn2:hover {
+.addTrainerBtn:hover, .goBackBtn2:hover {
     -fx-background-color: #EA8ABE;
 }
 
+/* ============== Button ============== */
+.trainerInfo_Btn {
+    -fx-spacing: 50;
+    -fx-font-family: "Jua";
+}
+
 /* ============== Table ============== */
-.numColumn, .nameColumn, .genderColumn, .emailColumn, .birthColumn, .phoneColumn, .enrollColumn {
+.numColumn, .nameColumn, .idColumn, .genderColumn, .birthColumn, .workTimeColumn, .phoneColumn {
     -fx-font-family: "Jua";
 }
 
@@ -54,19 +60,13 @@
     -fx-alignment: CENTER;
 }
 
-.genderColumn {
+.genderColumn, .workTimeColumn {
     -fx-pref-width: 60;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
 }
 
-.emailColumn {
-    -fx-pref-width: 160;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
-}
-
-.birthColumn, .enrollColumn {
+.idColumn, .birthColumn {
     -fx-pref-width: 100;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
@@ -122,4 +122,3 @@
 .table-view .column-header:descending .arrow-button .arrow {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
-

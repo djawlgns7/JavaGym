@@ -2,12 +2,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 public class JavaGymApplication extends Application {
+    //    @Override
+    //        public void start(Stage stage) throws Exception {
+    //            Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
+    //            stage.setScene(new Scene(loginRoot));
+    //            stage.setTitle("JavaGym");
+    //            stage.show();
+    //    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -15,7 +20,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Anton-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/admin/memberInfo.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         stage.setScene(new Scene(loginRoot));
         stage.setTitle("JavaGym");
         stage.show();

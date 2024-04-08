@@ -2,8 +2,18 @@
     -fx-background-color: #D9D9D9; /* 추후 제거 */
 }
 
-.Btn {
-    -fx-spacing: 50;
+.hello_title_label {
+    -fx-font-size: 72;
+    -fx-font-family: "Anton";
+}
+
+.hello_subtitle_label {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+.Hello_page_Btn {
+    -fx-font-family: "Jua";
 }
 
 .memberManagementBtn, .trainerManagementBtn {
@@ -12,8 +22,6 @@
     -fx-font-size: 14;
     -fx-pref-width: 120;
     -fx-pref-height: 40;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5px;
 }
 
 .logOutBtn {

@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.AdminLoginController">
     <VBox alignment="CENTER" prefHeight="600" prefWidth="450" spacing="20" layoutX="48" layoutY="100" styleClass="container">
-        <Label text="JAVA GYM" styleClass="title_label" layoutX="100" layoutY="100">
+        <Label text="JAVA GYM" styleClass="login_title_label" layoutX="100" layoutY="100">
           <font>
               <Font name="Anton-Regular"/>
           </font>
@@ -23,9 +23,9 @@
                 <PasswordField fx:id="passwordField" promptText="관리자 비밀번호"/>
             </HBox>
 
-            <HBox alignment="CENTER" spacing="20" styleClass="Btn">
-                <Button text="뒤로 가기" onAction="#goBack" styleClass="goBackBtn1"/>
+            <HBox alignment="CENTER" spacing="20" styleClass="Login_page_Btn">
                 <Button text="로그인" onAction="#login" styleClass="loginBtn"/>
+                <Button text="뒤로 가기" onAction="#goBack" styleClass="goBackBtn1"/>
             </HBox>
         </VBox>
     </VBox>

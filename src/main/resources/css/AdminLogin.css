@@ -2,28 +2,32 @@
     -fx-background-color: #D9D9D9; /* 추후 제거 */
 }
 
+.login_title_label {
+    -fx-font-size: 72;
+    -fx-font-family: "Anton";
+}
+
 #idField {
-    -fx-pref-width: 150;
+    -fx-pref-width: 200;
     -fx-pref-height: 40;
 }
 
 #passwordField {
-    -fx-pref-width: 150;
+    -fx-pref-width: 200;
     -fx-pref-height: 40;
 }
 
-.Btn {
+.Login_page_Btn {
+    -fx-font-family: "Jua";
     -fx-spacing: 50;
 }
 
 .goBackBtn1 {
-    -fx-background-color: #9747FF;
+    -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
     -fx-pref-width: 100;
     -fx-pref-height: 40;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5px;
 }
 
 .loginBtn {
