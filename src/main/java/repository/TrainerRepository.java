@@ -3,21 +3,26 @@ package repository;
 import domain.Gender;
 import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
+import javafx.scene.image.Image;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static connection.ConnectionUtils.close;
 import static connection.ConnectionUtils.getConnection;
+import static converter.DateToStringConverter.dateToString;
 
 public class TrainerRepository {
 
     public Trainer save(Trainer trainer) {
-        String sql = "insert into trainer(t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_Hour, t_height, t_weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into trainer(t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -46,6 +51,66 @@ public class TrainerRepository {
         }
     }
 
+    //트레이너의 번호와 사진을 입력하면 데이터베이스에 저장
+    public void savePhoto(int trainerNo, File photoFile){
+        String sql = "UPDATE trainer set t_photo = ? where t_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            FileInputStream fis = new FileInputStream(photoFile);
+
+            pstmt.setBlob(1, fis);
+            pstmt.setInt(2, trainerNo);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
+    public Image getImage(int trainerNo){
+        String sql = "select t_photo from trainer where t_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, trainerNo);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                byte[] photoBytes;
+
+                photoBytes = rs.getBytes("t_photo");
+
+                InputStream inputStream = new ByteArrayInputStream(photoBytes);
+                Image trainerPhoto = new Image(inputStream);
+
+                return trainerPhoto;
+
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
     public Trainer findByNum(Integer num) {
         String sql = "select * from trainer where t_no = ?";
 
@@ -69,7 +134,7 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
@@ -109,7 +174,7 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
@@ -148,24 +213,25 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
                 return trainer;
+
             } else {
                 return null;
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw  new RuntimeException(e);
         } finally {
             close(conn, pstmt, rs);
         }
     }
 
+
     public List<Trainer> findAllTrainer() {
-        String sql = "select t_no, t_id, t_name, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
+        String sql = "select t_no, t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -183,10 +249,11 @@ public class TrainerRepository {
                 trainer.setNum(rs.getInt("t_no"));
                 trainer.setId(rs.getString("t_id"));
                 trainer.setName(rs.getString("t_name"));
+                trainer.setPassword(rs.getString("t_pw"));
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
@@ -242,5 +309,31 @@ public class TrainerRepository {
         } finally {
             close(conn, pstmt, null);
         }
+    }
+
+    public int getAge(Trainer trainer) throws ParseException {
+        LocalDate today = LocalDate.now();
+        String birthString = dateToString(trainer.getBirthDate());
+        int birthYear = Integer.parseInt(birthString.substring(0, 2));
+        int birthMonth = Integer.parseInt(birthString.substring(2, 4));
+        int birthDay = Integer.parseInt(birthString.substring(4, 6));
+        int todayYear = today.getYear();
+        int todayDay = today.getDayOfYear();
+
+        if(birthYear > 50){
+            birthYear += 1900;
+        }else{
+            birthYear += 2000;
+        }
+
+        LocalDate birth = LocalDate.of(birthYear, birthMonth, birthDay);
+        birthDay = birth.getDayOfYear();
+        int age = todayYear - birthYear - 1;
+
+        if(todayDay >= birthDay){
+            age++;
+        }
+
+        return age;
     }
 }

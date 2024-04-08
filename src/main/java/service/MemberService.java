@@ -1,6 +1,7 @@
 package service;
 
 import domain.member.Member;
+import domain.member.SelectedMember;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -56,6 +57,7 @@ public class MemberService {
         Member findMember = repository.findByPhone(phone);
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
+            SelectedMember.currentMember = findMember;
             showAlertAndMove("로그인 성공", findMember.getName() + "님 환영합니다^^", Alert.AlertType.INFORMATION, "/view/member/helloMember", event);
         } else {
             showAlertLoginFail("wrongPw");

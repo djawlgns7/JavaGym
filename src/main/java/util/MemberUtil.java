@@ -96,4 +96,51 @@ public class MemberUtil {
         return Arrays.asList(remainGym, remainPT, remainClothes, remainLocker);
     }
 
+    // 회원 번호와 아이템 유형을 넣으면 해당 아이템 유형을 구매한 이력이 없으면 true(1) 반환해주는 프로시저
+    public static boolean isFirstPurchase(int memberNum, Item item) {
+        Connection conn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall("{call isFirstPurchase(?, ?, ?)}");
+
+            cstmt.setInt(1, memberNum);
+            cstmt.setString(2, item.toString());
+            cstmt.registerOutParameter(3, Types.INTEGER);
+
+            cstmt.execute();
+            int result = cstmt.getInt(3);
+            if (result == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, cstmt, null);
+        }
+    }
+
+    public static void setRemain(int memberNum, Item item, int num) {
+        Connection conn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall("{call setRemain(?, ?, ?)}");
+
+            cstmt.setInt(1, memberNum);
+            cstmt.setString(2, item.toString());
+            cstmt.setInt(3, num);
+
+            cstmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, cstmt, null);
+        }
+    }
+
 }
