@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.admin.HelloAdminController" prefHeight="700" prefWidth="570">
+    <Label text="회원 정보" />
+    <TableView fx:id="membersTable">
+        <columns>
+            <TableColumn text="번호" fx:id="id" />
+            <TableColumn text="이름" fx:id="name" />
+            <TableColumn text="성별" fx:id="gender" />
+            <TableColumn text="이메일" fx:id="email" />
+            <TableColumn text="생년월일" fx:id="birth" />
+            <TableColumn text="전화번호" fx:id="phone" />
+            <TableColumn text="가입일" fx:id="enroll" />
+        </columns>
+    </TableView>
+    <Button onAction="#logout" text="로그아웃" />
+</VBox>
