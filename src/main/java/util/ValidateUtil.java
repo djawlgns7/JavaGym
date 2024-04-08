@@ -40,14 +40,17 @@ public class ValidateUtil {
     public static boolean isEmptyAnyField(TextField name, TextField id,
                                           TextField birth, TextField phone,
                                           RadioButton male, RadioButton female,
-                                          RadioButton am, RadioButton pm) {
+                                          RadioButton am, RadioButton pm,
+                                          TextField heightField, TextField weightField) {
 
         return  name.getText().trim().isEmpty() ||
                 id.getText().trim().isEmpty() ||
                 getSelectedGender(male, female) == null ||
                 birth.getText().trim().isEmpty() ||
                 phone.getText().trim().isEmpty() ||
-                getSelectedWorkingTime(am, pm) == null;
+                getSelectedWorkingTime(am, pm) == null ||
+                heightField.getText().trim().isEmpty() ||
+                weightField.getText().trim().isEmpty();
     }
 
     public static boolean isEmptyAnyField(TextField name, TextField email,

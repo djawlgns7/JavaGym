@@ -18,4 +18,6 @@ public class Trainer {
     private byte[] photo;
     private Gender gender;
     private WorkingHour workingHour;
+    private Double height;
+    private Double weight;
 }

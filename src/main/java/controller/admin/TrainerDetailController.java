@@ -33,7 +33,7 @@ import static util.PageUtil.*;
 public class TrainerDetailController implements Initializable {
 
     @FXML
-    private TextField nameField, idField, phoneField;
+    private TextField nameField, idField, phoneField, heightField, weightField;
 
     @FXML
     private DatePicker birthPicker;
@@ -65,6 +65,8 @@ public class TrainerDetailController implements Initializable {
         currentTrainer.setPhone(phoneField.getText().trim());
         currentTrainer.setBirthDate(Date.valueOf(birthPicker.getValue()));
         currentTrainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
+        currentTrainer.setHeight(Double.valueOf(heightField.getText().trim()));
+        currentTrainer.setWeight(Double.valueOf(weightField.getText().trim()));
         Optional<ButtonType> result = showAlertChoose("트레이너 정보를 수정하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
@@ -93,18 +95,21 @@ public class TrainerDetailController implements Initializable {
         if (currentTrainer != null) {
             setTrainerInfo(currentTrainer, birthPicker);
             columnBinding();
-            loadSchedule();
+            loadTrainerSchedule();
         }
     }
 
-    private void setTrainerInfo(Trainer trainer, DatePicker birthPicker) {
+    private void setTrainerInfo(Trainer currentTrainer, DatePicker birthPicker) {
 
+        Trainer trainer = trainerRepository.findById(currentTrainer.getId());
         LocalDate birthDate = trainer.getBirthDate().toLocalDate();
 
         nameField.setText(trainer.getName());
         idField.setText(trainer.getId());
         phoneField.setText(trainer.getPhone());
         birthPicker.setValue(birthDate);
+        heightField.setText(trainer.getHeight().toString());
+        weightField.setText(trainer.getWeight().toString());
 
         maleButton.setToggleGroup(genderRadio);
         femaleButton.setToggleGroup(genderRadio);
@@ -133,7 +138,7 @@ public class TrainerDetailController implements Initializable {
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
     }
 
-    private void loadSchedule() {
+    private void loadTrainerSchedule() {
         List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(currentTrainer.getNum());
         ObservableList<TrainerSchedule> schedules = FXCollections.observableArrayList();
 
