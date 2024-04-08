@@ -8,9 +8,11 @@ import static connection.ConnectionUtils.*;
 
 public class PurchaseRepository {
 
-    // 특정 회원의 상품 남은 횟수/기간 수정
-    public void updateRemain(int remain, int itemNum, int memberNum) {
-        String sql = "update purchase set p_remain = ? where i_no = ? and m_no = ?";
+    /**
+     * 헬스장 이용권 구매 이력이 없는 회원의 헬스장 이용권을 설정할 때에만 사용해야 함! (최초 한 번만)
+     */
+    public void setFirstGymTicket(int memberNum, int ticket) {
+        String sql = "insert into purchase (i_no, m_no, p_remain) values (4, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -18,9 +20,8 @@ public class PurchaseRepository {
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, remain);
-            pstmt.setInt(2, itemNum);
-            pstmt.setInt(3, memberNum);
+            pstmt.setInt(1, memberNum);
+            pstmt.setInt(2, ticket);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
