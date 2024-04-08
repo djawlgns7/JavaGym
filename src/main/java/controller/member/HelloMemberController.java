@@ -33,7 +33,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void myInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/signUpForm", "/css/password");
+        movePage(event, "/view/member/myInformation", "/css/password");
     }
 
     @FXML
