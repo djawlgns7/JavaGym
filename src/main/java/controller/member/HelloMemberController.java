@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
-import service.member.MemberService;
+import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;

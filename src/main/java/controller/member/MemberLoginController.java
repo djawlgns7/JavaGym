@@ -7,9 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
-import service.member.MemberService;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import service.MemberService;
 import util.PageUtil;
 
 import java.io.IOException;
