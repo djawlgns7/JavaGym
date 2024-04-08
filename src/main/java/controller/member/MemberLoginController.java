@@ -6,12 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
-import service.member.MemberService;
+import service.MemberService;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import util.PageUtil;
 
-import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,7 +56,7 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "Admin", "/view/admin/adminLogin");
+        movePage(event, "/view/trainer/trainerLogin");
     }
     // 바로입장 버튼에 대한 메소드 추가
     // @@@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@@

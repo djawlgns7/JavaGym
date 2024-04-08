@@ -45,7 +45,6 @@ public class TrainerRepository {
             close(conn, pstmt, null);
         }
     }
-
     public Trainer findByNum(Integer num) {
         String sql = "select * from trainer where t_no = ?";
 
@@ -153,19 +152,20 @@ public class TrainerRepository {
                 trainer.setWeight(rs.getDouble("t_weight"));
 
                 return trainer;
+
             } else {
                 return null;
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw  new RuntimeException(e);
         } finally {
             close(conn, pstmt, rs);
         }
     }
 
+
     public List<Trainer> findAllTrainer() {
-        String sql = "select t_no, t_id, t_name, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
+        String sql = "select t_no, t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
 
         Connection conn = null;
         PreparedStatement pstmt = null;

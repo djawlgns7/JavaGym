@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import repository.TrainerRepository;
-import service.trainer.TrainerService;
+import service.TrainerService;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class TrainerLoginController {
     private final TrainerService service = new TrainerService(repository);
 
     @FXML
-    private TextField username;
+    private TextField idField;
 
     @FXML
     private PasswordField passwordField;
