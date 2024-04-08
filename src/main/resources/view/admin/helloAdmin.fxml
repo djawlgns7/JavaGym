@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/AdminHello.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.admin.HelloAdminController">
-    <VBox alignment="CENTER" prefHeight="600" prefWidth="450" spacing="20.0" layoutX="50" layoutY="100" styleClass="container">
+    <VBox alignment="CENTER" prefHeight="600" prefWidth="450" spacing="20.0" layoutX="48" layoutY="100" styleClass="container">
         <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label">
             <font>
                 <Font name="Anton-Regular"/>

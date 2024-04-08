@@ -6,7 +6,7 @@
     -fx-spacing: 50;
 }
 
-.memberManagementBtn {
+.memberManagementBtn, .trainerManagementBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
@@ -16,30 +16,15 @@
     -fx-border-radius: 5px;
 }
 
-.trainerManagementBtn {
-    -fx-background-color: #9747FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 14;
-    -fx-pref-width: 120;
-    -fx-pref-height: 40;
-}
-
 .logOutBtn {
-    -fx-background-color: #De14FF;
+    -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
     -fx-pref-width: 120;
     -fx-pref-height: 40;
 }
 
-.memberManagementBtn:hover {
+.memberManagementBtn:hover, .trainerManagementBtn:hover, .logOutBtn:hover {
     -fx-background-color: #EA8ABE;
 }
 
-.trainerManagementBtn:hover {
-    -fx-background-color: #EA8ABE;
-}
-
-.logOutBtn:hover {
-    -fx-background-color: #EA8ABE;
-}

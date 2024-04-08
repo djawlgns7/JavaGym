@@ -16,7 +16,7 @@
     -fx-spacing: 50;
 }
 
-.goBackBtn {
+.goBackBtn1 {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
@@ -34,7 +34,7 @@
     -fx-pref-height: 40;
 }
 
-.goBackBtn:hover {
+.goBackBtn1:hover {
     -fx-background-color: #EA8ABE;
 }
 
