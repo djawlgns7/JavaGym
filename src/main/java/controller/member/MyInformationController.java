@@ -49,7 +49,7 @@ public class MyInformationController implements Initializable {
     //내 정보 페이지의 정보를 바꿔주는 메소드
     public void setMyInfo(Member member) throws ParseException {
         int memberNum = member.getNum();
-        int trainerNum = getTrainerNum(memberNum);
+        int trainerNum = getTrainerNumForMember(memberNum);
         List<Integer> remain = getRemainAll(memberNum);
         LocalDate today = LocalDate.now();
         int gymTicket = remain.get(0);

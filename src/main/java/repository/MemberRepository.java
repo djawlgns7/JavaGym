@@ -2,15 +2,19 @@ package repository;
 
 import domain.Gender;
 import domain.member.Member;
+import domain.trainer.Trainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static connection.ConnectionUtils.*;
+import static converter.DateToStringConverter.dateToString;
 
 public class MemberRepository {
 
@@ -233,5 +237,31 @@ public class MemberRepository {
         } finally {
             close(conn, pstmt, null);
         }
+    }
+
+    public int getAge(Member member) throws ParseException {
+        LocalDate today = LocalDate.now();
+        String birthString = dateToString(member.getBirthDate());
+        int birthYear = Integer.parseInt(birthString.substring(0, 2));
+        int birthMonth = Integer.parseInt(birthString.substring(2, 4));
+        int birthDay = Integer.parseInt(birthString.substring(4, 6));
+        int todayYear = today.getYear();
+        int todayDay = today.getDayOfYear();
+
+        if(birthYear > 50){
+            birthYear += 1900;
+        }else{
+            birthYear += 2000;
+        }
+
+        LocalDate birth = LocalDate.of(birthYear, birthMonth, birthDay);
+        birthDay = birth.getDayOfYear();
+        int age = todayYear - birthYear - 1;
+
+        if(todayDay >= birthDay){
+            age++;
+        }
+
+        return age;
     }
 }

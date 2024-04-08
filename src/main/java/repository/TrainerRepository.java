@@ -326,7 +326,7 @@ public class TrainerRepository {
 
         LocalDate birth = LocalDate.of(birthYear, birthMonth, birthDay);
         birthDay = birth.getDayOfYear();
-        int age = todayYear - birthYear - 2;
+        int age = todayYear - birthYear - 1;
 
         if(todayDay >= birthDay){
             age++;
