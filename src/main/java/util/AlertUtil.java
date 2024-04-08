@@ -58,6 +58,14 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
+    public static void showAlertAddTrainerFail(String messageCode) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messages.getString("addTrainerFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(messages.getString(messageCode));
+        alert.showAndWait();
+    }
+
     public static void showAlertAndMove(String title, String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -74,5 +82,13 @@ public class AlertUtil {
             newStage.setScene(newScene);
             newStage.show();
         }
+    }
+
+    public static Optional<ButtonType> showAlertChoose(String message) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("알림");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText(message);
+        return confirmationAlert.showAndWait();
     }
 }

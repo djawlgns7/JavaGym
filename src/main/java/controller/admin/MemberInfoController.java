@@ -1,35 +1,36 @@
 package controller.admin;
 
 import domain.Gender;
-import domain.Member;
+import domain.member.Member;
+import domain.member.SelectedMember;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.MemberRepository;
-import service.admin.AdminService;
+import service.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static converter.StringToDateConverter.stringToDate;
 import static util.AlertUtil.*;
 import static util.ControllerUtil.*;
 import static util.PageUtil.*;
+import static util.ValidateUtil.addMemberValidate;
+import static util.ValidateUtil.isEmptyAnyField;
 
 public class MemberInfoController implements Initializable {
 
-    private static final ResourceBundle config = ResourceBundle.getBundle("config.member");
-    private static final AdminRepository adminRepository = new AdminRepository();
-    private static final AdminService service = new AdminService(adminRepository);
+    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
+    private final AdminRepository adminRepository = new AdminRepository();
+    private final AdminService service = new AdminService(adminRepository);
+    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private TextField nameField, birthField, phoneField, emailField;
@@ -52,7 +53,7 @@ public class MemberInfoController implements Initializable {
 
         Member member = new Member();
         member.setName(nameField.getText().trim());
-        member.setPassword(BCrypt.hashpw(config.getString("initial.password"), BCrypt.gensalt()));
+        member.setPassword(BCrypt.hashpw(config.getString("initial.member.password"), BCrypt.gensalt()));
         member.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
         member.setEmail(email);
         member.setBirthDate(stringToDate(birth));
@@ -63,19 +64,10 @@ public class MemberInfoController implements Initializable {
     }
 
     @FXML
-    private void updateMember(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    private void deleteMember(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
     private void memberDetail(Member member, MouseEvent event) throws IOException {
         if (member != null && event.getClickCount() == 2) {
-            System.out.println(member);
+            SelectedMember.currentMember = member;
+            movePageCenter(event, "/view/admin/memberDetail");
         }
     }
 
@@ -87,8 +79,8 @@ public class MemberInfoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnBinding(numCol, nameCol, genderCol, emailCol, birthCol, phoneCol, enrollCol);
-        loadMemberData(membersTable);
+        columnBindingMember(numCol, nameCol, genderCol, emailCol, birthCol, phoneCol, enrollCol);
+        loadMemberData(membersTable, memberRepository);
 
         TextFormatter<String> birthFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -125,6 +117,6 @@ public class MemberInfoController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "Admin", "/view/admin/helloAdmin");
+        movePageCenter(event, "/view/admin/helloAdmin");
     }
 }

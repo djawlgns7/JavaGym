@@ -1,23 +1,25 @@
 package util;
 
-import domain.Member;
+import domain.member.EntryLog;
+import domain.member.Member;
+import domain.trainer.Trainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import repository.EntryLogRepository;
 import repository.MemberRepository;
+import repository.TrainerRepository;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static util.AlertUtil.showAlertAddMemberFail;
-import static util.AlertUtil.showAlertSignUpFail;
-
 public class ControllerUtil {
-
-    private static final MemberRepository memberRepository = new MemberRepository();
 
     public static String getFullEmail(String emailId, String emailDomain) {
         return emailId + "@" + emailDomain;
@@ -33,133 +35,10 @@ public class ControllerUtil {
         return null;
     }
 
-    public static boolean isEmptyAnyField(TextField name, TextField emailId, ComboBox<String> emailDomain,
-                                          TextField birth, TextField phone, PasswordField password,
-                                          PasswordField passwordConfirm,
-                                          RadioButton male, RadioButton female) {
-
-        return  name.getText().trim().isEmpty() ||
-                password.getText().trim().isEmpty() ||
-                passwordConfirm.getText().trim().isEmpty() ||
-                getSelectedGender(male, female) == null ||
-                emailId.getText().trim().isEmpty() ||
-                emailDomain.getValue() == null ||
-                emailDomain.getEditor().getText().trim().isEmpty() ||
-                birth.getText().trim().isEmpty() ||
-                phone.getText().trim().isEmpty();
-    }
-
-    public static boolean isEmptyAnyField(TextField name, TextField email,
-                                          TextField birth, TextField phone,
-                                          RadioButton male, RadioButton female) {
-
-        return  name.getText().trim().isEmpty() ||
-                getSelectedGender(male, female) == null ||
-                email.getText().trim().isEmpty() ||
-                birth.getText().trim().isEmpty() ||
-                phone.getText().trim().isEmpty();
-    }
-
-    public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
-
-        if (isDuplicatePhone(phone)) {
-            showAlertSignUpFail("duplicatePhone");
-            return true;
-        }
-
-        if (!pw.equals(pwConfirm)) {
-            showAlertSignUpFail("wrongPw");
-            return true;
-        }
-
-        if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
-            showAlertSignUpFail("duplicatePhoneAndEmail");
-            return true;
-        }
-
-        if (isWrongEmail(email)) {
-            showAlertSignUpFail("wrongEmail");
-            return true;
-        }
-
-        if (isDuplicateEmail(email)) {
-            showAlertSignUpFail("duplicateEmail");
-            return true;
-        }
-
-        if (isWrongBirth(birth)) {
-            showAlertSignUpFail("wrongBirth");
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean addMemberValidate(String phone, String email, String birth) {
-        if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicatePhoneAndEmail");
-            return true;
-        }
-
-        if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
-            return true;
-        }
-
-        if (isWrongBirth(birth)) {
-            showAlertAddMemberFail("wrongBirth");
-            return true;
-        }
-
-        if (isDuplicatePhone(phone)) {
-            showAlertAddMemberFail("duplicatePhone");
-            return true;
-        }
-
-        if (isWrongEmail(email)) {
-            showAlertAddMemberFail("wrongEmail");
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isWrongEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
-        return !email.matches(emailRegex);
-    }
-
-    public static boolean isDuplicatePhone(String phone) {
-        Member member = memberRepository.findByPhone(phone);
-        if (member == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static boolean isDuplicateEmail(String email) {
-        Member member = memberRepository.findByEmail(email);
-        if (member == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static boolean isWrongBirth(String birth) {
-        Integer month = Integer.valueOf(birth.substring(2, 4));
-        Integer day = Integer.valueOf(birth.substring(4));
-
-        if ((1 <= month && month <= 12) && (1 <= day && day <= 31)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static boolean isWrongLengthPhone(String phone) {
-        return !(phone.length() == 8);
+    public static String getSelectedWorkingTime(RadioButton am, RadioButton pm) {
+        if (am.isSelected()) return "AM";
+        if (pm.isSelected()) return "PM";
+        return null;
     }
 
     public static SimpleStringProperty sqlDateToLocalDate(Date sqlDate, DateTimeFormatter formatter) {
@@ -168,7 +47,7 @@ public class ControllerUtil {
         return new SimpleStringProperty(formattedDate);
     }
 
-    public static void columnBinding(TableColumn<Member, String> numCol, TableColumn<Member, String> nameCol, TableColumn<Member, String> genderCol,
+    public static void columnBindingMember(TableColumn<Member, String> numCol, TableColumn<Member, String> nameCol, TableColumn<Member, String> genderCol,
                                      TableColumn<Member, String> emailCol, TableColumn<Member, String> birthCol, TableColumn<Member, String> phoneCol,
                                      TableColumn<Member, String> enrollCol) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -195,10 +74,63 @@ public class ControllerUtil {
         });
     }
 
-    public static void loadMemberData(TableView<Member> membersTable) {
+    public static void loadMemberData(TableView<Member> membersTable, MemberRepository memberRepository) {
         List<Member> members = memberRepository.findAllMembers();
 
         // 조회한 회원 정보를 TableView에 설정
         membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+
+    public static void columnBindingTrainer(TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
+                                     TableColumn<Trainer, String> genderCol, TableColumn<Trainer, String> workTimeCol, TableColumn<Trainer, String> birthCol,
+                                     TableColumn<Trainer, String> phoneCol) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        workTimeCol.setCellValueFactory(new PropertyValueFactory<>("workingHour"));
+
+        birthCol.setCellValueFactory(cellData -> {
+            Date sqlDate = cellData.getValue().getBirthDate();
+            return sqlDateToLocalDate(sqlDate, formatter);
+        });
+
+        phoneCol.setCellValueFactory(cellData -> {
+            String rawPhoneNumber = cellData.getValue().getPhone();
+            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
+            return new SimpleStringProperty(formattedPhoneNumber);
+        });
+    }
+
+    public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
+        List<Trainer> members = trainerRepository.findAllTrainer();
+        membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+
+    public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
+        entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
+
+        TableColumn<EntryLog, String> entryLogColumn = new TableColumn<>("입장 일시");
+        entryLogColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cellData.getValue().getEntryTime())
+        ));
+
+        table.getColumns().addAll(entryNumColumn, entryLogColumn);
+        List<Timestamp> timestamps = entryLogRepository.findAllEntryLogs(memberNum);
+        ObservableList<EntryLog> entryLogs = FXCollections.observableArrayList();
+
+        int count = 1;
+        for (Timestamp timestamp : timestamps) {
+            EntryLog entryLog = new EntryLog();
+            entryLog.setEntryTime(timestamp);
+            entryLog.setEntryNum(count++);
+            entryLogs.add(entryLog);
+        }
+
+        table.setItems(entryLogs);
     }
 }

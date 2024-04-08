@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="500.0" prefWidth="880.0"
-           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="controller.admin.TrainerInfoController">
 
+<SplitPane dividerPositions="0.6" prefHeight="500.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.TrainerDetailController">
     <items>
 
-        <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
-            <Label text="트레이너 등록" />
-
+        <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="10.0">
+            <Label>트레이너 상세 정보</Label>
             <HBox alignment="CENTER" spacing="10">
                 <Label>이름</Label>
                 <TextField fx:id="nameField"/>
@@ -47,7 +44,7 @@
 
             <HBox alignment="CENTER" spacing="10">
                 <Label>생년월일</Label>
-                <TextField fx:id="birthField" />
+                <DatePicker fx:id="birthPicker" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
@@ -60,25 +57,24 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Button text="뒤로 가기" onAction="#goBack"/>
-                <Button text="트레이너 등록" onAction="#addTrainer"/>
+                <Button onAction="#goBack" text="뒤로 가기" />
+                <Button onAction="#updateTrainer" text="트레이너 수정" />
+                <Button onAction="#deleteTrainer" text="트레이너 삭제" />
             </HBox>
         </VBox>
 
-        <VBox fx:id="listArea" spacing="20" alignment="CENTER">
-            <Label text="트레이너 정보" />
-            <TableView fx:id="trainerTable" prefHeight="400.0">
-                <columns>
-                    <TableColumn text="번호" fx:id="numCol" />
-                    <TableColumn text="이름" fx:id="nameCol" />
-                    <TableColumn text="아이디" fx:id="idCol" />
-                    <TableColumn text="성별" fx:id="genderCol" />
-                    <TableColumn text="근무시간" fx:id="workTimeCol" />
-                    <TableColumn text="생년월일" fx:id="birthCol" />
-                    <TableColumn text="전화번호" fx:id="phoneCol" />
-                </columns>
-            </TableView>
+        <VBox fx:id="listArea" alignment="CENTER" spacing="10.0">
+            <Label>트레이너 PT 일정</Label>
+            <VBox spacing="20" alignment="CENTER">
+                <TableView fx:id="scheduleTable" prefHeight="420.0">
+                    <columns>
+                        <TableColumn text="번호" fx:id="countColumn"/>
+                        <TableColumn text="회원 이름" fx:id="memberNameColumn"/>
+                        <TableColumn text="예약 날짜" fx:id="dateColumn"/>
+                        <TableColumn text="예약 시간" fx:id="timeColumn"/>
+                    </columns>
+                </TableView>
+            </VBox>
         </VBox>
-
     </items>
 </SplitPane>

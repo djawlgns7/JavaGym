@@ -1,7 +1,7 @@
 package repository;
 
 import domain.Gender;
-import domain.Member;
+import domain.member.Member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static connection.ConnectionUtils.*;
 
@@ -71,7 +70,7 @@ public class MemberRepository {
                 return member;
 
             } else {
-                throw new NoSuchElementException("member not found m_no=" + num);
+                return null;
             }
 
         } catch (SQLException e) {
@@ -145,7 +144,6 @@ public class MemberRepository {
                 member.setEnrolDate(rs.getDate("m_enrollment"));
 
                 return member;
-
             } else {
                 return null;
             }
@@ -183,7 +181,6 @@ public class MemberRepository {
 
                 members.add(member);
             }
-
             return members;
 
         } catch (SQLException e) {
