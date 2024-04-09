@@ -1,0 +1,124 @@
+.trainerInfo_title_1, .trainerInfo_title_2 {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+.nameInput, .idInput, .phoneInput, .heightInput, .weightInput, .birthInput {
+    -fx-pref-width: 200;
+    -fx-pref-height: 40;
+}
+
+/* =============== Radio Button =============== */
+.sex_radioBtn_title, .sex_radioBtn_1, .sex_radioBtn_2 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.worktime_radioBtn_title, .worktime_radioBtn_1, .worktime_radioBtn_2 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.addTrainerBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 120;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+}
+
+.goBackBtn2 {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 120;
+    -fx-pref-height: 40;
+}
+
+.addTrainerBtn:hover, .goBackBtn2:hover {
+    -fx-background-color: #EA8ABE;
+}
+
+/* ============== Button ============== */
+.trainerInfo_Btn {
+    -fx-spacing: 50;
+    -fx-font-family: "Jua";
+}
+
+/* ============== Table ============== */
+.numColumn, .nameColumn, .idColumn, .genderColumn, .birthColumn, .workTimeColumn, .phoneColumn {
+    -fx-font-family: "Jua";
+}
+
+.numColumn, .nameColumn {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.genderColumn, .workTimeColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.idColumn, .birthColumn {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.phoneColumn {
+    -fx-pref-width: 130;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+/* TableView 헤더 스타일 */
+.table-view .column-header-background .label {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 헤더 배경색 변경 */
+.table-view .column-header {
+    -fx-background-color: #9747FF;
+}
+
+/* 헤더의 테두리 변경 */
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: transparent transparent #9747FF transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* 컬럼 헤더들 사이의 경계선 추가 */
+.table-view .column-header {
+    -fx-border-color: transparent transparent #FFFFFF #FFFFFF; /* 아래쪽과 오른쪽 경계선 색상 설정 */
+    -fx-border-width: 0 0 2 1; /* 아래쪽 경계선 두께 2, 오른쪽 경계선 두께 1 */
+}
+
+/* 화살표 버튼 배경색 변경 */
+.table-view .column-header .arrow-button {
+    -fx-background-color: #9747FF; /* 화살표 버튼 배경색도 헤더 배경색과 동일하게 설정 */
+}
+
+/* 정렬 화살표 스타일 */
+.table-view .column-header .arrow {
+    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+}
+
+/* 오름차순 화살표 스타일 */
+.table-view .column-header .arrow-button .arrow {
+    -fx-shape: "M0,0 L1,0 L0.5,1 Z"; /* 오름차순 화살표 모양 */
+}
+
+/* 내림차순 화살표 스타일 */
+.table-view .column-header:descending .arrow-button .arrow {
+    -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
+}
