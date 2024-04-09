@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.member.MemberLoginController" prefHeight="600" prefWidth="500" >
+<?import javafx.scene.image.ImageView?>
 
-    <Button fx:id="invisibleButton" visible="true" managed="false"/>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+<!-- 전체를 앵커팬으로 설정 -->
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/memberLogin.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.MemberLoginController">
 
-    <HBox spacing="10" alignment="CENTER">
-        <Label>전화번호</Label>
-        <TextField fx:id="phoneField" promptText="010 제외한 8자리"/>
-    </HBox>
+    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="30.0">
+        <Button fx:id="invisibleButton" managed="false" visible="true" />
 
-    <HBox spacing="10" alignment="CENTER">
-        <Label>비밀번호</Label>
-        <PasswordField fx:id="passwordField" promptText="비밀번호"/>
-    </HBox>
+        <!-- HBox 관리자 버튼, 색상 추가 -->
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 10 0 0" spacing="10">
+            <Region HBox.hgrow="ALWAYS" />
+            <Button styleClass="adminTrainerBtn" onAction="#showTrainerLogin" text="트레이너" />
+            <Button styleClass="adminTrainerBtn" onAction="#showAdminLogin" text="관리자" />
+        </HBox>
 
-    <HBox alignment="CENTER" spacing="10">
-        <Button text="회원가입" onAction="#showSignUp"/>
-        <Button text="로그인" onAction="#login"/>
-        <Button text="바로 입장" onAction="#entry"/>
-    </HBox>
+        <!-- 자바짐 텍스트와 폰트 설정 -->
+        <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label" layoutX="50" layoutY="50">
+            <font><Font name="Anton-Regular" /></font>
+        </Label>
 
-    <Button text="관리자" onAction="#showAdminLogin"/>
+        <!-- 자바짐 이미지 추가 -->
+        <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />
 
+        <HBox alignment="CENTER" spacing="10">
+            <TextField fx:id="phoneField" promptText="010을 제외한 전화번호 8자리"/>
+        </HBox>
 
-</VBox>
+        <HBox alignment="CENTER" spacing="10">
+            <PasswordField fx:id="passwordField" promptText="비밀번호 입력" />
+        </HBox>
+
+        <!-- 버튼 색상 추가 -->
+        <HBox fx:id="memberButton" alignment="CENTER" spacing="10">
+            <Button onAction="#login" text="로그인" />
+            <Button onAction="#showSignUp" text="회원가입" />
+        </HBox>
+
+        <!-- 바로입장 버튼 추가 -->
+        <!-- @@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@ -->
+        <Button fx:id="entry" onAction="#immediateEntry" text="바로입장" />
+
+    </VBox>
+</AnchorPane>

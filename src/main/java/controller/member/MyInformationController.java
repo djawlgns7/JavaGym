@@ -77,7 +77,7 @@ public class MyInformationController implements Initializable {
         }
 
         if(gymTicket == 0) {
-            gymTicketReamin.setText("헬스장에 입장할 수 없습니다. 이용권을 구매해 주세요");
+            gymTicketReamin.setText("헬스장에 입장할 수 없습니다.");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
             gymTicketReamin.setText(expireDate + " (D-" + gymTicket + ")");

@@ -22,7 +22,7 @@ import static converter.DateToStringConverter.dateToString;
 public class TrainerRepository {
 
     public Trainer save(Trainer trainer) {
-        String sql = "insert into trainer(t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_Hour, t_height, t_weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into trainer(t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -134,7 +134,7 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
@@ -174,7 +174,7 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
@@ -213,24 +213,25 @@ public class TrainerRepository {
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
                 return trainer;
+
             } else {
                 return null;
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw  new RuntimeException(e);
         } finally {
             close(conn, pstmt, rs);
         }
     }
 
+
     public List<Trainer> findAllTrainer() {
-        String sql = "select t_no, t_id, t_name, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
+        String sql = "select t_no, t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -248,10 +249,11 @@ public class TrainerRepository {
                 trainer.setNum(rs.getInt("t_no"));
                 trainer.setId(rs.getString("t_id"));
                 trainer.setName(rs.getString("t_name"));
+                trainer.setPassword(rs.getString("t_pw"));
                 trainer.setPhone(rs.getString("t_phone"));
                 trainer.setBirthDate(rs.getDate("t_birthdate"));
                 trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
-                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_Hour")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
 
