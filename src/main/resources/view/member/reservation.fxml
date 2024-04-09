@@ -10,8 +10,16 @@
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
 
     <VBox alignment="CENTER" prefHeight="650" prefWidth="550" spacing="50.0">
-        <DatePicker fx:id="datePicker" prefHeight="200.0" prefWidth="200.0" />
-        <Button text="예약하기" StackPane.alignment="BOTTOM_CENTER" />
+        <TextField fx:id="memberNo" promptText="멤버 번호 입력"/>
+        <TextField fx:id="trainerNo" promptText="트레이너 번호 입력"/>
+        <DatePicker fx:id="datePicker" />
+
+        <Button text="트레이너와 날짜 선택" onAction="#makeReservations" />
+
+        <HBox spacing="10" alignment="CENTER">
+            <ComboBox fx:id="timeComboBox" promptText="예약 가능한 시간대" />
+            <Button text="예약하기" onAction="#saveReservation"/>
+        </HBox>
     </VBox>
 
 </AnchorPane>

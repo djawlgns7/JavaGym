@@ -336,4 +336,21 @@ public class TrainerRepository {
 
         return age;
     }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(Trainer trainer){
+        String workingHour = String.valueOf(trainer.getWorkingHour());
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
+    }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(String workingHour){
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
+    }
 }
