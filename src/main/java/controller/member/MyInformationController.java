@@ -60,11 +60,13 @@ public class MyInformationController implements Initializable {
         int clothes = remain.get(2);
         int locker = remain.get(3);
 
-        memberName.setText(member.getName());
+        memberName.setText(member.getName() + " ");
 
         if(trainerNum == 0) {
-            trainerView.setVisible(false);
-            trainerViewTitle.setVisible(false);
+            imageView.setImage(new Image("/image/goTrainer.jpg"));
+            trainerName.setText("");
+            trainerInfo.setText("담당 트레이너가 없습니다");
+
         }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
             LocalDate expireDate = today;
@@ -77,7 +79,7 @@ public class MyInformationController implements Initializable {
         }
 
         if(gymTicket == 0) {
-            gymTicketReamin.setText("헬스장에 입장할 수 없습니다.");
+            gymTicketReamin.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
             gymTicketReamin.setText(expireDate + " (D-" + gymTicket + ")");
@@ -86,8 +88,8 @@ public class MyInformationController implements Initializable {
         PTTicketRemain.setText(PTTicket + "개");
 
         if(locker == 0){
-            lockerNo.setText("사물함을 이용할 수 없습니다");
-            lockerRemain.setVisible(false);
+            lockerNo.setText("이용할 수 없습니다");
+            lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
             LocalDate expireDate = today.plusDays(locker);
@@ -96,8 +98,8 @@ public class MyInformationController implements Initializable {
         }
 
         if(clothes == 0){
-            clothesAvailability.setText("대여 불가능");
-            clothesRemain.setVisible(false);
+            clothesAvailability.setText("대여할 수 없습니다");
+            clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
             clothesAvailability.setText("대여 가능");
