@@ -52,7 +52,7 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
+        movePage(event, "/view/trainer/trainerLogin");
     }
     // 바로입장 버튼에 대한 메소드 추가
     // @@@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@@

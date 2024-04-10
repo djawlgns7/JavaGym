@@ -66,6 +66,14 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
+    public static void showAlertAddScheduleFail(String messageCode) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messages.getString("addScheduleFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(messages.getString(messageCode));
+        alert.showAndWait();
+    }
+
     public static void showAlertAndMove(String title, String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
         Alert alert = new Alert(type);
         alert.setTitle(title);

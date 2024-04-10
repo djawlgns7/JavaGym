@@ -2,11 +2,13 @@ package util;
 
 import domain.member.Member;
 import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 import static util.AlertUtil.*;
@@ -62,6 +64,10 @@ public class ValidateUtil {
                 email.getText().trim().isEmpty() ||
                 birth.getText().trim().isEmpty() ||
                 phone.getText().trim().isEmpty();
+    }
+
+    public static boolean isEmptyAnyField(TextField name) {
+        return name.getText().trim().isEmpty();
     }
 
     public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
@@ -155,6 +161,13 @@ public class ValidateUtil {
         return false;
     }
 
+    /*public staitc boolean addScheduleValidate(String name) {
+        if(isDuplicateName(name)) {
+            showAlertAddScheduleFail("duplicateName");
+            return true;
+        }
+    }*/
+
     // 트레이너 아이디에 한글이 포함되면 안 된다.
     public static boolean isWrongId(String id) {
         return id.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*");
@@ -208,4 +221,13 @@ public class ValidateUtil {
     public static boolean isWrongLengthPhone(String phone) {
         return !(phone.length() == 8);
     }
+
+    /*public static boolean isDuplicateName(String name) {
+        TrainerSchedule trainerSchedule = ReservationRepository.findByName(name);
+        if (trainerSchedule == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }*/
 }
