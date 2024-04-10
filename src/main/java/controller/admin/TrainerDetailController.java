@@ -71,7 +71,7 @@ public class TrainerDetailController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             trainerRepository.updateTrainer(currentTrainer);
-            showAlertAndMove("알림", "트레이너가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+            showAlertAndMove("트레이너가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
         }
     }
 
@@ -81,7 +81,7 @@ public class TrainerDetailController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
-            showAlertAndMove("알림", "트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+            showAlertAndMove("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
         }
     }
 

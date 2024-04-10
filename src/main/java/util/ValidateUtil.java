@@ -10,6 +10,7 @@ import repository.MemberRepository;
 import repository.TrainerRepository;
 
 import static util.AlertUtil.*;
+import static util.AlertUtil.showAlertAddMemberFail;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
 
@@ -64,7 +65,12 @@ public class ValidateUtil {
                 phone.getText().trim().isEmpty();
     }
 
-    public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
+    public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
 
         if (isDuplicatePhone(phone)) {
             showAlertSignUpFail("duplicatePhone");
@@ -95,23 +101,27 @@ public class ValidateUtil {
             showAlertSignUpFail("wrongBirth");
             return true;
         }
-
         return false;
     }
 
-    public static boolean addMemberValidate(String phone, String email, String birth) {
+    public static boolean addMemberValidate(String name, String phone, String email, String birth) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
             showAlertAddMemberFail("duplicatePhoneAndEmail");
             return true;
         }
 
-        if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
+        if (isWrongBirth(birth)) {
+            showAlertAddMemberFail("wrongBirth");
             return true;
         }
 
-        if (isWrongBirth(birth)) {
-            showAlertAddMemberFail("wrongBirth");
+        if (isDuplicateEmail(email)) {
+            showAlertAddMemberFail("duplicateEmail");
             return true;
         }
 
@@ -127,7 +137,13 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addTrainerValidate(String phone, String id, String birth) {
+    public static boolean addTrainerValidate(String name, String phone, String id, String birth) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
+
         if (isDuplicatePhone(phone) && isDuplicateTrainerId(id)) {
             showAlertAddTrainerFail("duplicateIdAndPhone");
             return true;

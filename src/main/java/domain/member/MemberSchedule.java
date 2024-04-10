@@ -31,8 +31,4 @@ public class MemberSchedule {
     public boolean isSelected() {
         return selected.get();
     }
-
-    public void setSelected(boolean selected) {
-        this.selected.set(selected);
-    }
 }

@@ -89,7 +89,7 @@ public class ReservationRepository {
         }
     }
 
-    public void delete(int num) {
+    public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
         Connection conn = null;

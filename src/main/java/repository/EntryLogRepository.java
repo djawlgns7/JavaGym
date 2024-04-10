@@ -49,5 +49,4 @@ public class EntryLogRepository {
             close(conn, pstmt, null);
         }
     }
-
 }

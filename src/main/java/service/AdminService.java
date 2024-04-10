@@ -56,16 +56,4 @@ public class AdminService {
     public void addTrainer(Trainer trainer) {
         trainerRepository.save(trainer);
     }
-
-    public void updateMember() {
-
-    }
-
-    public void updateTrainer() {
-
-    }
-
-    public void cancelReservation() {
-
-    }
 }
