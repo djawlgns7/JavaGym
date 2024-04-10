@@ -84,240 +84,239 @@ public class MemberDetailController implements Initializable {
         if (isSameBasicInfo() && isSameAdditionalInfo()) {
             System.out.println("수정 내용 없음");
             showAlertUpdateMemberFail("isSame");
-            movePageCenter(event, "/view/admin/memberDetail");
-        } else {
-            // 수정 내역이 있는 경우
-            Optional<ButtonType> response = showAlertChoose("회원 정보를 수정하시겠습니까?");
+            return;
+        }
 
-            if (response.get() == ButtonType.OK) {
-                System.out.println("수정 내역이 있음");
+        // 수정 내역이 있는 경우
+        Optional<ButtonType> response = showAlertChoose("회원 정보를 수정하시겠습니까?");
+        if (response.get() == ButtonType.OK) {
+            System.out.println("수정 내역이 있음");
 
-                Integer memberNum = currentMember.getNum();
-                int currentGymTicket = getRemain(memberNum, GYM_TICKET);
-                int currentPtTicket = getRemain(memberNum, PT_TICKET);
-                int currentClothedPeriod = getRemain(memberNum, CLOTHES);
-                int currentLockerPeriod = getRemain(memberNum, LOCKER);
+            Integer memberNum = currentMember.getNum();
+            int currentGymTicket = getRemain(memberNum, GYM_TICKET);
+            int currentPtTicket = getRemain(memberNum, PT_TICKET);
+            int currentClothedPeriod = getRemain(memberNum, CLOTHES);
+            int currentLockerPeriod = getRemain(memberNum, LOCKER);
 
-                // 기본 정보 업데이트
-                if (!isSameBasicInfo()) {
-                    System.out.println("기본 정보 업데이트");
-                    currentMember.setName(nameField.getText().trim());
-                    currentMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
-                    currentMember.setEmail(emailField.getText().trim());
-                    currentMember.setPhone(phoneField.getText().trim());
-                    currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
+            // 기본 정보 업데이트
+            if (!isSameBasicInfo()) {
+                System.out.println("기본 정보 업데이트");
+                currentMember.setName(nameField.getText().trim());
+                currentMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+                currentMember.setEmail(emailField.getText().trim());
+                currentMember.setPhone(phoneField.getText().trim());
+                currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
 
-                    memberRepository.updateMember(currentMember);
+                memberRepository.updateMember(currentMember);
+            }
+
+            // 헬스장 이용권 업데이트 (updateGymTicket)
+            if (!isSameGymTicket()) {
+                System.out.println("헬스장 이용권 업데이트");
+
+                int inputGymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString().trim());
+
+                if (isFirstPurchase(memberNum, GYM_TICKET)) {
+                    purchaseRepository.setFirstGymTicket(memberNum, inputGymTicket);
+                } else {
+                    int result = Math.abs(currentGymTicket - inputGymTicket);
+
+                    if (currentGymTicket > inputGymTicket) {
+                        setRemain(memberNum, GYM_TICKET, -result);
+                    } else if (inputGymTicket > currentGymTicket) {
+                        setRemain(memberNum, GYM_TICKET, result);
+                    }
                 }
+            }
 
-                // 헬스장 이용권 업데이트 (updateGymTicket)
-                if (!isSameGymTicket()) {
-                    System.out.println("헬스장 이용권 업데이트");
+            // PT 이용권 또는 트레이너 업데이트
+            if (!isSamePtTicket() || !isSameTrainer()) {
+                System.out.println("PT 이용권 또는 트레이너 변경");
 
-                    int inputGymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString().trim());
+                int inputPtTicket = Integer.parseInt(ptTicketSpinner.getValue().toString().trim());
+                String inputTrainerName = trainerComboBox.getValue().trim();
 
-                    if (isFirstPurchase(memberNum, GYM_TICKET)) {
-                        purchaseRepository.setFirstGymTicket(memberNum, inputGymTicket);
-                    } else {
-                        int result = Math.abs(currentGymTicket - inputGymTicket);
+                // PT 이용권 변경, 트레이너 동일
+                if (!isSamePtTicket() && isSameTrainer()) {
+                    System.out.println("PT 이용권 변경");
 
-                        if (currentGymTicket > inputGymTicket) {
-                            setRemain(memberNum, GYM_TICKET, -result);
-                        } else if (inputGymTicket > currentGymTicket) {
-                            setRemain(memberNum, GYM_TICKET, result);
-                        }
+                    if (inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("emptyTrainer");
+                        return;
+                    }
+
+                    if (inputPtTicket == 0) {
+                        showAlertUpdateMemberFail("notDeleteTrainer");
+                        return;
+                    }
+
+                    int result = Math.abs(currentPtTicket - inputPtTicket);
+
+                    if (currentPtTicket > inputPtTicket) {
+                        setRemain(memberNum, PT_TICKET, -result);
+                    } else if (inputPtTicket > currentPtTicket) {
+                        setRemain(memberNum, PT_TICKET, result);
                     }
                 }
 
-                // PT 이용권 또는 트레이너 업데이트
-                if (!isSamePtTicket() || !isSameTrainer()) {
-                    System.out.println("PT 이용권 또는 트레이너 변경");
+                // 트레이너 변경, PT 이용권 동일
+                if (!isSameTrainer() && isSamePtTicket()) {
+                    System.out.println("트레이너 변경");
 
-                    int inputPtTicket = Integer.parseInt(ptTicketSpinner.getValue().toString().trim());
-                    String inputTrainerName = trainerComboBox.getValue().trim();
-
-                    // PT 이용권 변경, 트레이너 동일
-                    if (!isSamePtTicket() && isSameTrainer()) {
-                        System.out.println("PT 이용권 변경");
-
-                        if (inputTrainerName.isEmpty()) {
-                            showAlertUpdateMemberFail("emptyTrainer");
-                            return;
-                        }
-
-                        if (inputPtTicket == 0) {
-                            showAlertUpdateMemberFail("notDeleteTrainer");
-                            return;
-                        }
-
-                        int result = Math.abs(currentPtTicket - inputPtTicket);
-
-                        if (currentPtTicket > inputPtTicket) {
-                            setRemain(memberNum, PT_TICKET, -result);
-                        } else if (inputPtTicket > currentPtTicket) {
-                            setRemain(memberNum, PT_TICKET, result);
-                        }
+                    if (inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("emptyTrainer");
+                        return;
                     }
 
-                    // 트레이너 변경, PT 이용권 동일
-                    if (!isSameTrainer() && isSamePtTicket()) {
-                        System.out.println("트레이너 변경");
+                    if (trainerRepository.findByName(inputTrainerName) == null) {
+                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        return;
+                    }
 
-                        if (inputTrainerName.isEmpty()) {
-                            showAlertUpdateMemberFail("emptyTrainer");
-                            return;
-                        }
+                    if (inputPtTicket == 0) {
+                        showAlertUpdateMemberFail("emptyPtTicket");
+                        return;
+                    }
 
-                        if (trainerRepository.findByName(inputTrainerName) == null) {
-                            showAlertUpdateMemberFail("wrongNameTrainer");
-                            return;
-                        }
+                    Integer trainerNum = trainerRepository.findByName(inputTrainerName).getNum();
+                    changeTrainerOfMember(memberNum, trainerNum);
+                }
 
-                        if (inputPtTicket == 0) {
-                            showAlertUpdateMemberFail("emptyPtTicket");
-                            return;
-                        }
+                // PT 이용권, 트레이너 모두 변경
+                if (!isSamePtTicket() && !isSameTrainer()) {
+                    System.out.println("PT 이용권, 트레이너 모두 변경");
 
+                    if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
+                        purchaseRepository.deletePtTicketAndTrainer(memberNum);
+                    }
+
+                    if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        return;
+                    }
+
+                    if (!inputTrainerName.isEmpty()) {
                         Integer trainerNum = trainerRepository.findByName(inputTrainerName).getNum();
-                        changeTrainerOfMember(memberNum, trainerNum);
-                    }
 
-                    // PT 이용권, 트레이너 모두 변경
-                    if (!isSamePtTicket() && !isSameTrainer()) {
-                        System.out.println("PT 이용권, 트레이너 모두 변경");
+                        if (isFirstPurchase(memberNum, PT_TICKET)) {
+                            purchaseRepository.setFirstPtTicket(memberNum, trainerNum, inputPtTicket);
+                        } else {
+                            int result = Math.abs(currentPtTicket - inputPtTicket);
 
-                        if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
-                            purchaseRepository.deletePtTicketAndTrainer(memberNum);
-                        }
-
-                        if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
-                            showAlertUpdateMemberFail("wrongNameTrainer");
-                            return;
-                        }
-
-                        if (!inputTrainerName.isEmpty()) {
-                            Integer trainerNum = trainerRepository.findByName(inputTrainerName).getNum();
-
-                            if (isFirstPurchase(memberNum, PT_TICKET)) {
-                                purchaseRepository.setFirstPtTicket(memberNum, trainerNum, inputPtTicket);
-                            } else {
-                                int result = Math.abs(currentPtTicket - inputPtTicket);
-
-                                if (currentPtTicket > inputPtTicket) {
-                                    setRemain(memberNum, PT_TICKET, -result);
-                                    changeTrainerOfMember(memberNum, trainerNum);
-                                } else if (inputPtTicket > currentPtTicket) {
-                                    setRemain(memberNum, PT_TICKET, result);
-                                    changeTrainerOfMember(memberNum, trainerNum);
-                                }
+                            if (currentPtTicket > inputPtTicket) {
+                                setRemain(memberNum, PT_TICKET, -result);
+                                changeTrainerOfMember(memberNum, trainerNum);
+                            } else if (inputPtTicket > currentPtTicket) {
+                                setRemain(memberNum, PT_TICKET, result);
+                                changeTrainerOfMember(memberNum, trainerNum);
                             }
                         }
                     }
                 }
+            }
 
-                // 운동복 기간 업데이트
-                if (!isSameClothesPeriod()) {
-                    System.out.println("운동복 기간 변경");
-                    int inputClothesPeriod = Integer.parseInt(clothesSpinner.getValue().toString().trim());
+            // 운동복 기간 업데이트
+            if (!isSameClothesPeriod()) {
+                System.out.println("운동복 기간 변경");
+                int inputClothesPeriod = Integer.parseInt(clothesSpinner.getValue().toString().trim());
 
-                    if (isFirstPurchase(memberNum, CLOTHES)) {
-                        purchaseRepository.setFirstClothes(memberNum, inputClothesPeriod);
-                    } else {
-                        int result = Math.abs(currentClothedPeriod - inputClothesPeriod);
+                if (isFirstPurchase(memberNum, CLOTHES)) {
+                    purchaseRepository.setFirstClothes(memberNum, inputClothesPeriod);
+                } else {
+                    int result = Math.abs(currentClothedPeriod - inputClothesPeriod);
 
-                        if (currentClothedPeriod > inputClothesPeriod) {
-                            setRemain(memberNum, CLOTHES, -result);
-                        } else if (inputClothesPeriod > currentClothedPeriod) {
-                            setRemain(memberNum, CLOTHES, result);
-                        }
+                    if (currentClothedPeriod > inputClothesPeriod) {
+                        setRemain(memberNum, CLOTHES, -result);
+                    } else if (inputClothesPeriod > currentClothedPeriod) {
+                        setRemain(memberNum, CLOTHES, result);
+                    }
+                }
+            }
+
+            // 사물함 번호 또는 사물함 기간 업데이트
+            if (!isSameLockerNum() || !isSameLockerPeriod()) {
+                System.out.println("사물함 번호 또는 사물함 기간 변경");
+                int inputLockerNum = Integer.parseInt(lockerNumField.getText());
+                int inputLockerPeriod = Integer.parseInt(lockerSpinner.getValue().toString().trim());
+
+                // 사물함 번호 변경, 사물함 기간 동일
+                if (!isSameLockerNum() && isSameLockerPeriod()) {
+                    System.out.println("사물함 번호 변경");
+
+                    if (inputLockerPeriod == 0) {
+                        showAlertUpdateMemberFail("emptyLockerPeriod");
+                        return;
+                    }
+
+                    if (inputLockerNum == 0) {
+                        showAlertUpdateMemberFail("emptyLockerNum");
+                        movePageCenter(event, "/view/admin/memberDetail");
+                        return;
+                    }
+
+                    if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
+                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerNum > 200) {
+                        showAlertUpdateMemberFail("maxLockerNum");
+                        return;
+                    }
+                    setLockerNum(memberNum, inputLockerNum);
+                }
+
+                // 사물함 기간 변경, 사물함 번호 동일
+                if (!isSameLockerPeriod() && isSameLockerNum()) {
+                    System.out.println("사물함 기간 변경");
+
+                    if (inputLockerNum == 0) {
+                        showAlertUpdateMemberFail("emptyLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerPeriod == 0) {
+                        showAlertUpdateMemberFail("emptyLockerPeriod");
+                        movePageCenter(event, "/view/admin/memberDetail");
+                        return;
+                    }
+
+                    int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
+
+                    if (currentLockerPeriod > inputLockerPeriod) {
+                        setRemain(memberNum, LOCKER, -result);
+                    } else if (inputLockerPeriod > currentLockerPeriod) {
+                        setRemain(memberNum, LOCKER, result);
                     }
                 }
 
-                // 사물함 번호 또는 사물함 기간 업데이트
-                if (!isSameLockerNum() || !isSameLockerPeriod()) {
-                    System.out.println("사물함 번호 또는 사물함 기간 변경");
-                    int inputLockerNum = Integer.parseInt(lockerNumField.getText());
-                    int inputLockerPeriod = Integer.parseInt(lockerSpinner.getValue().toString().trim());
+                // 사물함 번호, 사물함 기간 모두 변경
+                if (!isSameLockerPeriod() && !isSameLockerNum()) {
+                    System.out.println("사물함 번호, 사물함 기간 모두 변경");
 
-                    // 사물함 번호 변경, 사물함 기간 동일
-                    if (!isSameLockerNum() && isSameLockerPeriod()) {
-                        System.out.println("사물함 번호 변경");
-
-                        if (inputLockerPeriod == 0) {
-                            showAlertUpdateMemberFail("emptyLockerPeriod");
-                            return;
-                        }
-
-                        if (inputLockerNum == 0) {
-                            showAlertUpdateMemberFail("emptyLockerNum");
-                            movePageCenter(event, "/view/admin/memberDetail");
-                            return;
-                        }
-
-                        if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
-                            showAlertUpdateMemberFail("isUsingLockerNum");
-                            return;
-                        }
-
-                        if (inputLockerNum > 200) {
-                            showAlertUpdateMemberFail("maxLockerNum");
-                            return;
-                        }
-                        setLockerNum(memberNum, inputLockerNum);
+                    if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
+                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        return;
                     }
 
-                    // 사물함 기간 변경, 사물함 번호 동일
-                    if (!isSameLockerPeriod() && isSameLockerNum()) {
-                        System.out.println("사물함 기간 변경");
-
-                        if (inputLockerNum == 0) {
-                            showAlertUpdateMemberFail("emptyLockerNum");
-                            return;
-                        }
-
-                        if (inputLockerPeriod == 0) {
-                            showAlertUpdateMemberFail("emptyLockerPeriod");
-                            movePageCenter(event, "/view/admin/memberDetail");
-                            return;
-                        }
-
-                        int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
-
-                        if (currentLockerPeriod > inputLockerPeriod) {
-                            setRemain(memberNum, LOCKER, -result);
-                        } else if (inputLockerPeriod > currentLockerPeriod) {
-                            setRemain(memberNum, LOCKER, result);
-                        }
+                    if (inputLockerNum > 200) {
+                        showAlertUpdateMemberFail("maxLockerNum");
+                        return;
                     }
 
-                    // 사물함 번호, 사물함 기간 모두 변경
-                    if (!isSameLockerPeriod() && !isSameLockerNum()) {
-                        System.out.println("사물함 번호, 사물함 기간 모두 변경");
-
-                        if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
-                            showAlertUpdateMemberFail("isUsingLockerNum");
-                            return;
-                        }
-
-                        if (inputLockerNum > 200) {
-                            showAlertUpdateMemberFail("maxLockerNum");
-                            return;
-                        }
-
-                        if (inputLockerNum == 0 && inputLockerPeriod == 0) {
-                            purchaseRepository.deleteLocker(memberNum);
+                    if (inputLockerNum == 0 && inputLockerPeriod == 0) {
+                        purchaseRepository.deleteLocker(memberNum);
+                    } else {
+                        if (isFirstPurchase(memberNum, LOCKER)) {
+                            purchaseRepository.setFirstLocker(memberNum, inputLockerNum, inputLockerPeriod);
                         } else {
-                            if (isFirstPurchase(memberNum, LOCKER)) {
-                                purchaseRepository.setFirstLocker(memberNum, inputLockerNum, inputLockerPeriod);
-                            } else {
-                                setLockerNum(memberNum, inputLockerNum);
-                                int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
+                            setLockerNum(memberNum, inputLockerNum);
+                            int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
 
-                                if (currentLockerPeriod > inputLockerPeriod) {
-                                    setRemain(memberNum, LOCKER, -result);
-                                } else if (inputLockerPeriod > currentLockerPeriod) {
-                                    setRemain(memberNum, LOCKER, result);
-                                }
+                            if (currentLockerPeriod > inputLockerPeriod) {
+                                setRemain(memberNum, LOCKER, -result);
+                            } else if (inputLockerPeriod > currentLockerPeriod) {
+                                setRemain(memberNum, LOCKER, result);
                             }
                         }
                     }

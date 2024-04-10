@@ -76,6 +76,14 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
+    public static void showAlertUpdateTrainerFail(String messageCode) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messages.getString("updateTrainerFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(messages.getString(messageCode));
+        alert.showAndWait();
+    }
+
     public static void showAlertAndMove(String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
         Alert alert = new Alert(type);
         alert.setTitle("알림");

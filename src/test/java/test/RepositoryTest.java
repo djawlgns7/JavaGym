@@ -2,20 +2,19 @@ package test;
 
 import domain.Admin;
 import domain.Gender;
+import domain.Item;
 import domain.member.Member;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
 import org.junit.jupiter.api.Test;
-import repository.AdminRepository;
-import repository.MemberRepository;
-import repository.ReservationRepository;
-import repository.TrainerRepository;
+import repository.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static util.MemberUtil.*;
 
 public class RepositoryTest {
 
@@ -23,6 +22,7 @@ public class RepositoryTest {
     public static AdminRepository adminRepository = new AdminRepository();
     public static TrainerRepository trainerRepository = new TrainerRepository();
     public static ReservationRepository reservationRepository = new ReservationRepository();
+    public static PurchaseRepository purchaseRepository = new PurchaseRepository();
 
     @Test
     void findMemberById() {
@@ -81,5 +81,27 @@ public class RepositoryTest {
     @Test
     void saveTrainer() {
         Trainer trainer = new Trainer();
+    }
+
+    // 1065
+    @Test
+    void test() {
+        Integer trainerNumForMember = getTrainerNumForMember(1065);
+        System.out.println("trainerNumForMember = " + trainerNumForMember);
+
+        Integer lockerNum = getLockerNum(1065);
+        System.out.println("lockerNum = " + lockerNum);
+    }
+
+    @Test
+    void test2() {
+        Integer remain = getRemain(1001, Item.LOCKER);
+        System.out.println("remain = " + remain);
+    }
+
+    @Test
+    void test3() {
+        boolean result = purchaseRepository.isUsingLockerNum(135);
+        assertThat(result).isFalse();
     }
 }
