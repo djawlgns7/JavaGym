@@ -155,11 +155,12 @@ public class ControllerUtil {
                 String.format("%02d:00", cellData.getValue().getReservationTime())));
     }
 
-    public static void loadReservationData(TableView<TrainerSchedule> scheduleTable) {
+    public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
         int trainerNum = TrainerService.currentTrainerNum;
         ReservationRepository reservationRepository = new ReservationRepository();
         List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
         scheduleTable.setItems(FXCollections.observableArrayList(schedules));
 
+        return trainerNum;
     }
 }

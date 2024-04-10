@@ -1,5 +1,7 @@
 package controller.trainer;
 
+import domain.member.Member;
+import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
 
 import javafx.event.ActionEvent;
@@ -7,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import repository.AdminRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -30,24 +33,17 @@ import static util.ValidateUtil.isEmptyAnyField;
 public class ReservationInfoController implements Initializable {
 
     private final ResourceBundle config = ResourceBundle.getBundle("config.init");
-    private final ReservationRepository reservationRepository = new ReservationRepository();
+    private MemberRepository memberRepository = new MemberRepository();
     private final TrainerRepository trainerRepository = new TrainerRepository();
-    private final TrainerService service = new TrainerService(trainerRepository);
-
-    private final MemberRepository memberRepository = new MemberRepository();
-
-    @FXML
-    private TextField nameField;
 
     @FXML
     private TableView<TrainerSchedule> scheduleTable;
 
     @FXML
-    private TableColumn<TrainerSchedule, String>  memberNameColumn, dateColumn, timeColumn;
+    private TableColumn<TrainerSchedule, String> memberNameColumn, dateColumn, timeColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
-        columnBindingReservation(memberNameColumn, dateColumn, timeColumn);
         loadReservationData(scheduleTable);
 
         scheduleTable.setRowFactory(tv -> {
@@ -63,27 +59,11 @@ public class ReservationInfoController implements Initializable {
             return row;
         });
     }
-/*
+
     @FXML
-    private void addSchedule(ActionEvent event) throws IOException, ParseException {
-        if (isEmptyAnyField(nameField)) {
-            showAlertAddScheduleFail("emptyAnyField");
-            return;
-        }
-
-        String name = nameField.getText().trim();
-
-        if(addSchedueValidate(name)) return;
-
-        TrainerSchedule trainerSchedule = new TrainerSchedule();
-        trainerSchedule.setSequence(trainerSchedule.getSequence());
-        trainerSchedule.setMemberName(nameField.getText().trim());
-        trainerSchedule.setReservationDate(stringToDate(String.valueOf(trainerSchedule.getReservationDate())));
-        trainerSchedule.setReservationTime(trainerSchedule.getReservationTime());
-
-        service.addSchedule(trainerSchedule);
-        showAlertAndMove("알림", "예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
-    }*/
+    private void addReservation(ActionEvent event) {
+        // 예약 추가 로직 구현
+    }
 
     @FXML
     private void trainerScheduleDetail(TrainerSchedule trainerSchedule, MouseEvent event) throws IOException {
@@ -91,7 +71,10 @@ public class ReservationInfoController implements Initializable {
             movePageCenter(event, "/view/trainer/reservationDetail");
         }
     }
-
+    private int getLoggedInTrainerId() {
+        // 로그인한 트레이너의 ID를 반환하는 로직 구현
+        return 0; // 임시 반환값
+    }
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         movePageCenter(event, "view/trainer/helloTrainer");
