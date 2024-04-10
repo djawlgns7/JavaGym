@@ -19,8 +19,9 @@ public class JavaGymApplication extends Application {
         // 폰트 로드
         Font.loadFont(getClass().getResourceAsStream("/fonts/Anton-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/admin/memberInfo.fxml"));
         stage.setScene(new Scene(loginRoot));
         stage.setTitle("JavaGym");
         stage.show();

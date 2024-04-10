@@ -8,16 +8,19 @@ SplitPane {
 }
 
 /* Title */
-.memberInfo_title_1, .memberInfo_title_2 {
+.memberDetail_title_1, .memberDetail_title_2 {
     -fx-font-size: 36;
     -fx-font-family: "Jua";
 }
 
 /* TextField */
-.memberInfo_nameInput, .memberInfo_phoneInput, .memberInfo_emailInput, .memberInfo_birthInput {
+.memberDetail_nameInput, .memberDetail_phoneInput, .memberDetail_emailInput,
+.memberDetail_birthPicker, .memberDetail_GymTicketSpinner, .memberDetail_PTTicketSpinner,
+.memberDetail_myTrainerComboBox, .memberDetail_clothesSpinner, .memberDetail_lockerNumInput,
+.memberDetail_lockerSpinner {
     -fx-font-family: "NanumGothic";
-    -fx-pref-width: 250;
-    -fx-pref-height: 50;
+    -fx-pref-width: 200;
+    -fx-pref-height: 30;
     -fx-font-size: 16;
     -fx-background-color: #F4F5F7;
     -fx-border-color: transparent;
@@ -26,96 +29,114 @@ SplitPane {
     -fx-prompt-text-fill: #999999;
 }
 
-/* Button */
-.memberInfo_Btn {
+/* Label */
+.memberDetail_nameLabel, .memberDetail_phoneLabel, .memberDetail_emailLabel,
+.memberDetail_birthLabel, .memberDetail_GymTicketLabel, .memberDetail_PTTicketLabel,
+.memberDetail_myTrainerLabel, .memberDetail_clothesLabel, .memberDetail_lockerNumLabel,
+.memberDetail_lockerLabel {
     -fx-font-family: "Jua";
-    -fx-spacing: 50;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
 }
 
-.memberInfo_addMemberBtn {
+/* Button */
+.memberDetail_Btn {
+    -fx-font-family: "Jua";
+    -fx-spacing: 20;
+}
+
+.memberDetail_Btn2 {
+    -fx-font-family: "Jua";
+    -fx-padding: 10 20 0 0;
+}
+
+.memberDetail_updateMemberBtn, .memberDetail_deleteMemberBtn, .memberDetail_entryLogBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
-    -fx-pref-height: 50;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
 }
 
-.memberInfo_goBackBtn {
+.memberDetail_goBackBtn, .memberDetail_CancelBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
-    -fx-pref-height: 50;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
 }
 
-.memberInfo_addMemberBtn:hover, .memberInfo_goBackBtn:hover {
+.memberDetail_updateMemberBtn:hover, .memberDetail_deleteMemberBtn:hover,
+.memberDetail_entryLogBtn:hover, .memberDetail_goBackBtn:hover, .memberDetail_CancelBtn:hover {
     -fx-background-color: #EA8ABE;
 }
 
-.memberInfo_addMemberBtn:pressed, .memberInfo_goBackBtn:pressed {
+.memberDetail_updateMemberBtn:pressed, .memberDetail_deleteMemberBtn:pressed,
+.memberDetail_entryLogBtn:pressed, .memberDetail_goBackBtn:pressed, .memberDetail_CancelBtn:pressed {
     -fx-background-color: #EA8ABE;
 }
 
 /* Radio Button */
-.memberInfo_sex_radioBtn_title {
+.memberDetail_sex_radioBtn_title {
     -fx-font-family: "Jua";
-    -fx-font-size: 24;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
 }
 
-.memberInfo_sex_radioBtn_1, .memberInfo_sex_radioBtn_2 {
+.memberDetail_sex_radioBtn_1 {
     -fx-font-family: "NanumGothic";
-    -fx-font-size: 24;
+    -fx-padding: 0 0 0 30;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.memberDetail_sex_radioBtn_2 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 30 0 0;
+    -fx-font-size: 16;
     -fx-font-weight: bold;
 }
 
 /* Table */
-.memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
-.memberInfo_emailColumn, .memberInfo_birthColumn, .memberInfo_phoneColumn,
-.memberInfo_enrollColumn {
+.memberDetail_selectColumn, .memberDetail_ptCountColumn, .memberDetail_ptNumColumn,
+.memberDetail_ptDateColumn, .memberDetail_ptTimeColumn, .memberDetail_trainerNumColumn,
+.memberDetail_trainerNameColumn {
     -fx-font-family: "Jua";
 }
 
-.memberInfo_numColumn, .memberInfo_nameColumn {
-    -fx-pref-width: 80;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
-    -fx-font-size: 14;
-}
-
-.memberInfo_genderColumn {
+.memberDetail_selectColumn, .memberDetail_ptCountColumn {
     -fx-pref-width: 60;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.memberInfo_emailColumn {
-    -fx-pref-width: 150;
+.memberDetail_ptNumColumn, .memberDetail_ptTimeColumn {
+    -fx-pref-width: 90;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.memberInfo_birthColumn {
-    -fx-pref-width: 100;
+.memberDetail_ptDateColumn {
+    -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.memberInfo_phoneColumn {
-    -fx-pref-width: 130;
+.memberDetail_trainerNumColumn {
+    -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.memberInfo_enrollColumn {
+.memberDetail_trainerNameColumn {
     -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
@@ -137,7 +158,7 @@ SplitPane {
 
 /* 헤더의 테두리 변경 */
 .table-view .column-header, .table-view .filler {
-    -fx-border-color: transparent transparent #9747FF transparent;
+    -fx-border-color: #9747FF;
     -fx-border-width: 0 0 2 0;
 }
 
@@ -166,4 +187,3 @@ SplitPane {
 .table-view .column-header:descending .arrow-button .arrow {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
-

@@ -47,7 +47,9 @@ public class TrainerDetailController implements Initializable {
     @FXML
     private TableColumn<TrainerSchedule, String> countColumn, memberNameColumn, dateColumn, timeColumn;
 
+    @FXML
     private final ToggleGroup genderRadio = new ToggleGroup();
+    @FXML
     private final ToggleGroup workTimeRadio = new ToggleGroup();
 
     private final ReservationRepository reservationRepository = new ReservationRepository();

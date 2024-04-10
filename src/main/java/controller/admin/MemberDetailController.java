@@ -14,10 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import repository.*;
-import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -214,15 +212,19 @@ public class MemberDetailController implements Initializable {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle(currentMember.getName() + "님 출입 일지");
 
-        ButtonType closeButtonType = new ButtonType("닫기");
+        ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        closeButton.getStyleClass().add("closeBtn");
 
         TableView<EntryLog> table = new TableView<>();
+        table.getStyleClass().add("tableView");
         loadEntryLog(currentMember.getNum(), table, entryLogRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(vbox);
+        dialogPane.getStylesheets().add(getClass().getResource("/css/Entrylog.css").toExternalForm());
 
         dialog.showAndWait();
     }

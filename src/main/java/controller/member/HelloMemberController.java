@@ -21,7 +21,6 @@ public class HelloMemberController implements Initializable {
     private ImageView profileImage;
 
     // 이미지 추가
-
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
 
