@@ -1,7 +1,6 @@
 package service;
 
 import domain.member.Member;
-import domain.member.SelectedMember;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -9,9 +8,11 @@ import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
+import util.PageUtil;
 
 import java.io.IOException;
 
+import static domain.member.SelectedMember.*;
 import static util.AlertUtil.showAlertAndMove;
 import static util.AlertUtil.showAlertLoginFail;
 import static util.ValidateUtil.isWrongLengthPhone;
@@ -57,8 +58,8 @@ public class MemberService {
         Member findMember = repository.findByPhone(phone);
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
-            SelectedMember.currentMember = findMember;
-            showAlertAndMove("로그인 성공", findMember.getName() + "님 환영합니다^^", Alert.AlertType.INFORMATION, "/view/member/helloMember", event);
+            currentMember = findMember;
+            PageUtil.movePage(event, "/view/member/helloMember");
         } else {
             showAlertLoginFail("wrongPw");
 
@@ -67,7 +68,7 @@ public class MemberService {
         }
     }
 
-    public void entry(TextField phoneField, PasswordField passwordField, ActionEvent event) throws IOException {
+    public void immediateEntry(TextField phoneField, PasswordField passwordField, ActionEvent event) throws IOException {
         String phone = phoneField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -94,7 +95,7 @@ public class MemberService {
         Member findMember = repository.findByPhone(phone);
         if (BCrypt.checkpw(password, findMember.getPassword())) {
             entryLogRepository.save(findMember.getNum());
-            showAlertAndMove("알림", findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         } else {
             showAlertLoginFail("wrongPw");
             passwordField.setText("");

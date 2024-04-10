@@ -2,11 +2,13 @@ package util;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +20,9 @@ public class AlertUtil {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("message.error");
 
-    public static void showAlert(String title, String message, Alert.AlertType type) {
+    public static void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
-        alert.setTitle(title);
+        alert.setTitle("알림");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -66,9 +68,17 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
-    public static void showAlertAndMove(String title, String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
+    public static void showAlertUpdateMemberFail(String messageCode) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messages.getString("updateMemberFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(messages.getString(messageCode));
+        alert.showAndWait();
+    }
+
+    public static void showAlertAndMove(String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
         Alert alert = new Alert(type);
-        alert.setTitle(title);
+        alert.setTitle("알림");
         alert.setHeaderText(null);
         alert.setContentText(message);
 
@@ -80,6 +90,29 @@ public class AlertUtil {
             Scene newScene = new Scene(newRoot);
             Stage newStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             newStage.setScene(newScene);
+            newStage.show();
+        }
+    }
+
+    public static void showAlertAndMoveCenter(String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
+        Alert alert = new Alert(type);
+        alert.setTitle("알림");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
+            Parent newRoot = FXMLLoader.load(url);
+            Scene newScene = new Scene(newRoot);
+            Stage newStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            newStage.setScene(newScene);
+
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+            newStage.setX((screenBounds.getWidth() - newStage.getWidth()) / 2);
+            newStage.setY((screenBounds.getHeight() - newStage.getHeight()) / 2);
             newStage.show();
         }
     }

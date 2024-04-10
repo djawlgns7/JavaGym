@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
@@ -45,6 +46,40 @@ public class TrainerInfoController implements Initializable {
     @FXML
     private TableColumn<Trainer, String> numCol, nameCol, idCol, genderCol, workTimeCol, birthCol, phoneCol;
 
+    @FXML
+    private void addTrainer(ActionEvent event) throws IOException, ParseException {
+        if (isEmptyAnyField(nameField, idField, birthField, phoneField, maleButton, femaleButton, amButton, pmButton, heightField, weightField)) {
+            showAlertAddTrainerFail("emptyAnyField");
+            return;
+        }
+
+        String name = nameField.getText().trim();
+        String phone = phoneField.getText().trim();
+        String birth = birthField.getText().trim();
+        String id = idField.getText().trim();
+
+        if (addTrainerValidate(name, phone, id, birth)) return;
+
+        Trainer trainer = new Trainer();
+        trainer.setName(name);
+        trainer.setId(id);
+        trainer.setPassword(BCrypt.hashpw(config.getString("initial.trainer.password"), BCrypt.gensalt()));
+        trainer.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+        trainer.setBirthDate(stringToDate(birth));
+        trainer.setPhone(phone);
+        trainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
+        trainer.setHeight(Double.valueOf(heightField.getText()));
+        trainer.setWeight(Double.valueOf(weightField.getText()));
+
+        service.addTrainer(trainer);
+        showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/helloAdmin");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         columnBindingTrainer(numCol, nameCol, idCol, genderCol, workTimeCol, birthCol, phoneCol);
@@ -62,34 +97,39 @@ public class TrainerInfoController implements Initializable {
             });
             return row;
         });
-    }
 
-    @FXML
-    private void addTrainer(ActionEvent event) throws IOException, ParseException {
-        if (isEmptyAnyField(nameField, idField, birthField, phoneField, maleButton, femaleButton, amButton, pmButton, heightField, weightField)) {
-            showAlertAddTrainerFail("emptyAnyField");
-            return;
-        }
 
-        String phone = phoneField.getText().trim();
-        String birth = birthField.getText().trim();
-        String id = idField.getText().trim();
+        TextFormatter<String> birthFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d{0,6}")) {
+                return change;
+            }
+            return null;
+        });
 
-        if (addTrainerValidate(phone, id, birth)) return;
+        TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d{0,8}")) {
+                return change;
+            }
+            return null;
+        });
 
-        Trainer trainer = new Trainer();
-        trainer.setName(nameField.getText().trim());
-        trainer.setId(id);
-        trainer.setPassword(BCrypt.hashpw(config.getString("initial.trainer.password"), BCrypt.gensalt()));
-        trainer.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
-        trainer.setBirthDate(stringToDate(birth));
-        trainer.setPhone(phone);
-        trainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
-        trainer.setHeight(Double.valueOf(heightField.getText()));
-        trainer.setWeight(Double.valueOf(weightField.getText()));
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("^\\d*\\.?\\d*$")) {
+                return change;
+            }
+            return null;
+        };
 
-        service.addTrainer(trainer);
-        showAlertAndMove("알림", "트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+        TextFormatter<String> heightFormatter = new TextFormatter<>(filter);
+        TextFormatter<String> weightFormatter = new TextFormatter<>(filter);
+
+        heightField.setTextFormatter(heightFormatter);
+        weightField.setTextFormatter(weightFormatter);
+        birthField.setTextFormatter(birthFormatter);
+        phoneField.setTextFormatter(phoneFormatter);
     }
 
     @FXML
@@ -98,10 +138,5 @@ public class TrainerInfoController implements Initializable {
             currentTrainer = trainer;
             movePageCenter(event, "/view/admin/trainerDetail");
         }
-    }
-
-    @FXML
-    private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/admin/helloAdmin");
     }
 }
