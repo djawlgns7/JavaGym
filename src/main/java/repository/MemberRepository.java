@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -272,7 +271,7 @@ public class MemberRepository {
     }
 
 
-    public int getAge(Member member) throws ParseException {
+    public int getAge(Member member) {
         LocalDate today = LocalDate.now();
         String birthString = dateToString(member.getBirthDate());
         int birthYear = Integer.parseInt(birthString.substring(0, 2));
@@ -281,7 +280,7 @@ public class MemberRepository {
         int todayYear = today.getYear();
         int todayDay = today.getDayOfYear();
 
-        if(birthYear > 50){
+        if (birthYear > 50){
             birthYear += 1900;
         }else{
             birthYear += 2000;
@@ -291,10 +290,9 @@ public class MemberRepository {
         birthDay = birth.getDayOfYear();
         int age = todayYear - birthYear - 1;
 
-        if(todayDay >= birthDay){
+        if (todayDay >= birthDay) {
             age++;
         }
-
         return age;
     }
 }

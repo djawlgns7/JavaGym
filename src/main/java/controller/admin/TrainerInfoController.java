@@ -7,12 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.TrainerRepository;
 import service.AdminService;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -38,6 +42,10 @@ public class TrainerInfoController implements Initializable {
     private TextField nameField, idField, phoneField, birthField, heightField, weightField;
 
     @FXML
+    private ImageView imageView;
+    private String selectedImagePath;
+
+    @FXML
     private RadioButton maleButton, femaleButton, amButton, pmButton;
 
     @FXML
@@ -57,8 +65,10 @@ public class TrainerInfoController implements Initializable {
         String phone = phoneField.getText().trim();
         String birth = birthField.getText().trim();
         String id = idField.getText().trim();
+        Double height = Double.valueOf(heightField.getText());
+        Double weight = Double.valueOf(weightField.getText());
 
-        if (addTrainerValidate(name, phone, id, birth)) return;
+        if (addTrainerValidate(name, phone, id, birth, height, weight)) return;
 
         Trainer trainer = new Trainer();
         trainer.setName(name);
@@ -68,10 +78,16 @@ public class TrainerInfoController implements Initializable {
         trainer.setBirthDate(stringToDate(birth));
         trainer.setPhone(phone);
         trainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
-        trainer.setHeight(Double.valueOf(heightField.getText()));
-        trainer.setWeight(Double.valueOf(weightField.getText()));
+        trainer.setHeight(height);
+        trainer.setWeight(weight);
 
         service.addTrainer(trainer);
+
+        if (selectedImagePath != null && !selectedImagePath.isEmpty()) {
+            File photoFile = new File(selectedImagePath);
+            Trainer findTrainer = trainerRepository.findByName(trainer.getName());
+            trainerRepository.savePhoto(findTrainer.getNum(), photoFile);
+        }
         showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
     }
 
@@ -137,6 +153,24 @@ public class TrainerInfoController implements Initializable {
         if (trainer != null && event.getClickCount() == 2) {
             currentTrainer = trainer;
             movePageCenter(event, "/view/admin/trainerDetail");
+        }
+    }
+
+    @FXML
+    private void selectPhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("이미지 파일", "*.png", "*.jpg", "*.gif", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            selectedImagePath = selectedFile.getAbsolutePath();
+            Image image = new Image(selectedFile.toURI().toString());
+            imageView.setImage(image);
         }
     }
 }
