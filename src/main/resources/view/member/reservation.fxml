@@ -1,25 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="800" prefWidth="550"
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/Reservation.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
 
     <VBox alignment="CENTER" prefHeight="650" prefWidth="550" spacing="50.0">
-        <TextField fx:id="memberNo" promptText="멤버 번호 입력"/>
-        <TextField fx:id="trainerNo" promptText="트레이너 번호 입력"/>
-        <DatePicker fx:id="datePicker" />
-
-        <Button text="트레이너와 날짜 선택" onAction="#makeReservations" />
-
-        <HBox spacing="10" alignment="CENTER">
-            <ComboBox fx:id="timeComboBox" promptText="예약 가능한 시간대" />
-            <Button text="예약하기" onAction="#saveReservation"/>
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 10 0 0" spacing="10">
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#goBack" text="메인 페이지" />
         </HBox>
+<!--        &lt;!&ndash; 자바짐 텍스트와 폰트 설정 &ndash;&gt;-->
+<!--        <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label" layoutX="50" layoutY="50">-->
+<!--            <font><Font name="Anton-Regular" /></font>-->
+<!--        </Label>-->
+<!--        <HBox alignment="CENTER" fx:id="trainerView" prefHeight="176.0" prefWidth="500.0" style="-fx-background-color: green;">-->
+<!--            <children>-->
+<!--                <ImageView fx:id="imageView" fitHeight="73.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />-->
+<!--                <VBox alignment="CENTER" prefHeight="94.0" prefWidth="250.0">-->
+<!--                    <children>-->
+<!--                        <Label style="-fx-label-padding: 10;" fx:id="trainerName" text="노승빈 트레이너">-->
+<!--                            <font>-->
+<!--                                <Font size="18.0" />-->
+<!--                            </font>-->
+<!--                        </Label>-->
+<!--                        <Label style="-fx-label-padding: 10;" fx:id="trainerInfo" text="181cm | 82kg | 26세">-->
+<!--                            <font>-->
+<!--                                <Font size="18.0" />-->
+<!--                            </font>-->
+<!--                        </Label>-->
+<!--                        <Label style="-fx-label-padding: 10;" fx:id="PTTicketRemain" text="181cm | 82kg | 26세">-->
+<!--                            <font>-->
+<!--                                <Font size="18.0" />-->
+<!--                            </font>-->
+<!--                        </Label>-->
+<!--                    </children>-->
+<!--                </VBox>-->
+<!--            </children>-->
+<!--        </HBox>-->
+        <Label fx:id="calendarHead" styleClass="calenderHead"></Label>
+        <VBox fx:id="calender">
+            <HBox alignment="CENTER" prefWidth="400">
+                <Label styleClass="sundayLabel">일</Label>
+                <Label>월</Label>
+                <Label>화</Label>
+                <Label>수</Label>
+                <Label>목</Label>
+                <Label>금</Label>
+                <Label styleClass="saturdayLabel">토</Label>
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week1" prefWidth="400">
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week2" prefWidth="400">
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week3" prefWidth="400">
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week4" prefWidth="400">
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week5" prefWidth="400">
+            </HBox>
+            <HBox alignment="CENTER" fx:id="week6" prefWidth="400">
+            </HBox>
+        </VBox>
+        <HBox alignment="CENTER" fx:id="timeArea">
+        </HBox>
+        <Button text="예약하기" onAction="#saveReservation"/>
     </VBox>
 
 </AnchorPane>

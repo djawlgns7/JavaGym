@@ -19,13 +19,14 @@ public class TrainerUtil {
 
     // 트레이너와 기간을 입력하면, 오늘부터 입력한 기간 동안의 트레이너의 예약 가능 날자를 List<Boolean>[] 배열에 담아서 반환한다
     public static List<Boolean>[] getTrainerSchedule(Trainer trainer, int period){
-        String sql = "select r_time, (r_date - current_date()) as DDay from reservation where r_date > current_date() and t_no = ? order by dday";
+        String sql = "select r_time, datediff(r_date, current_date()) as DDay from reservation where r_date > current_date() " +
+                "and t_no = ? and datediff(r_date, current_date()) <= ? order by dday";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        List<Boolean>[] reservationAvailableDays = new List[period];
+        List<Boolean>[] reservationAvailableDays = new List[period + 1];
         int trainerNum = trainer.getNum();
 
         for(int i = 0; i < reservationAvailableDays.length; i++){
@@ -40,11 +41,13 @@ public class TrainerUtil {
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, trainerNum);
+            pstmt.setInt(2, period);
+
+            int subber = trainerRepository.getWorkingHourAdder(trainer);
 
             rs = pstmt.executeQuery();
 
             while(rs.next()){
-                int subber = trainerRepository.getWorkingHourAdder(trainer);
                 int DDay = rs.getInt("DDay");
                 int time = rs.getInt("r_time") - subber;
 

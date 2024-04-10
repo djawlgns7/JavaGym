@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static domain.member.SelectedMember.currentMember;
+import static util.AlertUtil.showAlertChoose;
+import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
 
 public class HelloMemberController implements Initializable {
@@ -25,10 +28,19 @@ public class HelloMemberController implements Initializable {
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
 
-
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         movePage(event, "/view/member/memberLogin");
+    }
+
+    @FXML
+    private void reservation(ActionEvent event) throws IOException{
+        int trainerNum = getTrainerNumForMember(currentMember.getNum());
+        if(trainerNum == 0){
+            showAlertChoose("배정된 트레이너가 존재하지 않습니다.");
+        }else {
+            movePage(event, "/view/member/reservation");
+        }
     }
 
     @FXML

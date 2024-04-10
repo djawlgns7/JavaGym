@@ -76,7 +76,7 @@ public class TrainerRepository {
         }
     }
 
-    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
+    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환. 사진이 없은 경우 기본 사진을 반환
     public Image getImage(int trainerNo){
         String sql = "select t_photo from trainer where t_no = ?";
 
@@ -94,9 +94,14 @@ public class TrainerRepository {
                 byte[] photoBytes;
 
                 photoBytes = rs.getBytes("t_photo");
+                Image trainerPhoto;
 
-                InputStream inputStream = new ByteArrayInputStream(photoBytes);
-                Image trainerPhoto = new Image(inputStream);
+                if(photoBytes == null){
+                    trainerPhoto = new Image("/image/goTrainer.jpg");
+                }else {
+                    InputStream inputStream = new ByteArrayInputStream(photoBytes);
+                    trainerPhoto = new Image(inputStream);
+                }
 
                 return trainerPhoto;
 
