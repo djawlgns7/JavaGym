@@ -49,7 +49,7 @@
         </VBox>
 
         <!-- 회원 목록 영역 -->
-        <VBox fx:id="listArea" spacing="10" alignment="CENTER" stylesheets="/css/common.css">
+        <VBox fx:id="listArea" spacing="10" alignment="CENTER">
             <Label text="회원 정보" styleClass="memberInfo_title_2"/>
 
             <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">

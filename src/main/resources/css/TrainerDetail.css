@@ -44,12 +44,22 @@ SplitPane {
 }
 
 /* Button */
-.trainerDetail_ImageBtn {
+.trainerDetail_updateImageBtn {
     -fx-font-family: "Jua";
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 12;
     -fx-pref-width: 70;
+    -fx-pref-height: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+.trainerDetail_resetImageBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 120;
     -fx-pref-height: 20;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
@@ -80,12 +90,12 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
-.trainerDetail_ImageBtn:hover, .trainerDetail_updateTrainerBtn:hover,
+.trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover .trainerDetail_updateTrainerBtn:hover,
 .trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover {
     -fx-background-color: #EA8ABE;
 }
 
-.trainerDetail_ImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
+.trainerDetail_updateImageBtn:pressed, .trainerDetail_resetImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
 .trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed {
     -fx-background-color: #EA8ABE;
 }

@@ -68,8 +68,14 @@
             </HBox>
         </VBox>
 
-        <VBox fx:id="listArea" spacing="40" alignment="CENTER">
+        <VBox fx:id="listArea" spacing="10" alignment="CENTER">
             <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
+                <TextField fx:id="searchNameField" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
+                <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
+            </HBox>
+
             <TableView fx:id="trainerTable" prefHeight="550.0">
                 <columns>
                     <TableColumn text="번호" fx:id="numCol"  styleClass="trainerInfo_numColumn"/>
@@ -86,6 +92,5 @@
                 <Button text="새로고침" onAction="#resetPage" styleClass="trainerInfo_refreshBtn"/>
             </HBox>
         </VBox>
-
     </items>
 </SplitPane>

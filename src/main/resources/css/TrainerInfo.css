@@ -95,6 +95,41 @@ SplitPane {
 }
 
 /* Table */
+.trainerInfo_searchBox {
+    -fx-padding: 0 15 10 0;
+}
+
+.trainerInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.trainerInfo_searchBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_searchBtn:hover {
+    -fx-background-color: #EA8ABE;
+}
+
+.trainerInfo_searchBtn:pressed {
+    -fx-background-color: #EA8ABE;
+}
+
 .trainerInfo_numColumn, .trainerInfo_nameColumn, .trainerInfo_idColumn,
 .trainerInfo_genderColumn, .trainerInfo_birthColumn, .trainerInfo_workTimeColumn,
 .trainerInfo_phoneColumn {

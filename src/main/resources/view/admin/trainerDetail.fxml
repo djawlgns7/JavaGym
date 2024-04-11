@@ -16,8 +16,9 @@
                     <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
                 </StackPane>
             </HBox>
-            <HBox alignment="CENTER">
-                <Button text="사진 수정" onAction="#updatePhoto" styleClass="trainerDetail_ImageBtn"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="사진 수정" onAction="#updatePhoto" styleClass="trainerDetail_updateImageBtn"/>
+                <Button text="기본 사진으로 변경" onAction="#resetPhoto" styleClass="trainerDetail_resetImageBtn"/>
             </HBox>
 
             <GridPane fx:id="trainerDetailGrid" alignment="CENTER" hgap="20" vgap="20">

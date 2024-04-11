@@ -93,7 +93,7 @@ AnchorPane {
 
 .SingUp_sex_radioBtn_1, .SingUp_sex_radioBtn_2 {
     -fx-font-family: "NanumGothic";
-    -fx-font-size: 24;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
