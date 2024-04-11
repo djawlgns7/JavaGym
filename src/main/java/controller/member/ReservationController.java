@@ -74,8 +74,6 @@ public class ReservationController implements Initializable {
 //                throw new RuntimeException(e);
 //            }
             makeCalendar();
-
-            //weeks[0].getChildren().remove(0, 7);
         }
     }
 
@@ -224,20 +222,30 @@ public class ReservationController implements Initializable {
     public void ticketPlus(){
         String currentTicketNum = ticketSelection.getText();
         currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
-        int remain = Integer.parseInt(currentTicketNum);
-        remain++;
+        int PTRemain = Integer.parseInt(currentTicketNum);
+        int memberNum = member.getNum();
+        List<Integer> remain = getRemainAll(memberNum);
+        int PTTicket = remain.get(1);
 
-        ticketSelection.setText(remain + "개");
+        PTRemain++;
+        if(0 <= PTRemain && PTRemain <= PTTicket) {
+            ticketSelection.setText(PTRemain + "개");
+        }
     }
 
     @FXML
     public void ticketMinus(){
         String currentTicketNum = ticketSelection.getText();
         currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
-        int remain = Integer.parseInt(currentTicketNum);
-        remain--;
+        int PTRemain = Integer.parseInt(currentTicketNum);
+        int memberNum = member.getNum();
+        List<Integer> remain = getRemainAll(memberNum);
+        int PTTicket = remain.get(1);
 
-        ticketSelection.setText(remain + "개");
+        PTRemain--;
+        if(0 <= PTRemain && PTRemain <= PTTicket) {
+            ticketSelection.setText(PTRemain + "개");
+        }
     }
 
     @FXML
