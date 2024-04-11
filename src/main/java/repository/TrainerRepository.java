@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,9 +94,14 @@ public class TrainerRepository {
                 byte[] photoBytes;
 
                 photoBytes = rs.getBytes("t_photo");
+                Image trainerPhoto;
 
-                InputStream inputStream = new ByteArrayInputStream(photoBytes);
-                Image trainerPhoto = new Image(inputStream);
+                if(photoBytes == null){
+                    trainerPhoto = new Image("/image/goTrainer.jpg");
+                }else {
+                    InputStream inputStream = new ByteArrayInputStream(photoBytes);
+                    trainerPhoto = new Image(inputStream);
+                }
 
                 return trainerPhoto;
 
@@ -136,7 +142,6 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
-                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
 
@@ -177,7 +182,6 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
-                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
             } else {
@@ -259,6 +263,7 @@ public class TrainerRepository {
                 trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
+
             } else {
                 return null;
             }
@@ -351,7 +356,7 @@ public class TrainerRepository {
         }
     }
 
-    public int getAge(Trainer trainer) {
+    public int getAge(Trainer trainer) throws ParseException {
         LocalDate today = LocalDate.now();
         String birthString = dateToString(trainer.getBirthDate());
         int birthYear = Integer.parseInt(birthString.substring(0, 2));
@@ -360,9 +365,9 @@ public class TrainerRepository {
         int todayYear = today.getYear();
         int todayDay = today.getDayOfYear();
 
-        if (birthYear > 50){
+        if(birthYear > 50){
             birthYear += 1900;
-        } else {
+        }else{
             birthYear += 2000;
         }
 
@@ -370,10 +375,27 @@ public class TrainerRepository {
         birthDay = birth.getDayOfYear();
         int age = todayYear - birthYear - 1;
 
-        if (todayDay >= birthDay){
+        if(todayDay >= birthDay){
             age++;
         }
 
         return age;
+    }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(Trainer trainer){
+        String workingHour = String.valueOf(trainer.getWorkingHour());
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
+    }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(String workingHour){
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
     }
 }

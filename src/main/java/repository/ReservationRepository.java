@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Item;
 import domain.member.MemberSchedule;
 import domain.trainer.TrainerSchedule;
 
@@ -7,10 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static connection.ConnectionUtils.*;
+import static util.MemberUtil.setRemain;
 
 public class ReservationRepository {
 
@@ -99,6 +102,31 @@ public class ReservationRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, num);
             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    public void saveReservation(int memberNum, int trainerNum, LocalDate reservationDate, int reservationTime){
+        String sql = "insert into reservation (m_no, t_no, r_date, r_time) values(?, ?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, memberNum);
+            pstmt.setInt(2, trainerNum);
+            pstmt.setString(3, reservationDate.toString());
+            pstmt.setInt(4, reservationTime);
+
+            pstmt.executeUpdate();
+
+            setRemain(memberNum, Item.PT_TICKET, -1);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
