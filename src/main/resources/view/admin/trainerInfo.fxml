@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 <SplitPane dividerPositions="0.35" orientation="HORIZONTAL" prefHeight="800.0" prefWidth="1150.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.admin.TrainerInfoController">
@@ -13,6 +14,9 @@
             <HBox alignment="CENTER">
                 <TextField fx:id="nameField" promptText="이름" styleClass="nameInput"/>
             </HBox>
+
+            <Button text="사진 등록" onAction="#selectPhoto"/>
+            <ImageView fx:id="imageView" fitHeight="100" fitWidth="100" pickOnBounds="true" preserveRatio="true" />
 
             <HBox alignment="CENTER">
                 <TextField fx:id="idField" promptText="아이디" styleClass="idInput"/>
@@ -60,6 +64,13 @@
 
         <VBox fx:id="listArea" spacing="40" alignment="CENTER">
             <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
+
+            <HBox alignment="CENTER_RIGHT">
+                <TextField fx:id="searchNameField" promptText="트레이너 이름"/>
+                <Button text="검색" onAction="#searchTrainer"/>
+                <Button text="새로고침" onAction="#resetPage"/>
+            </HBox>
+
             <TableView fx:id="trainerTable" prefHeight="400.0">
                 <columns>
                     <TableColumn text="번호" fx:id="numCol"  styleClass="numColumn"/>

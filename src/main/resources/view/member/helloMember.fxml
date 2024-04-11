@@ -37,7 +37,7 @@
 
         <HBox alignment="CENTER" spacing="60">
             <Button text="예약" />
-            <Button fx:id="entry" text="입장" />
+            <Button fx:id="entry" onAction="#entry" text="입장" />
             <Button text="결제" />
         </HBox>
     </VBox>

@@ -89,40 +89,7 @@ public class ReservationRepository {
         }
     }
 
-    public TrainerSchedule findByName(String name) {
-        String sql = "select * from reservation natural join member where m_name = ?";
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, name);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                TrainerSchedule trainerSchedule = new TrainerSchedule();
-
-                trainerSchedule.setSequence(rs.getInt("r_no"));
-                trainerSchedule.setMemberName(rs.getString("r"));
-                trainerSchedule.setReservationDate(rs.getDate("r_date"));
-                trainerSchedule.setReservationTime(rs.getInt("r_time"));
-
-                return trainerSchedule;
-            } else {
-                return null;
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(conn, pstmt, rs);
-        }
-
-    }
-    public void delete(int num) {
+    public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
         Connection conn = null;

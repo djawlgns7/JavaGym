@@ -3,20 +3,29 @@ package controller.admin;
 import domain.Gender;
 import domain.member.Member;
 import domain.member.SelectedMember;
+import domain.member.UsingLocker;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.MemberRepository;
+import repository.PurchaseRepository;
 import service.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static util.AlertUtil.*;
@@ -31,9 +40,10 @@ public class MemberInfoController implements Initializable {
     private final AdminRepository adminRepository = new AdminRepository();
     private final AdminService service = new AdminService(adminRepository);
     private final MemberRepository memberRepository = new MemberRepository();
+    private final PurchaseRepository purchaseRepository = new PurchaseRepository();
 
     @FXML
-    private TextField nameField, birthField, phoneField, emailField;
+    private TextField nameField, birthField, phoneField, emailField, searchNameField;
 
     @FXML
     private RadioButton maleButton, femaleButton;
@@ -45,14 +55,15 @@ public class MemberInfoController implements Initializable {
             return;
         }
 
+        String name = nameField.getText().trim();
         String phone = phoneField.getText().trim();
         String email = emailField.getText().trim();
         String birth = birthField.getText().trim();
 
-        if (addMemberValidate(phone, email, birth)) return;
+        if (addMemberValidate(name, phone, email, birth)) return;
 
         Member member = new Member();
-        member.setName(nameField.getText().trim());
+        member.setName(name);
         member.setPassword(BCrypt.hashpw(config.getString("initial.member.password"), BCrypt.gensalt()));
         member.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
         member.setEmail(email);
@@ -60,7 +71,7 @@ public class MemberInfoController implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
-        showAlertAndMove("알림", "회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+        showAlertAndMove("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
     }
 
     @FXML
@@ -98,6 +109,19 @@ public class MemberInfoController implements Initializable {
             return null;
         });
 
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[^0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+
+        TextFormatter<String> nameFormatter = new TextFormatter<>(filter);
+        TextFormatter<String> searchNameFormatter = new TextFormatter<>(filter);
+
+        nameField.setTextFormatter(nameFormatter);
+        searchNameField.setTextFormatter(searchNameFormatter);
         birthField.setTextFormatter(birthFormatter);
         phoneField.setTextFormatter(phoneFormatter);
 
@@ -113,6 +137,46 @@ public class MemberInfoController implements Initializable {
             });
             return row;
         });
+    }
+
+    @FXML
+    private void showUsingLocker() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("사물함 정보");
+
+        ButtonType closeButton = new ButtonType("닫기", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(closeButton);
+
+        TableView<UsingLocker> table = new TableView<>();
+        loadLockerInfo(table, purchaseRepository);
+
+        dialog.getDialogPane().setContent(new VBox(table));
+        dialog.getDialogPane().setPrefSize(400, 400);
+        dialog.showAndWait();
+    }
+
+    @FXML
+    private void searchMember() {
+        String searchName = searchNameField.getText().trim();
+
+        if (searchName.isEmpty()) {
+            showAlert("이름을 입력해 주세요.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
+        List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
+
+        if (searchedMembers.isEmpty()) {
+            showAlert("해당 이름의 회원이 없습니다.", Alert.AlertType.INFORMATION);
+            return;
+        }
+        ObservableList<Member> observableList = FXCollections.observableArrayList(searchedMembers);
+        membersTable.setItems(observableList);
+    }
+
+    @FXML
+    private void resetPage(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/memberInfo");
     }
 
     @FXML

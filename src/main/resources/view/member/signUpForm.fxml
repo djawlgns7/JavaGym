@@ -67,7 +67,6 @@
             <TextField fx:id="birthField" promptText="주민등록번호 앞 6자리" />
         </HBox>
 
-
         <Button onAction="#signUp" text="회원 등록" />
     </VBox>
 </AnchorPane>

@@ -50,6 +50,17 @@
         <!-- 회원 목록 영역 -->
         <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/common.css">
             <Label text="회원 정보" styleClass="memberInfo_title_2"/>
+
+            <HBox alignment="CENTER_RIGHT">
+                <TextField fx:id="searchNameField" promptText="회원 이름"/>
+                <Button text="검색" onAction="#searchMember"/>
+                <Button text="새로고침" onAction="#resetPage"/>
+            </HBox>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="사물함" onAction="#showUsingLocker"/>
+            </HBox>
+
             <TableView fx:id="membersTable" prefHeight="550.0">
                 <columns>
                     <TableColumn text="번호" fx:id="numCol" styleClass="numColumn"/>

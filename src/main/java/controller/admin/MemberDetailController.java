@@ -14,11 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import repository.*;
-import util.MemberUtil;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -26,26 +23,25 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-
+import static domain.Item.*;
 import static domain.member.SelectedMember.*;
 import static util.AlertUtil.*;
 import static util.ControllerUtil.*;
-import static util.PageUtil.movePageCenter;
 import static util.MemberUtil.*;
+import static util.PageUtil.movePageCenter;
 
 public class MemberDetailController implements Initializable {
-
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
     private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
+    private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
     private TextField nameField, phoneField, emailField, lockerNumField;
 
     @FXML
-    private Spinner gymTicketSpinner, PTTicketSpinner, clothesSpinner, lockerSpinner;
+    private Spinner gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner;
 
     @FXML
     private DatePicker birthPicker;
@@ -64,12 +60,410 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private TableColumn<MemberSchedule, String> ptCountCol, ptNumCol, ptDateCol, ptTimeCol, trainerNumCol, trainerNameCol;
-    private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
     private final ToggleGroup genderRadio = new ToggleGroup();
 
-    // 관리자가 선택한 회원의 정보를 불러온다.
+    @FXML
+    private void updateMember(ActionEvent event) throws IOException {
+        System.out.println("updateMember");
+
+        if (lockerNumField.getText().isEmpty()) {
+            lockerNumField.setText("0");
+        }
+
+        if (lockerSpinner.getEditor().getText().trim().isEmpty()) {
+            lockerSpinner.getValueFactory().setValue(0);
+        }
+
+        if (ptTicketSpinner.getEditor().getText().trim().isEmpty()) {
+            ptTicketSpinner.getValueFactory().setValue(0);
+        }
+
+        // 수정 내역이 없는 경우
+        if (isSameBasicInfo() && isSameAdditionalInfo()) {
+            System.out.println("수정 내용 없음");
+            showAlertUpdateMemberFail("isSame");
+            return;
+        }
+
+        // 수정 내역이 있는 경우
+        Optional<ButtonType> response = showAlertChoose("회원 정보를 수정하시겠습니까?");
+        if (response.get() == ButtonType.OK) {
+            System.out.println("수정 내역이 있음");
+
+            Integer memberNum = currentMember.getNum();
+            int currentGymTicket = getRemain(memberNum, GYM_TICKET);
+            int currentPtTicket = getRemain(memberNum, PT_TICKET);
+            int currentClothedPeriod = getRemain(memberNum, CLOTHES);
+            int currentLockerPeriod = getRemain(memberNum, LOCKER);
+
+            // 기본 정보 업데이트
+            if (!isSameBasicInfo()) {
+                System.out.println("기본 정보 업데이트");
+                currentMember.setName(nameField.getText().trim());
+                currentMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+                currentMember.setEmail(emailField.getText().trim());
+                currentMember.setPhone(phoneField.getText().trim());
+                currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
+
+                memberRepository.updateMember(currentMember);
+            }
+
+            // 헬스장 이용권 업데이트 (updateGymTicket)
+            if (!isSameGymTicket()) {
+                System.out.println("헬스장 이용권 업데이트");
+
+                int inputGymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString().trim());
+
+                if (isFirstPurchase(memberNum, GYM_TICKET)) {
+                    purchaseRepository.setFirstGymTicket(memberNum, inputGymTicket);
+                } else {
+                    int result = Math.abs(currentGymTicket - inputGymTicket);
+
+                    if (currentGymTicket > inputGymTicket) {
+                        setRemain(memberNum, GYM_TICKET, -result);
+                    } else if (inputGymTicket > currentGymTicket) {
+                        setRemain(memberNum, GYM_TICKET, result);
+                    }
+                }
+            }
+
+            // PT 이용권 또는 트레이너 업데이트
+            if (!isSamePtTicket() || !isSameTrainer()) {
+                System.out.println("PT 이용권 또는 트레이너 변경");
+
+                int inputPtTicket = Integer.parseInt(ptTicketSpinner.getValue().toString().trim());
+                String inputTrainerName = trainerComboBox.getValue().trim();
+
+                // PT 이용권 변경, 트레이너 동일
+                if (!isSamePtTicket() && isSameTrainer()) {
+                    System.out.println("PT 이용권 변경");
+
+                    if (inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("emptyTrainer");
+                        return;
+                    }
+
+                    if (inputPtTicket == 0) {
+                        showAlertUpdateMemberFail("notDeleteTrainer");
+                        return;
+                    }
+
+                    int result = Math.abs(currentPtTicket - inputPtTicket);
+
+                    if (currentPtTicket > inputPtTicket) {
+                        setRemain(memberNum, PT_TICKET, -result);
+                    } else if (inputPtTicket > currentPtTicket) {
+                        setRemain(memberNum, PT_TICKET, result);
+                    }
+                }
+
+                // 트레이너 변경, PT 이용권 동일
+                if (!isSameTrainer() && isSamePtTicket()) {
+                    System.out.println("트레이너 변경");
+
+                    if (inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("emptyTrainer");
+                        return;
+                    }
+
+                    if (trainerRepository.findByName(inputTrainerName) == null) {
+                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        return;
+                    }
+
+                    if (inputPtTicket == 0) {
+                        showAlertUpdateMemberFail("emptyPtTicket");
+                        return;
+                    }
+
+                    Integer trainerNum = trainerRepository.findByName(inputTrainerName).getNum();
+                    changeTrainerOfMember(memberNum, trainerNum);
+                }
+
+                // PT 이용권, 트레이너 모두 변경
+                if (!isSamePtTicket() && !isSameTrainer()) {
+                    System.out.println("PT 이용권, 트레이너 모두 변경");
+
+                    if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
+                        purchaseRepository.deletePtTicketAndTrainer(memberNum);
+                    }
+
+                    if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
+                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        return;
+                    }
+
+                    if (!inputTrainerName.isEmpty()) {
+                        Integer trainerNum = trainerRepository.findByName(inputTrainerName).getNum();
+
+                        if (isFirstPurchase(memberNum, PT_TICKET)) {
+                            purchaseRepository.setFirstPtTicket(memberNum, trainerNum, inputPtTicket);
+                        } else {
+                            int result = Math.abs(currentPtTicket - inputPtTicket);
+
+                            if (currentPtTicket > inputPtTicket) {
+                                setRemain(memberNum, PT_TICKET, -result);
+                                changeTrainerOfMember(memberNum, trainerNum);
+                            } else if (inputPtTicket > currentPtTicket) {
+                                setRemain(memberNum, PT_TICKET, result);
+                                changeTrainerOfMember(memberNum, trainerNum);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 운동복 기간 업데이트
+            if (!isSameClothesPeriod()) {
+                System.out.println("운동복 기간 변경");
+                int inputClothesPeriod = Integer.parseInt(clothesSpinner.getValue().toString().trim());
+
+                if (isFirstPurchase(memberNum, CLOTHES)) {
+                    purchaseRepository.setFirstClothes(memberNum, inputClothesPeriod);
+                } else {
+                    int result = Math.abs(currentClothedPeriod - inputClothesPeriod);
+
+                    if (currentClothedPeriod > inputClothesPeriod) {
+                        setRemain(memberNum, CLOTHES, -result);
+                    } else if (inputClothesPeriod > currentClothedPeriod) {
+                        setRemain(memberNum, CLOTHES, result);
+                    }
+                }
+            }
+
+            // 사물함 번호 또는 사물함 기간 업데이트
+            if (!isSameLockerNum() || !isSameLockerPeriod()) {
+                System.out.println("사물함 번호 또는 사물함 기간 변경");
+                int inputLockerNum = Integer.parseInt(lockerNumField.getText());
+                int inputLockerPeriod = Integer.parseInt(lockerSpinner.getValue().toString().trim());
+
+                // 사물함 번호 변경, 사물함 기간 동일
+                if (!isSameLockerNum() && isSameLockerPeriod()) {
+                    System.out.println("사물함 번호 변경");
+
+                    if (inputLockerPeriod == 0) {
+                        showAlertUpdateMemberFail("emptyLockerPeriod");
+                        return;
+                    }
+
+                    if (inputLockerNum == 0) {
+                        showAlertUpdateMemberFail("emptyLockerNum");
+                        movePageCenter(event, "/view/admin/memberDetail");
+                        return;
+                    }
+
+                    if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
+                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerNum > 200) {
+                        showAlertUpdateMemberFail("maxLockerNum");
+                        return;
+                    }
+                    setLockerNum(memberNum, inputLockerNum);
+                }
+
+                // 사물함 기간 변경, 사물함 번호 동일
+                if (!isSameLockerPeriod() && isSameLockerNum()) {
+                    System.out.println("사물함 기간 변경");
+
+                    if (inputLockerNum == 0) {
+                        showAlertUpdateMemberFail("emptyLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerPeriod == 0) {
+                        showAlertUpdateMemberFail("emptyLockerPeriod");
+                        movePageCenter(event, "/view/admin/memberDetail");
+                        return;
+                    }
+
+                    int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
+
+                    if (currentLockerPeriod > inputLockerPeriod) {
+                        setRemain(memberNum, LOCKER, -result);
+                    } else if (inputLockerPeriod > currentLockerPeriod) {
+                        setRemain(memberNum, LOCKER, result);
+                    }
+                }
+
+                // 사물함 번호, 사물함 기간 모두 변경
+                if (!isSameLockerPeriod() && !isSameLockerNum()) {
+                    System.out.println("사물함 번호, 사물함 기간 모두 변경");
+
+                    if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
+                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerNum > 200) {
+                        showAlertUpdateMemberFail("maxLockerNum");
+                        return;
+                    }
+
+                    if (inputLockerNum == 0 && inputLockerPeriod == 0) {
+                        purchaseRepository.deleteLocker(memberNum);
+                    } else {
+                        if (isFirstPurchase(memberNum, LOCKER)) {
+                            purchaseRepository.setFirstLocker(memberNum, inputLockerNum, inputLockerPeriod);
+                        } else {
+                            setLockerNum(memberNum, inputLockerNum);
+                            int result = Math.abs(currentLockerPeriod - inputLockerPeriod);
+
+                            if (currentLockerPeriod > inputLockerPeriod) {
+                                setRemain(memberNum, LOCKER, -result);
+                            } else if (inputLockerPeriod > currentLockerPeriod) {
+                                setRemain(memberNum, LOCKER, result);
+                            }
+                        }
+                    }
+                }
+                showAlertAndMoveCenter("회원이 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
+            }
+        }
+    }
+
+    private boolean isSameBasicInfo() {
+        String name = nameField.getText().trim();
+        String phone = phoneField.getText().trim();
+        Gender gender = Gender.valueOf(getSelectedGender(maleButton, femaleButton));
+        String email = emailField.getText().trim();
+        Date birth = Date.valueOf(birthPicker.getValue());
+
+        return currentMember.getName().equals(name) && currentMember.getPhone().equals(phone) && currentMember.getGender().equals(gender) && currentMember.getEmail().equals(email) && currentMember.getBirthDate().equals(birth);
+    }
+
+    private boolean isSameAdditionalInfo() {
+        return isSameGymTicket() && isSamePtTicket() && isSameTrainer() && isSameClothesPeriod() && isSameLockerNum() && isSameLockerPeriod();
+    }
+
+    private boolean isSameGymTicket() {
+        Integer inputGymTicket = Integer.valueOf(gymTicketSpinner.getValue().toString());
+        Integer currentGymTicket = getRemain(currentMember.getNum(), GYM_TICKET);
+        return inputGymTicket.equals(currentGymTicket);
+    }
+
+    private boolean isSamePtTicket() {
+        Integer inputPtTicket = Integer.valueOf(ptTicketSpinner.getValue().toString());
+        Integer currentPtTicket = getRemain(currentMember.getNum(), PT_TICKET);
+        return inputPtTicket.equals(currentPtTicket);
+    }
+
+    private boolean isSameTrainer() {
+        Integer currentTrainerNum = getTrainerNumForMember(currentMember.getNum());
+
+        if (trainerRepository.findByNum(currentTrainerNum) != null && trainerComboBox.getValue().isEmpty()) {
+            return false;
+        }
+
+        if (trainerComboBox.getValue().isEmpty()) {
+            return true;
+        }
+
+        if (trainerRepository.findByNum(currentTrainerNum) == null && !trainerComboBox.getValue().isEmpty()) {
+            return false;
+        }
+
+        String currentTrainerName = trainerRepository.findByNum(currentTrainerNum).getName();
+        String inputTrainerName = trainerComboBox.getValue();
+
+        if (inputTrainerName != null && !inputTrainerName.isEmpty()) {
+            return inputTrainerName.equals(currentTrainerName);
+        }
+        return false;
+    }
+
+    private boolean isSameClothesPeriod() {
+        Integer inputClothesPeriod = Integer.valueOf(clothesSpinner.getValue().toString());
+        Integer currentClothesPeriod = getRemain(currentMember.getNum(), CLOTHES);
+        return inputClothesPeriod.equals(currentClothesPeriod);
+    }
+
+    private boolean isSameLockerNum() {
+        Integer inputLockerNum = Integer.valueOf(lockerNumField.getText());
+        Integer currentLockerNum = getLockerNum(currentMember.getNum());
+        return inputLockerNum.equals(currentLockerNum);
+    }
+
+    private boolean isSameLockerPeriod() {
+        Integer currentLockerPeriod = getRemain(currentMember.getNum(), LOCKER);
+        Integer inputLockerPeriod = Integer.valueOf(lockerSpinner.getValue().toString());
+        return inputLockerPeriod.equals(currentLockerPeriod);
+    }
+
+    @FXML
+    private void deleteMember(ActionEvent event) throws IOException {
+        Optional<ButtonType> response = showAlertChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
+
+        if (response.get() == ButtonType.OK){
+            memberRepository.deleteMember(currentMember.getNum());
+            showAlertAndMove("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+        }
+    }
+
+    @FXML
+    private void showEntryLog() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle(currentMember.getName() + "님 출입 일지");
+
+        ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        closeButton.getStyleClass().add("closeBtn");
+
+        TableView<EntryLog> table = new TableView<>();
+        table.getStyleClass().add("tableView");
+        loadEntryLog(currentMember.getNum(), table, entryLogRepository);
+
+        VBox vbox = new VBox(table);
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.setContent(vbox);
+        dialogPane.getStylesheets().add(getClass().getResource("/css/Entrylog.css").toExternalForm());
+
+        dialog.showAndWait();
+    }
+
+    @FXML
+    private void cancelReservation(ActionEvent event) throws IOException {
+
+        if (ptTable.getItems().isEmpty()) {
+            showAlert("PT 예약 정보가 없습니다.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
+        // 선택한 예약 내역을 가져온다.
+        List<MemberSchedule> selectedSchedules = ptTable.getItems().stream()
+                .filter(MemberSchedule::isSelected)
+                .toList();
+
+        // 선택된 예약 정보가 있는지 확인
+        if (selectedSchedules.isEmpty()) {
+            showAlert("취소할 예약을 선택해주세요.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
+        Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
+
+        if (result.get() == ButtonType.OK){
+            // 선택한 예약 내역을 모두 삭제
+            for (MemberSchedule schedule : selectedSchedules) {
+                reservationRepository.deleteReservation(schedule.getReservationNum());
+            }
+            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
+        }
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/memberInfo");
+    }
+
+    /**
+     * 관리자가 선택한 회원에 대한 정보를 가져온다.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (currentMember != null) {
@@ -83,11 +477,33 @@ public class MemberDetailController implements Initializable {
             // PT 예약 정보 설정
             columnBinding();
             loadMemberSchedule();
+
+            TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.matches("\\d{0,8}")) {
+                    return change;
+                }
+                return null;
+            });
+
+            TextFormatter<String> lockerFormatter = new TextFormatter<>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.matches("\\d{0,3}")) {
+                    return change;
+                }
+                return null;
+            });
+
+            phoneField.setTextFormatter(phoneFormatter);
+            lockerNumField.setTextFormatter(lockerFormatter);
+
+            if (getLockerNum(currentMember.getNum()).equals(0)) {
+                lockerNumField.setText("0");
+            }
         }
     }
 
     private void setBasicInfo(Member member, DatePicker birthPicker) {
-
         // DatePicker를 사용하기 위해 SQL Date를 Local Date로 변환한다.
         LocalDate birthDate = member.getBirthDate().toLocalDate();
 
@@ -108,20 +524,15 @@ public class MemberDetailController implements Initializable {
 
     private void setAdditionalInfo(Integer memberNum) {
         List<Integer> remains = getRemainAll(memberNum);
-        Spinner[] spinners = {gymTicketSpinner, PTTicketSpinner, clothesSpinner, lockerSpinner};
+        Spinner[] spinners = {gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner};
 
         for (int i = 0; i < 4; i++) {
             Integer remain = remains.get(i);
-//            Spinner<Integer> spinner = spinners[i];
             if (remain != 0) {
                 spinners[i].getValueFactory().setValue(remain);
             }
-//            SpinnerValueFactory<Integer> valueFactory =
-//                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, remain, remain); // 최소값, 최대값, 기본값
-//            spinner.setValueFactory(valueFactory);
         }
 
-        // promptText를 사용하기 위해 값이 유효할 때만 값을 설정한다.
         String lockerNum = getLockerNum(memberNum).toString();
         if (!lockerNum.equals("0")) {
             lockerNumField.setText(lockerNum);
@@ -138,6 +549,7 @@ public class MemberDetailController implements Initializable {
         if (trainerNum != 0) {
             trainerComboBox.getSelectionModel().select(trainerRepository.findByNum(trainerNum).getName());
         } else {
+            trainerComboBox.setValue("");
         }
     }
 
@@ -155,107 +567,8 @@ public class MemberDetailController implements Initializable {
     private void loadMemberSchedule() {
         List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(currentMember.getNum());
         ObservableList<MemberSchedule> schedules = FXCollections.observableArrayList();
-        for (MemberSchedule schedule : memberSchedule) {
-            schedules.add(schedule);
-        }
+        schedules.addAll(memberSchedule);
 
         ptTable.setItems(schedules);
-    }
-
-    @FXML
-    private void updateMember(ActionEvent event) throws IOException {
-
-        // 검증 로직 추후 구현
-
-        // 정상 로직
-        currentMember.setName(nameField.getText().trim());
-        currentMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
-        currentMember.setEmail(emailField.getText().trim());
-        currentMember.setPhone(phoneField.getText().trim());
-        currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
-
-        int inputGymTicket = Integer.parseInt(gymTicketSpinner.getValue().toString());
-        int ptTicket = Integer.parseInt(PTTicketSpinner.getValue().toString());
-        int clothesPeriod = Integer.parseInt(clothesSpinner.getValue().toString());
-        int lockerPeriod = Integer.parseInt(lockerSpinner.getValue().toString());
-
-        if (isFirstPurchase(currentMember.getNum(), Item.GYM_TICKET)) {
-            purchaseRepository.setFirstGymTicket(currentMember.getNum(), inputGymTicket);
-        } else {
-            Integer currentRemain = getRemain(currentMember.getNum(), Item.GYM_TICKET);
-            int ticket = currentRemain - inputGymTicket;
-            if (currentRemain > ticket) {
-                setRemain(currentMember.getNum(), Item.GYM_TICKET, ticket);
-            } else if (ticket > currentRemain) {
-
-            }
-        }
-
-        Optional<ButtonType> result = showAlertChoose("회원 정보를 수정하시겠습니까?");
-
-        if (result.get() == ButtonType.OK){
-            memberRepository.updateMember(currentMember);
-            showAlertAndMove("알림", "회원이 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
-        }
-    }
-
-    @FXML
-    private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
-
-        if (result.get() == ButtonType.OK){
-            memberRepository.deleteMember(currentMember.getNum());
-            showAlertAndMove("알림", "회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
-        }
-    }
-
-    @FXML
-    private void showEntryLog() {
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle(currentMember.getName() + "님 출입 일지");
-
-        ButtonType closeButtonType = new ButtonType("닫기");
-        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
-
-        TableView<EntryLog> table = new TableView<>();
-        loadEntryLog(currentMember.getNum(), table, entryLogRepository);
-
-        VBox vbox = new VBox(table);
-        DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.setContent(vbox);
-
-        dialog.showAndWait();
-    }
-
-    @FXML
-    private void cancelReservation(ActionEvent event) throws IOException {
-
-        // 선택한 예약 내역을 가져온다.
-        List<MemberSchedule> selectedSchedules = ptTable.getItems().stream()
-                .filter(MemberSchedule::isSelected)
-                .collect(Collectors.toList());
-
-        // 선택된 예약 정보가 있는지 확인
-        if (selectedSchedules.isEmpty()) {
-            showAlert("선택된 예약 없음", "취소할 예약을 선택해주세요.", Alert.AlertType.WARNING);
-            return;
-        }
-
-        Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
-
-        if (result.get() == ButtonType.OK){
-
-            // 선택한 예약 내역을 모두 삭제
-            for (MemberSchedule schedule : selectedSchedules) {
-                reservationRepository.delete(schedule.getReservationNum());
-            }
-
-            showAlertAndMove("알림", "예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
-        }
-    }
-
-    @FXML
-    private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/admin/memberInfo");
     }
 }

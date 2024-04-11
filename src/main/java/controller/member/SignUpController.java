@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 import static util.AlertUtil.*;
 import static util.AlertUtil.showAlert;
@@ -49,16 +50,17 @@ public class SignUpController implements Initializable {
             return;
         }
 
+        String name = nameField.getText().trim();
         String password = passwordField.getText().trim();
         String passwordConfirm = passwordConfirmField.getText().trim();
         String phone = phoneField.getText().trim();
         String email = getFullEmail(emailIdField.getText().trim(), emailDomainField.getValue().trim());
         String birth = birthField.getText().trim();
 
-        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
+        if (signUpValidate(name, password, passwordConfirm, phone, email, birth)) return;
 
         Member member = new Member();
-        member.setName(nameField.getText().trim());
+        member.setName(name);
         member.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
         member.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
         member.setEmail(email);
@@ -66,7 +68,7 @@ public class SignUpController implements Initializable {
         member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
-        showAlert("알림", signUpMember.getName() + "님 회원가입 완료^^", Alert.AlertType.INFORMATION);
+        showAlert(signUpMember.getName() + "님 회원가입 완료^^", Alert.AlertType.INFORMATION);
         goBack(event);
     }
 
@@ -117,6 +119,18 @@ public class SignUpController implements Initializable {
             return null;
         });
 
+        // 이름에 숫자 입력 못하도록 추가 (성진)
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[^0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+
+        TextFormatter<String> nameFormatter = new TextFormatter<>(filter);
+
+        nameField.setTextFormatter(nameFormatter);
         passwordField.setTextFormatter(passwordFormatter);
         passwordConfirmField.setTextFormatter(passwordConfirmFormatter);
         birthField.setTextFormatter(birthFormatter);

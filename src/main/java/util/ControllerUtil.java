@@ -163,4 +163,24 @@ public class ControllerUtil {
 
         return trainerNum;
     }
+
+    public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
+
+        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("");
+        TableColumn<UsingLocker, Number> memberNumCol = new TableColumn<>("회원 번호");
+        TableColumn<UsingLocker, String> memberNameCol = new TableColumn<>("회원 이름");
+        TableColumn<UsingLocker, Number> lockerNumCol = new TableColumn<>("사물함 번호");
+        TableColumn<UsingLocker, Number> lockerPeriodCol = new TableColumn<>("사물함 기간");
+
+        countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+        lockerNumCol.setCellValueFactory(new PropertyValueFactory<>("lockerNum"));
+        lockerPeriodCol.setCellValueFactory(new PropertyValueFactory<>("lockerPeriod"));
+
+        table.getColumns().addAll(countCol, memberNumCol, memberNameCol, lockerNumCol, lockerPeriodCol);
+
+        List<UsingLocker> lockers = purchaseRepository.findAllUsingLocker();
+        table.setItems(FXCollections.observableArrayList(lockers));
+    }
 }
