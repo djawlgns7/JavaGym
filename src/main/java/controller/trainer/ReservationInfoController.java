@@ -77,6 +77,6 @@ public class ReservationInfoController implements Initializable {
     }
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "view/trainer/helloTrainer");
+        movePageCenter(event, "/view/trainer/helloTrainer");
     }
 }
