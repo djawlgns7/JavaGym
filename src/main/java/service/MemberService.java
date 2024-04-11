@@ -1,4 +1,4 @@
-package domain.service;
+package service;
 
 import domain.member.Member;
 import javafx.event.ActionEvent;

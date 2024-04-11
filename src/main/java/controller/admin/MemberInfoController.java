@@ -16,7 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.MemberRepository;
 import repository.PurchaseRepository;
-import domain.service.AdminService;
+import service.AdminService;
 
 import java.io.IOException;
 import java.net.URL;

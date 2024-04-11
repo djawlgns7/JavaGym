@@ -9,8 +9,8 @@ import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.CodeStore;
 import repository.MemberRepository;
-import domain.service.MemberService;
-import domain.service.SmsService;
+import service.MemberService;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;

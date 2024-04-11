@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
-import domain.service.TrainerService;
+import service.TrainerService;
 
 import java.io.IOException;
 import java.net.URL;

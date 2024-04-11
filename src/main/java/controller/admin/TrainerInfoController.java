@@ -16,7 +16,7 @@ import javafx.stage.FileChooser;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.TrainerRepository;
-import domain.service.AdminService;
+import service.AdminService;
 
 import java.io.File;
 import java.io.IOException;
