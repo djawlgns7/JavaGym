@@ -86,8 +86,8 @@ public class MyInformationController implements Initializable {
         PTTicketRemain.setText(PTTicket + "개");
 
         if(locker == 0){
-            lockerNo.setText("사물함을 이용할 수 없습니다");
-            lockerRemain.setVisible(false);
+            lockerNo.setText("이용 불가");
+            lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
             LocalDate expireDate = today.plusDays(locker);
@@ -96,8 +96,8 @@ public class MyInformationController implements Initializable {
         }
 
         if(clothes == 0){
-            clothesAvailability.setText("대여 불가능");
-            clothesRemain.setVisible(false);
+            clothesAvailability.setText("대여 불가");
+            clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
             clothesAvailability.setText("대여 가능");
