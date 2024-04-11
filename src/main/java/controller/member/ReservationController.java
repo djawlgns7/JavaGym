@@ -1,6 +1,7 @@
 package controller.member;
 
 import domain.member.Member;
+import domain.reservation.Reservation;
 import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +16,10 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -36,12 +39,6 @@ public class ReservationController implements Initializable {
     private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField memberNo, trainerNo;
-    @FXML
-    private ComboBox<Integer> timeComboBox;
-    @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
@@ -51,12 +48,13 @@ public class ReservationController implements Initializable {
     private ImageView imageView;
 
     List<Boolean>[] reservations;
+    List<Reservation> selectedReservations;
     HBox[] weeks;
     Member member;
     Trainer trainer;
     int timeSelectedIndex = 1;
     int daySelectedIndex = 1;
-    LocalDate selectedDate;
+    LocalDate selectedDate, startDay;
     int selectedTime;
     int adder;
 
@@ -67,12 +65,26 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+            selectedReservations = new ArrayList<>();
 
 //            try {
 //                setMyInfo();
 //            } catch (ParseException e) {
 //                throw new RuntimeException(e);
 //            }
+            makeCalendar();
+        }else{
+            int memberNum = 1000;
+            member = memberRepository.findByNum(memberNum);
+            trainer = trainerRepository.findByNum(9000);
+            adder = trainerRepository.getWorkingHourAdder(trainer);
+            reservations = getTrainerSchedule(trainer, 60);
+
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
         }
     }
@@ -87,6 +99,7 @@ public class ReservationController implements Initializable {
         if(todayOfWeek == 7){todayOfWeek = 1;}
         else{todayOfWeek++;}
         calenderDay = calenderDay.minusDays(todayOfWeek - 1);
+        startDay = calenderDay.minusDays(todayOfWeek - 1);
 
         for(int i = 0; i < 10; i++) {
             for(int j = 1; j <= 7; j++) {
@@ -170,18 +183,62 @@ public class ReservationController implements Initializable {
 
     // 시간 버튼을 눌렀을 때 이벤트 추가
     @FXML
-    public void addButtonEvent(List<Boolean>[] reservations, int day){
+    public void addButtonEvent(List<Boolean>[] reservations, int day, int dayindex){
         for(int i = 0; i < reservations[day].size(); i++){
+            int rTime = adder + i;
             timeButtons[i].getStyleClass().remove("disabledTimeButton");
             timeButtons[i].getStyleClass().remove("selectedTimeButton");
+
+            for(int j = 0; j < selectedReservations.size(); j++){
+                if(selectedReservations.get(j).isExist(day, rTime)){
+                    timeButtons[i].getStyleClass().add("selectedTimeButton");
+                }
+            }
+
             if(reservations[day].get(i)){
                 int finalI = i;
+
+                //예약이 가능한 버튼일 경우
                 timeButtons[i].setOnMouseClicked(Event -> {
-                    timeButtons[timeSelectedIndex].getStyleClass().remove("selectedTimeButton");
-                    timeButtons[finalI].getStyleClass().add("selectedTimeButton");
-                    timeSelectedIndex = finalI;
-                    selectedTime = finalI + adder;
+                    //이미 예약 목록에 있던 버튼인 경우
+                    if(reservationRepository.isReservationExist(selectedReservations, day, rTime)) {
+                        timeButtons[finalI].getStyleClass().remove("selectedTimeButton");
+                        reservationRepository.removeReservation(selectedReservations, day, rTime);
+                    //예약 목록에 없던 버튼인 경우
+                    }else {
+                        //예약을 추가 가능한 횟수가 없을 경우
+                        if(getSelectedPTTicket() <= selectedReservations.size()){
+                            //alert("더이상 추가할 수 없습니다");
+                        //추가 가능한 횟수가 있을 경우
+                        }else {
+                            timeButtons[finalI].getStyleClass().add("selectedTimeButton");
+                            Reservation newReservation = new Reservation();
+                            newReservation.setDDay(day);
+                            newReservation.setRTime(rTime);
+                            selectedReservations.add(newReservation);
+                        }
+                    }
+
+                    boolean isreservationExist = false;
+
+                    for(int j = 0; j < selectedReservations.size(); j++){
+                        for(int k = 0; k < 6; k++) {
+                            if (selectedReservations.get(j).isExist(day, k)) {
+                                isreservationExist = true;
+                            }
+                        }
+                    }
+
+                    System.out.println(isreservationExist);
+                    if(isreservationExist){
+                        days[dayindex].getStyleClass().add("reservedDay");
+                    }else{
+                        days[dayindex].getStyleClass().remove("reservedDay");
+                    }
+
+
                 });
+            //예약이 불가능한 버튼인 경우
             }else{
                 timeButtons[i].getStyleClass().add("disabledTimeButton");
             }
@@ -195,7 +252,7 @@ public class ReservationController implements Initializable {
         int finalDayIndex = dayIndex;
         days[dayIndex].setOnMouseClicked(Event ->{
             days[daySelectedIndex].getStyleClass().remove("selected");
-            addButtonEvent(reservations, finalI);
+            addButtonEvent(reservations, finalI, finalDayIndex);
             days[finalDayIndex].getStyleClass().add("selected");
             daySelectedIndex = finalDayIndex;
             selectedDate = LocalDate.now().plusDays(finalI);;
@@ -220,31 +277,15 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void ticketPlus(){
-        String currentTicketNum = ticketSelection.getText();
-        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
-        int PTRemain = Integer.parseInt(currentTicketNum);
-        int memberNum = member.getNum();
-        List<Integer> remain = getRemainAll(memberNum);
-        int PTTicket = remain.get(1);
-
-        PTRemain++;
-        if(0 <= PTRemain && PTRemain <= PTTicket) {
-            ticketSelection.setText(PTRemain + "개");
+        if(isSetTicketValid(1)){
+            ticketSelection.setText((getSelectedPTTicket() + 1) + "개");
         }
     }
 
     @FXML
     public void ticketMinus(){
-        String currentTicketNum = ticketSelection.getText();
-        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
-        int PTRemain = Integer.parseInt(currentTicketNum);
-        int memberNum = member.getNum();
-        List<Integer> remain = getRemainAll(memberNum);
-        int PTTicket = remain.get(1);
-
-        PTRemain--;
-        if(0 <= PTRemain && PTRemain <= PTTicket) {
-            ticketSelection.setText(PTRemain + "개");
+        if(isSetTicketValid(-1)){
+            ticketSelection.setText((getSelectedPTTicket()- 1) + "개");
         }
     }
 
@@ -300,4 +341,30 @@ public class ReservationController implements Initializable {
         prevPage.getStyleClass().remove("clickable");
         prevPage.getStyleClass().add("unclickable");
     }
+
+    //현재 사용 하기로 선택 한 PT티켓 수를 반환한다
+    public int getSelectedPTTicket(){
+        String selectedTicketNum = ticketSelection.getText();
+        selectedTicketNum = selectedTicketNum.substring(0, selectedTicketNum.length() - 1);
+        int PTRemain = Integer.parseInt(selectedTicketNum);
+
+        return PTRemain;
+    }
+
+    //사용 할 PT티켓 수를 변경했을 때 그 수가 유효한 지 판별
+    public boolean isSetTicketValid(int adder){
+        int selectedTicket = getSelectedPTTicket();
+        int memberNum = member.getNum();
+        List<Integer> remain = getRemainAll(memberNum);
+        int PTTicket = remain.get(1);
+
+        selectedTicket += adder;
+
+        if(0 <= selectedTicket && selectedTicket <= PTTicket) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

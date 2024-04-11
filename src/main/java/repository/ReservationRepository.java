@@ -2,6 +2,7 @@ package repository;
 
 import domain.Item;
 import domain.member.MemberSchedule;
+import domain.reservation.Reservation;
 import domain.trainer.TrainerSchedule;
 
 import java.sql.Connection;
@@ -131,6 +132,27 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, null);
+        }
+    }
+
+    //예약 클래스 배열 안에 특정 예약이 존재하는지 확인해줌
+    public boolean isReservationExist(List<Reservation> reservation, int dDay, int rTime){
+        boolean result = false;
+
+        for(int i = 0; i < reservation.size(); i++){
+            boolean tempResult = reservation.get(i).isExist(dDay, rTime);
+            if(tempResult){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public void removeReservation(List<Reservation> reservation, int dDay, int rTime){
+        for(int i = 0; i < reservation.size(); i++){
+            if(reservation.get(i).isExist(dDay, rTime)){
+                reservation.remove(i);
+            }
         }
     }
 }

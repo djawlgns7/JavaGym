@@ -120,3 +120,8 @@ selectedReservationArea{
     -fx-border-color: transparent;
     -fx-pref-width: 50;
 }
+
+/* 예약한 날짜가 존재하는 날의 색 지정 */
+.reservedDay{
+    -fx-background-color: green;
+}
