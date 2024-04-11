@@ -504,7 +504,6 @@ public class MemberDetailController implements Initializable {
     }
 
     private void setBasicInfo(Member member, DatePicker birthPicker) {
-
         // DatePicker를 사용하기 위해 SQL Date를 Local Date로 변환한다.
         LocalDate birthDate = member.getBirthDate().toLocalDate();
 

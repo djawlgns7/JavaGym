@@ -189,7 +189,7 @@ public class ValidateUtil {
             return true;
         }
 
-        if (isDuplicateName(name)) {
+        if (isDuplicateName(name) && !currentTrainer.getName().equals(name)) {
             showAlertAddMemberFail("duplicateName");
             return true;
         }

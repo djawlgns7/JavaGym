@@ -14,6 +14,9 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

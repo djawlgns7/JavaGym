@@ -43,7 +43,7 @@ public class MemberInfoController implements Initializable {
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
 
     @FXML
-    private TextField nameField, birthField, phoneField, emailField;
+    private TextField nameField, birthField, phoneField, emailField, searchNameField;
 
     @FXML
     private RadioButton maleButton, femaleButton;
@@ -159,9 +159,6 @@ public class MemberInfoController implements Initializable {
         dialogPane.getStylesheets().add(getClass().getResource("/css/LockerInfo.css").toExternalForm());
         dialog.showAndWait();
     }
-
-    @FXML
-    private TextField searchNameField;
 
     @FXML
     private void searchMember() {

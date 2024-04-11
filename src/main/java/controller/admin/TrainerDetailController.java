@@ -18,13 +18,14 @@ import javafx.stage.FileChooser;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -77,7 +78,7 @@ public class TrainerDetailController implements Initializable {
         Double height = Double.valueOf(heightField.getText().trim());
         Double weight = Double.valueOf(weightField.getText().trim());
 
-        if (isSame(id, name, gender, phone, birth, workingHour, height, weight)) {
+        if (isSame(id, name, gender, phone, birth, workingHour, height, weight) && isSamePhoto()) {
             showAlertUpdateTrainerFail("isSame");
             return;
         }
@@ -86,6 +87,11 @@ public class TrainerDetailController implements Initializable {
         if (result.get() == ButtonType.OK) {
 
             if (updateTrainerValidate(name, phone, id, height, weight)) return;
+
+            if (!isSamePhoto()) {
+                File photoFile = new File(updatedImagePath);
+                trainerRepository.savePhoto(currentTrainer.getNum(), photoFile);
+            }
 
             currentTrainer.setId(id);
             currentTrainer.setName(name);
@@ -103,6 +109,20 @@ public class TrainerDetailController implements Initializable {
 
     private boolean isSame(String id, String name, Gender gender, String phone, Date birth, WorkingHour workingHour, Double height, Double weight) {
         return currentTrainer.getId().equals(id) && currentTrainer.getName().equals(name) && currentTrainer.getGender().equals(gender) && currentTrainer.getPhone().equals(phone) && currentTrainer.getBirthDate().equals(birth) && currentTrainer.getWorkingHour().equals(workingHour) && currentTrainer.getHeight().equals(height) && currentTrainer.getWeight().equals(weight);
+    }
+
+    private boolean isSamePhoto() {
+        byte[] currentTrainerPhoto = currentTrainer.getPhoto();
+
+        if (currentTrainerPhoto != null && updatedImagePath != null) {
+            return false;
+        }
+
+        if (currentTrainerPhoto == null && updatedImagePath != null) {
+            return false;
+        }
+
+        return true;
     }
 
     @FXML
@@ -224,6 +244,22 @@ public class TrainerDetailController implements Initializable {
             updatedImagePath = selectedFile.getAbsolutePath();
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
+        }
+    }
+
+    @FXML
+    private void resetPhoto() {
+        String gender = getSelectedGender(maleButton, femaleButton);
+        if (gender.equals("M")) {
+            String defaultImagePath = getClass().getResource("/image/maleTrainer.png").toExternalForm();
+            imageView.setImage(new Image(defaultImagePath));
+
+            updatedImagePath = getClass().getResource("/image/maleTrainer.png").getFile();
+        } else {
+            String defaultImagePath = getClass().getResource("/image/femaleTrainer.png").toExternalForm();
+            imageView.setImage(new Image(defaultImagePath));
+
+            updatedImagePath = getClass().getResource("/image/femaleTrainer.png").getFile();
         }
     }
 }
