@@ -152,7 +152,7 @@ public class SignUpController implements Initializable {
 
         TextFormatter<String> nameFormatter = new TextFormatter<>(filter);
 
-        nameField.setTextFormatter(nameFormatter);
+//        nameField.setTextFormatter(nameFormatter);
         passwordField.setTextFormatter(passwordFormatter);
         passwordConfirmField.setTextFormatter(passwordConfirmFormatter);
         birthField.setTextFormatter(birthFormatter);
@@ -191,8 +191,7 @@ public class SignUpController implements Initializable {
         // 인증번호 전송
         smsService.send(phone);
 
-        // 전화번호를 수정할 수 없게 하고 전송 버튼을 재전송으로 바꾼다.
-
+        // 전송 버튼을 재전송으로 바꾼다.
         sendButton.setText("재전송");
 
         codeStore.phoneCheck = true;
@@ -202,7 +201,6 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void checkNumber() {
-
         String phone = phoneField.getText();
         String code = codeField.getText();
 
