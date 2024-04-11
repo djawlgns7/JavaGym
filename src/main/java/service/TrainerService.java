@@ -42,7 +42,7 @@ public class TrainerService {
         Trainer trainer = trainerRepository.findById(id);
 
         if (trainer != null && BCrypt.checkpw(password, trainer.getPassword())) {
-            currentTrainer = trainer;
+            SelectedTrainer.currentTrainer = trainer;
             movePage(event, "/view/trainer/helloTrainer" );
         } else {
             showAlertLoginFail("adminLoginFail");

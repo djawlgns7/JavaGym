@@ -59,6 +59,8 @@ public class ReservationInfoController implements Initializable {
             showAlertAddScheduleFail("emptyAnyField");
             return;
         }
+        Reservation reservation = new Reservation();
+
         // 예약 추가 로직 구현
         Integer memberNum = Integer.valueOf(numField.getText().trim());
         String memberName = nameField.getText().trim();
@@ -67,9 +69,7 @@ public class ReservationInfoController implements Initializable {
         Integer rtime = Integer.valueOf(rtimeField.getText().trim());
 
         if(addReservationValidate(memberName, memberPhone,rdate, rtime)) return;
-
-        Reservation reservation = new Reservation();
-
+        reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
         reservation.setMemberPhone(memberPhone);
