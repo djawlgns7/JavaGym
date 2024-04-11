@@ -9,6 +9,7 @@ import static util.PageUtil.movePage;
 import static util.PageUtil.movePageCenter;
 
 public class HelloTrainerController {
+
     @FXML
     public void reservationInfo(ActionEvent event) throws IOException {
         movePageCenter(event, "/view/trainer/reservationInfo");

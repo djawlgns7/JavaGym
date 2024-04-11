@@ -1,24 +1,27 @@
 package service;
 
-
+import domain.trainer.Reservation;
+import domain.trainer.SelectedTrainer;
 import  domain.trainer.Trainer;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.*;
 import static util.PageUtil.*;
 
 public class TrainerService {
 
-
+    public static int currentTrainerNum;
     private final TrainerRepository trainerRepository;
-    public static int currentTrainerNum; // 현재 로그인한 트레이너의 번호 저장
+    private ReservationRepository reservationRepository = new ReservationRepository();
 
     public TrainerService(TrainerRepository repository) { this.trainerRepository = repository; }
 
@@ -39,10 +42,14 @@ public class TrainerService {
         Trainer trainer = trainerRepository.findById(id);
 
         if (trainer != null && BCrypt.checkpw(password, trainer.getPassword())) {
-            currentTrainerNum = trainer.getNum(); //로그인한 트레이너의 번호 추출
-            movePage(event, "/view/trainer/helloTrainer");
+            currentTrainer = trainer;
+            movePage(event, "/view/trainer/helloTrainer" );
         } else {
             showAlertLoginFail("adminLoginFail");
         }
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservationRepository.save(reservation);
     }
 }

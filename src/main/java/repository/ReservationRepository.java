@@ -2,6 +2,7 @@ package repository;
 
 import domain.Item;
 import domain.member.MemberSchedule;
+import domain.trainer.Reservation;
 import domain.trainer.TrainerSchedule;
 
 import java.sql.Connection;
@@ -17,14 +18,49 @@ import static util.MemberUtil.setRemain;
 
 public class ReservationRepository {
 
+    public List<Reservation> findReservation(int trainerNum) {
+        String sql = "SELECT r.r_no, m.m_no, t.t_no, m.m_name, m.m_phone, r.r_date, r.r_time " +
+                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
+                "WHERE r.t_no = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, trainerNum);
+            rs = pstmt.executeQuery();
+            List<Reservation> list = new ArrayList<>();
+            int count = 0;
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+
+                reservation.setSequence(++count);
+                reservation.setMemberNum(rs.getInt("m_no"));
+                reservation.setTrainerNum(rs.getInt("t_no"));
+                reservation.setMemberName(rs.getString("m_name"));
+                reservation.setMemberPhone(rs.getString("m_phone"));
+                reservation.setReservationDate(rs.getDate("r_date"));
+                reservation.setReservationTime(rs.getInt("r_time"));
+
+                list.add(reservation);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
     /**
      * (성진)
      * 트레이너 번호 -> 해당 트레이너의 PT 일정
      */
     public List<TrainerSchedule> findTrainerSchedule(int trainerNum) {
         String sql = "SELECT m_name, r_date, r_time " +
-                    "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
-                    "WHERE r.t_no = ?";
+                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
+                "WHERE r.t_no = ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -51,6 +87,31 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, rs);
+        }
+    }
+
+    public void saveReservation(int memberNum, int trainerNum, LocalDate reservationDate, int reservationTime){
+        String sql = "insert into reservation (m_no, t_no, r_date, r_time) values(?, ?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, memberNum);
+            pstmt.setInt(2, trainerNum);
+            pstmt.setString(3, reservationDate.toString());
+            pstmt.setInt(4, reservationTime);
+
+            pstmt.executeUpdate();
+
+            setRemain(memberNum, Item.PT_TICKET, -1);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
         }
     }
 
@@ -92,6 +153,30 @@ public class ReservationRepository {
         }
     }
 
+    public void save(Reservation reservation) {
+        String sql = "insert into reservation(m_no, t_no, r_date, r_time) values (?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, reservation.getMemberNum());
+            pstmt.setInt(2, reservation.getTrainerNum());
+            pstmt.setDate(3, reservation.getReservationDate());
+            pstmt.setInt(4, reservation.getReservationTime());
+            pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+
+
+    }
     public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
@@ -102,31 +187,6 @@ public class ReservationRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, num);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(conn, pstmt, null);
-        }
-    }
-
-    public void saveReservation(int memberNum, int trainerNum, LocalDate reservationDate, int reservationTime){
-        String sql = "insert into reservation (m_no, t_no, r_date, r_time) values(?, ?, ?, ?)";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-
-            pstmt.setInt(1, memberNum);
-            pstmt.setInt(2, trainerNum);
-            pstmt.setString(3, reservationDate.toString());
-            pstmt.setInt(4, reservationTime);
-
-            pstmt.executeUpdate();
-
-            setRemain(memberNum, Item.PT_TICKET, -1);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

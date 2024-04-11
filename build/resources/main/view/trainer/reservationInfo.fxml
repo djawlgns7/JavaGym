@@ -15,8 +15,9 @@
         <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
             <Label text="예약 등록" />
 
+
             <HBox alignment="CENTER">
-                <TextField fx:id="numField" promptText="번호" />
+                <TextField fx:id="numField" promptText="회원 번호" />
             </HBox>
 
             <HBox alignment="CENTER">

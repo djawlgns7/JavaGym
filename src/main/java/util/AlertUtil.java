@@ -101,6 +101,25 @@ public class AlertUtil {
             newStage.show();
         }
     }
+
+    public static void showAlertAndMove(String title, String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
+            Parent newRoot = FXMLLoader.load(url);
+            Scene newScene = new Scene(newRoot);
+            Stage newStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            newStage.setScene(newScene);
+            newStage.show();
+        }
+    }
+
     public static void showAlertAddScheduleFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(messages.getString("addScheduleFail"));

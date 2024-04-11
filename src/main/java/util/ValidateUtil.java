@@ -11,6 +11,9 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
+import java.sql.Date;
+
+import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.*;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
@@ -68,6 +71,12 @@ public class ValidateUtil {
 
     public static boolean isEmptyAnyField(TextField name) {
         return name.getText().trim().isEmpty();
+    }
+
+    public static boolean isEmptyAnyField(TextField name,TextField date, TextField time) {
+        return name.getText().trim().isEmpty() ||
+                date.getText().trim().isEmpty() ||
+                time.getText().trim().isEmpty();
     }
     public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
 
@@ -230,17 +239,31 @@ public class ValidateUtil {
         return false;
     }
 
+    public static boolean addReservationValidate(String name, String phone, String rdate, Integer rtime) {
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
+
+        if (isWrongLengthPhone(phone)) {
+            showAlertAddMemberFail("duplicatePhone");
+        }
+        if (isDuplicateDate(rdate)) {
+            showAlertAddMemberFail("wrongRdate");
+            return true;
+        }
+
+        if(isDuplicateTime(rtime)) {
+            showAlertAddMemberFail("wrongRtime");
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isDuplicateName(String name) {
         Trainer trainer = trainerRepository.findByName(name);
         return trainer != null;
     }
-
-    /*public staitc boolean addScheduleValidate(String name) {
-        if(isDuplicateName(name)) {
-            showAlertAddScheduleFail("duplicateName");
-            return true;
-        }
-    }*/
 
     // 트레이너 아이디에 한글이 포함되면 안 된다.
     public static boolean isWrongId(String id) {
@@ -278,5 +301,16 @@ public class ValidateUtil {
 
     public static boolean isWrongLengthPhone(String phone) {
         return !(phone.length() == 8);
+    }
+
+    private static boolean isDuplicateTime(Integer time) {
+        return (time < 8 || time > 19);
+    }
+
+    private static boolean isDuplicateDate(String date) {
+        int month = Integer.parseInt(date.substring(2, 4));
+        int day = Integer.parseInt(date.substring(4));
+
+        return(1 > month || month > 12) || (1 > day || day > 31);
     }
 }
