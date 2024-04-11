@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -26,8 +27,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.showAlertAndMove;
-import static util.AlertUtil.showAlertChoose;
+import static util.AlertUtil.*;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
@@ -42,9 +42,11 @@ public class ReservationController implements Initializable {
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
+    private VBox vBoxInScroll;
+    @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum;
     @FXML
     private ImageView imageView;
 
@@ -71,19 +73,6 @@ public class ReservationController implements Initializable {
 //            } catch (ParseException e) {
 //                throw new RuntimeException(e);
 //            }
-            makeCalendar();
-        }else{
-            int memberNum = 1000;
-            member = memberRepository.findByNum(memberNum);
-            trainer = trainerRepository.findByNum(9000);
-            adder = trainerRepository.getWorkingHourAdder(trainer);
-            reservations = getTrainerSchedule(trainer, 60);
-
-            try {
-                setMyInfo();
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
             makeCalendar();
         }
     }
@@ -128,6 +117,7 @@ public class ReservationController implements Initializable {
 
             timeButtons[i].setId(i + adder + "");
             timeButtons[i].getStyleClass().add("timeButton");
+            timeButtons[i].getStyleClass().add("disabledTimeButton");
 
             timeArea.getChildren().add(timeButtons[i]);
         }
@@ -209,7 +199,7 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            //alert("더이상 추가할 수 없습니다");
+                            showAlert("예약 선택 가능 횟수 초과", "더 이상 선택할 수 없습니다", Alert.AlertType.INFORMATION);
                         //추가 가능한 횟수가 있을 경우
                         }else {
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
@@ -230,6 +220,7 @@ public class ReservationController implements Initializable {
                         }
                     }
 
+                    //예약을 선택한 날짜는 색을 칠함
                     if(isreservationExist){
                         if(!days[dayindex].getStyleClass().contains("reservedDay")) {
                             days[dayindex].getStyleClass().add("reservedDay");
@@ -238,7 +229,8 @@ public class ReservationController implements Initializable {
                         days[dayindex].getStyleClass().remove("reservedDay");
                     }
 
-
+                    showSelectedReservations();
+                    setSelectedReservationNum();
                 });
             //예약이 불가능한 버튼인 경우
             }else{
@@ -264,12 +256,25 @@ public class ReservationController implements Initializable {
     // 선택한 날짜와 시간으로 예약하는 메소드
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
+        if(getSelectedPTTicket() == 0){
+            showAlert("예약할 수 없습니다", "한 개 이상의 시간대를 선택해 주세요", Alert.AlertType.WARNING);
+            return;
+        }
+
+
+        // 시간을 전부 선택하지 않았을 경우
+        if(getSelectedPTTicket() != selectedReservations.size()){
+            showAlert("예약할 수 없습니다", "사용하기로 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
+            return;
+        }
+
+        //예약이 가능한 경우
         Optional<ButtonType> result = showAlertChoose("예약을 확정하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
             LocalDate today = LocalDate.now();
             for(int i = 0; i < selectedReservations.size(); i++){
-                int reservationTime = selectedReservations.get(i).getRTime() + adder;
+                int reservationTime = selectedReservations.get(i).getRTime();
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
@@ -285,15 +290,56 @@ public class ReservationController implements Initializable {
     @FXML
     public void ticketPlus(){
         if(isSetTicketValid(1)){
-            ticketSelection.setText((getSelectedPTTicket() + 1) + "개");
+            int newPTTicket = getSelectedPTTicket() + 1;
+            ticketSelection.setText(newPTTicket + "개");
         }
     }
 
     @FXML
     public void ticketMinus(){
         if(isSetTicketValid(-1)){
-            ticketSelection.setText((getSelectedPTTicket()- 1) + "개");
+            int newPTTicket = getSelectedPTTicket() - 1;
+            ticketSelection.setText(newPTTicket + "개");
+            renewReservation();
         }
+    }
+
+    //사용할 티켓의 수가 선택된 예약의 수보다 적어질 경우 예약 하나 삭제
+    @FXML
+    public void renewReservation(){
+        if(getSelectedPTTicket() >= selectedReservations.size()){
+            return;
+        }
+
+        Reservation removedReservation;
+        removedReservation =  selectedReservations.remove(selectedReservations.size() - 1);
+
+        int rDDay = removedReservation.getDDay();
+        int rRTime = removedReservation.getRTime() - adder;
+
+        int todayOfWeek = LocalDate.now().getDayOfWeek().getValue();
+        if(todayOfWeek == 7){todayOfWeek = 1;}
+        else{todayOfWeek++;}
+        int dateIndex = todayOfWeek + rDDay;
+
+        if(daySelectedIndex == dateIndex){
+            timeButtons[rRTime].getStyleClass().remove("selectedTimeButton");
+        }
+
+        int remainReservationNum = 0;
+
+        for(int i = 0; i < selectedReservations.size(); i++){
+            if(rDDay == selectedReservations.get(i).getDDay()){
+                remainReservationNum++;
+            }
+        }
+
+        if(remainReservationNum == 0){
+            days[dateIndex].getStyleClass().remove("reservedDay");
+        }
+
+        showSelectedReservations();
+        setSelectedReservationNum();
     }
 
     @FXML
@@ -372,6 +418,99 @@ public class ReservationController implements Initializable {
         }else{
             return false;
         }
+    }
+
+    //선택한 예약 목록을 스크롤페인에 출력
+    public void showSelectedReservations(){
+        List<Reservation> copiedReservations = new ArrayList<>();
+        List<Reservation> sortedReservations = new ArrayList<>();
+
+        vBoxInScroll.getChildren().clear();
+
+        for(int i = 0; i < selectedReservations.size(); i++){
+            copiedReservations.add(new Reservation());
+            copiedReservations.get(i).setDDay(selectedReservations.get(i).getDDay());
+            copiedReservations.get(i).setRTime(selectedReservations.get(i).getRTime());
+        }
+
+        while(!copiedReservations.isEmpty()){
+            sortedReservations.add(new Reservation());
+            int earliestIndex = 0;
+            for(int i = 1; i < copiedReservations.size(); i++){
+                int earliestDDay = copiedReservations.get(earliestIndex).getDDay();
+                int earliestRTime = copiedReservations.get(earliestIndex).getRTime();
+                int indexDDay = copiedReservations.get(i).getDDay();
+                int indexRTime = copiedReservations.get(i).getRTime();
+
+                if(indexDDay < earliestDDay){
+                    earliestIndex = i;
+                }else if(indexDDay == earliestDDay){
+                    if(indexRTime < earliestRTime){
+                        earliestIndex = i;
+                    }
+                }
+            }
+            sortedReservations.get(sortedReservations.size() - 1).setDDay(copiedReservations.get(earliestIndex).getDDay());
+            sortedReservations.get(sortedReservations.size() - 1).setRTime(copiedReservations.get(earliestIndex).getRTime());
+            copiedReservations.remove(earliestIndex);
+        }
+
+        int prevDate = 0;
+        HBox insertHBox = new HBox();
+        for(int i = 0; i < sortedReservations.size(); i++){
+            int indexDDay = sortedReservations.get(i).getDDay();
+            int indexRTime = sortedReservations.get(i).getRTime();
+            LocalDate indexLocalDate = LocalDate.now().plusDays(indexDDay);
+            String indexDate = indexLocalDate.getMonthValue() + "/" + indexLocalDate.getDayOfMonth();
+            String indexTime;
+            if(indexRTime < 10){
+                indexTime = indexRTime + ":00";
+            }else{
+                indexTime = "0" + indexRTime + ":00";
+            }
+
+            if(prevDate == indexDDay){
+                insertHBox.getChildren().add(new Label(indexTime));
+            }else {
+                insertHBox = new HBox();
+                vBoxInScroll.getChildren().add(insertHBox);
+                insertHBox.getChildren().add(new Label(indexDate));
+                insertHBox.getChildren().add(new Label(indexTime));
+            }
+
+            prevDate = indexDDay;
+        }
+    }
+
+    //리셋 버튼을 눌렀을 때 선택한 예약들 초기화
+    public void reset(){
+        selectedReservations.clear();
+        vBoxInScroll.getChildren().clear();
+        ticketSelection.setText(0 + "개");
+
+        for(int i = 1; i <= 70; i++){
+            if(days[i].getStyleClass().contains("selected")) {
+                days[i].getStyleClass().remove("selected");
+            }
+
+            if(days[i].getStyleClass().contains("reservedDay")) {
+                days[i].getStyleClass().remove("reservedDay");
+            }
+        }
+
+        for(int i = 0; i < timeButtons.length; i++){
+            timeButtons[i].getStyleClass().clear();
+            timeButtons[i].getStyleClass().add("timeButton");
+            timeButtons[i].getStyleClass().add("disabledTimeButton");
+        }
+
+        setSelectedReservationNum();
+    }
+
+    @FXML
+    public void setSelectedReservationNum(){
+        int reservationNum = selectedReservations.size();
+        selectedReaservationNum.setText("총" + reservationNum + "회");
     }
 
 }
