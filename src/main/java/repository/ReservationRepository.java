@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Item;
 import domain.member.MemberSchedule;
 import domain.trainer.TrainerSchedule;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static connection.ConnectionUtils.*;
+import static util.MemberUtil.setRemain;
 
 public class ReservationRepository {
 
@@ -155,6 +157,8 @@ public class ReservationRepository {
             pstmt.setInt(4, reservationTime);
 
             pstmt.executeUpdate();
+
+            setRemain(memberNum, Item.PT_TICKET, -1);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
