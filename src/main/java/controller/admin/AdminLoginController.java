@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import repository.AdminRepository;
-import service.AdminService;
+import domain.service.AdminService;
 import java.io.IOException;
 import static util.PageUtil.*;
 

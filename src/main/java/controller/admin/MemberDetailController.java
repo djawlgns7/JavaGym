@@ -400,7 +400,7 @@ public class MemberDetailController implements Initializable {
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
-            showAlertAndMove("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+            showAlertAndMoveCenter("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
         }
     }
 

@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import repository.TrainerRepository;
-import service.TrainerService;
+import domain.service.TrainerService;
 
 import java.io.IOException;
 

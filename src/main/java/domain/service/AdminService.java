@@ -1,4 +1,4 @@
-package service;
+package domain.service;
 
 import domain.Admin;
 import domain.member.Member;

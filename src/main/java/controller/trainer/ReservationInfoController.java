@@ -1,25 +1,17 @@
 package controller.trainer;
 
-import domain.member.Member;
 import domain.trainer.TrainerSchedule;
-import domain.trainer.Trainer;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
-import service.TrainerService;
+import domain.service.TrainerService;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
