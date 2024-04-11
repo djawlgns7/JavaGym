@@ -33,6 +33,10 @@ HBox{
     -fx-border-color: transparent;
 }
 
+.calenderHeader{
+    -fx-spacing: 10;
+}
+
 /* 일요일 글자 */
 .sundayLabel{
     -fx-text-fill: red;
@@ -72,4 +76,19 @@ HBox{
 /* 선택된 시간버튼 */
 .selectedTimeButton{
     -fx-background-color: violet;
+}
+
+/* 달력 페이지 넘기는 버튼 활성화 */
+.clickable{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-pref-width: 100;
+}
+
+/* 달력 페이지 넘기는 버튼 비활성화 */
+.unclickable{
+    -fx-background-color: gray;
+    -fx-text-fill: #333333;
+    -fx-border-color: transparent;
+    -fx-pref-width: 100;
 }

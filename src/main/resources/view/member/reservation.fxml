@@ -40,7 +40,11 @@
 <!--                </VBox>-->
 <!--            </children>-->
 <!--        </HBox>-->
-        <Label fx:id="calendarHead" styleClass="calenderHead"></Label>
+        <HBox alignment="CENTER" prefWidth="400" styleClass="calenderHeader">
+            <Label fx:id="prevPage" styleClass="unclickable">이전 페이지</Label>
+            <Label fx:id="calendarHead" styleClass="calenderHead"></Label>
+            <Label fx:id="nextPage" styleClass="clickable" onMouseClicked="#nextPage">다음 페이지</Label>
+        </HBox>
         <VBox fx:id="calender">
             <HBox alignment="CENTER" prefWidth="400">
                 <Label styleClass="sundayLabel">일</Label>
