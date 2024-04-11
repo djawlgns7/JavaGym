@@ -42,7 +42,7 @@ public class ReservationController implements Initializable {
     @FXML
     private ComboBox<Integer> timeComboBox;
     @FXML
-    private HBox week1, week2, week3, week4, week5, week6, timeArea;
+    private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
