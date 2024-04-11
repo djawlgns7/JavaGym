@@ -46,7 +46,7 @@ public class ReservationController implements Initializable {
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection;
     @FXML
     private ImageView imageView;
 
@@ -218,6 +218,26 @@ public class ReservationController implements Initializable {
     @FXML
     public void goBack(ActionEvent event) throws IOException {
         movePage(event, "/view/member/helloMember");
+    }
+
+    @FXML
+    public void ticketPlus(){
+        String currentTicketNum = ticketSelection.getText();
+        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
+        int remain = Integer.parseInt(currentTicketNum);
+        remain++;
+
+        ticketSelection.setText(remain + "개");
+    }
+
+    @FXML
+    public void ticketMinus(){
+        String currentTicketNum = ticketSelection.getText();
+        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
+        int remain = Integer.parseInt(currentTicketNum);
+        remain--;
+
+        ticketSelection.setText(remain + "개");
     }
 
     @FXML

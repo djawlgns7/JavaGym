@@ -25,6 +25,32 @@ HBox{
     -fx-spacing: 0;
 }
 
+.ticketSelectHeader{
+    -fx-pref-width: 400;
+    -fx-background-color: transparent;
+}
+
+.ticketSelectionHead{
+    -fx-pref-width: 400;
+    -fx-spacing: 10;
+}
+
+.minusBtn{
+    -fx-background-color: purple;
+    -fx-text-fill: white;
+}
+
+.ticketSelection{
+    -fx-border-color: black;
+    -fx-background-color: white;
+    -fx-pref-width: 80;
+}
+
+.plusBtn{
+    -fx-background-color: purple;
+    -fx-text-fill: white;
+}
+
 /* 달력 월 표시 */
 .calenderHead{
     -fx-font-size: 20px;
@@ -82,7 +108,7 @@ HBox{
 .clickable{
     -fx-background-color: white;
     -fx-border-color: black;
-    -fx-pref-width: 100;
+    -fx-pref-width: 50;
 }
 
 /* 달력 페이지 넘기는 버튼 비활성화 */
@@ -90,5 +116,5 @@ HBox{
     -fx-background-color: gray;
     -fx-text-fill: #333333;
     -fx-border-color: transparent;
-    -fx-pref-width: 100;
+    -fx-pref-width: 50;
 }
