@@ -11,18 +11,46 @@ Label {
     -fx-border-color: lightgray;
 }
 
-HBox{
-    -fx-spacing: 0;
-}
-
 /* 시간 버튼들이 있는 곳 */
 #timeArea{
     -fx-spacing: 20;
 }
 
+/* 선택한 예약 목록이 있는 곳 */
+selectedReservationArea{
+    -fx-border-color: black;
+    -fx-background-color: white;
+}
+
 /* 달력 */
 #calender{
     -fx-spacing: 0;
+}
+
+.ticketSelectHeader{
+    -fx-pref-width: 400;
+    -fx-background-color: transparent;
+}
+
+.ticketSelectionHead{
+    -fx-pref-width: 400;
+    -fx-spacing: 10;
+}
+
+.minusBtn{
+    -fx-background-color: purple;
+    -fx-text-fill: white;
+}
+
+.ticketSelection{
+    -fx-border-color: black;
+    -fx-background-color: white;
+    -fx-pref-width: 80;
+}
+
+.plusBtn{
+    -fx-background-color: purple;
+    -fx-text-fill: white;
 }
 
 /* 달력 월 표시 */
@@ -31,6 +59,10 @@ HBox{
     -fx-text-fill: #333333;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+.calenderHeader{
+    -fx-spacing: 10;
 }
 
 /* 일요일 글자 */
@@ -72,4 +104,19 @@ HBox{
 /* 선택된 시간버튼 */
 .selectedTimeButton{
     -fx-background-color: violet;
+}
+
+/* 달력 페이지 넘기는 버튼 활성화 */
+.clickable{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-pref-width: 50;
+}
+
+/* 달력 페이지 넘기는 버튼 비활성화 */
+.unclickable{
+    -fx-background-color: gray;
+    -fx-text-fill: #333333;
+    -fx-border-color: transparent;
+    -fx-pref-width: 50;
 }

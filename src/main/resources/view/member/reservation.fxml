@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/Reservation.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
 
-    <VBox alignment="CENTER" prefHeight="650" prefWidth="550" spacing="50.0">
+    <VBox alignment="CENTER" prefHeight="650" prefWidth="550" spacing="20.0">
         <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 10 0 0" spacing="10">
             <Region HBox.hgrow="ALWAYS" />
             <Button onAction="#goBack" text="메인 페이지" />
@@ -40,33 +40,47 @@
 <!--                </VBox>-->
 <!--            </children>-->
 <!--        </HBox>-->
+        <Label styleClass="ticketSelectHeader">이용권 수를 선택하세요</Label>
+        <HBox alignment="CENTER" styleClass="ticketSelectionHead">
+            <Label styleClass="minusBtn" onMouseClicked="#ticketMinus">-</Label>
+            <Label styleClass="ticketSelection" fx:id="ticketSelection">0개</Label>
+            <Label styleClass="plusBtn" onMouseClicked="#ticketPlus">+</Label>
+        </HBox>
         <Label fx:id="calendarHead" styleClass="calenderHead"></Label>
-        <VBox fx:id="calender">
-            <HBox alignment="CENTER" prefWidth="400">
-                <Label styleClass="sundayLabel">일</Label>
-                <Label>월</Label>
-                <Label>화</Label>
-                <Label>수</Label>
-                <Label>목</Label>
-                <Label>금</Label>
-                <Label styleClass="saturdayLabel">토</Label>
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week1" prefWidth="400">
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week2" prefWidth="400">
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week3" prefWidth="400">
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week4" prefWidth="400">
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week5" prefWidth="400">
-            </HBox>
-            <HBox alignment="CENTER" fx:id="week6" prefWidth="400">
-            </HBox>
-        </VBox>
+        <HBox alignment="CENTER" prefWidth="400" styleClass="calenderHeader">
+            <Label fx:id="prevPage" styleClass="unclickable">←</Label>
+            <VBox fx:id="calender">
+                <HBox alignment="CENTER" prefWidth="400" spacing="0">
+                    <Label styleClass="sundayLabel">일</Label>
+                    <Label>월</Label>
+                    <Label>화</Label>
+                    <Label>수</Label>
+                    <Label>목</Label>
+                    <Label>금</Label>
+                    <Label styleClass="saturdayLabel">토</Label>
+                </HBox>
+                <HBox alignment="CENTER" fx:id="week1" prefWidth="400" spacing="0">
+                </HBox>
+                <HBox alignment="CENTER" fx:id="week2" prefWidth="400" spacing="0">
+                </HBox>
+                <HBox alignment="CENTER" fx:id="week3" prefWidth="400" spacing="0">
+                </HBox>
+                <HBox alignment="CENTER" fx:id="week4" prefWidth="400" spacing="0">
+                </HBox>
+                <HBox alignment="CENTER" fx:id="week5" prefWidth="400" spacing="0">
+                </HBox>
+            </VBox>
+            <Label fx:id="nextPage" styleClass="clickable" onMouseClicked="#nextPage">→</Label>
+        </HBox>
         <HBox alignment="CENTER" fx:id="timeArea">
         </HBox>
-        <Button text="예약하기" onAction="#saveReservation"/>
+        <ScrollPane prefWidth="400" prefHeight="100" fx:id="selectedReservationArea" styleClass="selectedReservationArea">
+
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="50">
+            <Button text="예약하기" onAction="#saveReservation"/>
+            <Label fx:id="selectedReaservationNum">총 0회</Label>
+        </HBox>
     </VBox>
 
 </AnchorPane>

@@ -42,15 +42,16 @@ public class ReservationController implements Initializable {
     @FXML
     private ComboBox<Integer> timeComboBox;
     @FXML
-    private HBox week1, week2, week3, week4, week5, week6, timeArea;
+    private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
-    private Label[] days = new Label[43], timeButtons = new Label[6];
+    private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection;
     @FXML
     private ImageView imageView;
 
     List<Boolean>[] reservations;
+    HBox[] weeks;
     Member member;
     Trainer trainer;
     int timeSelectedIndex = 1;
@@ -65,7 +66,7 @@ public class ReservationController implements Initializable {
             member = currentMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
-            reservations = getTrainerSchedule(trainer, 30);
+            reservations = getTrainerSchedule(trainer, 60);
 
 //            try {
 //                setMyInfo();
@@ -78,7 +79,7 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void makeCalendar(){
-        HBox[] weeks = {week1, week2, week3, week4, week5, week6};
+        weeks = new HBox[] {week1, week2, week3, week4, week5};
         LocalDate today = LocalDate.now();
         LocalDate calenderDay = LocalDate.now();
         int todayOfWeek = today.getDayOfWeek().getValue();
@@ -87,7 +88,7 @@ public class ReservationController implements Initializable {
         else{todayOfWeek++;}
         calenderDay = calenderDay.minusDays(todayOfWeek - 1);
 
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < 10; i++) {
             for(int j = 1; j <= 7; j++) {
                 int index = 7*i + j;
                 days[index] = new Label(String.valueOf(index));
@@ -98,7 +99,9 @@ public class ReservationController implements Initializable {
                     days[index].getStyleClass().add("saturdayLabel");
                 }
 
-                weeks[i].getChildren().add(days[index]);
+                if(i < 5) {
+                    weeks[i].getChildren().add(days[index]);
+                }
             }
         }
 
@@ -115,7 +118,7 @@ public class ReservationController implements Initializable {
             timeArea.getChildren().add(timeButtons[i]);
         }
 
-        calendarHead.setText(Integer.toString(today.getMonth().getValue()) + "월");
+        calendarHead.setText(today.getMonth().getValue() + "월");
 
         for(int i = 1; i <= todayOfWeek; i++){
             days[dayIndex].getStyleClass().add("disabled");
@@ -124,7 +127,7 @@ public class ReservationController implements Initializable {
             dayIndex++;
         }
 
-        for(int i = 1; i <= 30; i++){
+        for(int i = 1; i <= 60; i++){
             boolean isExist = true;
             days[dayIndex].setText(calenderDay.getDayOfMonth() + "");
 
@@ -141,7 +144,7 @@ public class ReservationController implements Initializable {
             calenderDay = calenderDay.plusDays(1);
         }
 
-        for(int i = 0; i < 12 - todayOfWeek; i++){
+        for(int i = 0; i < 10 - todayOfWeek; i++){
             days[dayIndex].getStyleClass().add("disabled");
             days[dayIndex].setText(calenderDay.getDayOfMonth() + "");
             calenderDay = calenderDay.plusDays(1);
@@ -213,5 +216,88 @@ public class ReservationController implements Initializable {
     @FXML
     public void goBack(ActionEvent event) throws IOException {
         movePage(event, "/view/member/helloMember");
+    }
+
+    @FXML
+    public void ticketPlus(){
+        String currentTicketNum = ticketSelection.getText();
+        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
+        int PTRemain = Integer.parseInt(currentTicketNum);
+        int memberNum = member.getNum();
+        List<Integer> remain = getRemainAll(memberNum);
+        int PTTicket = remain.get(1);
+
+        PTRemain++;
+        if(0 <= PTRemain && PTRemain <= PTTicket) {
+            ticketSelection.setText(PTRemain + "개");
+        }
+    }
+
+    @FXML
+    public void ticketMinus(){
+        String currentTicketNum = ticketSelection.getText();
+        currentTicketNum = currentTicketNum.substring(0, currentTicketNum.length() - 1);
+        int PTRemain = Integer.parseInt(currentTicketNum);
+        int memberNum = member.getNum();
+        List<Integer> remain = getRemainAll(memberNum);
+        int PTTicket = remain.get(1);
+
+        PTRemain--;
+        if(0 <= PTRemain && PTRemain <= PTTicket) {
+            ticketSelection.setText(PTRemain + "개");
+        }
+    }
+
+    @FXML
+    public void nextPage(){
+        int index = 36;
+        for(int i = 0; i < 5; i++){
+            weeks[i].getChildren().remove(0, 7);
+            for(int j = 0; j < 7; j++) {
+                weeks[i].getChildren().add(days[index++]);
+            }
+        }
+
+        LocalDate today = LocalDate.now();
+        int todayOfWeek = today.getDayOfWeek().getValue();
+        if(todayOfWeek == 7){todayOfWeek = 1;}
+        LocalDate nextPageDay = today.minusDays(todayOfWeek - 1);
+        nextPageDay = nextPageDay.plusDays(35);
+        int nextPageMonth = nextPageDay.getMonth().getValue();
+
+        calendarHead.setText(nextPageMonth + "월");
+
+        nextPage.setOnMouseClicked(event->{});
+        nextPage.getStyleClass().remove("clickable");
+        nextPage.getStyleClass().add("unclickable");
+
+        prevPage.setOnMouseClicked(event->{
+            prevPage();
+        });
+        prevPage.getStyleClass().remove("unclickable");
+        prevPage.getStyleClass().add("clickable");
+    }
+
+    @FXML
+    public void prevPage(){
+        int index = 1;
+        for(int i = 0; i < 5; i++){
+            weeks[i].getChildren().remove(0, 7);
+            for(int j = 0; j < 7; j++) {
+                weeks[i].getChildren().add(days[index++]);
+            }
+        }
+
+        calendarHead.setText(LocalDate.now().getMonth().getValue() + "월");
+
+        nextPage.setOnMouseClicked(event->{
+            nextPage();
+        });
+        nextPage.getStyleClass().remove("unclickable");
+        nextPage.getStyleClass().add("clickable");
+
+        prevPage.setOnMouseClicked(event->{});
+        prevPage.getStyleClass().remove("clickable");
+        prevPage.getStyleClass().add("unclickable");
     }
 }
