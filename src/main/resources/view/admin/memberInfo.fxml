@@ -8,7 +8,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.35" orientation="HORIZONTAL" prefHeight="800.0" prefWidth="1150.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.35" orientation="HORIZONTAL" prefHeight="900.0" prefWidth="1150.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.admin.MemberInfoController">
 
@@ -49,17 +49,12 @@
         </VBox>
 
         <!-- 회원 목록 영역 -->
-        <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/common.css">
+        <VBox fx:id="listArea" spacing="10" alignment="CENTER" stylesheets="/css/common.css">
             <Label text="회원 정보" styleClass="memberInfo_title_2"/>
 
-            <HBox alignment="CENTER_RIGHT">
-                <TextField fx:id="searchNameField" promptText="회원 이름"/>
-                <Button text="검색" onAction="#searchMember"/>
-                <Button text="새로고침" onAction="#resetPage"/>
-            </HBox>
-
-            <HBox alignment="CENTER_RIGHT">
-                <Button text="사물함" onAction="#showUsingLocker"/>
+            <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
+                <TextField fx:id="searchNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
+                <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
             </HBox>
 
             <TableView fx:id="membersTable" prefHeight="550.0">
@@ -73,6 +68,11 @@
                     <TableColumn text="가입일" fx:id="enrollCol" styleClass="memberInfo_enrollColumn"/>
                 </columns>
             </TableView>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_subBtn">
+                <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
+                <Button text="새로고침" onAction="#resetPage" styleClass="memberInfo_refreshBtn"/>
+            </HBox>
         </VBox>
     </items>
 </SplitPane>

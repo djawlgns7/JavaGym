@@ -2,8 +2,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
-<SplitPane dividerPositions="0.40" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx" stylesheets="/css/common.css"
-           xmlns:fx="http://javafx.com/fxml/" fx:controller="controller.admin.MemberDetailController">
+<SplitPane dividerPositions="0.40" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/common.css"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
         <!-- 회원 상세 정보 영역 -->
         <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="30.0" styleClass="container">
@@ -30,19 +30,19 @@
 
                 <!-- Row 3. Email -->
                 <Label text="이메일" styleClass="memberDetail_emailLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="emailField" prefWidth="185" styleClass="memberDetail_emailInput" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <TextField fx:id="emailField" promptText="이메일" styleClass="memberDetail_emailInput" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
                 <!-- Row 4. Birth -->
                 <Label text="생년월일" styleClass="memberDetail_birthLabel" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="birthPicker" styleClass="memberDetail_birthPicker" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <DatePicker fx:id="birthPicker" promptText="생년월일 (6자리)" styleClass="memberDetail_birthPicker" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
                 <!-- Row 5. Gym Ticket -->
                 <Label text="헬스장 이용권" styleClass="memberDetail_GymTicketLabel" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <Spinner fx:id="gymTicketSpinner" min="0" max="999" editable="true" styleClass="memberDetail_GymTicketSpinner" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Spinner fx:id="gymTicketSpinner" promptText="헬스장 이용권 (일)" min="0" max="999" editable="true" styleClass="memberDetail_GymTicketSpinner" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
                 <!-- Row 6. PT Ticket -->
                 <Label text="PT 이용권" styleClass="memberDetail_PTTicketLabel" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                <Spinner fx:id="PTTicketSpinner" min="0" max="999" editable="true" styleClass="memberDetail_PTTicketSpinner" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Spinner fx:id="ptTicketSpinner" promptText="PT 이용권 (개)" min="0" max="999" editable="true" styleClass="memberDetail_PTTicketSpinner" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
                 <!-- Row 7. MyTrainer -->
                 <Label text="담당 트레이너" styleClass="memberDetail_myTrainerLabel" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
@@ -50,7 +50,7 @@
 
                 <!-- Row 8. Clothes -->
                 <Label text="운동복 기간" styleClass="memberDetail_clothesLabel" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                <Spinner fx:id="clothesSpinner" min="0" max="999" editable="true" styleClass="memberDetail_clothesSpinner" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <Spinner fx:id="clothesSpinner" promptText="운동복 이용권 (일)" min="0" max="999" editable="true" styleClass="memberDetail_clothesSpinner" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
 
                 <!-- Row 9. LockerNum -->
                 <Label text="사물함 번호" styleClass="memberDetail_lockerNumLabel" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
@@ -58,7 +58,7 @@
 
                 <!-- Row 10. Locker -->
                 <Label text="사물함 기간" styleClass="memberDetail_lockerLabel" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
-                <Spinner fx:id="lockerSpinner" min="0" max="999" editable="true" styleClass="memberDetail_lockerSpinner" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                <Spinner fx:id="lockerSpinner" promptText="사물함 이용권 (일)" min="0" max="999" editable="true" styleClass="memberDetail_lockerSpinner" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
 
             </GridPane>
 

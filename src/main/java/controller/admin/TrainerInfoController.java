@@ -173,4 +173,9 @@ public class TrainerInfoController implements Initializable {
             imageView.setImage(image);
         }
     }
+
+    @FXML
+    private void resetPage(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/trainerInfo");
+    }
 }

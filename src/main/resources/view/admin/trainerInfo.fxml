@@ -3,20 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
-<SplitPane dividerPositions="0.35" orientation="HORIZONTAL" prefHeight="800.0" prefWidth="1150.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.35" orientation="HORIZONTAL" prefHeight="900.0" prefWidth="1150.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.admin.TrainerInfoController">
 
     <items>
-        <VBox fx:id="detailArea" spacing="30" alignment="CENTER" styleClass="container">
+        <VBox fx:id="detailArea" spacing="25" alignment="CENTER" styleClass="container">
             <Label text="트레이너 등록"  styleClass="trainerInfo_title_1"/>
+
+            <HBox alignment="CENTER" spacing="10">
+                <StackPane styleClass="trainerInfo_ImageContainer" prefHeight="151.2" prefWidth="113.4">
+                    <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
+                </StackPane>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Button text="사진 등록" onAction="#selectPhoto" styleClass="trainerInfo_ImageBtn"/>
+            </HBox>
 
             <HBox alignment="CENTER">
                 <TextField fx:id="nameField" promptText="이름" styleClass="trainerInfo_nameInput"/>
             </HBox>
-
-            <Button text="사진 등록" onAction="#selectPhoto"/>
-            <ImageView fx:id="imageView" fitHeight="100" fitWidth="100" pickOnBounds="true" preserveRatio="true" />
 
             <HBox alignment="CENTER">
                 <TextField fx:id="idField" promptText="아이디" styleClass="trainerInfo_idInput"/>
@@ -75,6 +81,10 @@
                     <TableColumn text="전화번호" fx:id="phoneCol" styleClass="trainerInfo_phoneColumn"/>
                 </columns>
             </TableView>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_subBtn">
+                <Button text="새로고침" onAction="#resetPage" styleClass="trainerInfo_refreshBtn"/>
+            </HBox>
         </VBox>
 
     </items>

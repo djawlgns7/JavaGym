@@ -13,6 +13,16 @@ SplitPane {
     -fx-font-family: "Jua";
 }
 
+/* Label */
+.memberDetail_nameLabel, .memberDetail_phoneLabel, .memberDetail_emailLabel,
+.memberDetail_birthLabel, .memberDetail_GymTicketLabel, .memberDetail_PTTicketLabel,
+.memberDetail_myTrainerLabel, .memberDetail_clothesLabel, .memberDetail_lockerNumLabel,
+.memberDetail_lockerLabel {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
 /* TextField */
 .memberDetail_nameInput, .memberDetail_phoneInput, .memberDetail_emailInput,
 .memberDetail_birthPicker, .memberDetail_GymTicketSpinner, .memberDetail_PTTicketSpinner,
@@ -27,16 +37,6 @@ SplitPane {
     -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #999999;
-}
-
-/* Label */
-.memberDetail_nameLabel, .memberDetail_phoneLabel, .memberDetail_emailLabel,
-.memberDetail_birthLabel, .memberDetail_GymTicketLabel, .memberDetail_PTTicketLabel,
-.memberDetail_myTrainerLabel, .memberDetail_clothesLabel, .memberDetail_lockerNumLabel,
-.memberDetail_lockerLabel {
-    -fx-font-family: "Jua";
-    -fx-font-size: 16;
-    -fx-font-weight: bold;
 }
 
 /* Button */

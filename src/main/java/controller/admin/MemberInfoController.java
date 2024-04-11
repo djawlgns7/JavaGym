@@ -144,14 +144,19 @@ public class MemberInfoController implements Initializable {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("사물함 정보");
 
-        ButtonType closeButton = new ButtonType("닫기", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(closeButton);
+        ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        closeButton.getStyleClass().add("closeBtn");
 
         TableView<UsingLocker> table = new TableView<>();
+        table.getStyleClass().add("tableView");
         loadLockerInfo(table, purchaseRepository);
 
-        dialog.getDialogPane().setContent(new VBox(table));
-        dialog.getDialogPane().setPrefSize(400, 400);
+        VBox vbox = new VBox(table);
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.setContent(vbox);
+        dialogPane.getStylesheets().add(getClass().getResource("/css/LockerInfo.css").toExternalForm());
         dialog.showAndWait();
     }
 

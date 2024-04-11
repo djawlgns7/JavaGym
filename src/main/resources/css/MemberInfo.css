@@ -74,6 +74,41 @@ SplitPane {
 }
 
 /* Table */
+.memberInfo_searchBox {
+    -fx-padding: 0 15 10 0;
+}
+
+.memberInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.memberInfo_searchBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_searchBtn:hover {
+    -fx-background-color: #EA8ABE;
+}
+
+.memberInfo_searchBtn:pressed {
+    -fx-background-color: #EA8ABE;
+}
+
 .memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
 .memberInfo_emailColumn, .memberInfo_birthColumn, .memberInfo_phoneColumn,
 .memberInfo_enrollColumn {
@@ -167,3 +202,36 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.memberInfo_subBtn {
+    -fx-padding: 10 15 0 0;
+}
+
+.memberInfo_lockerBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_refreshBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
+    -fx-background-color: #EA8ABE;
+}
+
+.memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
+    -fx-background-color: #EA8ABE;
+}
