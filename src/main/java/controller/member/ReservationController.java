@@ -6,7 +6,9 @@ import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -16,7 +18,6 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,10 +53,8 @@ public class ReservationController implements Initializable {
     HBox[] weeks;
     Member member;
     Trainer trainer;
-    int timeSelectedIndex = 1;
     int daySelectedIndex = 1;
     LocalDate selectedDate, startDay;
-    int selectedTime;
     int adder;
 
     @Override
@@ -110,6 +109,8 @@ public class ReservationController implements Initializable {
                     days[index].getStyleClass().add("sundayLabel");
                 }else if(j == 7){
                     days[index].getStyleClass().add("saturdayLabel");
+                }else{
+                    days[index].getStyleClass().add("dayLabel");
                 }
 
                 if(i < 5) {
@@ -223,15 +224,16 @@ public class ReservationController implements Initializable {
 
                     for(int j = 0; j < selectedReservations.size(); j++){
                         for(int k = 0; k < 6; k++) {
-                            if (selectedReservations.get(j).isExist(day, k)) {
+                            if (selectedReservations.get(j).isExist(day, adder + k)) {
                                 isreservationExist = true;
                             }
                         }
                     }
 
-                    System.out.println(isreservationExist);
                     if(isreservationExist){
-                        days[dayindex].getStyleClass().add("reservedDay");
+                        if(!days[dayindex].getStyleClass().contains("reservedDay")) {
+                            days[dayindex].getStyleClass().add("reservedDay");
+                        }
                     }else{
                         days[dayindex].getStyleClass().remove("reservedDay");
                     }
@@ -265,7 +267,12 @@ public class ReservationController implements Initializable {
         Optional<ButtonType> result = showAlertChoose("예약을 확정하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
-            reservationRepository.saveReservation(member.getNum(), trainer.getNum(), selectedDate, selectedTime);
+            LocalDate today = LocalDate.now();
+            for(int i = 0; i < selectedReservations.size(); i++){
+                int reservationTime = selectedReservations.get(i).getRTime() + adder;
+                LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
+                reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
+            }
             showAlertAndMove("알림", "예약이 확정되었습니다.", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
