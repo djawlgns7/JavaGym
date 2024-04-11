@@ -14,6 +14,9 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -113,13 +116,15 @@ public class ControllerUtil {
     }
 
     public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
-        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("");
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
         entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
+        entryNumColumn.setPrefWidth(70);
 
         TableColumn<EntryLog, String> entryLogColumn = new TableColumn<>("입장 일시");
         entryLogColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cellData.getValue().getEntryTime())
         ));
+        entryLogColumn.setPrefWidth(180);
 
         table.getColumns().addAll(entryNumColumn, entryLogColumn);
         List<Timestamp> timestamps = entryLogRepository.findAllEntryLogs(memberNum);

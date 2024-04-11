@@ -14,7 +14,8 @@
                 <TextField fx:id="nameField"/>
             </HBox>
 
-            <Button text="사진 수정" onAction="#updatePhoto"/>
+            <Button text="사진 변경" onAction="#updatePhoto"/>
+            <Button text="기본 사진으로 변경" onAction="#resetPhoto"/>
             <ImageView fx:id="imageView" fitHeight="100" fitWidth="100" pickOnBounds="true" preserveRatio="true" />
 
             <HBox alignment="CENTER" spacing="10">

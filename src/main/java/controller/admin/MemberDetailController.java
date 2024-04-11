@@ -409,14 +409,20 @@ public class MemberDetailController implements Initializable {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle(currentMember.getName() + "님 출입 일지");
 
-        ButtonType closeButton = new ButtonType("닫기");
-        dialog.getDialogPane().getButtonTypes().addAll(closeButton);
+        ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        closeButton.getStyleClass().add("closeBtn");
 
         TableView<EntryLog> table = new TableView<>();
+        table.getStyleClass().add("tableView");
         loadEntryLog(currentMember.getNum(), table, entryLogRepository);
 
-        dialog.getDialogPane().setContent(new VBox(table));
-        dialog.getDialogPane().setPrefSize(200, 400);
+        VBox vbox = new VBox(table);
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.setContent(vbox);
+        dialogPane.getStylesheets().add(getClass().getResource("/css/Entrylog.css").toExternalForm());
+
         dialog.showAndWait();
     }
 
@@ -498,7 +504,6 @@ public class MemberDetailController implements Initializable {
     }
 
     private void setBasicInfo(Member member, DatePicker birthPicker) {
-
         // DatePicker를 사용하기 위해 SQL Date를 Local Date로 변환한다.
         LocalDate birthDate = member.getBirthDate().toLocalDate();
 

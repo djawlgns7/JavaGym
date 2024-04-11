@@ -1,8 +1,11 @@
 package controller.admin;
 
 import domain.*;
+import domain.member.Member;
 import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,8 +21,12 @@ import service.AdminService;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -39,7 +46,7 @@ public class TrainerInfoController implements Initializable {
     private final ResourceBundle config = ResourceBundle.getBundle("config.init");
 
     @FXML
-    private TextField nameField, idField, phoneField, birthField, heightField, weightField;
+    private TextField nameField, idField, phoneField, birthField, heightField, weightField, searchNameField;
 
     @FXML
     private ImageView imageView;
@@ -63,6 +70,7 @@ public class TrainerInfoController implements Initializable {
 
         String name = nameField.getText().trim();
         String phone = phoneField.getText().trim();
+        Gender gender = Gender.valueOf(getSelectedGender(maleButton, femaleButton));
         String birth = birthField.getText().trim();
         String id = idField.getText().trim();
         Double height = Double.valueOf(heightField.getText());
@@ -74,7 +82,7 @@ public class TrainerInfoController implements Initializable {
         trainer.setName(name);
         trainer.setId(id);
         trainer.setPassword(BCrypt.hashpw(config.getString("initial.trainer.password"), BCrypt.gensalt()));
-        trainer.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+        trainer.setGender(gender);
         trainer.setBirthDate(stringToDate(birth));
         trainer.setPhone(phone);
         trainer.setWorkingHour(WorkingHour.valueOf(getSelectedWorkingTime(amButton, pmButton)));
@@ -83,11 +91,28 @@ public class TrainerInfoController implements Initializable {
 
         service.addTrainer(trainer);
 
+        // 사진 선택했을 경우
         if (selectedImagePath != null && !selectedImagePath.isEmpty()) {
             File photoFile = new File(selectedImagePath);
             Trainer findTrainer = trainerRepository.findByName(trainer.getName());
             trainerRepository.savePhoto(findTrainer.getNum(), photoFile);
+        } else {
+            // 사진 선택하지 않았을 경우
+            if (gender.equals(Gender.M)) {
+                String defaultImagePath = getClass().getResource("/image/maleTrainer.png").getFile();
+                File defaultImageFile = new File(defaultImagePath);
+
+                Trainer findTrainer = trainerRepository.findByName(trainer.getName());
+                trainerRepository.savePhoto(findTrainer.getNum(), defaultImageFile);
+            } else {
+                String defaultImagePath = getClass().getResource("/image/femaleTrainer.png").getFile();
+                File defaultImageFile = new File(defaultImagePath);
+
+                Trainer findTrainer = trainerRepository.findByName(trainer.getName());
+                trainerRepository.savePhoto(findTrainer.getNum(), defaultImageFile);
+            }
         }
+
         showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
     }
 
@@ -151,7 +176,7 @@ public class TrainerInfoController implements Initializable {
     @FXML
     private void trainerDetail(Trainer trainer, MouseEvent event) throws IOException {
         if (trainer != null && event.getClickCount() == 2) {
-            currentTrainer = trainer;
+            currentTrainer = trainerRepository.findByNum(trainer.getNum());
             movePageCenter(event, "/view/admin/trainerDetail");
         }
     }
@@ -172,5 +197,29 @@ public class TrainerInfoController implements Initializable {
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
         }
+    }
+
+    @FXML
+    private void searchTrainer() {
+        String searchName = searchNameField.getText().trim();
+
+        if (searchName.isEmpty()) {
+            showAlert("이름을 입력해 주세요.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
+        Trainer trainer = trainerRepository.findByName(searchName);
+
+        if (trainer == null) {
+            showAlert("해당 이름의 트레이너가 없습니다.", Alert.AlertType.INFORMATION);
+            return;
+        }
+        ObservableList<Trainer> observableList = FXCollections.observableArrayList(trainer);
+        trainerTable.setItems(observableList);
+    }
+
+    @FXML
+    private void resetPage(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/admin/trainerInfo");
     }
 }
