@@ -295,4 +295,38 @@ public class MemberRepository {
         }
         return age;
     }
+
+    //특정 멤버가 오늘 예약이 있는지 여부를 반환한다
+    public boolean hasReservationToday(int memberNum){
+        String sql = "select count(r_date) from reservation where r_date = ? and m_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        LocalDate today = LocalDate.now();
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, today.toString());
+            pstmt.setInt(2, memberNum);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int countOfRDate = rs.getInt(1);
+
+                if(countOfRDate == 1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+
+        return false;
+    }
 }

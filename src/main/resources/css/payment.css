@@ -1,0 +1,3 @@
+.tab-pane .tab-header-area .tab {
+    -fx-pref-width: 178px; /* 탭 헤더의 기본 너비를 설정 */
+}

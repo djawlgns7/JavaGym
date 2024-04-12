@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/Reservation.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
+    <VBox alignment="CENTER" prefHeight="1000" prefWidth="550" spacing="15.0">
+
+        <HBox alignment="CENTER_LEFT" styleClass="textMain">
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label">
+                <font>
+                    <Font name="Anton-Regular" />
+                </font>
+            </Label>
+            <VBox alignment="CENTER_RIGHT" styleClass="moveMainPage2">
+                <Button onAction="#goBack" mnemonicParsing="false" text="메인" />
+                <Label fx:id="home" text="HOME" textFill="#DE14FF" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <!-- 트레이너 정보 -->
+        <HBox fx:id="trainerView" alignment="CENTER" styleClass="trainerInfoView" spacing="15">
+            <Region HBox.hgrow="ALWAYS" />
+            <ImageView fx:id="imageView" styleClass="imageProfile" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox styleClass="trainerProfile" alignment="CENTER" spacing="10">
+                <Label fx:id="trainerName" text="노승빈 트레이너" />
+                <Label fx:id="trainerInfo" text="181cm | 82kg | 26세" />
+                <Label fx:id="PTTicketRemain" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+
+
+        <!-- 캘린더 -->
+<!--        <Label styleClass="ticketSelectHeader">이용권 수를 선택하세요</Label>-->
+
+        <HBox alignment="CENTER" spacing="10" styleClass="count">
+            <Label styleClass="minusBtn" onMouseClicked="#ticketMinus">-</Label>
+            <Label styleClass="ticketSelection" fx:id="ticketSelection">0개</Label>
+            <Label styleClass="plusBtn" onMouseClicked="#ticketPlus">+</Label>
+        </HBox>
+
+        <Label fx:id="calendarHead" styleClass="calenderHead" />
+
+        <HBox alignment="CENTER" styleClass="calenderHeader" >
+            <Label fx:id="prevPage" styleClass="unclickable">←</Label>
+            <VBox fx:id="calender" prefWidth="400" prefHeight="800">
+                <HBox styleClass="" alignment="CENTER" prefWidth="400" prefHeight="25">
+                    <Label styleClass="sundayLabel">일</Label>
+                    <Label styleClass="dayLabel">월</Label>
+                    <Label styleClass="dayLabel">화</Label>
+                    <Label styleClass="dayLabel">수</Label>
+                    <Label styleClass="dayLabel">목</Label>
+                    <Label styleClass="dayLabel">금</Label>
+                    <Label styleClass="saturdayLabel">토</Label>
+                </HBox>
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week1" prefWidth="400" prefHeight="200">
+                </HBox>
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week2" prefWidth="400" prefHeight="200">
+                </HBox>
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week3" prefWidth="400" prefHeight="200">
+                </HBox>
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week4" prefWidth="400" prefHeight="200">
+                </HBox>
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week5" prefWidth="400" prefHeight="200">
+                </HBox>
+            </VBox>
+            <Label fx:id="nextPage" styleClass="clickable" onMouseClicked="#nextPage">→</Label>
+        </HBox>
+
+        <HBox alignment="CENTER" fx:id="timeArea" styleClass="timeStamp" />
+        <HBox alignment="CENTER" prefWidth="400" fx:id="selectedReservationList" />
+
+        <VBox styleClass="selectReservation" prefWidth="50" prefHeight="300">
+            <HBox styleClass="selectBtn" alignment="CENTER" spacing="50">
+                <Button text="예약" onAction="#saveReservation" styleClass="rBtn"/>
+                <Label fx:id="selectedReaservationNum">총 0회</Label>
+            </HBox>
+        </VBox>
+    </VBox>
+
+</AnchorPane>

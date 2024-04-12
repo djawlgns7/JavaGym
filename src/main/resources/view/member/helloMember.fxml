@@ -30,20 +30,19 @@
         <!-- 회원 정보 텍스트 -->
         <HBox spacing="35" styleClass="Hello_Member_Info">
             <HBox alignment="CENTER_LEFT">
-                <Label text="PT 이용권 O개" styleClass="Hello_PT_Info" />
+                <Label fx:id="PTTicketRemain" text="PT 이용권 O개" styleClass="Hello_PT_Info" />
             </HBox>
             <HBox alignment="CENTER">
-                <Label text="OOO님, 환영합니다!" styleClass="Hello_Name_Info" />
+                <Label fx:id="memberName" text="OOO님, 환영합니다!" styleClass="Hello_Name_Info" />
             </HBox>
             <HBox alignment="CENTER_RIGHT">
-                <Label text="D-OOO" styleClass="Hello_GYM_Info" />
+                <Label fx:id="DDay" text="D-OOO" styleClass="Hello_GYM_Info" />
             </HBox>
         </HBox>
 
-        <!-- 버튼 -->
-        <HBox alignment="CENTER" spacing="60" styleClass="Hello_page_Btn">
-            <Button text="예약" styleClass="reservationBtn"/>
-            <Button fx:id="entryButton" onAction="#entry" text="입장" styleClass="entryBtn"/>
+        <HBox alignment="CENTER" spacing="60">
+            <Button text="예약" styleClass="reservationBtn" onAction="#reservation"/>
+            <Button fx:id="entry" text="입장" onAction="#entry" styleClass="entryBtn"/>
             <Button text="결제" styleClass="purchaseBtn"/>
         </HBox>
     </VBox>

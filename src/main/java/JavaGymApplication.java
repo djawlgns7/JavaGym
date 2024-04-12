@@ -15,12 +15,25 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/reservation.fxml"));
         stage.setScene(new Scene(loginRoot));
         stage.setTitle("JavaGym");
         stage.show();
         stage.setResizable(false);
     }
+
+//    @Override
+//    public void start(Stage stage) throws Exception {
+//        // 폰트 로드
+//        Font.loadFont(getClass().getResourceAsStream("/fonts/Anton-Regular.ttf"), 20);
+//        Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
+//
+//        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/payment.fxml"));
+//        stage.setScene(new Scene(loginRoot));
+//        stage.setTitle("JavaGym");
+//        stage.show();
+//        stage.setResizable(false);
+//    }
 
     public static void main(String[] args) {
         launch();
