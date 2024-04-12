@@ -43,7 +43,7 @@ public class AdminService {
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            movePage(event, "/view/admin/helloAdmin");
+            movePageCenter(event, "/view/admin/helloAdminV2");
         } else {
             showAlertLoginFail("adminLoginFail");
         }
@@ -55,17 +55,5 @@ public class AdminService {
 
     public void addTrainer(Trainer trainer) {
         trainerRepository.save(trainer);
-    }
-
-    public void updateMember() {
-
-    }
-
-    public void updateTrainer() {
-
-    }
-
-    public void cancelReservation() {
-
     }
 }
