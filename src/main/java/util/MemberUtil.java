@@ -63,6 +63,27 @@ public class MemberUtil {
     }
 
     /**
+     * 현재 사용 중인 사물함 번호 변경
+     */
+    public static void setLockerNum(int memberNum, int lockerNum) {
+        Connection conn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall("{call setLockerNum(?, ?)}");
+
+            cstmt.setInt(1, memberNum);
+            cstmt.setInt(2, lockerNum);
+            cstmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, cstmt, null);
+        }
+    }
+
+    /**
      * 회원 번호 -> 트레이너 번호
      */
     public static Integer getTrainerNumForMember(int memberNum) {
@@ -143,4 +164,21 @@ public class MemberUtil {
         }
     }
 
+    public static void changeTrainerOfMember(int memberNum, int trainerNum) {
+        Connection conn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall("{call setTrainerNo(?, ?)}");
+
+            cstmt.setInt(1, memberNum);
+            cstmt.setInt(2, trainerNum);
+            cstmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, cstmt, null);
+        }
+    }
 }

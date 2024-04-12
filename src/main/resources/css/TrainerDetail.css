@@ -1,0 +1,216 @@
+/* VBox */
+SplitPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.trainerDetail_title_1, .trainerDetail_title_2 {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* ImageView */
+.trainerDetail_ImageContainer {
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+/* Label */
+.trainerDetail_nameLabel, .trainerDetail_idLabel, .trainerDetail_phoneLabel,
+.trainerDetail_heightLabel, .trainerDetail_weightLabel, .trainerDetail_birthLabel {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+/* TextField */
+.trainerDetail_nameInput, .trainerDetail_idInput, .trainerDetail_phoneInput,
+.trainerDetail_heightInput, .trainerDetail_weightInput, .trainerDetail_birthPicker {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 30;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+/* Button */
+.trainerDetail_updateImageBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 70;
+    -fx-pref-height: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerDetail_resetImageBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 120;
+    -fx-pref-height: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerDetail_Btn {
+    -fx-font-family: "Jua";
+    -fx-spacing: 20;
+}
+
+.trainerDetail_updateTrainerBtn, .trainerDetail_deleteTrainerBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerDetail_goBackBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover .trainerDetail_updateTrainerBtn:hover,
+.trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.trainerDetail_updateImageBtn:pressed, .trainerDetail_resetImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
+.trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+/* Radio Button */
+.trainerDetail_sex_radioBtn_title, .trainerDetail_worktime_radioBtn_title {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.trainerDetail_sex_radioBtn_1 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 0 0 50;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.trainerDetail_worktime_radioBtn_1 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 0 0 40;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.trainerDetail_sex_radioBtn_2 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 10 0 0;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.trainerDetail_worktime_radioBtn_2 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 40 0 0;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+/* Table */
+.trainerDetail_CountColumn, .trainerDetail_NameColumn,
+.trainerDetail_DateColumn, .trainerDetail_TimeColumn {
+    -fx-font-family: "Jua";
+}
+
+.trainerDetail_CountColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerDetail_NameColumn {
+    -fx-pref-width: 110;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerDetail_DateColumn {
+    -fx-pref-width: 140;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerDetail_TimeColumn {
+    -fx-pref-width: 140;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+/* TableView 헤더 스타일 */
+.table-view .column-header-background .label {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+/* 헤더 배경색 변경 */
+.table-view .column-header {
+    -fx-background-color: #9747FF;
+}
+
+/* 헤더의 테두리 변경 */
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: #9747FF;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* 컬럼 헤더들 사이의 경계선 추가 */
+.table-view .column-header {
+    -fx-border-color: transparent transparent #FFFFFF #FFFFFF; /* 아래쪽과 오른쪽 경계선 색상 설정 */
+    -fx-border-width: 0 0 2 1; /* 아래쪽 경계선 두께 2, 오른쪽 경계선 두께 1 */
+}
+
+/* 화살표 버튼 배경색 변경 */
+.table-view .column-header .arrow-button {
+    -fx-background-color: #9747FF; /* 화살표 버튼 배경색도 헤더 배경색과 동일하게 설정 */
+}
+
+/* 정렬 화살표 스타일 */
+.table-view .column-header .arrow {
+    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+}
+
+/* 오름차순 화살표 스타일 */
+.table-view .column-header .arrow-button .arrow {
+    -fx-shape: "M0,0 L1,0 L0.5,1 Z"; /* 오름차순 화살표 모양 */
+}
+
+/* 내림차순 화살표 스타일 */
+.table-view .column-header:descending .arrow-button .arrow {
+    -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
+}

@@ -2,13 +2,11 @@ package repository;
 
 import domain.Gender;
 import domain.member.Member;
-import domain.trainer.Trainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -239,7 +237,41 @@ public class MemberRepository {
         }
     }
 
-    public int getAge(Member member) throws ParseException {
+    /**
+     * 관리자 페이지에서 사용
+     */
+    public List<Member> searchMembersByName(String name) {
+        String sql = "select m_no, m_name, m_sex, m_email, m_birthdate, m_phone, m_enrollment from member where m_name = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Member> members = new ArrayList<>();
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Member member = new Member();
+                member.setNum(rs.getInt("m_no"));
+                member.setName(rs.getString("m_name"));
+                member.setGender(Gender.valueOf(rs.getString("m_sex")));
+                member.setEmail(rs.getString("m_email"));
+                member.setBirthDate(rs.getDate("m_birthdate"));
+                member.setPhone(rs.getString("m_phone"));
+                member.setEnrolDate(rs.getDate("m_enrollment"));
+                members.add(member);
+            }
+            return members;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+
+    public int getAge(Member member) {
         LocalDate today = LocalDate.now();
         String birthString = dateToString(member.getBirthDate());
         int birthYear = Integer.parseInt(birthString.substring(0, 2));
@@ -248,7 +280,7 @@ public class MemberRepository {
         int todayYear = today.getYear();
         int todayDay = today.getDayOfYear();
 
-        if(birthYear > 50){
+        if (birthYear > 50){
             birthYear += 1900;
         }else{
             birthYear += 2000;
@@ -258,10 +290,9 @@ public class MemberRepository {
         birthDay = birth.getDayOfYear();
         int age = todayYear - birthYear - 1;
 
-        if(todayDay >= birthDay){
+        if (todayDay >= birthDay) {
             age++;
         }
-
         return age;
     }
 

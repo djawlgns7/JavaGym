@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static connection.ConnectionUtils.*;
@@ -97,7 +98,7 @@ public class ReservationRepository {
         }
     }
 
-    public void delete(int num) {
+    public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
         Connection conn = null;
@@ -111,6 +112,33 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, null);
+        }
+    }
+
+    /**
+     * 오늘을 기준으로 가장 최근 예약일을 얻는다.
+     * 회원 입장 시 검증에 사용한다. (성진)
+     */
+    public Date getTodayReservationDate(int memberNum) {
+        String sql = "select r_date from reservation where m_no = ? and r_date <= now() order by 1 desc limit 1";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, memberNum);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("r_date");
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
         }
     }
 

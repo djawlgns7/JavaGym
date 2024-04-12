@@ -1,33 +1,33 @@
 package controller.member;
 
-import domain.Item;
-import domain.member.Member;
-import domain.member.MemberSchedule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
-import service.MemberService;
+import repository.ReservationRepository;
+import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.showAlert;
-import static util.MemberUtil.*;
+import static domain.member.SelectedMember.*;
+import static util.AlertUtil.showAlertAndMove;
+import static util.AlertUtil.showAlertUseMessage;
 import static util.PageUtil.movePage;
+import static util.PageUtil.movePageCenter;
 
 public class HelloMemberController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final EntryLogRepository entryLogRepository = new EntryLogRepository();
 
     @FXML
     private ImageView profileImage;
@@ -35,8 +35,8 @@ public class HelloMemberController implements Initializable {
     private Label PTTicketRemain, memberName, DDay;
 
     // 이미지 추가
+
     private final MemberRepository repository = new MemberRepository();
-    private final MemberService service = new MemberService(repository);
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
@@ -61,26 +61,29 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void myInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/myInformation", "/css/password");
+        movePage(event, "/view/member/myInformation");
     }
 
     @FXML
-    public void showAdminLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
-    }
+    public void entry(ActionEvent event) throws IOException {
 
+        Integer gymTicket = MemberUtil.getRemain(currentMember.getNum(), Item.GYM_TICKET);
+        Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
 
-    @FXML
-    public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
-    }
-    // 바로입장 버튼에 대한 메소드 추가
-    // @@@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@@
-    @FXML
-    public void immediateEntry(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
-    }
+        String today = LocalDate.now().toString();
+        if (gymTicket.equals(0) && reservation == null) {
+            showAlertUseMessage("DeniedEntry");
+            return;
+        }
 
+        if (!reservation.toString().equals(today)) {
+            showAlertUseMessage("DeniedEntry");
+            return;
+        }
+
+        entryLogRepository.save(currentMember.getNum());
+        showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -105,7 +108,12 @@ public class HelloMemberController implements Initializable {
         Image image = new Image("/image/JavaGym.jpeg");
         profileImage.setImage(image);
 
-        Circle cilpCircle = new Circle(100, 100, 100);
-        profileImage.setClip(cilpCircle);
+        Circle clipCircle = new Circle(100, 100, 100);
+        profileImage.setClip(clipCircle);
+    }
+
+    @FXML
+    private void moveToPaymentPage(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/member/payment");
     }
 }

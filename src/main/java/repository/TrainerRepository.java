@@ -51,8 +51,8 @@ public class TrainerRepository {
         }
     }
 
-    //트레이너의 번호와 사진을 입력하면 데이터베이스에 저장
-    public void savePhoto(int trainerNo, File photoFile){
+    // 트레이너의 번호와 사진을 입력하면 데이터베이스에 저장
+    public void savePhoto(int trainerNo, File photoFile) {
         String sql = "UPDATE trainer set t_photo = ? where t_no = ?";
 
         Connection conn = null;
@@ -76,7 +76,7 @@ public class TrainerRepository {
         }
     }
 
-    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환. 사진이 없은 경우 기본 사진을 반환
+    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
     public Image getImage(int trainerNo){
         String sql = "select t_photo from trainer where t_no = ?";
 
@@ -96,9 +96,9 @@ public class TrainerRepository {
                 photoBytes = rs.getBytes("t_photo");
                 Image trainerPhoto;
 
-                if(photoBytes == null){
+                if (photoBytes == null) {
                     trainerPhoto = new Image("/image/goTrainer.jpg");
-                }else {
+                } else {
                     InputStream inputStream = new ByteArrayInputStream(photoBytes);
                     trainerPhoto = new Image(inputStream);
                 }
@@ -142,6 +142,7 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
+                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
 
@@ -182,6 +183,7 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
+                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
             } else {
@@ -221,6 +223,46 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
+                trainer.setPhoto(rs.getBytes("t_photo"));
+
+                return trainer;
+
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw  new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    public Trainer findByName(String trainerName) {
+        String sql = "select * from trainer where t_name = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, trainerName);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Trainer trainer = new Trainer();
+
+                trainer.setNum(rs.getInt("t_no"));
+                trainer.setId(rs.getString("t_id"));
+                trainer.setName(rs.getString("t_name"));
+                trainer.setPassword(rs.getString("t_pw"));
+                trainer.setPhone(rs.getString("t_phone"));
+                trainer.setBirthDate(rs.getDate("t_birthdate"));
+                trainer.setGender(Gender.valueOf(rs.getString("t_sex")));
+                trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
+                trainer.setHeight(rs.getDouble("t_height"));
+                trainer.setWeight(rs.getDouble("t_weight"));
+                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
 
@@ -316,7 +358,7 @@ public class TrainerRepository {
         }
     }
 
-    public int getAge(Trainer trainer) throws ParseException {
+    public int getAge(Trainer trainer) {
         LocalDate today = LocalDate.now();
         String birthString = dateToString(trainer.getBirthDate());
         int birthYear = Integer.parseInt(birthString.substring(0, 2));
@@ -325,9 +367,9 @@ public class TrainerRepository {
         int todayYear = today.getYear();
         int todayDay = today.getDayOfYear();
 
-        if(birthYear > 50){
+        if (birthYear > 50){
             birthYear += 1900;
-        }else{
+        } else {
             birthYear += 2000;
         }
 
@@ -335,7 +377,7 @@ public class TrainerRepository {
         birthDay = birth.getDayOfYear();
         int age = todayYear - birthYear - 1;
 
-        if(todayDay >= birthDay){
+        if (todayDay >= birthDay){
             age++;
         }
 

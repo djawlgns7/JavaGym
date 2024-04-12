@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,15 +26,9 @@ import static util.PageUtil.movePage;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
-
     @FXML
-    private Label memberName, trainerName, trainerInfo, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
-            clothesAvailability, clothesRemain;
-    @FXML
-    private HBox trainerView;
-
-    @FXML
-    private ImageView imageView;
+    private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+            clothesAvailability, clothesRemain, trainerPhone;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,25 +58,28 @@ public class MyInformationController implements Initializable {
         memberName.setText(member.getName() + " ");
 
         if(trainerNum == 0) {
-            imageView.setImage(new Image("/image/goTrainer.jpg"));
             trainerName.setText("");
-            trainerInfo.setText("담당 트레이너가 없습니다");
+            trainerPhone.setText("담당 트레이너가 없습니다");
 
         }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
+            LocalDate expireDate = today;
             int trainerAge = trainerRepository.getAge(trainer);
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
-            imageView.setImage(trainerImage);
-            trainerName.setText(trainer.getName() + "트레이너");
-            trainerInfo.setText(trainer.getHeight() + "cm|" + trainer.getWeight() + "kg|" + trainerAge + "살");
+            String phone = trainer.getPhone();
+            String claculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
+
+            trainerName.setText(trainer.getName() + " 트레이너");
+            trainerPhone.setText(claculatedTrainerPhone);
         }
 
         if(gymTicket == 0) {
             gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            gymTicketRemain.setText(expireDate + " (D-" + gymTicket + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -91,9 +89,11 @@ public class MyInformationController implements Initializable {
             lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
+
             LocalDate expireDate = today.plusDays(locker);
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
             lockerNo.setText("No." + lockerNum);
-            lockerRemain.setText(expireDate + " (D-" + locker + ")");
+            lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
         if(clothes == 0){
@@ -101,8 +101,10 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
             clothesAvailability.setText("대여 가능");
-            clothesRemain.setText(expireDate + " (D-" + clothes + ")");
+            clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+
         }
     }
 
