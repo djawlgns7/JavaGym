@@ -46,7 +46,7 @@
          <VBox styleClass="gymInfo" alignment="CENTER" spacing="10">
             <children>
                <Label text="헬스장 이용 종료 기간" />
-               <Label fx:id="gymTicketReamin" text="2024-10-20 (D-200)">
+               <Label fx:id="gymTicketRemain" text="2024-10-20 (D-200)">
                </Label>
             </children>
          </VBox>

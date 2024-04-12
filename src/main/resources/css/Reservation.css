@@ -213,10 +213,6 @@ Button:hover {
 }
 
 /* 선택한 예약 목록이 있는 곳 */
-selectedReservationArea{
-    -fx-border-color: black;
-    -fx-background-color: #F5F5F5;
-}
 
 .selectedReservationArea {
     -fx-translate-y: -40px;

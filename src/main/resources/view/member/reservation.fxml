@@ -76,8 +76,9 @@
 
         <HBox alignment="CENTER" fx:id="timeArea" styleClass="timeStamp" />
 
+        <ScrollPane fx:id="selectedReservationArea" styleClass="selectedReservationArea" />
+
         <VBox styleClass="selectReservation" prefWidth="50" prefHeight="300" spacing="20">
-            <ScrollPane fx:id="selectedReservationArea" styleClass="selectedReservationArea" />
             <HBox styleClass="selectBtn" alignment="CENTER" spacing="50">
                 <Button text="예약" onAction="#saveReservation" styleClass="rBtn"/>
                 <Label fx:id="selectedReaservationNum">총 0회</Label>

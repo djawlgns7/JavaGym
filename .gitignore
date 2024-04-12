@@ -1,3 +1,5 @@
+.gradle/
+build/
 # ignore ConnectionConst
 ConnectionConst.java
 
