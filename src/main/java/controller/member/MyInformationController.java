@@ -90,8 +90,8 @@ public class MyInformationController implements Initializable {
             lockerRemain.setVisible(false);
         } else {
             int lockerNum = getLockerNum(memberNum);
-            LocalDate expireDate = today.plusDays(locker);
             lockerNo.setText("No." + lockerNum);
+            LocalDate expireDate = today.plusDays(locker);
             lockerRemain.setText(expireDate + " (D-" + locker + ")");
         }
 
@@ -99,8 +99,8 @@ public class MyInformationController implements Initializable {
             clothesAvailability.setText("대여 불가능");
             clothesRemain.setVisible(false);
         } else {
-            LocalDate expireDate = today.plusDays(clothes);
             clothesAvailability.setText("대여 가능");
+            LocalDate expireDate = today.plusDays(clothes);
             clothesRemain.setText(expireDate + " (D-" + clothes + ")");
         }
     }

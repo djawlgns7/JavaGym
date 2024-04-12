@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane stylesheets="/css/payment.css" prefHeight="800.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.member.PaymentController">
+        <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label text="JAVA GYM"/>
+
+            <HBox alignment="CENTER">
+                <Label fx:id="memberNameLabel" />
+                <Label text=" 회원님, 환영합니다!" />
+            </HBox>
+
+            <VBox>
+                <Label fx:id="itemTypeLabel" />
+                <Label fx:id="itemValueLabel" />
+                <HBox>
+                    <Label fx:id="currentLockerLabel" text="사물함"/>
+                    <Label fx:id="currentLockerNumLabel"/>
+                    <Label fx:id="currentLockerPeriodLabel"/>
+                </HBox>
+                <HBox>
+                    <Label fx:id="currentClothesLabel" text="운동복"/>
+                    <Label fx:id="currentClothesSizeLabel" text="FREE"/>
+                    <Label fx:id="currentClothesPeriodLabel"/>
+                </HBox>
+            </VBox>
+
+            <TabPane fx:id="tab" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                <tabs>
+
+                    <!-- Gym Tab -->
+                    <Tab fx:id="gymTab" text="이용권">
+                        <VBox alignment="CENTER" spacing="10">
+                            <fx:define>
+                                <ToggleGroup fx:id="gymTicketRadio"/>
+                            </fx:define>
+
+                            <HBox>
+                                <RadioButton fx:id="noSelectGymButton" text="선택 안 함" toggleGroup="$gymTicketRadio" />
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="gym1Button" text="1일" toggleGroup="$gymTicketRadio" />
+                                <Label fx:id="gymPrice1Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" />
+                                <Label fx:id="gymPrice30Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" />
+                                <Label fx:id="gymPrice90Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" />
+                                <Label fx:id="gymPrice180Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" />
+                                <Label fx:id="gymPrice360Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                        </VBox>
+                    </Tab>
+
+                    <!-- PT Tab -->
+                    <Tab fx:id="ptTab" text="PT">
+                        <VBox alignment="CENTER" spacing="10">
+                            <fx:define>
+                                <ToggleGroup fx:id="ptTicketRadio"/>
+                            </fx:define>
+
+                            <HBox>
+                                <RadioButton fx:id="noSelectPtButton" text="선택 안 함" toggleGroup="$ptTicketRadio" />
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="pt10Button" text="10회" toggleGroup="$ptTicketRadio" />
+                                <Label fx:id="ptPrice10Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="pt20Button" text="20회" toggleGroup="$ptTicketRadio" />
+                                <Label fx:id="ptPrice20Label"/>
+                                <Label text="원"/>
+                            </HBox>
+
+                            <HBox>
+                                <RadioButton fx:id="pt30Button" text="30회" toggleGroup="$ptTicketRadio" />
+                                <Label fx:id="ptPrice30Label"/>
+                                <Label text="원"/>
+                            </HBox>
+                        </VBox>
+                    </Tab>
+
+                    <!-- etc Tab -->
+                    <Tab fx:id="etcTab" text="기타">
+                        <VBox>
+
+                        </VBox>
+                    </Tab>
+                </tabs>
+            </TabPane>
+
+            <HBox alignment="CENTER" spacing="100">
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="이용권"/>
+                    <HBox>
+                        <Label fx:id="selectGymDayLabel"/>
+                        <Label fx:id="selectGymPriceLabel"/>
+                        <Label fx:id="gymWonLabel" text="원"/>
+                    </HBox>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="PT"/>
+                    <Label fx:id="selectTrainerNameLabel"/>
+                    <HBox>
+                        <Label fx:id="selectPtTicketLabel"/>
+                        <Label fx:id="selectPtPriceLabel"/>
+                        <Label fx:id="ptWonLabel" text="원"/>
+                    </HBox>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="사물함"/>
+                    <Label fx:id="selectLockerNumLabel"/>
+                    <HBox>
+                        <Label fx:id="selectLockerPeriodLabel"/>
+                        <Label fx:id="selectLockerPriceLabel"/>
+                        <Label fx:id="lockerWonLabel" text="원"/>
+                    </HBox>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="운동복"/>
+                    <HBox>
+                        <Label fx:id="selectClothesPeriodLabel"/>
+                        <Label fx:id="selectClothesPriceLabel"/>
+                        <Label fx:id="clothesWonLabel" text="원"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <Label fx:id="totalLabel" text="총"/>
+                <Label fx:id="priceLabel" text=" 0"/>
+                <Label fx:id="totalWonLabel" text="원"/>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <Button text="취소" onAction="#cancelPayment"/>
+                <Button text="결제" onAction="#payment"/>
+            </HBox>
+        </VBox>
+</AnchorPane>

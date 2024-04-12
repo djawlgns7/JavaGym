@@ -23,6 +23,7 @@ import static domain.member.SelectedMember.*;
 import static util.AlertUtil.showAlertAndMove;
 import static util.AlertUtil.showAlertUseMessage;
 import static util.PageUtil.movePage;
+import static util.PageUtil.movePageCenter;
 
 public class HelloMemberController implements Initializable {
 
@@ -74,5 +75,10 @@ public class HelloMemberController implements Initializable {
 
         Circle cilpCircle = new Circle(100, 100, 100);
         profileImage.setClip(cilpCircle);
+    }
+
+    @FXML
+    private void moveToPaymentPage(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/member/payment");
     }
 }

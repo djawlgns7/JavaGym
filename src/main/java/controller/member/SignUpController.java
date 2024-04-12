@@ -3,7 +3,6 @@ package controller.member;
 import domain.Gender;
 import domain.member.Member;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -150,6 +149,7 @@ public class SignUpController implements Initializable {
         codeStore.phoneCheck = false;
         codeStore.isSend = false;
     }
+
 
     @FXML
     private void sendNumber() {
