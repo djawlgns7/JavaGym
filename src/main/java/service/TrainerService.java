@@ -39,15 +39,17 @@ public class TrainerService {
             return;
         }
 
-        Trainer trainer = trainerRepository.findById(id);
+        Trainer findTrainer = trainerRepository.findById(id);
 
-        if (trainer != null && BCrypt.checkpw(password, trainer.getPassword())) {
-            SelectedTrainer.currentTrainer = trainer;
+        if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
+            currentTrainer = findTrainer;
+            System.out.println(currentTrainer);
             movePage(event, "/view/trainer/helloTrainer" );
         } else {
-            showAlertLoginFail("adminLoginFail");
+            showAlertLoginFail("wrongPw");
         }
     }
+
 
     public void addReservation(Reservation reservation) {
         reservationRepository.save(reservation);

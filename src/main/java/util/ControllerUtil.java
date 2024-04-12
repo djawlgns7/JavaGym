@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 public class ControllerUtil {
 
     public static String getFullEmail(String emailId, String emailDomain) {
@@ -85,7 +86,15 @@ public class ControllerUtil {
         // 조회한 회원 정보를 TableView에 설정
         membersTable.setItems(FXCollections.observableArrayList(members));
     }
-
+    public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
+        List<Trainer> members = trainerRepository.findAllTrainer();
+        membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+    public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
+        int trainerNum = SelectedTrainer.currentTrainer.getNum();
+        List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
+        reservationTable.setItems(FXCollections.observableArrayList(reservations));
+    }
     public static void columnBindingTrainer(TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
                                      TableColumn<Trainer, String> genderCol, TableColumn<Trainer, String> workTimeCol, TableColumn<Trainer, String> birthCol,
                                      TableColumn<Trainer, String> phoneCol) {
@@ -110,10 +119,8 @@ public class ControllerUtil {
         });
     }
 
-    public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
-        List<Trainer> members = trainerRepository.findAllTrainer();
-        membersTable.setItems(FXCollections.observableArrayList(members));
-    }
+
+
 
     public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
         TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
@@ -169,14 +176,7 @@ public class ControllerUtil {
 
     }
 
-    public static int loadReservationData(TableView<Reservation> reservationTable) {
-        int trainerNum = SelectedTrainer.currentTrainer.getNum();
-        ReservationRepository reservationRepository = new ReservationRepository();
-        List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
-        reservationTable.setItems(FXCollections.observableArrayList(reservations));
 
-        return trainerNum;
-    }
 
     public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
 

@@ -394,6 +394,8 @@ public class MemberDetailController implements Initializable {
         return inputLockerPeriod.equals(currentLockerPeriod);
     }
 
+
+
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
         Optional<ButtonType> response = showAlertChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");

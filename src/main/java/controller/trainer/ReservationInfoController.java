@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
+import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.showAlertAddScheduleFail;
 import static util.AlertUtil.showAlertAndMove;
 import static util.ControllerUtil.columnBindingReservation;
@@ -53,6 +54,7 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol;
 
+
     @FXML
     private void addReservation(ActionEvent event) throws ParseException, IOException {
         if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
@@ -68,7 +70,7 @@ public class ReservationInfoController implements Initializable {
         String rdate = rdateField.getText().trim();
         Integer rtime = Integer.valueOf(rtimeField.getText().trim());
 
-        if(addReservationValidate(memberName, memberPhone,rdate, rtime)) return;
+        if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;
         reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
@@ -84,8 +86,9 @@ public class ReservationInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
+        System.out.println(currentTrainer);
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol);
-        loadReservationData(reservationTable);
+        loadReservationData(reservationTable, reservationRepository);
 
         TextFormatter<String> rdateFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -142,6 +145,8 @@ public class ReservationInfoController implements Initializable {
             TableRow<Reservation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 try {
+                    System.out.println(currentTrainer);
+                    System.out.println("표 생성");
                     Reservation reservation = row.getItem();
                     reservationDetail(reservation, event);
                 } catch (IOException e) {
@@ -155,7 +160,7 @@ public class ReservationInfoController implements Initializable {
     Trainer trainer = new Trainer();
     @FXML
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
-        if(reservation != null && event.getClickCount() == 2) {
+        if(reservation != null && event.getClickCount() == 1) {
             SelectedTrainer.currentTrainer = trainer;
             movePageCenter(event, "/view/trainer/reservationDetail");
         }
