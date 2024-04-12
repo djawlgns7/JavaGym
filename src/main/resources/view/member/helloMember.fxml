@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
 
@@ -21,9 +20,7 @@
         </HBox>
 
         <!-- 자바짐 타이틀 -->
-        <Label text="JAVA GYM" styleClass="hello_title_label" layoutX="50" layoutY="50">
-            <font><Font name="Anton-Regular" /></font>
-        </Label>
+        <Label text="JAVA GYM" styleClass="hello_title_label" layoutX="50" layoutY="50"/>
 
         <!-- 자바짐 이미지 -->
         <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />

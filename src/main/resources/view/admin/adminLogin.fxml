@@ -8,9 +8,7 @@
 <AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.AdminLoginController">
     <VBox alignment="CENTER" prefHeight="600" prefWidth="450" spacing="20" layoutX="48" layoutY="100" styleClass="container">
         <!-- 자바짐 타이틀 -->
-        <Label text="JAVA GYM" styleClass="login_title_label" layoutX="100" layoutY="100">
-          <font><Font name="Anton-Regular"/></font>
-       </Label>
+        <Label text="JAVA GYM" styleClass="login_title_label" layoutX="100" layoutY="100"/>
 
         <!-- 자바짐 이미지 -->
         <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />

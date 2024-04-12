@@ -54,6 +54,7 @@ SplitPane {
     -fx-border-color: transparent;
     -fx-border-radius: 5;
 }
+
 .trainerDetail_resetImageBtn {
     -fx-font-family: "Jua";
     -fx-background-color: #9747FF;
