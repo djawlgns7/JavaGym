@@ -51,9 +51,9 @@
 }
 
 /* Descending Arrow Button */
-.table-view .column-header:descending .arrow-button .arrow {
+/* .table-view .column-header:descending .arrow-button .arrow {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
-}
+} */
 
 /* Close Button */
 .closeBtn {
