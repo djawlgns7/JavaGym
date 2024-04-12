@@ -25,11 +25,10 @@ import static util.PageUtil.movePage;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
-    private Label memberName, trainerName, trainerInfo, gymTicketReamin, PTTicketRemain, lockerNo, lockerRemain,
-            clothesAvailability, clothesRemain, trainerViewTitle;
+    private Label memberName, trainerName, trainerInfo, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+            clothesAvailability, clothesRemain;
     @FXML
     private HBox trainerView;
 
@@ -70,7 +69,6 @@ public class MyInformationController implements Initializable {
 
         }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
-            LocalDate expireDate = today;
             int trainerAge = trainerRepository.getAge(trainer);
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
@@ -80,10 +78,10 @@ public class MyInformationController implements Initializable {
         }
 
         if(gymTicket == 0) {
-            gymTicketReamin.setText("결제 내역이 없습니다");
+            gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            gymTicketReamin.setText(expireDate + " (D-" + gymTicket + ")");
+            gymTicketRemain.setText(expireDate + " (D-" + gymTicket + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
