@@ -6,7 +6,7 @@
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
         <!-- 회원 상세 정보 영역 -->
-        <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="30.0" styleClass="container">
+        <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="30.0">
             <Label text="회원 상세 정보" styleClass="memberDetail_title_1"/>
 
             <GridPane fx:id="memberDetailGrid" alignment="CENTER" hgap="20" vgap="20">

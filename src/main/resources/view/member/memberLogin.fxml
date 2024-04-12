@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.MemberLoginController">
 
-    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="30.0" styleClass="container">
+    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="30.0">
         <Button fx:id="invisibleButton" managed="false" visible="true" />
 
         <!-- 트레이너 & 관리자 버튼 -->

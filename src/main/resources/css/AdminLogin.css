@@ -3,9 +3,6 @@ AnchorPane {
     -fx-background-color: #FFFFFF; /* 배경색 지정 */
 }
 
-.container {
-    -fx-background-color: #D9D9D9; /* 추후 제거 */
-}
 
 /* Title */
 .login_title_label {
@@ -20,8 +17,9 @@ AnchorPane {
     -fx-pref-height: 50;
     -fx-font-size: 16;
     -fx-background-color: #F4F5F7;
-    -fx-border-color: transparent;
+    -fx-border-color: #000000;
     -fx-border-width: 1;
+    -fx-border-style: solid;
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #999999;
 }
@@ -32,7 +30,7 @@ AnchorPane {
      -fx-spacing: 50;
 }
 
-.loginBtn {
+.Login_loginBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -40,7 +38,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.goBackBtn1 {
+.Login_goBackBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -48,11 +46,13 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.goBackBtn1:hover, .loginBtn:hover {
-    -fx-background-color: #EA8ABE;
+.Login_goBackBtn:hover, .Login_loginBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
-.goBackBtn1:pressed, .loginBtn:pressed {
-    -fx-background-color: #EA8ABE;
+.Login_goBackBtn:pressed, .Login_loginBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 

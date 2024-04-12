@@ -3,10 +3,6 @@ SplitPane {
     -fx-background-color: #FFFFFF;
 }
 
-.container {
-    -fx-background-color: #D9D9D9; /* 추후 제거 */
-}
-
 /* Title */
 .memberInfo_title_1, .memberInfo_title_2 {
     -fx-font-size: 36;
@@ -20,8 +16,9 @@ SplitPane {
     -fx-pref-height: 50;
     -fx-font-size: 16;
     -fx-background-color: #F4F5F7;
-    -fx-border-color: transparent;
+    -fx-border-color: #000000;
     -fx-border-width: 1;
+    -fx-border-style: solid;
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #999999;
 }
@@ -53,11 +50,13 @@ SplitPane {
 }
 
 .memberInfo_addMemberBtn:hover, .memberInfo_goBackBtn:hover {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 .memberInfo_addMemberBtn:pressed, .memberInfo_goBackBtn:pressed {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 /* Radio Button */
@@ -102,11 +101,13 @@ SplitPane {
 }
 
 .memberInfo_searchBtn:hover {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 .memberInfo_searchBtn:pressed {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 .memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
@@ -229,9 +230,11 @@ SplitPane {
 }
 
 .memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 .memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
