@@ -30,9 +30,9 @@
         <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />
 
         <HBox alignment="CENTER" spacing="60">
-            <Label styleClass="helloInfo" text="PT 이용권 O개" />
-            <Label styleClass="helloInfo" text="OOO님,환영합니다!" />
-            <Label styleClass="helloInfo" text="D-OOO" />
+            <Label fx:id="PTTicketRemain" styleClass="helloInfo" text="PT 이용권 O개" />
+            <Label fx:id="memberName" styleClass="helloInfo" text="OOO님,환영합니다!" />
+            <Label fx:id="DDay" styleClass="helloInfo" text="D-OOO" />
         </HBox>
 
         <HBox alignment="CENTER" spacing="60">

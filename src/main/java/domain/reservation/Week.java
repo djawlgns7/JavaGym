@@ -1,4 +1,4 @@
-package domain.Reservation;
+package domain.reservation;
 
 import lombok.Data;
 
