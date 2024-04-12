@@ -4,6 +4,7 @@ import domain.member.EntryLog;
 import domain.member.Member;
 import domain.member.UsingLocker;
 import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
+import service.TrainerService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -165,5 +168,32 @@ public class ControllerUtil {
 
         List<UsingLocker> lockers = purchaseRepository.findAllUsingLocker();
         table.setItems(FXCollections.observableArrayList(lockers));
+    }
+
+    public static void columnBindingReservation(TableColumn<TrainerSchedule, String> memberNameCol,
+                                                TableColumn<TrainerSchedule, String> reservationDateCol,
+                                                TableColumn<TrainerSchedule, String> reservationTimeCol) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+        reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+        reservationTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
+
+        reservationDateCol.setCellValueFactory(cellData ->  {
+            Date sqlDate = cellData.getValue().getReservationDate();
+            return sqlDateToLocalDate(sqlDate, formatter);
+        });
+
+        reservationTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
+                String.format("%02d:00", cellData.getValue().getReservationTime())));
+    }
+
+    public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
+        int trainerNum = TrainerService.currentTrainerNum;
+        ReservationRepository reservationRepository = new ReservationRepository();
+        List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
+        scheduleTable.setItems(FXCollections.observableArrayList(schedules));
+
+        return trainerNum;
     }
 }

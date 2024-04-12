@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class TrainerRepository {
         }
     }
 
-    // 트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
+    //트레이너의 번호를 입력하면 저장된 이미지를 이미지 파일로 반환
     public Image getImage(int trainerNo){
         String sql = "select t_photo from trainer where t_no = ?";
 
@@ -93,9 +94,14 @@ public class TrainerRepository {
                 byte[] photoBytes;
 
                 photoBytes = rs.getBytes("t_photo");
+                Image trainerPhoto;
 
-                InputStream inputStream = new ByteArrayInputStream(photoBytes);
-                Image trainerPhoto = new Image(inputStream);
+                if (photoBytes == null) {
+                    trainerPhoto = new Image("/image/goTrainer.jpg");
+                } else {
+                    InputStream inputStream = new ByteArrayInputStream(photoBytes);
+                    trainerPhoto = new Image(inputStream);
+                }
 
                 return trainerPhoto;
 
@@ -259,6 +265,7 @@ public class TrainerRepository {
                 trainer.setPhoto(rs.getBytes("t_photo"));
 
                 return trainer;
+
             } else {
                 return null;
             }
@@ -375,5 +382,22 @@ public class TrainerRepository {
         }
 
         return age;
+    }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(Trainer trainer){
+        String workingHour = String.valueOf(trainer.getWorkingHour());
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
+    }
+
+    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
+    public int getWorkingHourAdder(String workingHour){
+        if(workingHour.equals("AM")){
+            return 8;
+        }else
+            return 14;
     }
 }
