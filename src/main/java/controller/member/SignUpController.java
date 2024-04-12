@@ -3,6 +3,7 @@ package controller.member;
 import domain.Gender;
 import domain.member.Member;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,12 +12,10 @@ import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
 import service.SmsService;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 import static util.AlertUtil.*;
 import static util.AlertUtil.showAlert;
@@ -133,15 +132,6 @@ public class SignUpController implements Initializable {
             return null;
         });
 
-        // 이름에 숫자 입력 못하도록 추가 (성진)
-        UnaryOperator<TextFormatter.Change> filter = change -> {
-            String text = change.getText();
-            if (text.matches("[^0-9]*")) {
-                return change;
-            }
-            return null;
-        };
-
         TextFormatter<String> codeFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0,4}")) {
@@ -150,9 +140,6 @@ public class SignUpController implements Initializable {
             return null;
         });
 
-        TextFormatter<String> nameFormatter = new TextFormatter<>(filter);
-
-//        nameField.setTextFormatter(nameFormatter);
         passwordField.setTextFormatter(passwordFormatter);
         passwordConfirmField.setTextFormatter(passwordConfirmFormatter);
         birthField.setTextFormatter(birthFormatter);

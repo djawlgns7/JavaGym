@@ -10,6 +10,7 @@ import repository.MemberRepository;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import service.MemberService;
+import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +29,8 @@ public class MemberLoginController implements Initializable {
     @FXML
     private ImageView profileImage;
 
-    private final MemberRepository repository = new MemberRepository();
-    private final MemberService service = new MemberService(repository);
+    private final MemberRepository memberRepository = new MemberRepository();
+    private final MemberService service = new MemberService(memberRepository);
 
     @FXML
     private void login(ActionEvent event) throws IOException {
@@ -51,8 +52,6 @@ public class MemberLoginController implements Initializable {
         movePage(event, "/view/admin/adminLogin");
     }
 
-    // 바로입장 버튼에 대한 메소드 추가
-    // @@@ 바로입장 버튼을 눌렀을 때 문이 열리는 기능 추가 할 것 @@@
     @FXML
     public void immediateEntry(ActionEvent event) throws IOException {
         service.immediateEntry(phoneField, passwordField, event);
