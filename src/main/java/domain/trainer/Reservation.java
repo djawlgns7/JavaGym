@@ -9,14 +9,14 @@ import java.sql.Date;
 
 @Getter @Setter
 public class Reservation {
-    private int Sequence;
-    private int ReservationNum;
-    private int MemberNum;
-    private int TrainerNum;
-    private String MemberName;
-    private String MemberPhone;
-    private Date ReservationDate;
-    private int ReservationTime;
+    private int sequence;
+    private int reservationNum;
+    private int memberNum;
+    private int trainerNum;
+    private String memberName;
+    private String memberPhone;
+    private Date reservationDate;
+    private int reservationTime;
 
 
     // 선택 상태를 위한 BooleanProperty 추가

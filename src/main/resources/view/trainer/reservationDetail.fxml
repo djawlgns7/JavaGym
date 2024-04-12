@@ -22,7 +22,7 @@
 
             <HBox alignment="CENTER" spacing="10">
                 <Label>예약 시간</Label>
-                <TextField fx:id="rtimeField" />
+                <TextField fx:id="rTimeField" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">

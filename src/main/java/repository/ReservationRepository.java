@@ -57,36 +57,7 @@ public class ReservationRepository {
      * (성진)
      * 트레이너 번호 -> 해당 트레이너의 PT 일정
      */
-    public List<Reservation> findSchedule(int trainerNum) {
-        String sql = "select m_name, r_date, r_time"+
-                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
-                "WHERE r.t_no = ?";
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, trainerNum);
-            rs = pstmt.executeQuery();
-            List<Reservation> list = new ArrayList<>();
-            while (rs.next()) {
-                Reservation reservation = new Reservation();
-                reservation.setMemberNum(rs.getInt("m_no"));
-                reservation.setTrainerNum(rs.getInt("t_no"));
-                reservation.setReservationDate(rs.getDate("r_date"));
-                reservation.setReservationTime(rs.getInt("r_time"));
-                list.add(reservation);
-            }
-            return list;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(conn, pstmt, rs);
-        }
-    }
     public List<TrainerSchedule> findTrainerSchedule(int trainerNum) {
         String sql = "SELECT m_name, r_date, r_time " +
                 "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
@@ -234,7 +205,12 @@ public class ReservationRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setDate(1, reservation.getReservationDate());
             pstmt.setInt(2, reservation.getReservationTime());
+            System.out.println(reservation.getReservationTime());
+            System.out.println(reservation.getReservationDate());
+            System.out.println(reservation.getReservationNum());
+            pstmt.setInt(3, reservation.getReservationNum());
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

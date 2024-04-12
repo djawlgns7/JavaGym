@@ -1,9 +1,12 @@
 package controller.trainer;
 
+import converter.DateToStringConverter;
 import domain.member.Member;
 import domain.trainer.Reservation;
+import domain.trainer.SelectedReservation;
 import domain.trainer.Trainer;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -55,13 +59,12 @@ public class ReservationDetailController implements Initializable {
     private Reservation reservation;
     @FXML
     private void updateReservation(ActionEvent event) throws IOException, ParseException {
-        System.out.println("updateReservation");
-        LocalDate newDate = ptDatePicker.getValue();
-        int newTime = Integer.parseInt(rTimeField.getText());
+        Date newDate = Date.valueOf(ptDatePicker.getValue());
+        int newTime = Integer.parseInt(rTimeField.getText().trim());
         //수정 내용이 없을 경우
-        if(isSameBasicInfo() && isSameAdditionInfo()) {
-            System.out.println("수정 내용 없음");
+        if(isSame(newDate, newTime)) {
             showAlertUpdateReservationFail("isSame");
+            return;
         }
 
         //수정 내용이 있을 경우
@@ -70,21 +73,11 @@ public class ReservationDetailController implements Initializable {
             System.out.println("수정 내역이 있음");
 
             //PT 일정, 시간 모두 변경
-            if(!isSamePTDate() && !isSamePTTime()) {
-                reservation.setReservationDate(java.sql.Date.valueOf(newDate));
-                reservation.setReservationTime(newTime);
-                reservationRepository.updateReservation(reservation);
-            }
 
-            if(!isSamePTDate() && isSamePTTime()) {
-                reservation.setReservationDate(java.sql.Date.valueOf(newDate));
-                reservationRepository.updateReservation(reservation);
-            }
 
-            if(isSamePTDate() && !isSamePTTime()) {
-                reservation.setReservationTime(newTime);
-                reservationRepository.updateReservation(reservation);
-            }
+            reservation.setReservationDate(newDate);
+            reservation.setReservationTime(newTime);
+            reservationRepository.updateReservation(reservation);
         }
     }
 
@@ -104,33 +97,30 @@ public class ReservationDetailController implements Initializable {
         return reservation.getReservationDate().equals(ptdate) && reservation.getReservationTime()==(pttime);
     }
 
-    private boolean isSameAdditionInfo() throws ParseException {
-        return isSamePTDate() && isSamePTTime();
-    }
 
-    private boolean isSamePTDate() throws ParseException {
-        String newDateString = rDateField.getText().trim();
-        Date newDate = stringToDate(newDateString);
-        Date existDate = reservation.getReservationDate();
-        return newDate.equals(existDate);
-    }
-
-    private boolean isSamePTTime() {
-        int newTime = Integer.parseInt(rTimeField.getText().trim());
-        int existTime = reservation.getReservationTime();
-        return newTime == existTime;
+    private boolean isSame(Date rdate, Integer rtime) {
+        return reservation.getReservationDate().equals(rdate) && reservation.getReservationTime() == rtime;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(currentTrainer);
-        if(reservation != null && currentTrainer != null) {
+        TextFormatter<String> rTimeFormmater = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if(newText.matches("([01]?[0-9]|2[0-3])")) {
+                return change;
+            }
+            return null;
+        });
 
+        reservation = SelectedReservation.getCurrentReservation();
+        if(currentTrainer != null) {
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
-            rTimeField.setText(String.valueOf(reservation.getReservationTime()));
+            rTimeField.setTextFormatter(rTimeFormmater);
             columnBinding();
             loadReservationDetails();
         }
+
+
     }
 
     private void columnBinding() {
@@ -139,7 +129,8 @@ public class ReservationDetailController implements Initializable {
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
         memberPhoneCol.setCellValueFactory(new PropertyValueFactory<>("memberPhone"));
-        rDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+        rDateCol.setCellValueFactory(cellData -> new SimpleStringProperty(
+                new SimpleDateFormat("yyyy-MM-dd").format(cellData.getValue().getReservationDate())));
         rTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
     }
     private void loadReservationDetails() {

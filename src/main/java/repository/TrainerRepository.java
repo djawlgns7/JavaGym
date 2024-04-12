@@ -330,7 +330,6 @@ public class TrainerRepository {
             pstmt.setDouble(7, trainer.getHeight());
             pstmt.setDouble(8, trainer.getWeight());
             pstmt.setInt(9, trainer.getNum());
-
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

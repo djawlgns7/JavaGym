@@ -2,10 +2,7 @@ package controller.trainer;
 
 
 import domain.member.Member;
-import domain.trainer.Reservation;
-import domain.trainer.SelectedTrainer;
-import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
+import domain.trainer.*;
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -86,7 +83,6 @@ public class ReservationInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
-        System.out.println(currentTrainer);
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol);
         loadReservationData(reservationTable, reservationRepository);
 
@@ -143,10 +139,9 @@ public class ReservationInfoController implements Initializable {
 
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
+            trainer = SelectedTrainer.currentTrainer;
             row.setOnMouseClicked(event -> {
                 try {
-                    System.out.println(currentTrainer);
-                    System.out.println("표 생성");
                     Reservation reservation = row.getItem();
                     reservationDetail(reservation, event);
                 } catch (IOException e) {
@@ -160,8 +155,9 @@ public class ReservationInfoController implements Initializable {
     Trainer trainer = new Trainer();
     @FXML
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
-        if(reservation != null && event.getClickCount() == 1) {
-            SelectedTrainer.currentTrainer = trainer;
+        if(reservation != null && event.getClickCount() == 2) {
+            SelectedReservation.setCurrentReservation(reservation);
+            SelectedTrainer.setCurrentTrainer(trainer);
             movePageCenter(event, "/view/trainer/reservationDetail");
         }
     }
