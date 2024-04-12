@@ -49,7 +49,7 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
+        movePage(event, "/view/trainer/trainerLogin");
     }
 
     @FXML
