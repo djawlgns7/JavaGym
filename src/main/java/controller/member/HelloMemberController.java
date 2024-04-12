@@ -1,8 +1,13 @@
 package controller.member;
 
+import domain.Item;
+import domain.member.Member;
+import domain.member.MemberSchedule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -16,11 +21,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.*;
-import static util.AlertUtil.showAlertAndMove;
-import static util.AlertUtil.showAlertUseMessage;
+import static util.AlertUtil.*;
+import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 import static util.PageUtil.movePageCenter;
 
@@ -51,9 +57,9 @@ public class HelloMemberController implements Initializable {
         int memberReservationNum = memberSchedule.size();
 
         if(trainerNum == 0){
-            showAlert("예약 페이지 이동 불가", "배정된 트레이너가 존재하지 않습니다.", Alert.AlertType.INFORMATION);
+            showAlert("배정된 트레이너가 존재하지 않습니다.", Alert.AlertType.INFORMATION);
         }else if(memberReservationNum >= 4){
-            showAlert("예약 페이지 이동 불가", "최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
+            showAlert("최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
         }else {
             movePage(event, "/view/member/reservation");
         }
@@ -67,7 +73,7 @@ public class HelloMemberController implements Initializable {
     @FXML
     public void entry(ActionEvent event) throws IOException {
 
-        Integer gymTicket = MemberUtil.getRemain(currentMember.getNum(), Item.GYM_TICKET);
+        Integer gymTicket = getRemain(currentMember.getNum(), Item.GYM_TICKET);
         Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
 
         String today = LocalDate.now().toString();

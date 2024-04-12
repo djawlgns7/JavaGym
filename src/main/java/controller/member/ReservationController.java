@@ -210,7 +210,7 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            showAlert("예약 선택 가능 횟수 초과", "더 이상 선택할 수 없습니다", Alert.AlertType.INFORMATION);
+                            showAlert("더 이상 선택할 수 없습니다", Alert.AlertType.INFORMATION);
                         //추가 가능한 횟수가 있을 경우
                         }else {
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
@@ -268,13 +268,13 @@ public class ReservationController implements Initializable {
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
         if(getSelectedPTTicket() == 0){
-            showAlert("예약할 수 없습니다", "한 개 이상의 시간대를 선택해 주세요", Alert.AlertType.WARNING);
+            showAlert("한 개 이상의 시간대를 선택해 주세요", Alert.AlertType.WARNING);
             return;
         }
 
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            showAlert("예약할 수 없습니다", "선택한 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
+            showAlert("선택한 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
             return;
         }
 
@@ -316,7 +316,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("알림", "예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMove("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
 

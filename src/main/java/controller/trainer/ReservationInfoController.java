@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
 
 
 import static converter.StringToDateConverter.stringToDate;
-import static util.AlertUtil.showAlertAddScheduleFail;
 import static util.AlertUtil.showAlertAndMove;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
