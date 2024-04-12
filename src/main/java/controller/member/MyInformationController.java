@@ -89,6 +89,7 @@ public class MyInformationController implements Initializable {
             lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
+
             LocalDate expireDate = today.plusDays(locker);
             long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
             lockerNo.setText("No." + lockerNum);
@@ -103,6 +104,7 @@ public class MyInformationController implements Initializable {
             long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
             clothesAvailability.setText("대여 가능");
             clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+
         }
     }
 

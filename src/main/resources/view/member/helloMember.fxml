@@ -40,11 +40,13 @@
             </HBox>
         </HBox>
 
+
         <!-- 버튼 -->
         <HBox alignment="CENTER" spacing="60" styleClass="Hello_page_Btn">
             <Button text="예약" styleClass="reservationBtn"/>
             <Button fx:id="entryButton" onAction="#entry" text="입장" styleClass="entryBtn"/>
             <Button text="결제" styleClass="purchaseBtn"/>
+
         </HBox>
     </VBox>
 </AnchorPane>
