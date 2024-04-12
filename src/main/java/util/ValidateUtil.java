@@ -102,6 +102,7 @@ public class ValidateUtil {
             showAlertSignUpFail("wrongBirth");
             return true;
         }
+
         return false;
     }
 

@@ -1,5 +1,6 @@
 package controller.admin;
 
+import controller.TabController;
 import domain.*;
 import domain.member.EntryLog;
 import domain.member.Member;
@@ -400,7 +401,7 @@ public class MemberDetailController implements Initializable {
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
-            showAlertAndMove("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+            showAlertAndMoveCenter("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
         }
     }
 
@@ -458,7 +459,8 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/admin/memberInfo");
+        TabController.getInstance().setSelectedTabIndex(0);
+        movePageCenter(event, "/view/admin/helloAdminV2");
     }
 
     /**

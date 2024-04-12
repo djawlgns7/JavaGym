@@ -18,7 +18,8 @@ import java.util.ResourceBundle;
 
 public class AlertUtil {
 
-    private static final ResourceBundle messages = ResourceBundle.getBundle("message.error");
+    private static final ResourceBundle errorMessage = ResourceBundle.getBundle("message.error");
+    private static final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
 
     public static void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
@@ -28,59 +29,59 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
-    public static void showAlertUseMessage(String titleCode, String messageCode, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(messages.getString(titleCode));
+    public static void showAlertUseMessage(String messageCode) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("알림");
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(basicMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertLoginFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("loginFail"));
+        alert.setTitle(errorMessage.getString("loginFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertSignUpFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("signUpFail"));
+        alert.setTitle(errorMessage.getString("signUpFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertAddMemberFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("addMemberFail"));
+        alert.setTitle(errorMessage.getString("addMemberFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertAddTrainerFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("addTrainerFail"));
+        alert.setTitle(errorMessage.getString("addTrainerFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertUpdateMemberFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("updateMemberFail"));
+        alert.setTitle(errorMessage.getString("updateMemberFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 
     public static void showAlertUpdateTrainerFail(String messageCode) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messages.getString("updateTrainerFail"));
+        alert.setTitle(errorMessage.getString("updateTrainerFail"));
         alert.setHeaderText(null);
-        alert.setContentText(messages.getString(messageCode));
+        alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
 

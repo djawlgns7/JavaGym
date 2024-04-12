@@ -1,5 +1,6 @@
 package service;
 
+import domain.Item;
 import domain.member.Member;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -8,18 +9,22 @@ import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
+import repository.ReservationRepository;
+import util.MemberUtil;
 import util.PageUtil;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 import static domain.member.SelectedMember.*;
-import static util.AlertUtil.showAlertAndMove;
-import static util.AlertUtil.showAlertLoginFail;
+import static util.AlertUtil.*;
 import static util.ValidateUtil.isWrongLengthPhone;
 
 public class MemberService {
 
     private final MemberRepository repository;
+    private final ReservationRepository reservationRepository = new ReservationRepository();
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
 
     public MemberService(MemberRepository repository) {
@@ -94,6 +99,23 @@ public class MemberService {
 
         Member findMember = repository.findByPhone(phone);
         if (BCrypt.checkpw(password, findMember.getPassword())) {
+
+            Integer gymTicket = MemberUtil.getRemain(findMember.getNum(), Item.GYM_TICKET);
+            Date reservation = reservationRepository.getTodayReservationDate(findMember.getNum());
+
+            // 헬스장 이용권이 존재하거나 당일 PT 예약인 경우만 입장 가능
+
+            String today = LocalDate.now().toString();
+            if (gymTicket.equals(0) && reservation == null) {
+                showAlertUseMessage("DeniedEntry");
+                return;
+            }
+
+            if (!reservation.toString().equals(today)) {
+                showAlertUseMessage("DeniedEntry");
+                return;
+            }
+
             entryLogRepository.save(findMember.getNum());
             showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         } else {
