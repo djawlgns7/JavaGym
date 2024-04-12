@@ -45,7 +45,7 @@ public class ReservationController implements Initializable {
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
-    private VBox vBoxInScroll;
+    private HBox selectedReservationList;
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
@@ -456,7 +456,7 @@ public class ReservationController implements Initializable {
         List<Reservation> copiedReservations = new ArrayList<>();
         List<Reservation> sortedReservations = new ArrayList<>();
 
-        vBoxInScroll.getChildren().clear();
+        selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
 
         for(int i = 0; i < selectedReservations.size(); i++){
@@ -508,7 +508,7 @@ public class ReservationController implements Initializable {
                 insertHBox.getChildren().add(newTime);
             }else {
                 insertHBox = new HBox();
-                vBoxInScroll.getChildren().add(insertHBox);
+                selectedReservationList.getChildren().add(insertHBox);
                 if(firstHBoxInScroll == null){
                     firstHBoxInScroll = insertHBox;
                 }
@@ -530,7 +530,7 @@ public class ReservationController implements Initializable {
     //리셋 버튼을 눌렀을 때 선택한 예약들 초기화
     public void reset(){
         selectedReservations.clear();
-        vBoxInScroll.getChildren().clear();
+        selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
         ticketSelection.setText(0 + "개");
 

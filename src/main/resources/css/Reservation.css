@@ -205,11 +205,11 @@ Button:hover {
 }
 
 .timeStamp {
-    -fx-pref-height: 400;
+    -fx-pref-height: 50;
     -fx-pref-width: 400;
     -fx-font-size: 20px;
     -fx-border-color: transparent;
-    -fx-translate-y: -50px;
+    /*-fx-translate-y: -50px;*/
 }
 
 /* 선택한 예약 목록이 있는 곳 */
@@ -220,5 +220,16 @@ Button:hover {
 
 .selectBtn {
     -fx-font-size: 20px;
+    /*-fx-translate-y: -35px;*/
+}
+
+/* fxml에 없는거임 건들지 마셈 */
+.reservedDay {
+    -fx-background-color: #bf9dfc;
+}
+
+/* fxml에 없는거임 건들지 마셈 */
+#selectedReservationList {
     -fx-translate-y: -35px;
+    -fx-font-size: 20px;
 }
