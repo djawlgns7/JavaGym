@@ -68,11 +68,9 @@
 }
 
 .closeBtn:hover {
-    -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-background-color: #EA8ABE;
 }
 
 .closeBtn:pressed {
-    -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-background-color: #EA8ABE;
 }
