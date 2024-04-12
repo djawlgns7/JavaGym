@@ -57,20 +57,24 @@ public class ReservationRepository {
 
     /**
      * 회원의 PT 예약 정보를 가져온다. 이미 지난 예약 내역은 가져오지 않는다. (조회 시점 기준 예약 정보)
+     * 오늘치 예약도 결과로 잡히도록 수정(지훈)
      */
     public List<MemberSchedule> findMemberSchedule(int memberNum) {
         String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
                 "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
-                "where m.m_no = ? and r_date > now()";
+                "where m.m_no = ? and r_date >= ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        LocalDate today = LocalDate.now();
 
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, memberNum);
+            pstmt.setString(2, today.toString());
+
             rs = pstmt.executeQuery();
             List<MemberSchedule> list = new ArrayList<>();
             int count = 0;

@@ -1,6 +1,7 @@
 package controller.member;
 
 import domain.member.Member;
+import domain.member.MemberSchedule;
 import domain.reservation.Reservation;
 import domain.trainer.Trainer;
 import javafx.collections.ObservableList;
@@ -14,9 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.converter.LocalDateStringConverter;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
@@ -40,12 +38,11 @@ public class ReservationController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
-    private VBox vBoxInScroll;
+    private HBox selectedReservationList;
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
@@ -61,7 +58,7 @@ public class ReservationController implements Initializable {
     Trainer trainer;
     int daySelectedIndex = 1;
     LocalDate selectedDate, startDay;
-    int adder;
+    int adder, availableReservationNum;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,6 +68,11 @@ public class ReservationController implements Initializable {
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
             selectedReservations = new ArrayList<>();
+
+            List<MemberSchedule> memberSchedule;
+            memberSchedule = reservationRepository.findMemberSchedule(member.getNum());
+            int memberReservationNum = memberSchedule.size();
+            availableReservationNum = 4 - memberReservationNum;
 
 //            try {
 //                setMyInfo();
@@ -274,16 +276,17 @@ public class ReservationController implements Initializable {
 
         String trainerName = trainer.getName();
         int reservationNum = selectedReservations.size() - 1;
-        ObservableList<Node> hBoxChildren = firstHBoxInScroll.getChildren();
-        String firstDate = hBoxChildren.get(0).toString();
-        String firstTime = hBoxChildren.get(1).toString();
+        ObservableList<Node> hBoxChildren = selectedReservationList.getChildren();
+        String firstDateTime = hBoxChildren.get(0).toString();
 
-        String[] splittedDate = firstDate.split("\\'");
-        String date = splittedDate[1].replace("/", "-");
-        date = "2024-" + date;
+        System.out.println(firstDateTime);
 
-        String[] splittedTime = firstTime.split("\\'");
-        String fromTime = splittedTime[1];
+        String[] splittedDateTime = firstDateTime.split("\\'");
+        String[] dateNTime = splittedDateTime[1].split(" ");
+        String date = dateNTime[0].replace("/", "-");
+        date = LocalDate.now().getYear() + "-" + date;
+
+        String fromTime = dateNTime[1];
         String toTime = fromTime.substring(0, 2);
         int hour = Integer.parseInt(toTime) + 1;
 
@@ -439,12 +442,10 @@ public class ReservationController implements Initializable {
     public boolean isSetTicketValid(int adder){
         int selectedTicket = getSelectedPTTicket();
         int memberNum = member.getNum();
-        List<Integer> remain = getRemainAll(memberNum);
-        int PTTicket = remain.get(1);
 
         selectedTicket += adder;
 
-        if(0 <= selectedTicket && selectedTicket <= PTTicket) {
+        if(0 <= selectedTicket && selectedTicket <= availableReservationNum) {
             return true;
         }else{
             return false;
@@ -456,7 +457,7 @@ public class ReservationController implements Initializable {
         List<Reservation> copiedReservations = new ArrayList<>();
         List<Reservation> sortedReservations = new ArrayList<>();
 
-        vBoxInScroll.getChildren().clear();
+        selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
 
         for(int i = 0; i < selectedReservations.size(); i++){
@@ -487,8 +488,6 @@ public class ReservationController implements Initializable {
             copiedReservations.remove(earliestIndex);
         }
 
-        int prevDate = 0;
-        HBox insertHBox = new HBox();
         for(int i = 0; i < sortedReservations.size(); i++){
             int indexDDay = sortedReservations.get(i).getDDay();
             int indexRTime = sortedReservations.get(i).getRTime();
@@ -501,36 +500,19 @@ public class ReservationController implements Initializable {
                 indexTime = indexRTime + ":00";
             }
 
-            if(prevDate == indexDDay){
-                Label newTime = new Label(indexTime);
-                newTime.getStyleClass().add("selectedResrevationList");
+            String indexDateTime = indexDate + " " + indexTime;
 
-                insertHBox.getChildren().add(newTime);
-            }else {
-                insertHBox = new HBox();
-                vBoxInScroll.getChildren().add(insertHBox);
-                if(firstHBoxInScroll == null){
-                    firstHBoxInScroll = insertHBox;
-                }
+            Label newDateTime = new Label(indexDateTime);
+            newDateTime.getStyleClass().add("selectedResrevationList");
 
-                Label newTime = new Label(indexTime);
-                newTime.getStyleClass().add("selectedResrevationList");
-
-                Label newDate = new Label(indexDate);
-                newDate.getStyleClass().add("selectedResrevationList");
-
-                insertHBox.getChildren().add(newDate);
-                insertHBox.getChildren().add(newTime);
-            }
-
-            prevDate = indexDDay;
+            selectedReservationList.getChildren().add(newDateTime);
         }
     }
 
     //리셋 버튼을 눌렀을 때 선택한 예약들 초기화
     public void reset(){
         selectedReservations.clear();
-        vBoxInScroll.getChildren().clear();
+        selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
         ticketSelection.setText(0 + "개");
 

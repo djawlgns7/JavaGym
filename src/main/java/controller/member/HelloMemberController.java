@@ -2,14 +2,17 @@ package controller.member;
 
 import domain.Item;
 import domain.member.Member;
+import domain.member.MemberSchedule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
-import javafx.scene.control.Label;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import service.MemberService;
 
 import java.io.IOException;
@@ -18,11 +21,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.showAlertChoose;
+import static util.AlertUtil.showAlert;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 
 public class HelloMemberController implements Initializable {
+
+    private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
     private ImageView profileImage;
@@ -41,8 +46,14 @@ public class HelloMemberController implements Initializable {
     @FXML
     private void reservation(ActionEvent event) throws IOException{
         int trainerNum = getTrainerNumForMember(currentMember.getNum());
+        List<MemberSchedule> memberSchedule;
+        memberSchedule = reservationRepository.findMemberSchedule(currentMember.getNum());
+        int memberReservationNum = memberSchedule.size();
+
         if(trainerNum == 0){
-            showAlertChoose("배정된 트레이너가 존재하지 않습니다.");
+            showAlert("예약 페이지 이동 불가", "배정된 트레이너가 존재하지 않습니다.", Alert.AlertType.INFORMATION);
+        }else if(memberReservationNum >= 4){
+            showAlert("예약 페이지 이동 불가", "최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
         }else {
             movePage(event, "/view/member/reservation");
         }

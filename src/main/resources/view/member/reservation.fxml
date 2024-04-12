@@ -74,11 +74,7 @@
         </HBox>
         <HBox alignment="CENTER" fx:id="timeArea">
         </HBox>
-        <ScrollPane prefWidth="400" prefHeight="100" fx:id="selectedReservationArea" styleClass="selectedReservationArea">
-            <VBox prefWidth="400" fx:id="vBoxInScroll">
-
-            </VBox>
-        </ScrollPane>
+        <HBox prefWidth="400" fx:id="selectedReservationList" />
         <HBox alignment="CENTER" spacing="50">
             <Button text="예약하기" onAction="#saveReservation"/>
             <Label fx:id="selectedReaservationNum">총 0회</Label>
