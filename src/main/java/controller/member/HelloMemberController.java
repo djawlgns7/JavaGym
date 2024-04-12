@@ -43,7 +43,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void myInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/myInformation", "/css/password");
+        movePage(event, "/view/member/myInformation");
     }
 
     @FXML
@@ -73,8 +73,8 @@ public class HelloMemberController implements Initializable {
         Image image = new Image("/image/JavaGym.jpeg");
         profileImage.setImage(image);
 
-        Circle cilpCircle = new Circle(100, 100, 100);
-        profileImage.setClip(cilpCircle);
+        Circle clipCircle = new Circle(100, 100, 100);
+        profileImage.setClip(clipCircle);
     }
 
     @FXML

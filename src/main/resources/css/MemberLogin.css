@@ -1,8 +1,7 @@
 /* VBox */
 AnchorPane {
-    -fx-background-color: #FFFFFF; /* 배경색 지정 */
+    -fx-background-color: #FFFFFF;
 }
-
 
 /* Title */
 .login_title_label {
@@ -11,7 +10,7 @@ AnchorPane {
 }
 
 /* TextField */
-.Login_idInput, .Login_passwordInput {
+.Login_phoneInput, .Login_passwordInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -26,11 +25,16 @@ AnchorPane {
 
 /* Button */
 .Login_page_Btn {
-     -fx-font-family: "Jua";
-     -fx-spacing: 50;
+    -fx-font-family: "Jua";
+    -fx-spacing: 50;
 }
 
-.Login_loginBtn {
+.Login_page_TopBtn {
+    -fx-font-family: "Jua";
+    -fx-padding: 10 10 0 0;
+}
+
+.loginBtn, .signupBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -38,7 +42,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.Login_goBackBtn {
+.immediateEntryBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -46,13 +50,32 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.Login_goBackBtn:hover, .Login_loginBtn:hover {
+.loginBtn:hover, .signupBtn:hover, .immediateEntryBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
-.Login_goBackBtn:pressed, .Login_loginBtn:pressed {
+.loginBtn:pressed, .signupBtn:pressed, .immediateEntryBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
+
+.AdminBtn, .TrainerBtn {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: #000000;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-pref-height: 30;
+    -fx-pref-width: 80;
+    -fx-font-size: 13;
+}
+
+.AdminBtn:hover, .TrainerBtn:hover {
+    -fx-background-color: #999999;
+}
+
+.AdminBtn:pressed, .TrainerBtn:pressed {
+    -fx-background-color: #999999;
+}
+
 

@@ -66,10 +66,10 @@ public class SignUpController implements Initializable {
         if (signUpValidate(name, password, passwordConfirm, phone, email, birth)) return;
 
         // 전화번호를 인증한 사용자만 회원가입 가능
-        if (!codeStore.codeCheck) {
-            showAlertSignUpFail("NotAuthentication");
-            return;
-        }
+//        if (!codeStore.codeCheck) {
+//            showAlertSignUpFail("NotAuthentication");
+//            return;
+//        }
 
         Member member = new Member();
         member.setName(name);

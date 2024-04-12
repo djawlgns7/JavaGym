@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,16 +26,9 @@ import static util.PageUtil.movePage;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
-
     @FXML
-    private Label memberName, trainerName, trainerInfo, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
-            clothesAvailability, clothesRemain, trainerViewTitle;
-    @FXML
-    private HBox trainerView;
-
-    @FXML
-    private ImageView imageView;
+    private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+            clothesAvailability, clothesRemain, trainerPhone;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +44,7 @@ public class MyInformationController implements Initializable {
     }
 
     //내 정보 페이지의 정보를 바꿔주는 메소드
+    @FXML
     public void setMyInfo(Member member) throws ParseException {
         int memberNum = member.getNum();
         int trainerNum = getTrainerNumForMember(memberNum);
@@ -60,48 +55,56 @@ public class MyInformationController implements Initializable {
         int clothes = remain.get(2);
         int locker = remain.get(3);
 
-        memberName.setText(member.getName());
+        memberName.setText(member.getName() + " ");
 
         if(trainerNum == 0) {
-            trainerView.setVisible(false);
-            trainerViewTitle.setVisible(false);
-        } else {
+            trainerName.setText("");
+            trainerPhone.setText("담당 트레이너가 없습니다");
+
+        }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
             LocalDate expireDate = today;
             int trainerAge = trainerRepository.getAge(trainer);
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
-            imageView.setImage(trainerImage);
-            trainerName.setText(trainer.getName() + "트레이너");
-            trainerInfo.setText(trainer.getHeight() + "cm|" + trainer.getWeight() + "kg|" + trainerAge + "살");
+            String phone = trainer.getPhone();
+            String claculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
+
+            trainerName.setText(trainer.getName() + " 트레이너");
+            trainerPhone.setText(claculatedTrainerPhone);
         }
 
-        if (gymTicket == 0) {
-            gymTicketRemain.setText("헬스장에 입장할 수 없습니다.");
-        } else {
+        if(gymTicket == 0) {
+            gymTicketRemain.setText("결제 내역이 없습니다");
+        }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            gymTicketRemain.setText(expireDate + " (D-" + gymTicket + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
 
-        if(locker == 0) {
-            lockerNo.setText("사물함을 이용할 수 없습니다");
-            lockerRemain.setVisible(false);
-        } else {
+        if(locker == 0){
+            lockerNo.setText("이용할 수 없습니다");
+            lockerRemain.setText("");
+        }else{
             int lockerNum = getLockerNum(memberNum);
-            lockerNo.setText("No." + lockerNum);
+
             LocalDate expireDate = today.plusDays(locker);
-            lockerRemain.setText(expireDate + " (D-" + locker + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            lockerNo.setText("No." + lockerNum);
+            lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
-        if(clothes == 0) {
-            clothesAvailability.setText("대여 불가능");
-            clothesRemain.setVisible(false);
-        } else {
-            clothesAvailability.setText("대여 가능");
+        if(clothes == 0){
+            clothesAvailability.setText("대여할 수 없습니다");
+            clothesRemain.setText("");
+        }else{
             LocalDate expireDate = today.plusDays(clothes);
-            clothesRemain.setText(expireDate + " (D-" + clothes + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            clothesAvailability.setText("대여 가능");
+            clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+
         }
     }
 

@@ -116,7 +116,7 @@ public class ControllerUtil {
     }
 
     public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
-        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("순서");
         entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
         entryNumColumn.setPrefWidth(70);
 
@@ -143,7 +143,7 @@ public class ControllerUtil {
 
     public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
 
-        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("");
+        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("순서");
         TableColumn<UsingLocker, Number> memberNumCol = new TableColumn<>("회원 번호");
         TableColumn<UsingLocker, String> memberNameCol = new TableColumn<>("회원 이름");
         TableColumn<UsingLocker, Number> lockerNumCol = new TableColumn<>("사물함 번호");
@@ -154,6 +154,12 @@ public class ControllerUtil {
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
         lockerNumCol.setCellValueFactory(new PropertyValueFactory<>("lockerNum"));
         lockerPeriodCol.setCellValueFactory(new PropertyValueFactory<>("lockerPeriod"));
+
+        countCol.setPrefWidth(70);
+        memberNumCol.setPrefWidth(90);
+        memberNameCol.setPrefWidth(90);
+        lockerNumCol.setPrefWidth(90);
+        lockerPeriodCol.setPrefWidth(90);
 
         table.getColumns().addAll(countCol, memberNumCol, memberNameCol, lockerNumCol, lockerPeriodCol);
 
