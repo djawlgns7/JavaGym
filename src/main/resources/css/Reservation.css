@@ -125,3 +125,8 @@ selectedReservationArea{
 .reservedDay{
     -fx-background-color: green;
 }
+
+/* 스크롤 창에 들어가는 라벨들 디자인 */
+.selectedResrevationList{
+    -fx-border-color: violet;
+}

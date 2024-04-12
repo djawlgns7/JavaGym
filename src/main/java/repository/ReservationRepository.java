@@ -148,6 +148,7 @@ public class ReservationRepository {
         return result;
     }
 
+    //예약 클래스 배열 내의 특정 예약 정보를 없앰
     public void removeReservation(List<Reservation> reservation, int dDay, int rTime){
         for(int i = 0; i < reservation.size(); i++){
             if(reservation.get(i).isExist(dDay, rTime)){

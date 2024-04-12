@@ -3,9 +3,11 @@ package controller.member;
 import domain.member.Member;
 import domain.reservation.Reservation;
 import domain.trainer.Trainer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.LocalDateStringConverter;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -53,6 +56,7 @@ public class ReservationController implements Initializable {
     List<Boolean>[] reservations;
     List<Reservation> selectedReservations;
     HBox[] weeks;
+    HBox firstHBoxInScroll;
     Member member;
     Trainer trainer;
     int daySelectedIndex = 1;
@@ -74,6 +78,7 @@ public class ReservationController implements Initializable {
 //                throw new RuntimeException(e);
 //            }
             makeCalendar();
+
         }
     }
 
@@ -261,15 +266,41 @@ public class ReservationController implements Initializable {
             return;
         }
 
-
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            showAlert("예약할 수 없습니다", "사용하기로 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
+            showAlert("예약할 수 없습니다", "선택한 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
             return;
         }
 
+        String trainerName = trainer.getName();
+        int reservationNum = selectedReservations.size() - 1;
+        ObservableList<Node> hBoxChildren = firstHBoxInScroll.getChildren();
+        String firstDate = hBoxChildren.get(0).toString();
+        String firstTime = hBoxChildren.get(1).toString();
+
+        String[] splittedDate = firstDate.split("\\'");
+        String date = splittedDate[1].replace("/", "-");
+        date = "2024-" + date;
+
+        String[] splittedTime = firstTime.split("\\'");
+        String fromTime = splittedTime[1];
+        String toTime = fromTime.substring(0, 2);
+        int hour = Integer.parseInt(toTime) + 1;
+
+        if(hour < 10){
+            toTime = "0" + hour + ":00";
+        }else{
+            toTime = hour + ":00";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("예약을 확정하시겠습니까?\n").append("\n담당 트레이너 - ").append(trainerName).append(" 트레이너")
+                .append("\n일시 - ").append(date).append(" ").append(fromTime).append(" ~ ").append(toTime)
+                .append(" 외 ").append(reservationNum).append("건");
+        String reservationConfirmMsg = sb.toString();
+
         //예약이 가능한 경우
-        Optional<ButtonType> result = showAlertChoose("예약을 확정하시겠습니까?");
+        Optional<ButtonType> result = showAlertChoose(reservationConfirmMsg);
 
         if (result.get() == ButtonType.OK){
             LocalDate today = LocalDate.now();
@@ -278,7 +309,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("알림", "예약이 확정되었습니다.", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMove("알림", "예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
 
@@ -426,6 +457,7 @@ public class ReservationController implements Initializable {
         List<Reservation> sortedReservations = new ArrayList<>();
 
         vBoxInScroll.getChildren().clear();
+        firstHBoxInScroll = null;
 
         for(int i = 0; i < selectedReservations.size(); i++){
             copiedReservations.add(new Reservation());
@@ -464,18 +496,31 @@ public class ReservationController implements Initializable {
             String indexDate = indexLocalDate.getMonthValue() + "/" + indexLocalDate.getDayOfMonth();
             String indexTime;
             if(indexRTime < 10){
-                indexTime = indexRTime + ":00";
-            }else{
                 indexTime = "0" + indexRTime + ":00";
+            }else{
+                indexTime = indexRTime + ":00";
             }
 
             if(prevDate == indexDDay){
-                insertHBox.getChildren().add(new Label(indexTime));
+                Label newTime = new Label(indexTime);
+                newTime.getStyleClass().add("selectedResrevationList");
+
+                insertHBox.getChildren().add(newTime);
             }else {
                 insertHBox = new HBox();
                 vBoxInScroll.getChildren().add(insertHBox);
-                insertHBox.getChildren().add(new Label(indexDate));
-                insertHBox.getChildren().add(new Label(indexTime));
+                if(firstHBoxInScroll == null){
+                    firstHBoxInScroll = insertHBox;
+                }
+
+                Label newTime = new Label(indexTime);
+                newTime.getStyleClass().add("selectedResrevationList");
+
+                Label newDate = new Label(indexDate);
+                newDate.getStyleClass().add("selectedResrevationList");
+
+                insertHBox.getChildren().add(newDate);
+                insertHBox.getChildren().add(newTime);
             }
 
             prevDate = indexDDay;
@@ -486,6 +531,7 @@ public class ReservationController implements Initializable {
     public void reset(){
         selectedReservations.clear();
         vBoxInScroll.getChildren().clear();
+        firstHBoxInScroll = null;
         ticketSelection.setText(0 + "개");
 
         for(int i = 1; i <= 70; i++){
