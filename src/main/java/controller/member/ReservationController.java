@@ -67,12 +67,18 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+        } else{
+            int memberNum = 1010;
+            member = memberRepository.findByNum(memberNum);
+            trainer = trainerRepository.findByNum(9000);
+            adder = trainerRepository.getWorkingHourAdder(trainer);
+            reservations = getTrainerSchedule(trainer, 60);
 
-//            try {
-//                setMyInfo();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
         }
     }
@@ -97,6 +103,8 @@ public class ReservationController implements Initializable {
                     days[index].getStyleClass().add("sundayLabel");
                 }else if(j == 7){
                     days[index].getStyleClass().add("saturdayLabel");
+                }else{
+                    days[index].getStyleClass().add("dayLabel");
                 }
 
                 if(i < 5) {
