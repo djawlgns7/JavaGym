@@ -10,6 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
+import service.SmsService;
 //import service.SmsService;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +31,7 @@ public class SignUpController implements Initializable {
 
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
-//    private final SmsService smsService = new SmsService();
+    private final SmsService smsService = new SmsService();
     private final CodeStore codeStore = CodeStore.getInstance();
 
     @FXML
@@ -63,13 +64,13 @@ public class SignUpController implements Initializable {
         String email = getFullEmail(emailIdField.getText().trim(), emailDomainField.getValue().trim());
         String birth = birthField.getText().trim();
 
-        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
-
         // 전화번호를 인증한 사용자만 회원가입 가능
-//        if (!codeStore.codeCheck) {
-//            showAlertSignUpFail("NotAuthentication");
-//            return;
-//        }
+        if (!codeStore.codeCheck) {
+            showAlertSignUpFail("NotAuthentication");
+            return;
+        }
+
+        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
 
         Member member = new Member();
         member.setName(name);
@@ -176,7 +177,7 @@ public class SignUpController implements Initializable {
         // 정상 로직
 
         // 인증번호 전송
-//        smsService.send(phone);
+        smsService.send(phone);
 
         // 전송 버튼을 재전송으로 바꾼다.
         sendButton.setText("재전송");

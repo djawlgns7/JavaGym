@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/common.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.member.payment.SelectTrainerController">
+
+    <!-- 비서가 생각없이 만들어줬는데 자바 코드로 현재 트레이너 수만큼 동적으로 생성해야 함-->
+
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="트레이너 선택" />
+        <VBox spacing="5">
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ImageView fx:id="trainerImage" fitWidth="100" fitHeight="100" preserveRatio="true" />
+                <VBox alignment="CENTER_LEFT">
+                    <Label fx:id="trainerName" text="노송백 트레이너" />
+                    <Label fx:id="trainerInfo" text="181cm | 82kg | 26세" />
+                </VBox>
+                <Button text="선택"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+</AnchorPane>
