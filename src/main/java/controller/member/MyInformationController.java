@@ -130,7 +130,7 @@ public class MyInformationController implements Initializable {
             gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
@@ -143,7 +143,7 @@ public class MyInformationController implements Initializable {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
             lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
@@ -153,7 +153,7 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
             clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
 
