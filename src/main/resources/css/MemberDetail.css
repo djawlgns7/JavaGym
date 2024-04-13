@@ -70,13 +70,13 @@ SplitPane {
 .memberDetail_updateMemberBtn:hover, .memberDetail_deleteMemberBtn:hover,
 .memberDetail_entryLogBtn:hover, .memberDetail_goBackBtn:hover, .memberDetail_CancelBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .memberDetail_updateMemberBtn:pressed, .memberDetail_deleteMemberBtn:pressed,
 .memberDetail_entryLogBtn:pressed, .memberDetail_goBackBtn:pressed, .memberDetail_CancelBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
@@ -174,7 +174,7 @@ SplitPane {
 
 /* 정렬 화살표 스타일 */
 .table-view .column-header .arrow {
-    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+    -fx-background-color: #FFFFFF; /* 화살표 색상 변경 */
 }
 
 /* 오름차순 화살표 스타일 */

@@ -92,13 +92,13 @@ SplitPane {
 .trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover .trainerDetail_updateTrainerBtn:hover,
 .trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerDetail_updateImageBtn:pressed, .trainerDetail_resetImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
 .trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
