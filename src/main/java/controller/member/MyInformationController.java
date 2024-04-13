@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -130,8 +129,7 @@ public class MyInformationController implements Initializable {
             gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
-            gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            gymTicketRemain.setText(expireDate + " (D-" + gymTicket + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -143,9 +141,8 @@ public class MyInformationController implements Initializable {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
-            lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            lockerRemain.setText(expireDate + " (D-" + locker + ")");
         }
 
         if(clothes == 0){
@@ -153,9 +150,8 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
-            clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            clothesRemain.setText(expireDate + " (D-" + clothes + ")");
 
         }
     }
