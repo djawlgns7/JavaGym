@@ -17,7 +17,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import repository.*;
-import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
