@@ -154,30 +154,6 @@ public class ReservationRepository {
         }
     }
 
-    public void save(Reservation reservation) {
-        String sql = "insert into reservation(m_no, t_no, r_date, r_time) values (?, ?, ?, ?)";
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try{
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-
-            pstmt.setInt(1, reservation.getMemberNum());
-            pstmt.setInt(2, reservation.getTrainerNum());
-            pstmt.setDate(3, reservation.getReservationDate());
-            pstmt.setInt(4, reservation.getReservationTime());
-            pstmt.executeUpdate();
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(conn, pstmt, null);
-        }
-
-
-    }
     public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
@@ -210,6 +186,31 @@ public class ReservationRepository {
             System.out.println(reservation.getReservationNum());
             pstmt.setInt(3, reservation.getReservationNum());
             pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    public void insertReservation(Reservation reservation) {
+        String sql = "insert into reservation (m_no, t_no, r_date, r_time) values(?, ?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, reservation.getMemberNum());
+            pstmt.setInt(2, reservation.getTrainerNum());
+            pstmt.setDate(3, reservation.getReservationDate());
+            pstmt.setInt(4, reservation.getReservationTime());
+
+            pstmt.executeUpdate();
+
+            setRemain(reservation.getMemberNum(), Item.PT_TICKET, -1);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

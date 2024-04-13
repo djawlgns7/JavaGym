@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertAddScheduleFail;
+import static util.AlertUtil.showAlertAddReservationFail;
 import static util.AlertUtil.showAlertAndMove;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
@@ -36,8 +36,6 @@ import static util.PageUtil.movePageCenter;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
-
-    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
 
     private TrainerRepository trainerRepository = new TrainerRepository();
     private ReservationRepository reservationRepository = new ReservationRepository();
@@ -54,10 +52,10 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void addReservation(ActionEvent event) throws ParseException, IOException {
-        if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
-            showAlertAddScheduleFail("emptyAnyField");
+        /*if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
+            showAlertAddReservationFail("emptyAnyField");
             return;
-        }
+        }*/
         Reservation reservation = new Reservation();
 
         // 예약 추가 로직 구현
@@ -67,7 +65,7 @@ public class ReservationInfoController implements Initializable {
         String rdate = rdateField.getText().trim();
         Integer rtime = Integer.valueOf(rtimeField.getText().trim());
 
-        if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;
+        /*if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;*/
         reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);

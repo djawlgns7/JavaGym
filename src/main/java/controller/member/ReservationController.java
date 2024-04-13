@@ -209,7 +209,7 @@ public class ReservationController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             reservationRepository.saveReservation(member.getNum(), trainer.getNum(), selectedDate, selectedTime);
-            showAlertAndMove("알림", "예약이 확정되었습니다.", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMove("예약이 확정되었습니다.", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
 

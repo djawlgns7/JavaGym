@@ -1,25 +1,17 @@
 package util;
 
 import domain.member.Member;
-import domain.trainer.Reservation;
 import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
-import domain.trainer.WorkingHour;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import repository.MemberRepository;
-import repository.ReservationRepository;
 import repository.TrainerRepository;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
+import static util.AlertUtil.showAlertAddMemberFail;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
 
@@ -30,7 +22,6 @@ public class ValidateUtil {
 
     private static final MemberRepository memberRepository = new MemberRepository();
     private static final TrainerRepository trainerRepository = new TrainerRepository();
-    private static final ReservationRepository reservationRepository = new ReservationRepository();
 
     public static boolean isEmptyAnyField(TextField name, TextField emailId, ComboBox<String> emailDomain,
                                           TextField birth, TextField phone, PasswordField password,
@@ -75,15 +66,6 @@ public class ValidateUtil {
                 phone.getText().trim().isEmpty();
     }
 
-    public static boolean isEmptyAnyField(TextField name) {
-        return name.getText().trim().isEmpty();
-    }
-
-    public static boolean isEmptyAnyField(TextField name,TextField date, TextField time) {
-        return name.getText().trim().isEmpty() ||
-                date.getText().trim().isEmpty() ||
-                time.getText().trim().isEmpty();
-    }
     public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
 
         if (name.length() > 10) {
@@ -132,11 +114,6 @@ public class ValidateUtil {
         }
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
             showAlertAddMemberFail("duplicatePhoneAndEmail");
-            return true;
-        }
-
-        if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
             return true;
         }
 
@@ -245,27 +222,6 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addReservationValidate(String name, String phone, String rdate, Integer rtime, Trainer trainer) {
-        if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
-            return true;
-        }
-
-        if (isWrongLengthPhone(phone)) {
-            showAlertAddMemberFail("duplicatePhone");
-        }
-        if (isDuplicateDate(rdate)) {
-            showAlertAddMemberFail("wrongRdate");
-            return true;
-        }
-
-        if(isWithinWorkingHours(rtime, trainer)) {
-            showAlertAddMemberFail("wrongRtime");
-            return true;
-        }
-        return false;
-    }
-
     public static boolean isDuplicateName(String name) {
         Trainer trainer = trainerRepository.findByName(name);
         return trainer != null;
@@ -309,34 +265,5 @@ public class ValidateUtil {
         return !(phone.length() == 8);
     }
 
-    public static boolean isWithinWorkingHours(Integer time, Trainer trainer) {
-        WorkingHour workingHour = trainer.getWorkingHour();
-        int startHour=0;
-        int endHour=0;
 
-        if(workingHour == WorkingHour.AM) {
-            startHour = 8;
-            endHour = 14;
-        } else if(workingHour == WorkingHour.PM) {
-            startHour = 14;
-            endHour = 20;
-        }
-        return time >= startHour && time < endHour;
-    }
-
-    private static boolean isDuplicateDate(String date) {
-        int month = Integer.parseInt(date.substring(2, 4));
-        int day = Integer.parseInt(date.substring(4));
-
-        return(1 > month || month > 12) || (1 > day || day > 31);
-    }
-
-    /*private static boolean isReservationAvailable(Date rDate, Integer rTime, Integer TrainerNum) {
-        List<Reservation> reservation = reservationRepository.findSchedule(currentTrainer.getNum());
-        return reservation.stream().noneMatch(res-> res.getReservationTime().equals(rTime));
-    }*/
-
-    public static boolean isDateInFuture(LocalDate rdate) {
-        return !rdate.isBefore(LocalDate.now());
-    }
 }

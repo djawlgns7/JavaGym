@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.showAlertChoose;
-import static util.AlertUtil.showAlertUpdateReservationFail;
+/*import static util.AlertUtil.showAlertUpdateReservationFail;*/
 import static util.PageUtil.*;
 
 public class ReservationDetailController implements Initializable {
@@ -57,15 +57,17 @@ public class ReservationDetailController implements Initializable {
     private TableColumn<Reservation, Boolean> selectCol;
 
     private Reservation reservation;
+
     @FXML
     private void updateReservation(ActionEvent event) throws IOException, ParseException {
+        reservation = SelectedReservation.getCurrentReservation();
         Date newDate = Date.valueOf(ptDatePicker.getValue());
         int newTime = Integer.parseInt(rTimeField.getText().trim());
         //수정 내용이 없을 경우
-        if(isSame(newDate, newTime)) {
+        /*if(isSame(newDate, newTime)) {
             showAlertUpdateReservationFail("isSame");
             return;
-        }
+        }*/
 
         //수정 내용이 있을 경우
         Optional<ButtonType> response = showAlertChoose("예약 정보를 수정하시겠습니까?");
@@ -73,11 +75,10 @@ public class ReservationDetailController implements Initializable {
             System.out.println("수정 내역이 있음");
 
             //PT 일정, 시간 모두 변경
-
-
             reservation.setReservationDate(newDate);
             reservation.setReservationTime(newTime);
             reservationRepository.updateReservation(reservation);
+            System.out.println(reservation.getReservationNum());
         }
     }
 
