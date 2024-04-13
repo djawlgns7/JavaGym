@@ -17,6 +17,8 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import repository.*;
+import util.MemberUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -451,10 +453,14 @@ public class MemberDetailController implements Initializable {
         Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
+            int count = 0;
             // 선택한 예약 내역을 모두 삭제
             for (MemberSchedule schedule : selectedSchedules) {
                 reservationRepository.deleteReservation(schedule.getReservationNum());
+                count++;
             }
+            // 삭제한 예약 내역만큼 PT 이용권 돌려주기
+            setRemain(currentMember.getNum(), PT_TICKET, count);
             showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
         }
     }
