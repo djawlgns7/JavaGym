@@ -74,6 +74,7 @@ public class ValidateUtil {
 
     public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
 
+
         if (isDuplicatePhone(phone)) {
             showAlertSignUpFail("duplicatePhone");
             return true;

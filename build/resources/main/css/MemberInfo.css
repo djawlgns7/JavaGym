@@ -1,0 +1,240 @@
+/* VBox */
+SplitPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.memberInfo_title_1, .memberInfo_title_2 {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* TextField */
+.memberInfo_nameInput, .memberInfo_phoneInput, .memberInfo_emailInput, .memberInfo_birthInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+/* Button */
+.memberInfo_Btn {
+    -fx-font-family: "Jua";
+    -fx-spacing: 50;
+}
+
+.memberInfo_addMemberBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_goBackBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_addMemberBtn:hover, .memberInfo_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.memberInfo_addMemberBtn:pressed, .memberInfo_goBackBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+/* Radio Button */
+.memberInfo_sex_radioBtn_title {
+    -fx-font-family: "Jua";
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.memberInfo_sex_radioBtn_1, .memberInfo_sex_radioBtn_2 {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+/* Table */
+.memberInfo_searchBox {
+    -fx-padding: 0 15 10 0;
+}
+
+.memberInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.memberInfo_searchBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_searchBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.memberInfo_searchBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
+.memberInfo_emailColumn, .memberInfo_birthColumn, .memberInfo_phoneColumn,
+.memberInfo_enrollColumn {
+    -fx-font-family: "Jua";
+}
+
+.memberInfo_numColumn, .memberInfo_nameColumn {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_genderColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_emailColumn {
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_birthColumn {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_phoneColumn {
+    -fx-pref-width: 130;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_enrollColumn {
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+/* TableView 헤더 스타일 */
+.table-view .column-header-background .label {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+/* 헤더 배경색 변경 */
+.table-view .column-header {
+    -fx-background-color: #9747FF;
+}
+
+/* 헤더의 테두리 변경 */
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: transparent transparent #9747FF transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* 컬럼 헤더들 사이의 경계선 추가 */
+.table-view .column-header {
+    -fx-border-color: transparent transparent #FFFFFF #FFFFFF; /* 아래쪽과 오른쪽 경계선 색상 설정 */
+    -fx-border-width: 0 0 2 1; /* 아래쪽 경계선 두께 2, 오른쪽 경계선 두께 1 */
+}
+
+/* 화살표 버튼 배경색 변경 */
+.table-view .column-header .arrow-button {
+    -fx-background-color: #9747FF; /* 화살표 버튼 배경색도 헤더 배경색과 동일하게 설정 */
+}
+
+/* 정렬 화살표 스타일 */
+.table-view .column-header .arrow {
+    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+}
+
+/* 오름차순 화살표 스타일 */
+.table-view .column-header .arrow-button .arrow {
+    -fx-shape: "M0,0 L1,0 L0.5,1 Z"; /* 오름차순 화살표 모양 */
+}
+
+/* 내림차순 화살표 스타일 */
+.table-view .column-header:descending .arrow-button .arrow {
+    -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
+}
+
+.memberInfo_subBtn {
+    -fx-padding: 10 15 0 0;
+}
+
+.memberInfo_lockerBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_refreshBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}

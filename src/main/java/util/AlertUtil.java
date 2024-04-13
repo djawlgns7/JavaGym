@@ -127,10 +127,18 @@ public class AlertUtil {
     }
 
     public static Optional<ButtonType> showAlertChoose(String message) {
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("알림");
         confirmationAlert.setHeaderText(null);
         confirmationAlert.setContentText(message);
         return confirmationAlert.showAndWait();
+    }
+
+    public static void showAlertAddReservationFail (String messageCode){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(errorMessage.getString("loginFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(errorMessage.getString(messageCode));
+        alert.showAndWait();
     }
 }
