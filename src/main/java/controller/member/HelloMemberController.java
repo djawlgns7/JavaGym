@@ -14,7 +14,6 @@ import javafx.scene.shape.Circle;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
-import repository.ReservationRepository;
 import util.MemberUtil;
 
 import java.io.IOException;
@@ -72,23 +71,18 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     public void entry(ActionEvent event) throws IOException {
-
-        Integer gymTicket = getRemain(currentMember.getNum(), Item.GYM_TICKET);
-        Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
+        // 코드 수정 (성진)
+        Integer memberNum = currentMember.getNum();
+        Integer gymTicket = MemberUtil.getRemain(memberNum, Item.GYM_TICKET);
+        Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
-        if (gymTicket.equals(0) && reservation == null) {
+        if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+            entryLogRepository.save(memberNum);
+            showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+        } else {
             showAlertUseMessage("DeniedEntry");
-            return;
         }
-
-        if (!reservation.toString().equals(today)) {
-            showAlertUseMessage("DeniedEntry");
-            return;
-        }
-
-        entryLogRepository.save(currentMember.getNum());
-        showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
     }
 
     @Override
@@ -100,9 +94,9 @@ public class HelloMemberController implements Initializable {
             int gymTicket = getRemain(member.getNum(), Item.GYM_TICKET);
 
             PTTicketRemain.setText("PT 이용권 " + PTTicket + "개");
-            memberName.setText(member.getName() + "님,환영합니다!");
+            memberName.setText(member.getName() + "님, 환영합니다!");
             if(gymTicket > 0) {
-                DDay.setText("D-" + gymTicket);
+                DDay.setText("D - " + gymTicket);
             }else if(repository.hasReservationToday(member.getNum())){
                 DDay.setText("입장 가능");
             }
@@ -111,7 +105,7 @@ public class HelloMemberController implements Initializable {
             }
         }
 
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         Circle clipCircle = new Circle(100, 100, 100);

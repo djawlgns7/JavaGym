@@ -57,11 +57,11 @@ public class MyInformationController implements Initializable {
 
         memberName.setText(member.getName() + " ");
 
-        if(trainerNum == 0) {
+        if (trainerNum == 0) {
             trainerName.setText("");
             trainerPhone.setText("담당 트레이너가 없습니다");
 
-        }else{
+        } else {
             Trainer trainer = trainerRepository.findByNum(trainerNum);
             LocalDate expireDate = today;
             int trainerAge = trainerRepository.getAge(trainer);
@@ -74,37 +74,36 @@ public class MyInformationController implements Initializable {
             trainerPhone.setText(claculatedTrainerPhone);
         }
 
-        if(gymTicket == 0) {
+        if (gymTicket == 0) {
             gymTicketRemain.setText("결제 내역이 없습니다");
-        }else {
+        } else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
 
-        if(locker == 0){
+        if (locker == 0) {
             lockerNo.setText("이용할 수 없습니다");
             lockerRemain.setText("");
-        }else{
+        } else {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
             lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
         }
 
-        if(clothes == 0){
+        if (clothes == 0) {
             clothesAvailability.setText("대여할 수 없습니다");
             clothesRemain.setText("");
-        }else{
+        } else {
             LocalDate expireDate = today.plusDays(clothes);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
             clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
-
         }
     }
 

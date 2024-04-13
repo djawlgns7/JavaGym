@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.AdminRepository;
 import repository.MemberRepository;
@@ -84,7 +85,7 @@ public class HelloAdminControllerV2 implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
-        showAlertAndMove("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+        showAlertAndMove("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdmin2", event);
     }
 
     @FXML
@@ -209,6 +210,11 @@ public class HelloAdminControllerV2 implements Initializable {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/LockerInfo.css").toExternalForm());
+
+        // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
     }
 
@@ -314,7 +320,7 @@ public class HelloAdminControllerV2 implements Initializable {
             }
         }
 
-        showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+        showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdmin2", event);
     }
 
     @FXML
