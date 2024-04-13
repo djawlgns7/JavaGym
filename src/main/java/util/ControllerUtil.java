@@ -2,6 +2,7 @@ package util;
 
 import domain.member.EntryLog;
 import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.member.SelectedMember;
 import domain.member.UsingLocker;
 import domain.trainer.Reservation;
@@ -15,8 +16,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.*;
 import service.TrainerService;
+import repository.EntryLogRepository;
+import repository.MemberRepository;
+import repository.ReservationRepository;
+import repository.PurchaseRepository;
+import repository.TrainerRepository;
+import service.TrainerService;
 
 import java.rmi.server.RemoteServer;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -123,13 +133,15 @@ public class ControllerUtil {
 
 
     public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
-        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("번호");
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("순서");
         entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
+        entryNumColumn.setPrefWidth(70);
 
         TableColumn<EntryLog, String> entryLogColumn = new TableColumn<>("입장 일시");
         entryLogColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cellData.getValue().getEntryTime())
         ));
+        entryLogColumn.setPrefWidth(180);
 
         table.getColumns().addAll(entryNumColumn, entryLogColumn);
         List<Timestamp> timestamps = entryLogRepository.findAllEntryLogs(memberNum);
@@ -144,6 +156,32 @@ public class ControllerUtil {
         }
 
         table.setItems(entryLogs);
+    }
+
+    public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
+
+        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("순서");
+        TableColumn<UsingLocker, Number> memberNumCol = new TableColumn<>("회원 번호");
+        TableColumn<UsingLocker, String> memberNameCol = new TableColumn<>("회원 이름");
+        TableColumn<UsingLocker, Number> lockerNumCol = new TableColumn<>("사물함 번호");
+        TableColumn<UsingLocker, Number> lockerPeriodCol = new TableColumn<>("사물함 기간");
+
+        countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+        lockerNumCol.setCellValueFactory(new PropertyValueFactory<>("lockerNum"));
+        lockerPeriodCol.setCellValueFactory(new PropertyValueFactory<>("lockerPeriod"));
+
+        countCol.setPrefWidth(70);
+        memberNumCol.setPrefWidth(90);
+        memberNameCol.setPrefWidth(90);
+        lockerNumCol.setPrefWidth(90);
+        lockerPeriodCol.setPrefWidth(90);
+
+        table.getColumns().addAll(countCol, memberNumCol, memberNameCol, lockerNumCol, lockerPeriodCol);
+
+        List<UsingLocker> lockers = purchaseRepository.findAllUsingLocker();
+        table.setItems(FXCollections.observableArrayList(lockers));
     }
 
     public static void columnBindingReservation(TableColumn<Reservation, String> memberNumCol,
@@ -176,25 +214,12 @@ public class ControllerUtil {
 
     }
 
+    public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
+        int trainerNum = TrainerService.currentTrainerNum;
+        ReservationRepository reservationRepository = new ReservationRepository();
+        List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
+        scheduleTable.setItems(FXCollections.observableArrayList(schedules));
 
-
-    public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
-
-        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("");
-        TableColumn<UsingLocker, Number> memberNumCol = new TableColumn<>("회원 번호");
-        TableColumn<UsingLocker, String> memberNameCol = new TableColumn<>("회원 이름");
-        TableColumn<UsingLocker, Number> lockerNumCol = new TableColumn<>("사물함 번호");
-        TableColumn<UsingLocker, Number> lockerPeriodCol = new TableColumn<>("사물함 기간");
-
-        countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
-        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
-        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
-        lockerNumCol.setCellValueFactory(new PropertyValueFactory<>("lockerNum"));
-        lockerPeriodCol.setCellValueFactory(new PropertyValueFactory<>("lockerPeriod"));
-
-        table.getColumns().addAll(countCol, memberNumCol, memberNameCol, lockerNumCol, lockerPeriodCol);
-
-        List<UsingLocker> lockers = purchaseRepository.findAllUsingLocker();
-        table.setItems(FXCollections.observableArrayList(lockers));
+        return trainerNum;
     }
 }

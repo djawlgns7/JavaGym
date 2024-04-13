@@ -2,11 +2,13 @@ package util;
 
 import domain.member.Member;
 import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 import static domain.trainer.SelectedTrainer.*;
@@ -64,6 +66,10 @@ public class ValidateUtil {
                 email.getText().trim().isEmpty() ||
                 birth.getText().trim().isEmpty() ||
                 phone.getText().trim().isEmpty();
+    }
+
+    public static boolean isEmptyAnyField(TextField name) {
+        return name.getText().trim().isEmpty();
     }
 
     public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
@@ -264,6 +270,4 @@ public class ValidateUtil {
     public static boolean isWrongLengthPhone(String phone) {
         return !(phone.length() == 8);
     }
-
-
 }

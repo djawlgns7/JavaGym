@@ -3,134 +3,73 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.image.ImageView?>
-<VBox alignment="CENTER" prefHeight="600" prefWidth="500" spacing="20.0"
-      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.member.MyInformationController">
-   <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="14.0" prefWidth="386.0" text="JAVA GYM">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="32.0" prefWidth="126.0">
-               <children>
-                  <Button onAction="#moveToMain" mnemonicParsing="false" prefHeight="22.0" prefWidth="143.0" text="Home" />
-                  <Label text="메인 페이지로 이동" textFill="#8118d7" />
-               </children>
-            </VBox>
-         </children>
+
+<AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.member.MyInformationController">
+   <VBox alignment="CENTER" prefHeight="800.0" prefWidth="550.0" spacing="30.0">
+      <Button fx:id="invisibleButton" managed="false" visible="true" />
+      <!-- 메인 화면 버튼 -->
+      <HBox alignment="CENTER_RIGHT" styleClass="myInformation_TopBtn">
+         <Region HBox.hgrow="ALWAYS" />
+         <Button onAction="#moveToMain" text="메인 화면" styleClass="myInformation_mainBtn"/>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="117.0" prefWidth="500.0">
-         <children>
-            <Label fx:id="memberName" text="오민택 ">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="회원님, 환영합니다!">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
+
+      <!-- 자바짐 타이틀 -->
+      <Label text="JAVA GYM" styleClass="myInformation_title_label"/>
+
+      <!-- 회원 정보 및 환영 문구 -->
+      <HBox alignment="CENTER">
+         <Label fx:id="memberName" text="오민택 " styleClass="myInformation_Name_Info"/>
+         <Label text="회원님, 환영합니다!" styleClass="myInformation_Name_Info"/>
       </HBox>
-      <Label alignment="CENTER" fx:id="trainerViewTitle" prefHeight="61.0" prefWidth="500.0" text="담당 트레이너 정보" textFill="#a924f7">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <HBox alignment="CENTER" fx:id="trainerView" prefHeight="176.0" prefWidth="500.0" style="-fx-background-color: green;">
-         <children>
-            <ImageView fx:id="imageView" fitHeight="73.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox alignment="CENTER" prefHeight="94.0" prefWidth="250.0">
-               <children>
-                  <Label style="-fx-label-padding: 10;" fx:id="trainerName" text="노승빈 트레이너">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label style="-fx-label-padding: 10;" fx:id="trainerInfo" text="181cm | 82kg | 26세">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <VBox alignment="CENTER" prefHeight="186.0" prefWidth="500.0" style="-fx-background-color: skyblue;">
-         <children>
-            <Label style="-fx-label-padding: 10;" text="헬스장 이용 종료 기간">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label style="-fx-label-padding: 10;" fx:id="gymTicketRemain" text="2024-10-20 (D-200)">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="184.0" prefWidth="500.0" style="-fx-background-color: gray;">
-         <children>
-            <Label style="-fx-label-padding: 10;" text="PT 이용권 잔여 개수">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label style="-fx-label-padding: 10;" fx:id="PTTicketRemain" text="10개">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox style="-fx-background-color: yellow; -fx-alignment: center;">
-         <children>
-            <HBox alignment="CENTER" prefHeight="102.0" prefWidth="500.0">
-               <children>
-                  <Label style="-fx-label-padding: 10;" text="사물함">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label style="-fx-label-padding: 10;" fx:id="lockerNo" text="No.100">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label style="-fx-label-padding: 10;" fx:id="lockerRemain" text="2024-10-20 (D-200)">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
+
+
+      <VBox alignment="CENTER" spacing="20" styleClass="myInformation_gym_Info_Container">
+         <!-- 트레이너 정보 + PT 이용권 개수 -->
+         <VBox alignment="CENTER" spacing="20" styleClass="myInformation_Trainer_Info">
+            <HBox alignment="CENTER" fx:id="trainerView" spacing="60">
+               <VBox alignment="CENTER" spacing="10">
+                  <Label fx:id="trainerViewTitle" text="담당 트레이너 정보" styleClass="myInformation_Trainer_InfoTitle"/>
+                  <Label fx:id="trainerName" text="노승빈 트레이너" styleClass="myInformation_Trainer_Name" />
+                  <Label fx:id="trainerPhone" text="010-1234-5678" styleClass="myInformation_Trainer_Phone" />
+               </VBox>
+               <VBox alignment="CENTER" spacing="45">
+                  <Label text="PT 이용권 잔여 개수" styleClass="myInformation_PTTicket_InfoTitle" />
+                  <Label fx:id="PTTicketRemain" text="10개" styleClass="myInformation_PTTicket_Cnt" />
+               </VBox>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label style="-fx-label-padding: 10;" text="운동복">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label style="-fx-label-padding: 10;" fx:id="clothesAvailability" text="사용가능">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label style="-fx-label-padding: 10;" fx:id="clothesRemain" text="2024-10-20 (D-200)">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
+         </VBox>
+         <!-- PT 예약 내역 -->
+         <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_PTReservation_Info">
+            <Label text="PT 예약 내역" styleClass="myInformation_PTReservation_InfoTitle" />
+            <VBox alignment="CENTER" spacing="5" styleClass="myInformation_PTReservation_Bundle">
+               <Label fx:id="PTReservationTitle" text="예약 1" styleClass="myInformation_PTReservation_Num"/>
+               <Label fx:id="PTReservationDate" text="2024-10-20" styleClass="myInformation_PTReservation_Date" />
+               <Label fx:id="PTReservationTime" text="10:00 ~ 11:00" styleClass="myInformation_PTReservation_Time" />
+            </VBox>
+         </VBox>
+
+         <!-- 헬스장 이용 종료 기간 -->
+         <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_gymTicket_Info">
+            <Label text="헬스장 이용 종료 기간" styleClass="myInformation_gymTicket_InfoTitle"/>
+            <Label fx:id="gymTicketRemain" text="2024-10-20 (D-200)" styleClass="myInformation_gymTicket_Date"/>
+         </VBox>
+
+         <!-- 사물함 및 운동복 정보 -->
+         <VBox alignment="CENTER" spacing="10" styleClass="myInformation_locker_clothes_Info">
+            <HBox alignment="CENTER" spacing="20">
+               <Label text="사물함" styleClass="myInformation_locker_InfoTitle"/>
+               <Label fx:id="lockerNo" text="No.100" styleClass="myInformation_locker_Num"/>
+               <Label fx:id="lockerRemain" text="2024-10-20 (D-200)" styleClass="myInformation_locker_Date"/>
             </HBox>
-         </children>
+            <HBox alignment="CENTER" spacing="20">
+               <Label text="운동복" styleClass="myInformation_clothes_InfoTitle"/>
+               <Label fx:id="clothesAvailability" text="사용 가능" styleClass="myInformation_clothes_Available"/>
+               <Label fx:id="clothesRemain" text="2024-10-20 (D-200)" styleClass="myInformation_clothes_Date"/>
+            </HBox>
+         </VBox>
       </VBox>
-   </children>
-</VBox>
+   </VBox>
+</AnchorPane>

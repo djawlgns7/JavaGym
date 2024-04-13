@@ -6,52 +6,58 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/signUpForm.css"
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/SignUpForm.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.SignUpController">
-    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="15.0">
-        <fx:define>
-            <ToggleGroup fx:id="gender" />
-        </fx:define>
 
-        <VBox alignment="CENTER_RIGHT" style="-fx-padding: 10 10 0 0" spacing="10">
-            <Button onAction="#goBack" text="로그인" />
-        </VBox>
-        <!-- 자바짐 텍스트와 폰트 설정 -->
-        <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label" layoutX="50" layoutY="50">
+    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="30">
+        <!-- 로그인 버튼 -->
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 10 0 0" spacing="10" styleClass="SignUp_page_TopBtn">
+            <Button onAction="#goBack" text="로그인" styleClass="SignUp_loginBtn"/>
+        </HBox>
+
+        <!-- 자바짐 타이틀 -->
+        <Label text="JAVA GYM" styleClass="signup_title_label" layoutX="50" layoutY="50">
             <font><Font name="Anton-Regular" /></font>
         </Label>
 
+        <!-- 입력 필드 -->
         <HBox alignment="CENTER" spacing="10">
-
-            <TextField fx:id="nameField" promptText="이름" />
+            <TextField fx:id="nameField" promptText="이름" styleClass="SignUp_nameInput" />
         </HBox>
 
         <HBox alignment="CENTER" spacing="10">
-
-            <TextField fx:id="phoneField" promptText="010 제외한 전화번호 8자리" />
+            <TextField fx:id="phoneField" promptText="전화번호 (8자리)" styleClass="SignUp_phoneInput" />
+            <Button fx:id="sendButton" onAction="#sendNumber" text="전송" />
         </HBox>
 
         <HBox alignment="CENTER" spacing="10">
-
-            <PasswordField fx:id="passwordField" promptText="비밀번호 (4자리 숫자)" />
+            <TextField fx:id="codeField" promptText="인증번호" />
+            <Button fx:id="checkButton" onAction="#checkNumber" text="확인" />
         </HBox>
 
         <HBox alignment="CENTER" spacing="10">
-
-            <PasswordField fx:id="passwordConfirmField" promptText="비밀번호 확인" />
-        </HBox>
-
-        <HBox fx:id="genderId" alignment="CENTER" spacing="10">
-            <Label>성별</Label>
-            <RadioButton fx:id="maleButton" text="남" toggleGroup="$gender" />
-            <RadioButton fx:id="femaleButton" text="여" toggleGroup="$gender" />
+            <PasswordField fx:id="passwordField" promptText="비밀번호 (4자리 숫자)" styleClass="SignUp_passwordInput" />
         </HBox>
 
         <HBox alignment="CENTER" spacing="10">
+            <PasswordField fx:id="passwordConfirmField" promptText="비밀번호 확인" styleClass="SignUp_passwordInput" />
+        </HBox>
 
-            <TextField fx:id="emailIdField" prefWidth="120" promptText="이메일 아이디" />
-            <Label fx:id="atSign">@</Label>
-            <ComboBox fx:id="emailDomainField" promptText="선택 또는 직접 입력" prefWidth="170" editable="true">
+        <!-- 성별 -->
+        <HBox fx:id="genderId" alignment="CENTER" spacing="35">
+            <Label text="성별" styleClass="SingUp_sex_radioBtn_title"/>
+            <fx:define>
+                <ToggleGroup fx:id="genderRadio" />
+            </fx:define>
+            <RadioButton fx:id="maleButton" text="남" toggleGroup="$genderRadio" styleClass="SingUp_sex_radioBtn_1" />
+            <RadioButton fx:id="femaleButton" text="여" toggleGroup="$genderRadio" styleClass="SingUp_sex_radioBtn_2" />
+        </HBox>
+
+        <!-- 이메일 -->
+        <HBox alignment="CENTER" spacing="15">
+            <TextField fx:id="emailIdField" promptText="이메일 아이디" styleClass="SignUp_emailInput"/>
+            <Label fx:id="atSign" styleClass="SignUp_atSign">@</Label>
+            <ComboBox fx:id="emailDomainField" promptText="선택 또는 직접 입력" editable="true" styleClass="SignUp_emailComboBox">
                 <items>
                     <FXCollections fx:factory="observableArrayList" >
                         <String fx:value="gmail.com" />
@@ -64,9 +70,13 @@
         </HBox>
 
         <HBox alignment="CENTER" spacing="10">
-            <TextField fx:id="birthField" promptText="주민등록번호 앞 6자리" />
+            <TextField fx:id="birthField" promptText="생년월일 (6자리)" styleClass="SignUp_birthInput"/>
         </HBox>
 
-        <Button onAction="#signUp" text="회원 등록" />
+        <!-- 버튼 -->
+        <HBox fx:id="signupButton" alignment="CENTER" spacing="10" styleClass="SignUp_page_Btn">
+            <Button onAction="#signUp" text="회원 등록" styleClass="SignUp_addMemberBtn"/>
+        </HBox>
+
     </VBox>
 </AnchorPane>
