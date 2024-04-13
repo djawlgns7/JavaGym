@@ -19,13 +19,12 @@ import static util.PageUtil.*;
 public class AdminService {
 
     private final AdminRepository adminRepository;
+    private final MemberRepository memberRepository = new MemberRepository();
+    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     public AdminService(AdminRepository repository) {
         this.adminRepository = repository;
     }
-
-    private final MemberRepository memberRepository = new MemberRepository();
-    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     public void login(TextField idField, PasswordField passwordField, ActionEvent event) throws IOException {
         String id = idField.getText().trim();
@@ -44,7 +43,7 @@ public class AdminService {
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            movePage(event, "/view/admin/helloAdmin");
+            movePageCenter(event, "/view/admin/helloAdminV2");
         } else {
             showAlertLoginFail("adminLoginFail");
         }

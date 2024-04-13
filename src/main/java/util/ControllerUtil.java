@@ -1,15 +1,28 @@
 package util;
 
+import domain.member.EntryLog;
 import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import repository.EntryLogRepository;
 import repository.MemberRepository;
+import repository.ReservationRepository;
+import repository.PurchaseRepository;
 import repository.TrainerRepository;
+import service.TrainerService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -103,5 +116,84 @@ public class ControllerUtil {
     public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
         List<Trainer> members = trainerRepository.findAllTrainer();
         membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+
+    public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
+        TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("순서");
+        entryNumColumn.setCellValueFactory(new PropertyValueFactory<>("entryNum"));
+        entryNumColumn.setPrefWidth(70);
+
+        TableColumn<EntryLog, String> entryLogColumn = new TableColumn<>("입장 일시");
+        entryLogColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cellData.getValue().getEntryTime())
+        ));
+        entryLogColumn.setPrefWidth(180);
+
+        table.getColumns().addAll(entryNumColumn, entryLogColumn);
+        List<Timestamp> timestamps = entryLogRepository.findAllEntryLogs(memberNum);
+        ObservableList<EntryLog> entryLogs = FXCollections.observableArrayList();
+
+        int count = 1;
+        for (Timestamp timestamp : timestamps) {
+            EntryLog entryLog = new EntryLog();
+            entryLog.setEntryTime(timestamp);
+            entryLog.setEntryNum(count++);
+            entryLogs.add(entryLog);
+        }
+
+        table.setItems(entryLogs);
+    }
+
+    public static void loadLockerInfo(TableView table, PurchaseRepository purchaseRepository) {
+
+        TableColumn<UsingLocker, Number> countCol = new TableColumn<>("순서");
+        TableColumn<UsingLocker, Number> memberNumCol = new TableColumn<>("회원 번호");
+        TableColumn<UsingLocker, String> memberNameCol = new TableColumn<>("회원 이름");
+        TableColumn<UsingLocker, Number> lockerNumCol = new TableColumn<>("사물함 번호");
+        TableColumn<UsingLocker, Number> lockerPeriodCol = new TableColumn<>("사물함 기간");
+
+        countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+        lockerNumCol.setCellValueFactory(new PropertyValueFactory<>("lockerNum"));
+        lockerPeriodCol.setCellValueFactory(new PropertyValueFactory<>("lockerPeriod"));
+
+        countCol.setPrefWidth(70);
+        memberNumCol.setPrefWidth(90);
+        memberNameCol.setPrefWidth(90);
+        lockerNumCol.setPrefWidth(90);
+        lockerPeriodCol.setPrefWidth(90);
+
+        table.getColumns().addAll(countCol, memberNumCol, memberNameCol, lockerNumCol, lockerPeriodCol);
+
+        List<UsingLocker> lockers = purchaseRepository.findAllUsingLocker();
+        table.setItems(FXCollections.observableArrayList(lockers));
+    }
+
+    public static void columnBindingReservation(TableColumn<TrainerSchedule, String> memberNameCol,
+                                                TableColumn<TrainerSchedule, String> reservationDateCol,
+                                                TableColumn<TrainerSchedule, String> reservationTimeCol) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+        reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+        reservationTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
+
+        reservationDateCol.setCellValueFactory(cellData ->  {
+            Date sqlDate = cellData.getValue().getReservationDate();
+            return sqlDateToLocalDate(sqlDate, formatter);
+        });
+
+        reservationTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
+                String.format("%02d:00", cellData.getValue().getReservationTime())));
+    }
+
+    public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
+        int trainerNum = TrainerService.currentTrainerNum;
+        ReservationRepository reservationRepository = new ReservationRepository();
+        List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
+        scheduleTable.setItems(FXCollections.observableArrayList(schedules));
+
+        return trainerNum;
     }
 }

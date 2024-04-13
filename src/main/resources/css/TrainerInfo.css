@@ -1,0 +1,290 @@
+/* Tab */
+.tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* 선택된 Tab */
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected,
+.tab-pane .tab:selected {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-background-color: #9747FF;
+    -fx-border-color: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 선택된 Tab Hover */
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected:hover,
+.tab-pane .tab:selected:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE transparent #EA8ABE;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 5;
+}
+
+/* 선택되지 않은 Tab */
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-background-color: #BAA6FF;
+    -fx-border-color: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 선택되지 않은 Tab Hover */
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE transparent #EA8ABE;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_Tab, .trainerInfo_Tab {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 178px;
+    -fx-pref-height: 30px;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* VBox */
+SplitPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.trainerInfo_title_1, .trainerInfo_title_2 {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* ImageView */
+.trainerInfo_ImageContainer {
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+/* TextField */
+.trainerInfo_nameInput, .trainerInfo_idInput, .trainerInfo_phoneInput,
+.trainerInfo_heightInput, .trainerInfo_weightInput, .trainerInfo_birthInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 40;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+/* Button */
+.trainerInfo_ImageBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 70;
+    -fx-pref-height: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_Btn {
+    -fx-spacing: 50;
+    -fx-font-family: "Jua";
+}
+
+.trainerInfo_addTrainerBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_goBackBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_ImageBtn:hover, .trainerInfo_addTrainerBtn:hover, .trainerInfo_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.trainerInfo_ImageBtn:pressed, .trainerInfo_addTrainerBtn:pressed, .trainerInfo_goBackBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+/* Radio Button */
+.trainerInfo_sex_radioBtn_title, .trainerInfo_worktime_radioBtn_title {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.trainerInfo_sex_radioBtn_1, .trainerInfo_sex_radioBtn_2,
+.trainerInfo_worktime_radioBtn_1, .trainerInfo_worktime_radioBtn_2 {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+
+}
+
+/* Table */
+.trainerInfo_searchBox {
+    -fx-padding: 0 15 10 0;
+}
+
+.trainerInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.trainerInfo_searchBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_searchBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.trainerInfo_searchBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.trainerInfo_numColumn, .trainerInfo_nameColumn, .trainerInfo_idColumn,
+.trainerInfo_genderColumn, .trainerInfo_birthColumn, .trainerInfo_workTimeColumn,
+.trainerInfo_phoneColumn {
+    -fx-font-family: "Jua";
+}
+
+.trainerInfo_numColumn {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.trainerInfo_nameColumn {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.trainerInfo_genderColumn, .trainerInfo_workTimeColumn {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.trainerInfo_idColumn, .trainerInfo_birthColumn {
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.trainerInfo_phoneColumn {
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+/* TableView 헤더 스타일 */
+.table-view .column-header-background .label {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 헤더 배경색 변경 */
+.table-view .column-header {
+    -fx-background-color: #9747FF;
+}
+
+/* 헤더의 테두리 변경 */
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: transparent transparent #9747FF transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* 컬럼 헤더들 사이의 경계선 추가 */
+.table-view .column-header {
+    -fx-border-color: transparent transparent #FFFFFF #FFFFFF; /* 아래쪽과 오른쪽 경계선 색상 설정 */
+    -fx-border-width: 0 0 2 1; /* 아래쪽 경계선 두께 2, 오른쪽 경계선 두께 1 */
+}
+
+/* 화살표 버튼 배경색 변경 */
+.table-view .column-header .arrow-button {
+    -fx-background-color: #9747FF; /* 화살표 버튼 배경색도 헤더 배경색과 동일하게 설정 */
+}
+
+/* 정렬 화살표 스타일 */
+.table-view .column-header .arrow {
+    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+}
+
+/* 오름차순 화살표 스타일 */
+.table-view .column-header .arrow-button .arrow {
+    -fx-shape: "M0,0 L1,0 L0.5,1 Z"; /* 오름차순 화살표 모양 */
+}
+
+/* 내림차순 화살표 스타일 */
+.table-view .column-header:descending .arrow-button .arrow {
+    -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
+}
+
+.trainerInfo_subBtn {
+    -fx-padding: 10 15 0 0;
+}
+
+.trainerInfo_refreshBtn {
+     -fx-font-family: "Jua";
+     -fx-background-color: #DE14FF;
+     -fx-text-fill: #FFFFFF;
+     -fx-font-size: 16;
+     -fx-pref-width: 80;
+     -fx-pref-height: 30;
+     -fx-border-color: transparent;
+     -fx-border-radius: 5;
+}
+
+.trainerInfo_refreshBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+.trainerInfo_refreshBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}

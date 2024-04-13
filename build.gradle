@@ -22,6 +22,8 @@ repositories {
 dependencies {
     implementation 'mysql:mysql-connector-java:8.0.29'
     implementation 'org.mindrot:jbcrypt:0.4'
+    implementation 'net.nurigo:sdk:4.3.0'
+
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 

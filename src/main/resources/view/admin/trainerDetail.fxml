@@ -2,66 +2,91 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.6" prefHeight="500.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+<?import javafx.scene.image.ImageView?>
+<SplitPane dividerPositions="0.6" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/common.css"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.TrainerDetailController">
     <items>
+        <!-- 트레이너 상세 정보 영역 -->
+        <VBox fx:id="trainerDetailArea" alignment="CENTER" spacing="20.0">
+            <Label text="트레이너 상세 정보" styleClass="trainerDetail_title_1"/>
 
-        <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="10.0">
-            <Label>트레이너 상세 정보</Label>
+            <!-- Row 0. Photo -->
             <HBox alignment="CENTER" spacing="10">
-                <Label>이름</Label>
-                <TextField fx:id="nameField"/>
+                <StackPane styleClass="trainerDetail_ImageContainer" prefHeight="151.2" prefWidth="113.4">
+                    <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
+                </StackPane>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="사진 수정" onAction="#updatePhoto" styleClass="trainerDetail_updateImageBtn"/>
+                <Button text="기본 사진으로 변경" onAction="#resetPhoto" styleClass="trainerDetail_resetImageBtn"/>
             </HBox>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label>아이디</Label>
-                <TextField fx:id="idField"/>
-            </HBox>
+            <GridPane fx:id="trainerDetailGrid" alignment="CENTER" hgap="20" vgap="20">
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label>전화번호</Label>
-                <TextField fx:id="phoneField" />
-            </HBox>
+                <!-- Row 1. Name -->
+                <Label text="이름" styleClass="trainerDetail_nameLabel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="nameField" promptText="이름" styleClass="trainerDetail_nameInput" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label>성별</Label>
-                <fx:define>
-                    <ToggleGroup fx:id="genderRadio"/>
-                </fx:define>
-                <RadioButton fx:id="maleButton" text="남" toggleGroup="$genderRadio" />
-                <RadioButton fx:id="femaleButton" text="여" toggleGroup="$genderRadio" />
-            </HBox>
+                <!-- Row 2. ID -->
+                <Label text="아이디" styleClass="trainerDetail_idLabel" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="idField" promptText="아이디" styleClass="trainerDetail_idInput" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label>생년월일</Label>
-                <DatePicker fx:id="birthPicker" />
-            </HBox>
+                <!-- Row 3. Phone -->
+                <Label text="전화번호" styleClass="trainerDetail_phoneLabel" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="phoneField" promptText="전화번호 (8자리)" styleClass="trainerDetail_phoneInput" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Label>근무 시간</Label>
-                <fx:define>
-                    <ToggleGroup fx:id="workTimeRadio"/>
-                </fx:define>
-                <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" />
-                <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" />
-            </HBox>
+                <!-- Row 4. Gender -->
+                <Label text="성별" styleClass="trainerDetail_sex_radioBtn_title" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <HBox spacing="50" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                    <fx:define>
+                        <ToggleGroup fx:id="genderRadio"/>
+                    </fx:define>
+                    <RadioButton fx:id="maleButton" text="남" toggleGroup="$genderRadio" styleClass="trainerDetail_sex_radioBtn_1"/>
+                    <RadioButton fx:id="femaleButton" text="여" toggleGroup="$genderRadio" styleClass="trainerDetail_sex_radioBtn_2"/>
+                </HBox>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Button onAction="#goBack" text="뒤로 가기" />
-                <Button onAction="#updateTrainer" text="트레이너 수정" />
-                <Button onAction="#deleteTrainer" text="트레이너 삭제" />
+                <!-- Row 5. Height -->
+                <Label text="키" styleClass="trainerDetail_heightLabel" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="heightField" promptText="키 (cm)" styleClass="trainerDetail_heightInput" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <!-- Row 6. Weight -->
+                <Label text="몸무게" styleClass="trainerDetail_weightLabel" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="weightField" promptText="몸무게 (kg)" styleClass="trainerDetail_weightInput" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <!-- Row 7. Birth -->
+                <Label text="생년월일" styleClass="trainerDetail_birthLabel" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="birthPicker" promptText="생년월일 (6자리)" styleClass="trainerDetail_birthPicker" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                <!-- Row 8. Work Time -->
+                <Label text="근무 시간" styleClass="trainerDetail_worktime_radioBtn_title" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <HBox spacing="50" GridPane.rowIndex="7" GridPane.columnIndex="1">
+                    <fx:define>
+                        <ToggleGroup fx:id="workTimeRadio"/>
+                    </fx:define>
+                    <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" styleClass="trainerDetail_worktime_radioBtn_1" />
+                    <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" styleClass="trainerDetail_worktime_radioBtn_2" />
+                </HBox>
+            </GridPane>
+
+            <HBox alignment="CENTER" spacing="10" styleClass="trainerDetail_Btn">
+                <Button onAction="#updateTrainer" text="트레이너 수정" styleClass="trainerDetail_updateTrainerBtn" />
+                <Button onAction="#deleteTrainer" text="트레이너 삭제" styleClass="trainerDetail_deleteTrainerBtn"/>
+            </HBox>
+            <HBox alignment="CENTER" styleClass="trainerDetail_Btn">
+                <Button onAction="#goBack" text="뒤로 가기" styleClass="trainerDetail_goBackBtn"/>
             </HBox>
         </VBox>
 
-        <VBox fx:id="listArea" alignment="CENTER" spacing="10.0">
-            <Label>트레이너 PT 일정</Label>
-            <VBox spacing="20" alignment="CENTER">
-                <TableView fx:id="scheduleTable" prefHeight="420.0">
+        <!-- 트레이너 PT 일정 영역 -->
+        <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/common.css">
+            <Label text="트레이너 PT 일정" styleClass="trainerDetail_title_2"/>
+            <VBox spacing="10" alignment="CENTER">
+                <TableView fx:id="scheduleTable" VBox.vgrow="ALWAYS" editable="true" prefHeight="550.0">
                     <columns>
-                        <TableColumn text="번호" fx:id="countColumn"/>
-                        <TableColumn text="회원 이름" fx:id="memberNameColumn"/>
-                        <TableColumn text="예약 날짜" fx:id="dateColumn"/>
-                        <TableColumn text="예약 시간" fx:id="timeColumn"/>
+                        <TableColumn fx:id="countColumn" text="순서" styleClass="trainerDetail_CountColumn"/>
+                        <TableColumn fx:id="memberNameColumn" text="회원 이름" styleClass="trainerDetail_NameColumn"/>
+                        <TableColumn fx:id="dateColumn" text="예약 날짜" styleClass="trainerDetail_DateColumn"/>
+                        <TableColumn fx:id="timeColumn" text="예약 시간" styleClass="trainerDetail_TimeColumn"/>
                     </columns>
                 </TableView>
             </VBox>

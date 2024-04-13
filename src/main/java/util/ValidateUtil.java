@@ -2,14 +2,18 @@ package util;
 
 import domain.member.Member;
 import domain.trainer.Trainer;
+import domain.trainer.TrainerSchedule;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import repository.MemberRepository;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
+import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
+import static util.AlertUtil.showAlertAddMemberFail;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
 
@@ -40,14 +44,17 @@ public class ValidateUtil {
     public static boolean isEmptyAnyField(TextField name, TextField id,
                                           TextField birth, TextField phone,
                                           RadioButton male, RadioButton female,
-                                          RadioButton am, RadioButton pm) {
+                                          RadioButton am, RadioButton pm,
+                                          TextField heightField, TextField weightField) {
 
         return  name.getText().trim().isEmpty() ||
                 id.getText().trim().isEmpty() ||
                 getSelectedGender(male, female) == null ||
                 birth.getText().trim().isEmpty() ||
                 phone.getText().trim().isEmpty() ||
-                getSelectedWorkingTime(am, pm) == null;
+                getSelectedWorkingTime(am, pm) == null ||
+                heightField.getText().trim().isEmpty() ||
+                weightField.getText().trim().isEmpty();
     }
 
     public static boolean isEmptyAnyField(TextField name, TextField email,
@@ -59,6 +66,10 @@ public class ValidateUtil {
                 email.getText().trim().isEmpty() ||
                 birth.getText().trim().isEmpty() ||
                 phone.getText().trim().isEmpty();
+    }
+
+    public static boolean isEmptyAnyField(TextField name) {
+        return name.getText().trim().isEmpty();
     }
 
     public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
@@ -96,19 +107,24 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addMemberValidate(String phone, String email, String birth) {
+    public static boolean addMemberValidate(String name, String phone, String email, String birth) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
             showAlertAddMemberFail("duplicatePhoneAndEmail");
             return true;
         }
 
-        if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
+        if (isWrongBirth(birth)) {
+            showAlertAddMemberFail("wrongBirth");
             return true;
         }
 
-        if (isWrongBirth(birth)) {
-            showAlertAddMemberFail("wrongBirth");
+        if (isDuplicateEmail(email)) {
+            showAlertAddMemberFail("duplicateEmail");
             return true;
         }
 
@@ -124,7 +140,18 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addTrainerValidate(String phone, String id, String birth) {
+    public static boolean addTrainerValidate(String name, String phone, String id, String birth, Double height, Double weight) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
+
+        if (isDuplicateName(name)) {
+            showAlertAddMemberFail("duplicateName");
+            return true;
+        }
+
         if (isDuplicatePhone(phone) && isDuplicateTrainerId(id)) {
             showAlertAddTrainerFail("duplicateIdAndPhone");
             return true;
@@ -149,7 +176,56 @@ public class ValidateUtil {
             showAlertAddTrainerFail("wrongID");
             return true;
         }
+
+        if (!((100 < height && height < 220) || (30 < weight && weight < 150))) {
+            showAlertAddTrainerFail("wrongHeightOrWeight");
+            return true;
+        }
         return false;
+    }
+
+    public static boolean updateTrainerValidate(String name, String phone, String id, Double height, Double weight) {
+
+        if (name.length() > 10) {
+            showAlertAddMemberFail("tooLongName");
+            return true;
+        }
+
+        if (isDuplicateName(name) && !currentTrainer.getName().equals(name)) {
+            showAlertAddMemberFail("duplicateName");
+            return true;
+        }
+
+        if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !currentTrainer.getPhone().equals(phone) && !currentTrainer.getId().equals(id)) {
+            showAlertAddTrainerFail("duplicateIdAndPhone");
+            return true;
+        }
+
+        if (isDuplicateTrainerId(id) && !currentTrainer.getId().equals(id)) {
+            showAlertAddTrainerFail("duplicateId");
+            return true;
+        }
+
+        if (isDuplicatePhone(phone) && !currentTrainer.getPhone().equals(phone)) {
+            showAlertAddTrainerFail("duplicatePhone");
+            return true;
+        }
+
+        if (isWrongId(id)) {
+            showAlertAddTrainerFail("wrongID");
+            return true;
+        }
+
+        if (!((100 < height && height < 220) || (30 < weight && weight < 150))) {
+            showAlertAddTrainerFail("wrongHeightOrWeight");
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isDuplicateName(String name) {
+        Trainer trainer = trainerRepository.findByName(name);
+        return trainer != null;
     }
 
     // 트레이너 아이디에 한글이 포함되면 안 된다.
@@ -159,11 +235,7 @@ public class ValidateUtil {
 
     public static boolean isDuplicateTrainerId(String id) {
         Trainer trainer = trainerRepository.findById(id);
-        if (trainer == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return trainer != null;
     }
 
     public static boolean isWrongEmail(String email) {
@@ -175,31 +247,19 @@ public class ValidateUtil {
     public static boolean isDuplicatePhone(String phone) {
         Member member = memberRepository.findByPhone(phone);
         Trainer trainer = trainerRepository.findByPhone(phone);
-        if (member == null && trainer == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return member != null || trainer != null;
     }
 
     public static boolean isDuplicateEmail(String email) {
         Member member = memberRepository.findByEmail(email);
-        if (member == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return member != null;
     }
 
     public static boolean isWrongBirth(String birth) {
-        Integer month = Integer.valueOf(birth.substring(2, 4));
-        Integer day = Integer.valueOf(birth.substring(4));
+        int month = Integer.parseInt(birth.substring(2, 4));
+        int day = Integer.parseInt(birth.substring(4));
 
-        if ((1 <= month && month <= 12) && (1 <= day && day <= 31)) {
-            return false;
-        } else {
-            return true;
-        }
+        return (1 > month || month > 12) || (1 > day || day > 31);
     }
 
     public static boolean isWrongLengthPhone(String phone) {
