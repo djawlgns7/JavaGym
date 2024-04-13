@@ -72,9 +72,14 @@ AnchorPane {
     -fx-text-fill: #9747FF;
 }
 
-.myInformation_Trainer_Name, .myInformation_Trainer_Phone, .myInformation_PTTicket_Cnt {
+.myInformation_Trainer_Name, .myInformation_Trainer_Phone {
     -fx-font-family: "Jua";
-    -fx-font-size: 20;
+    -fx-font-size: 24;
+}
+
+.myInformation_PTTicket_Cnt {
+    -fx-font-family: "Jua";
+    -fx-font-size: 30;
 }
 
 .myInformation_PTReservation_Bundle {
