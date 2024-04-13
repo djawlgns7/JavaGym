@@ -15,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.*;
 import java.io.IOException;
 import java.net.URL;
@@ -425,6 +427,10 @@ public class MemberDetailController implements Initializable {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/Entrylog.css").toExternalForm());
+
+        // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 
         dialog.showAndWait();
     }

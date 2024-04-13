@@ -69,10 +69,10 @@
 
 .closeBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .closeBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }

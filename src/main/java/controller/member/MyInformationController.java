@@ -32,7 +32,7 @@ public class MyInformationController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
-    private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+    private Label memberName, trainerName, myPtRemain, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
             clothesAvailability, clothesRemain, trainerPhone;
     @FXML
     private HBox myPtInformation;
@@ -79,10 +79,52 @@ public class MyInformationController implements Initializable {
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
             String phone = trainer.getPhone();
-            String claculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
+            String calculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
 
             trainerName.setText(trainer.getName() + " 트레이너");
-            trainerPhone.setText(claculatedTrainerPhone);
+            trainerPhone.setText(calculatedTrainerPhone);
+        }
+
+        if(reservationNum == 0) {
+            myPtRemain.setText("예약 내역이 없습니다");
+        } else {
+            for(int i = 0; i < reservationNum; i++) {
+                int startTime = memberSchedules.get(i).getReservationTime();
+                String reservationTime;
+                if(startTime < 9){
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("0").append(startTime).append(":00 ~ 0").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }else if(startTime == 9){
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("0").append(startTime).append(":00 ~ ").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }else{
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(startTime).append(":00 ~ ").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }
+
+                VBox newVBox = new VBox();
+                newVBox.setSpacing(5);
+                newVBox.setAlignment(Pos.CENTER);
+                newVBox.getStyleClass().add("myInformation_PTReservation_One");
+
+                Label newLabel = new Label("예약 " + (i + 1));
+                newLabel.getStyleClass().add("myInformation_PTReservation_Num");
+                newVBox.getChildren().add(newLabel);
+
+                newLabel = new Label(memberSchedules.get(i).getReservationDate().toString());
+                newLabel.getStyleClass().add("myInformation_PTReservation_Date");
+                newVBox.getChildren().add(newLabel);
+
+                System.out.println(memberSchedules.get(i).getReservationTime());
+                newLabel = new Label(reservationTime);
+                newLabel.getStyleClass().add("myInformation_PTReservation_Time");
+                newVBox.getChildren().add(newLabel);
+
+                myPtInformation.getChildren().add(newVBox);
+            }
         }
 
         if(reservationNum > 0) {

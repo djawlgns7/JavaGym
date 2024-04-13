@@ -94,9 +94,9 @@ public class HelloMemberController implements Initializable {
             int gymTicket = getRemain(member.getNum(), Item.GYM_TICKET);
 
             PTTicketRemain.setText("PT 이용권 " + PTTicket + "개");
-            memberName.setText(member.getName() + "님,환영합니다!");
+            memberName.setText(member.getName() + "님, 환영합니다!");
             if(gymTicket > 0) {
-                DDay.setText("D-" + gymTicket);
+                DDay.setText("D - " + gymTicket);
             }else if(repository.hasReservationToday(member.getNum())){
                 DDay.setText("입장 가능");
             }
@@ -105,7 +105,7 @@ public class HelloMemberController implements Initializable {
             }
         }
 
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         Circle clipCircle = new Circle(100, 100, 100);

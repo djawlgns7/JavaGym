@@ -10,7 +10,7 @@ AnchorPane {
 }
 
 /* TextField */
-.SignUp_nameInput, .SignUp_phoneInput, .SignUp_passwordInput, .SignUp_birthInput {
+.SignUp_nameInput, .SignUp_phoneInput, .SignUp_CertificationNumInput, .SignUp_passwordInput, .SignUp_birthInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -42,8 +42,12 @@ AnchorPane {
     -fx-spacing: 50;
 }
 
-.SignUp_page_TopBtn {
+.SignUp_page_TopBtn, .SignUp_Phone, .SignUp_CertificationNum {
     -fx-font-family: "Jua";
+}
+
+.SignUp_page_TopBtn {
+    -fx-padding: 10 10 0 0;
 }
 
 .SignUp_addMemberBtn {
@@ -58,30 +62,45 @@ AnchorPane {
 
 .SignUp_addMemberBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .SignUp_addMemberBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .SignUp_loginBtn {
-    -fx-background-color: #CCCCCC;
-    -fx-text-fill: #000000;
-    -fx-border-color: transparent;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
     -fx-border-radius: 5;
-    -fx-pref-height: 30;
-    -fx-pref-width: 80;
-    -fx-font-size: 13;
 }
 
 .SignUp_loginBtn:hover {
-    -fx-background-color: #999999;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
 
-.SignUp_loginBtn:pressed {
-    -fx-background-color: #999999;
+.SignUp_SendBtn, .SignUp_CheckBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 50;
+    -fx-pref-height: 15;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.SignUp_SendBtn:hover, .SignUp_CheckBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.SignUp_SendBtn:pressed, .SignUp_CheckBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
@@ -101,4 +120,9 @@ AnchorPane {
 .password-field-error {
     -fx-border-color: red;
     -fx-border-width: 1;
+}
+
+/* Phone & CertificationNum 위치 조정 */
+.SignUp_Phone, .SignUp_CertificationNum {
+    -fx-translate-x: 35;
 }

@@ -1,6 +1,6 @@
 /* VBox */
 AnchorPane {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #FFFFFF;
 }
 
 /* Title */
@@ -16,11 +16,15 @@ AnchorPane {
 }
 
 .Hello_PT_Info {
-    -fx-padding: 0 0 0 50;
+    -fx-translate-x: 45;
+}
+
+.Hello_Name_Info {
+    -fx-translate-x: 40;
 }
 
 .Hello_GYM_Info {
-    -fx-padding: 0 0 0 25;
+    -fx-translate-x: 55;
 }
 
 /* Button */
@@ -52,29 +56,22 @@ AnchorPane {
 
 .reservationBtn:hover, .purchaseBtn:hover, .entryBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
 .reservationBtn:pressed, .purchaseBtn:pressed, .entryBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
 }
 
-.Hello_myPageBtn, .Hello_logOutBtn {
-    -fx-background-color: #CCCCCC;
-    -fx-text-fill: #000000;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5px;
-    -fx-pref-height: 30px;
-    -fx-pref-width: 80px;
-    -fx-font-size: 13px;
+
+.Hello_myPageIcon, .Hello_logOutIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+        -fx-border-width: 1;
+        -fx-border-style: solid;
+        -fx-border-radius: 5;
 }
 
-.Hello_myPageBtn:hover, .Hello_logOutBtn:hover {
-    -fx-background-color: #999999;
+.Hello_myPageIcon:hover, .Hello_logOutIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
-
-.Hello_myPageBtn:pressed, .Hello_logOutBtn:pressed {
-    -fx-background-color: #999999;
-}
-

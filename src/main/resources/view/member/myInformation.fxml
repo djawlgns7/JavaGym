@@ -5,19 +5,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
 
-<AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css"
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.member.MyInformationController">
-   <VBox alignment="CENTER" prefHeight="800.0" prefWidth="550.0" spacing="30.0">
+
+   <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="40.0">
       <Button fx:id="invisibleButton" managed="false" visible="true" />
       <!-- 메인 화면 버튼 -->
-      <HBox alignment="CENTER_RIGHT" styleClass="myInformation_TopBtn">
-         <Region HBox.hgrow="ALWAYS" />
-         <Button onAction="#moveToMain" text="메인 화면" styleClass="myInformation_mainBtn"/>
+      <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="myInformation_TopBtn">
+         <Button onAction="#moveToMain" prefWidth="48" prefHeight="48" styleClass="myInformation_MainIcon">
+            <graphic>
+               <ImageView fitWidth="48" fitHeight="48">
+                  <image><Image url="/image/Main_Icon.png"/></image>
+               </ImageView>
+            </graphic>
+         </Button>
       </HBox>
 
       <!-- 자바짐 타이틀 -->
-      <Label text="JAVA GYM" styleClass="myInformation_title_label"/>
+      <Label text="JAVA GYM" styleClass="myInformation_title"/>
 
       <!-- 회원 정보 및 환영 문구 -->
       <HBox alignment="CENTER">
@@ -31,7 +38,7 @@
          <VBox alignment="CENTER" spacing="20" styleClass="myInformation_Trainer_Info">
             <HBox alignment="CENTER" fx:id="trainerView" spacing="60">
                <VBox alignment="CENTER" spacing="10">
-                  <Label fx:id="trainerViewTitle" text="담당 트레이너 정보" styleClass="myInformation_Trainer_InfoTitle"/>
+                  <Label text="담당 트레이너 정보" styleClass="myInformation_Trainer_InfoTitle"/>
                   <Label fx:id="trainerName" text="노승빈 트레이너" styleClass="myInformation_Trainer_Name" />
                   <Label fx:id="trainerPhone" text="010-1234-5678" styleClass="myInformation_Trainer_Phone" />
                </VBox>
@@ -44,13 +51,8 @@
          <!-- PT 예약 내역 -->
          <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_PTReservation_Info">
             <Label text="PT 예약 내역" styleClass="myInformation_PTReservation_InfoTitle" />
-            <!-- 내가 추가한 hbox, 밑에 주석처리한 부분은 지워도 됨 -->
-            <HBox fx:id="myPtInformation" alignment="CENTER" spacing="10">
-<!--               <VBox alignment="CENTER" spacing="5" styleClass="myInformation_PTReservation_Bundle">-->
-<!--                  <Label fx:id="PTReservationTitle" text="예약 1" styleClass="myInformation_PTReservation_Num"/>-->
-<!--                  <Label fx:id="PTReservationDate" text="2024-10-20" styleClass="myInformation_PTReservation_Date" />-->
-<!--                  <Label fx:id="PTReservationTime" text="10:00 ~ 11:00" styleClass="myInformation_PTReservation_Time" />-->
-<!--               </VBox>-->
+            <HBox fx:id="myPtInformation" alignment="CENTER" spacing="30" styleClass="myInformation_PTReservation_Bundle">
+               <Label fx:id="myPtRemain" text="예약 내역이 없습니다" styleClass="myInformation_PTReservation_Label"/>
             </HBox>
          </VBox>
 
