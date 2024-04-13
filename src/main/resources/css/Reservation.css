@@ -209,7 +209,7 @@ Button:hover {
     -fx-pref-width: 400;
     -fx-font-size: 20px;
     -fx-border-color: transparent;
-    /*-fx-translate-y: -50px;*/
+    -fx-translate-y: -50px;
 }
 
 /* 선택한 예약 목록이 있는 곳 */

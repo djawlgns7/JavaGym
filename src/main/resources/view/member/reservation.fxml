@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/Reservation.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
-    <VBox alignment="CENTER" prefHeight="1000" prefWidth="550" spacing="15.0">
+    <VBox alignment="CENTER" prefHeight="800" prefWidth="550" spacing="15.0">
 
         <HBox alignment="CENTER_LEFT" styleClass="textMain">
             <Region HBox.hgrow="ALWAYS" />
@@ -59,15 +59,15 @@
                     <Label styleClass="dayLabel">금</Label>
                     <Label styleClass="saturdayLabel">토</Label>
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week1" prefWidth="400" prefHeight="200">
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week1" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week2" prefWidth="400" prefHeight="200">
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week2" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week3" prefWidth="400" prefHeight="200">
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week3" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week4" prefWidth="400" prefHeight="200">
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week4" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week5" prefWidth="400" prefHeight="200">
+                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week5" prefWidth="400" prefHeight="50">
                 </HBox>
             </VBox>
             <Label fx:id="nextPage" styleClass="clickable" onMouseClicked="#nextPage">→</Label>
