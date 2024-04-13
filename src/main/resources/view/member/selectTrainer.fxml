@@ -2,30 +2,29 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/common.css"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.member.payment.SelectTrainerController">
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox prefHeight="800" prefWidth="550"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.payment.SelectTrainerController">
 
-    <!-- 비서가 생각없이 만들어줬는데 자바 코드로 현재 트레이너 수만큼 동적으로 생성해야 함-->
+    <Label text="트레이너 선택" />
+    <Button text="뒤로 가기" onAction="#goBack"/>
 
-    <VBox spacing="10" alignment="CENTER">
-        <Label text="트레이너 선택" />
-        <VBox spacing="5">
+    <ComboBox fx:id="timeComboBox">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="AM"/>
+                <String fx:value="PM"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <ImageView fx:id="trainerImage" fitWidth="100" fitHeight="100" preserveRatio="true" />
-                <VBox alignment="CENTER_LEFT">
-                    <Label fx:id="trainerName" text="노송백 트레이너" />
-                    <Label fx:id="trainerInfo" text="181cm | 82kg | 26세" />
-                </VBox>
-                <Button text="선택"/>
-            </HBox>
-        </VBox>
+    <VBox fx:id="trainerList" spacing="10" alignment="CENTER">
+        <!-- 동적으로 트레이너 생성 -->
     </VBox>
 
-</AnchorPane>
+</VBox>

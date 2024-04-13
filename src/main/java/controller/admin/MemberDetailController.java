@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.*;
 import domain.member.EntryLog;
 import domain.member.Member;
@@ -466,7 +465,7 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(0);
+        AdminTab.getInstance().setSelectedTabIndex(0);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 

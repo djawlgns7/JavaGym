@@ -5,7 +5,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <AnchorPane stylesheets="/css/payment.css" prefHeight="800.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.member.payment.PaymentController">
+            fx:controller="controller.payment.PaymentController">
         <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Label text="JAVA GYM"/>
 
@@ -83,14 +83,15 @@
                         <VBox alignment="CENTER" spacing="10">
 
                             <!-- 선택한 트레이너 정보 -->
-                            <HBox>
-                                <ImageView fx:id="selectTrainerImage"/>
+                            <VBox>
+                                <ImageView fx:id="selectTrainerImage" fitWidth="100" preserveRatio="true"/>
                                 <Label fx:id="trainerNameLabel"/>
                                 <Label fx:id="trainerInfoLabel"/>
-                            </HBox>
+                            </VBox>
 
-                            <!-- 트레이너 선택 버튼 -->
-                            <Button text="트레이너 선택" onAction="#selectTrainer"/>
+                            <!-- 트레이너 선택 -->
+                            <Label fx:id="firstSelectTrainerLabel" text="먼저 트레이너를 선택해 주세요."/>
+                            <Button fx:id="selectTrainerButton" text="트레이너 선택" onAction="#selectTrainer"/>
 
                             <fx:define>
                                 <ToggleGroup fx:id="ptTicketRadio"/>
@@ -103,19 +104,19 @@
                             <HBox>
                                 <RadioButton fx:id="pt10Button" text="10회" toggleGroup="$ptTicketRadio" />
                                 <Label fx:id="ptPrice10Label"/>
-                                <Label text="원"/>
+                                <Label fx:id="pt10Won" text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="pt20Button" text="20회" toggleGroup="$ptTicketRadio" />
                                 <Label fx:id="ptPrice20Label"/>
-                                <Label text="원"/>
+                                <Label fx:id="pt20Won" text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="pt30Button" text="30회" toggleGroup="$ptTicketRadio" />
                                 <Label fx:id="ptPrice30Label"/>
-                                <Label text="원"/>
+                                <Label fx:id="pt30Won" text="원"/>
                             </HBox>
                         </VBox>
                     </Tab>
@@ -123,7 +124,33 @@
                     <!-- etc Tab -->
                     <Tab fx:id="etcTab" text="기타">
                         <VBox>
+                            <Label text="사물함"/>
+                            <Button text="사물함 선택"/>
 
+                            <Label text="운동복"/>
+<!--                            <HBox>-->
+<!--                                <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" />-->
+<!--                                <Label fx:id="gymPrice30Label"/>-->
+<!--                                <Label text="원"/>-->
+<!--                            </HBox>-->
+
+<!--                            <HBox>-->
+<!--                                <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" />-->
+<!--                                <Label fx:id="gymPrice90Label"/>-->
+<!--                                <Label text="원"/>-->
+<!--                            </HBox>-->
+
+<!--                            <HBox>-->
+<!--                                <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" />-->
+<!--                                <Label fx:id="gymPrice180Label"/>-->
+<!--                                <Label text="원"/>-->
+<!--                            </HBox>-->
+
+<!--                            <HBox>-->
+<!--                                <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" />-->
+<!--                                <Label fx:id="gymPrice360Label"/>-->
+<!--                                <Label text="원"/>-->
+<!--                            </HBox>-->
                         </VBox>
                     </Tab>
                 </tabs>

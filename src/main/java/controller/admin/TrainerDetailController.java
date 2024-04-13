@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.*;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
@@ -130,14 +129,14 @@ public class TrainerDetailController implements Initializable {
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
 
-            TabController.getInstance().setSelectedTabIndex(1);
+            AdminTab.getInstance().setSelectedTabIndex(1);
             showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(1);
+        AdminTab.getInstance().setSelectedTabIndex(1);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 
