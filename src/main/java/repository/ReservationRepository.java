@@ -124,7 +124,7 @@ public class ReservationRepository {
     public List<MemberSchedule> findMemberSchedule(int memberNum) {
         String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
                 "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
-                "where m.m_no = ? and r_date >= ?";
+                "where m.m_no = ? and r_date >= ? order by r_date, r_time asc";
 
         Connection conn = null;
         PreparedStatement pstmt = null;

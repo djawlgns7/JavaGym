@@ -281,8 +281,6 @@ public class ReservationController implements Initializable {
         ObservableList<Node> hBoxChildren = selectedReservationList.getChildren();
         String firstDateTime = hBoxChildren.get(0).toString();
 
-        System.out.println(firstDateTime);
-
         String[] splittedDateTime = firstDateTime.split("\\'");
         String[] dateNTime = splittedDateTime[1].split(" ");
         String date = dateNTime[0].replace("/", "-");
