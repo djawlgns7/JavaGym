@@ -44,11 +44,14 @@
          <!-- PT 예약 내역 -->
          <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_PTReservation_Info">
             <Label text="PT 예약 내역" styleClass="myInformation_PTReservation_InfoTitle" />
-            <VBox alignment="CENTER" spacing="5" styleClass="myInformation_PTReservation_Bundle">
-               <Label fx:id="PTReservationTitle" text="예약 1" styleClass="myInformation_PTReservation_Num"/>
-               <Label fx:id="PTReservationDate" text="2024-10-20" styleClass="myInformation_PTReservation_Date" />
-               <Label fx:id="PTReservationTime" text="10:00 ~ 11:00" styleClass="myInformation_PTReservation_Time" />
-            </VBox>
+            <!-- 내가 추가한 hbox, 밑에 주석처리한 부분은 지워도 됨 -->
+            <HBox fx:id="myPtInformation" alignment="CENTER" spacing="10">
+<!--               <VBox alignment="CENTER" spacing="5" styleClass="myInformation_PTReservation_Bundle">-->
+<!--                  <Label fx:id="PTReservationTitle" text="예약 1" styleClass="myInformation_PTReservation_Num"/>-->
+<!--                  <Label fx:id="PTReservationDate" text="2024-10-20" styleClass="myInformation_PTReservation_Date" />-->
+<!--                  <Label fx:id="PTReservationTime" text="10:00 ~ 11:00" styleClass="myInformation_PTReservation_Time" />-->
+<!--               </VBox>-->
+            </HBox>
          </VBox>
 
          <!-- 헬스장 이용 종료 기간 -->

@@ -1,15 +1,17 @@
 package controller.member;
 
 import domain.member.Member;
+import domain.member.MemberSchedule;
 import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import repository.MemberRepository;
+import javafx.scene.layout.VBox;
+import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 import java.io.IOException;
@@ -17,18 +19,23 @@ import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.*;
+import static domain.member.SelectedMember.currentMember;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final ReservationRepository reservationRepository = new ReservationRepository();
+
     @FXML
     private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
             clothesAvailability, clothesRemain, trainerPhone;
+    @FXML
+    private HBox myPtInformation;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,11 +56,15 @@ public class MyInformationController implements Initializable {
         int memberNum = member.getNum();
         int trainerNum = getTrainerNumForMember(memberNum);
         List<Integer> remain = getRemainAll(memberNum);
+        List<MemberSchedule> memberSchedules = new ArrayList<>();
         LocalDate today = LocalDate.now();
         int gymTicket = remain.get(0);
         int PTTicket = remain.get(1);
         int clothes = remain.get(2);
         int locker = remain.get(3);
+
+        memberSchedules = reservationRepository.findMemberSchedule(memberNum);
+        int reservationNum = memberSchedules.size();
 
         memberName.setText(member.getName() + " ");
 
@@ -72,6 +83,46 @@ public class MyInformationController implements Initializable {
 
             trainerName.setText(trainer.getName() + " 트레이너");
             trainerPhone.setText(claculatedTrainerPhone);
+        }
+
+        if(reservationNum > 0) {
+            for(int i = 0; i < reservationNum; i++) {
+                int startTime = memberSchedules.get(i).getReservationTime();
+                String reservationTime;
+                if(startTime < 9){
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("0").append(startTime).append(":00 ~ 0").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }else if(startTime == 9){
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("0").append(startTime).append(":00 ~ ").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }else{
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(startTime).append(":00 ~ ").append(startTime + 1).append(":00");
+                    reservationTime = sb.toString();
+                }
+
+                VBox newVBox = new VBox();
+                newVBox.setSpacing(5);
+                newVBox.setAlignment(Pos.CENTER);
+                newVBox.getStyleClass().add("myInformation_PTReservation_Bundle");
+
+                Label newLabel = new Label("예약 " + (i + 1));
+                newLabel.getStyleClass().add("myInformation_PTReservation_Num");
+                newVBox.getChildren().add(newLabel);
+
+                newLabel = new Label(memberSchedules.get(i).getReservationDate().toString());
+                newLabel.getStyleClass().add("myInformation_PTReservation_Date");
+                newVBox.getChildren().add(newLabel);
+
+                System.out.println(memberSchedules.get(i).getReservationTime());
+                newLabel = new Label(reservationTime);
+                newLabel.getStyleClass().add("myInformation_PTReservation_Time");
+                newVBox.getChildren().add(newLabel);
+
+                myPtInformation.getChildren().add(newVBox);
+            }
         }
 
         if(gymTicket == 0) {
