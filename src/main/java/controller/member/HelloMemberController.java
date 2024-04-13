@@ -14,7 +14,6 @@ import javafx.scene.shape.Circle;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
-import repository.ReservationRepository;
 import util.MemberUtil;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.*;
+import static domain.member.SelectedMember.currentMember;
 import static util.AlertUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
@@ -72,23 +71,18 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     public void entry(ActionEvent event) throws IOException {
-
-        Integer gymTicket = getRemain(currentMember.getNum(), Item.GYM_TICKET);
-        Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
+        // 코드 수정 (성진)
+        Integer memberNum = currentMember.getNum();
+        Integer gymTicket = MemberUtil.getRemain(memberNum, Item.GYM_TICKET);
+        Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
-        if (gymTicket.equals(0) && reservation == null) {
+        if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+            entryLogRepository.save(memberNum);
+            showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+        } else {
             showAlertUseMessage("DeniedEntry");
-            return;
         }
-
-        if (!reservation.toString().equals(today)) {
-            showAlertUseMessage("DeniedEntry");
-            return;
-        }
-
-        entryLogRepository.save(currentMember.getNum());
-        showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
     }
 
     @Override

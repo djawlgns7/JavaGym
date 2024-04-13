@@ -132,7 +132,9 @@ public class TrainerDetailController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
-            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+
+            TabController.getInstance().setSelectedTabIndex(1);
+            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
         }
     }
 

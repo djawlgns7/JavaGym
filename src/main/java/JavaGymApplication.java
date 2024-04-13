@@ -1,10 +1,9 @@
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class JavaGymApplication extends Application {
 
@@ -15,7 +14,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/reservation.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         stage.setScene(new Scene(loginRoot));
         stage.setTitle("JavaGym");
         stage.show();

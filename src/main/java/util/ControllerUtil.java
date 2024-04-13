@@ -3,6 +3,10 @@ package util;
 import domain.member.EntryLog;
 import domain.member.Member;
 import domain.member.UsingLocker;
+import domain.member.SelectedMember;
+import domain.member.UsingLocker;
+import domain.trainer.Reservation;
+import domain.trainer.SelectedTrainer;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import repository.*;
+import service.TrainerService;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
@@ -17,6 +23,7 @@ import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
 
+import java.rmi.server.RemoteServer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 
 public class ControllerUtil {
 
@@ -88,7 +96,15 @@ public class ControllerUtil {
         // 조회한 회원 정보를 TableView에 설정
         membersTable.setItems(FXCollections.observableArrayList(members));
     }
-
+    public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
+        List<Trainer> members = trainerRepository.findAllTrainer();
+        membersTable.setItems(FXCollections.observableArrayList(members));
+    }
+    public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
+        int trainerNum = SelectedTrainer.currentTrainer.getNum();
+        List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
+        reservationTable.setItems(FXCollections.observableArrayList(reservations));
+    }
     public static void columnBindingTrainer(TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
                                      TableColumn<Trainer, String> genderCol, TableColumn<Trainer, String> workTimeCol, TableColumn<Trainer, String> birthCol,
                                      TableColumn<Trainer, String> phoneCol) {
@@ -113,10 +129,8 @@ public class ControllerUtil {
         });
     }
 
-    public static void loadTrainerData(TableView<Trainer> membersTable, TrainerRepository trainerRepository) {
-        List<Trainer> members = trainerRepository.findAllTrainer();
-        membersTable.setItems(FXCollections.observableArrayList(members));
-    }
+
+
 
     public static void loadEntryLog(Integer memberNum, TableView table, EntryLogRepository entryLogRepository) {
         TableColumn<EntryLog, String> entryNumColumn = new TableColumn<>("순서");
@@ -170,14 +184,24 @@ public class ControllerUtil {
         table.setItems(FXCollections.observableArrayList(lockers));
     }
 
-    public static void columnBindingReservation(TableColumn<TrainerSchedule, String> memberNameCol,
-                                                TableColumn<TrainerSchedule, String> reservationDateCol,
-                                                TableColumn<TrainerSchedule, String> reservationTimeCol) {
+    public static void columnBindingReservation(TableColumn<Reservation, String> memberNumCol,
+                                                TableColumn<Reservation, String> memberNameCol,
+                                                TableColumn<Reservation, String> memberPhoneCol,
+                                                TableColumn<Reservation, String> reservationDateCol,
+                                                TableColumn<Reservation, String> reservationTimeCol) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
-        reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
-        reservationTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
+        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("MemberNum"));
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("MemberName"));
+
+        reservationDateCol.setCellValueFactory(new PropertyValueFactory<>("ReservationDate"));
+        reservationTimeCol.setCellValueFactory(new PropertyValueFactory<>("ReservationTime"));
+
+        memberPhoneCol.setCellValueFactory(cellData -> {
+            String rawPhoneNumber = cellData.getValue().getMemberPhone();
+            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
+            return new SimpleStringProperty(formattedPhoneNumber);
+        });
 
         reservationDateCol.setCellValueFactory(cellData ->  {
             Date sqlDate = cellData.getValue().getReservationDate();
@@ -186,6 +210,8 @@ public class ControllerUtil {
 
         reservationTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
                 String.format("%02d:00", cellData.getValue().getReservationTime())));
+
+
     }
 
     public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
