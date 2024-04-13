@@ -72,12 +72,8 @@ public class ValidateUtil {
         return name.getText().trim().isEmpty();
     }
 
-    public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
+    public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
 
-        if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
-            return true;
-        }
 
         if (isDuplicatePhone(phone)) {
             showAlertSignUpFail("duplicatePhone");
