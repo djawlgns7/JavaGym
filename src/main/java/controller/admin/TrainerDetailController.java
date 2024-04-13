@@ -21,12 +21,9 @@ import repository.TrainerRepository;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -132,7 +129,9 @@ public class TrainerDetailController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
-            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+
+            TabController.getInstance().setSelectedTabIndex(1);
+            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
         }
     }
 

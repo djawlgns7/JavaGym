@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane stylesheets="/css/payment.css" prefHeight="800.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.member.PaymentController">
+            fx:controller="controller.member.payment.PaymentController">
         <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Label text="JAVA GYM"/>
 
@@ -14,16 +14,17 @@
                 <Label text=" 회원님, 환영합니다!" />
             </HBox>
 
-            <VBox>
+            <!-- 회원의 현재 구매 정보 -->
+            <VBox alignment="CENTER">
                 <Label fx:id="itemTypeLabel" />
                 <Label fx:id="itemValueLabel" />
-                <HBox>
-                    <Label fx:id="currentLockerLabel" text="사물함"/>
+                <HBox alignment="CENTER">
+                    <Label fx:id="lockerLabel" text="사물함"/>
                     <Label fx:id="currentLockerNumLabel"/>
                     <Label fx:id="currentLockerPeriodLabel"/>
                 </HBox>
-                <HBox>
-                    <Label fx:id="currentClothesLabel" text="운동복"/>
+                <HBox alignment="CENTER">
+                    <Label fx:id="clothesLabel" text="운동복"/>
                     <Label fx:id="currentClothesSizeLabel" text="FREE"/>
                     <Label fx:id="currentClothesPeriodLabel"/>
                 </HBox>
@@ -35,6 +36,7 @@
                     <!-- Gym Tab -->
                     <Tab fx:id="gymTab" text="이용권">
                         <VBox alignment="CENTER" spacing="10">
+
                             <fx:define>
                                 <ToggleGroup fx:id="gymTicketRadio"/>
                             </fx:define>
@@ -79,6 +81,17 @@
                     <!-- PT Tab -->
                     <Tab fx:id="ptTab" text="PT">
                         <VBox alignment="CENTER" spacing="10">
+
+                            <!-- 선택한 트레이너 정보 -->
+                            <HBox>
+                                <ImageView fx:id="selectTrainerImage"/>
+                                <Label fx:id="trainerNameLabel"/>
+                                <Label fx:id="trainerInfoLabel"/>
+                            </HBox>
+
+                            <!-- 트레이너 선택 버튼 -->
+                            <Button text="트레이너 선택" onAction="#selectTrainer"/>
+
                             <fx:define>
                                 <ToggleGroup fx:id="ptTicketRadio"/>
                             </fx:define>
@@ -116,13 +129,13 @@
                 </tabs>
             </TabPane>
 
-            <HBox alignment="CENTER" spacing="100">
+            <!-- 장바구니 -->
+            <HBox alignment="CENTER" spacing="80">
                 <VBox alignment="CENTER" spacing="10">
                     <Label text="이용권"/>
                     <HBox>
                         <Label fx:id="selectGymDayLabel"/>
                         <Label fx:id="selectGymPriceLabel"/>
-                        <Label fx:id="gymWonLabel" text="원"/>
                     </HBox>
                 </VBox>
 
@@ -132,7 +145,6 @@
                     <HBox>
                         <Label fx:id="selectPtTicketLabel"/>
                         <Label fx:id="selectPtPriceLabel"/>
-                        <Label fx:id="ptWonLabel" text="원"/>
                     </HBox>
                 </VBox>
 
@@ -142,7 +154,6 @@
                     <HBox>
                         <Label fx:id="selectLockerPeriodLabel"/>
                         <Label fx:id="selectLockerPriceLabel"/>
-                        <Label fx:id="lockerWonLabel" text="원"/>
                     </HBox>
                 </VBox>
 
@@ -151,14 +162,14 @@
                     <HBox>
                         <Label fx:id="selectClothesPeriodLabel"/>
                         <Label fx:id="selectClothesPriceLabel"/>
-                        <Label fx:id="clothesWonLabel" text="원"/>
                     </HBox>
                 </VBox>
             </HBox>
 
+            <!-- 총 가격 정보 -->
             <HBox alignment="CENTER">
                 <Label fx:id="totalLabel" text="총"/>
-                <Label fx:id="priceLabel" text=" 0"/>
+                <Label fx:id="totalPriceLabel" text=" 0"/>
                 <Label fx:id="totalWonLabel" text="원"/>
             </HBox>
 

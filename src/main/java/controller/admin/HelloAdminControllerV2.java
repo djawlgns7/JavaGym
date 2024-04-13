@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -84,7 +83,7 @@ public class HelloAdminControllerV2 implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
-        showAlertAndMove("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/memberInfo", event);
+        showAlertAndMove("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
     }
 
     @FXML
@@ -314,7 +313,7 @@ public class HelloAdminControllerV2 implements Initializable {
             }
         }
 
-        showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+        showAlertAndMove("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
     }
 
     @FXML
