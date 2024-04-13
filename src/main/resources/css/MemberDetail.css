@@ -36,6 +36,61 @@ SplitPane {
     -fx-prompt-text-fill: #999999;
 }
 
+/* DatePicker / ComboBox / Spinner - TextField 배경색 변경 */
+.memberDetail_birthPicker .text-field, .memberDetail_GymTicketSpinner .text-field,
+.memberDetail_PTTicketSpinner .text-field, .memberDetail_myTrainerComboBox .text-field,
+.memberDetail_clothesSpinner .text-field, .memberDetail_lockerSpinner .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+/* DatePicker / ComboBox / Spinner - Button 색상 변경 */
+.memberDetail_birthPicker .arrow-button,
+.memberDetail_myTrainerComboBox .arrow-button,
+.memberDetail_GymTicketSpinner .increment-arrow-button,
+.memberDetail_GymTicketSpinner .decrement-arrow-button,
+.memberDetail_PTTicketSpinner .increment-arrow-button,
+.memberDetail_PTTicketSpinner .decrement-arrow-button,
+.memberDetail_clothesSpinner .increment-arrow-button,
+.memberDetail_clothesSpinner .decrement-arrow-button,
+.memberDetail_lockerSpinner .increment-arrow-button,
+.memberDetail_lockerSpinner .decrement-arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* DatePicker / ComboBox / Spinner - Button Hover 색상 변경 */
+.memberDetail_birthPicker .arrow-button:hover,
+.memberDetail_myTrainerComboBox .arrow-button:hover,
+.memberDetail_GymTicketSpinner .increment-arrow-button:hover,
+.memberDetail_GymTicketSpinner .decrement-arrow-button:hover,
+.memberDetail_PTTicketSpinner .increment-arrow-button:hover,
+.memberDetail_PTTicketSpinner .decrement-arrow-button:hover,
+.memberDetail_clothesSpinner .increment-arrow-button:hover,
+.memberDetail_clothesSpinner .decrement-arrow-button:hover,
+.memberDetail_lockerSpinner .increment-arrow-button:hover,
+.memberDetail_lockerSpinner .decrement-arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* DatePicker / ComboBox / Spinner - Arrow 색상 변경 */
+.memberDetail_birthPicker .arrow, .memberDetail_myTrainerComboBox .arrow,
+.memberDetail_GymTicketSpinner .increment-arrow-button .increment-arrow,
+.memberDetail_GymTicketSpinner .decrement-arrow-button .decrement-arrow,
+.memberDetail_PTTicketSpinner .increment-arrow-button .increment-arrow,
+.memberDetail_PTTicketSpinner .decrement-arrow-button .decrement-arrow,
+.memberDetail_clothesSpinner .increment-arrow-button .increment-arrow,
+.memberDetail_clothesSpinner .decrement-arrow-button .decrement-arrow,
+.memberDetail_lockerSpinner .increment-arrow-button .increment-arrow,
+.memberDetail_lockerSpinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: #FFFFFF;
+}
+
 /* Button */
 .memberDetail_Btn {
     -fx-font-family: "Jua";
@@ -98,6 +153,30 @@ SplitPane {
     -fx-padding: 0 30 0 0;
     -fx-font-size: 16;
     -fx-font-weight: bold;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.memberDetail_sex_radioBtn_1 .radio,
+.memberDetail_sex_radioBtn_2 .radio {
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Hover 상태 색상 변경 */
+.memberDetail_sex_radioBtn_1 .radio:hover,
+.memberDetail_sex_radioBtn_2 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.memberDetail_sex_radioBtn_1:selected .radio,
+.memberDetail_sex_radioBtn_2:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.memberDetail_sex_radioBtn_1:selected .dot,
+.memberDetail_sex_radioBtn_2:selected .dot {
+    -fx-background-color: #FFFFFF;
 }
 
 /* Table */

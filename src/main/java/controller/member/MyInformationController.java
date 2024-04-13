@@ -79,15 +79,14 @@ public class MyInformationController implements Initializable {
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
             String phone = trainer.getPhone();
-            String calculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
+            String calculatedTrainerPhone = "010 - " + phone.substring(0, 4) + " - " + phone.substring(4, 8);
 
             trainerName.setText(trainer.getName() + " 트레이너");
             trainerPhone.setText(calculatedTrainerPhone);
         }
 
-        if(reservationNum == 0) {
-            myPtRemain.setText("예약 내역이 없습니다");
-        } else {
+        if(reservationNum > 0) {
+            myPtInformation.getChildren().clear();
             for(int i = 0; i < reservationNum; i++) {
                 int startTime = memberSchedules.get(i).getReservationTime();
                 String reservationTime;
@@ -131,8 +130,8 @@ public class MyInformationController implements Initializable {
             gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
-            gymTicketRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
+            gymTicketRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -144,9 +143,9 @@ public class MyInformationController implements Initializable {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
-            lockerRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            lockerRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
         }
 
         if(clothes == 0){
@@ -154,9 +153,9 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate) + 1;
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
-            clothesRemain.setText(expireDate + " (D-" + daysUntilExpire + ")");
+            clothesRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
 
         }
     }

@@ -72,9 +72,42 @@ SplitPane {
     -fx-font-weight: bold;
 }
 
+/* Radio Button Non-selected 상태 색상 변경 */
+.memberInfo_sex_radioBtn_1 .radio,
+.memberInfo_sex_radioBtn_2 .radio {
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Hover 상태 색상 변경 */
+.memberInfo_sex_radioBtn_1 .radio:hover,
+.memberInfo_sex_radioBtn_2 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.memberInfo_sex_radioBtn_1:selected .radio,
+.memberInfo_sex_radioBtn_2:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.memberInfo_sex_radioBtn_1:selected .dot,
+.memberInfo_sex_radioBtn_2:selected .dot {
+    -fx-background-color: #FFFFFF;
+}
+
 /* Table */
 .memberInfo_searchBox {
     -fx-padding: 0 15 10 0;
+}
+
+.memberInfo_SearchIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-translate-x: 15;
+}
+
+.memberInfo_SearchIcon:hover {
+    -fx-cursor: hand;
 }
 
 .memberInfo_searchInput {
@@ -116,7 +149,14 @@ SplitPane {
     -fx-font-family: "Jua";
 }
 
-.memberInfo_numColumn, .memberInfo_nameColumn {
+.memberInfo_numColumn {
+    -fx-pref-width: 75;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_nameColumn {
     -fx-pref-width: 80;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;

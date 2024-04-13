@@ -5,26 +5,25 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/common.css"
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.HelloMemberController">
 
-    <VBox alignment="CENTER" prefHeight="650" prefWidth="550" spacing="50.0">
+    <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="60.0" styleClass="helloMember_VBox">
         <Button fx:id="invisibleButton" managed="false" visible="true" />
         <!-- 내 정보 & 로그아웃 버튼 -->
-        <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="Hello_page_TopBtn">
-            <Button onAction="#myInfo" prefWidth="36" prefHeight="36" styleClass="Hello_myPageIcon">
+        <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="helloMember_TopBtn">
+            <Button onAction="#myInfo" prefWidth="48" prefHeight="48" styleClass="helloMember_myPageIcon">
                 <graphic>
-                    <ImageView fitWidth="36" fitHeight="36">
+                    <ImageView fitWidth="48" fitHeight="48">
                         <image><Image url="/image/MyPage_Icon.png"/></image>
                     </ImageView>
                 </graphic>
             </Button>
-            <Button onAction="#goBack" prefWidth="36" prefHeight="36" styleClass="Hello_logOutIcon">
+            <Button onAction="#goBack" prefWidth="48" prefHeight="48" styleClass="helloMember_logOutIcon">
                 <graphic>
-                    <ImageView fitWidth="36" fitHeight="36">
+                    <ImageView fitWidth="48" fitHeight="48">
                         <image><Image url="/image/LogOut_Icon.png"/></image>
                     </ImageView>
                 </graphic>
@@ -33,28 +32,31 @@
 
 
         <!-- 자바짐 타이틀 -->
-        <Label text="JAVA GYM" styleClass="hello_title_label" layoutX="50" layoutY="50"/>
+        <Label text="JAVA GYM" styleClass="helloMember_title" layoutX="50" layoutY="50"/>
 
         <!-- 자바짐 이미지 -->
-        <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />
+        <ImageView fx:id="profileImage" fitHeight="300" fitWidth="300" preserveRatio="true" />
 
         <!-- 회원 정보 텍스트 -->
-        <HBox spacing="35" styleClass="Hello_Member_Info">
-            <HBox alignment="CENTER_LEFT">
-                <Label fx:id="PTTicketRemain" text="PT 이용권 O개" styleClass="Hello_PT_Info" />
-            </HBox>
-            <HBox alignment="CENTER">
-                <Label fx:id="memberName" text="OOO님, 환영합니다!" styleClass="Hello_Name_Info" />
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label fx:id="DDay" text="D-OOO" styleClass="Hello_GYM_Info" />
-            </HBox>
+        <HBox spacing="35" styleClass="helloMember_Info">
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="PT 이용권" styleClass="helloMember_PT_InfoTitle" />
+                <Label fx:id="PTTicketRemain" text="O개" styleClass="helloMember_PT_Info" />
+            </VBox>
+            <VBox alignment="CENTER" spacing="20">
+                <Label fx:id="memberName" text="OOO님" styleClass="helloMember_Name_Info" />
+                <Label text="환영합니다!" styleClass="helloMember_Name_Info"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="헬스장 이용 기간" styleClass="helloMember_GYM_InfoTitle" />
+                <Label fx:id="DDay" text="D-OOO" styleClass="helloMember_GYM_Info" />
+            </VBox>
         </HBox>
 
-        <HBox alignment="CENTER" spacing="60" styleClass="Hello_page_Btn">
-            <Button text="예약" onAction="#reservation" styleClass="reservationBtn" />
-            <Button fx:id="entry" text="입장" onAction="#entry" styleClass="entryBtn" />
-            <Button text="결제" styleClass="purchaseBtn"/>
+        <HBox alignment="CENTER" spacing="80" styleClass="helloMember_Btn">
+            <Button text="예약" onAction="#reservation" styleClass="helloMember_reservationBtn" />
+            <Button fx:id="entry" text="입장" onAction="#entry" styleClass="helloMember_entryBtn" />
+            <Button text="결제" styleClass="helloMember_purchaseBtn"/>
         </HBox>
     </VBox>
 </AnchorPane>

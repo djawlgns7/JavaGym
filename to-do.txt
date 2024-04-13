@@ -32,10 +32,20 @@
 
 ------------------------------------------------
 승빈
-- Input 텍스트 글꼴 변경 (완료)
-- promptText 글꼴 변경 (완료)
-- SignUp 페이지 최종 수정 (완료)
-- 버튼 -> 아이콘 변경 (완료)
-- 프로그램 & 팝업 페이지 실행 아이콘 변경 (완료)
-- 전체 페이지 틀 크기 동일한 값으로 조정
-- 회원 및 트레이너 관리 페이지 검색 아이콘 추가
+- 내 정보 페이지 최종 수정 (완료)
+- spinner, datepicker, combobox TextField 색상 변경 (완료)
+- 중앙선, 스크롤바 디자인 변경
+- 트레이너 상세 페이지 TextField 너비 조정
+
+- spinner, datepicker, combobox, radiobutton 버튼 및 화살표 색 변경 (진행 중)
+  /* 완료 */
+  == MemberDetail, TrainerDetail, helloAdminV2, SignUp
+  /* 미완료 */
+  == ...
+
+- 전체 페이지 틀 크기(높이 + 너비) 동일한 값으로 조정
+  /* 완료 */
+  == MemberLogin, HelloMember, MyInformation, AdminLogin
+  /* 미완료 */
+  == SignUp, helloAdminV2, memberDetail, trainerDetail, 각종 팝업창, ...
+
