@@ -22,8 +22,11 @@ public class ReservationRepository {
 
     public List<Reservation> findReservation(int trainerNum) {
         String sql = "SELECT r.r_no, m.m_no, t.t_no, m.m_name, m.m_phone, r.r_date, r.r_time " +
-                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
+                "FROM reservation r " +
+                "JOIN member m ON r.m_no = m.m_no " +
+                "JOIN trainer t ON r.t_no = t.t_no " +
                 "WHERE r.t_no = ?";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -34,11 +37,10 @@ public class ReservationRepository {
             pstmt.setInt(1, trainerNum);
             rs = pstmt.executeQuery();
             List<Reservation> list = new ArrayList<>();
-            int count = 0;
             while (rs.next()) {
                 Reservation reservation = new Reservation();
 
-                reservation.setSequence(++count);
+                reservation.setReservationNum(rs.getInt("r_no"));
                 reservation.setMemberNum(rs.getInt("m_no"));
                 reservation.setTrainerNum(rs.getInt("t_no"));
                 reservation.setMemberName(rs.getString("m_name"));
@@ -47,6 +49,7 @@ public class ReservationRepository {
                 reservation.setReservationTime(rs.getInt("r_time"));
 
                 list.add(reservation);
+                System.out.println("Loaded reservation number: " + reservation.getReservationNum());
             }
             return list;
         } catch (SQLException e) {
@@ -175,7 +178,6 @@ public class ReservationRepository {
             close(conn, pstmt, null);
         }
     }
-
     /**
      * 오늘을 기준으로 가장 최근 예약일을 얻는다.
      * 회원 입장 시 검증에 사용한다. (성진)
@@ -205,18 +207,16 @@ public class ReservationRepository {
 
     public void updateReservation(Reservation reservation) {
         String sql = "update reservation set r_date = ?, r_time = ? where r_no = ?";
-
         Connection conn = null;
         PreparedStatement pstmt = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setDate(1, reservation.getReservationDate());
             pstmt.setInt(2, reservation.getReservationTime());
-            System.out.println(reservation.getReservationTime());
-            System.out.println(reservation.getReservationDate());
-            System.out.println(reservation.getReservationNum());
             pstmt.setInt(3, reservation.getReservationNum());
+            System.out.println(reservation.getReservationNum());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

@@ -141,4 +141,12 @@ public class AlertUtil {
         alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
     }
+
+    public static void showAlertUpdateReservationFail (String messageCode){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(errorMessage.getString("updateReservationFail"));
+        alert.setHeaderText(null);
+        alert.setContentText(errorMessage.getString(messageCode));
+        alert.showAndWait();
+    }
 }

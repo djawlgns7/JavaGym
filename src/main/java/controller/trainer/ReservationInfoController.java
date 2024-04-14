@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
+import static domain.trainer.SelectedReservation.currentReservation;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.showAlertAddReservationFail;
 import static util.AlertUtil.showAlertAndMove;
@@ -36,6 +37,8 @@ import static util.PageUtil.movePageCenter;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
+
+    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
 
     private TrainerRepository trainerRepository = new TrainerRepository();
     private ReservationRepository reservationRepository = new ReservationRepository();
@@ -51,11 +54,11 @@ public class ReservationInfoController implements Initializable {
 
 
     @FXML
-    private void addReservation(ActionEvent event) throws ParseException, IOException {
-        /*if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
+    private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
+        if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
             showAlertAddReservationFail("emptyAnyField");
             return;
-        }*/
+        }
         Reservation reservation = new Reservation();
 
         // 예약 추가 로직 구현
@@ -65,7 +68,7 @@ public class ReservationInfoController implements Initializable {
         String rdate = rdateField.getText().trim();
         Integer rtime = Integer.valueOf(rtimeField.getText().trim());
 
-        /*if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;*/
+        if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;
         reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
@@ -83,7 +86,7 @@ public class ReservationInfoController implements Initializable {
     public void initialize(URL url, ResourceBundle resources) {
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol);
         loadReservationData(reservationTable, reservationRepository);
-
+        trainer = currentTrainer;
         TextFormatter<String> rdateFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if(newText.matches("\\d{0,6}")) {
@@ -137,13 +140,18 @@ public class ReservationInfoController implements Initializable {
 
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
-            trainer = SelectedTrainer.currentTrainer;
             row.setOnMouseClicked(event -> {
-                try {
-                    Reservation reservation = row.getItem();
-                    reservationDetail(reservation, event);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (!row.isEmpty() && event.getClickCount() == 2) {
+                    Reservation selectedReservation = row.getItem();
+                    if (selectedReservation != null) {
+                        System.out.println("Clicked reservation number: " + selectedReservation.getReservationNum());
+                        SelectedReservation.currentReservation = selectedReservation; // 현재 예약을 선택된 예약으로 설정
+                        try {
+                            reservationDetail(selectedReservation, event);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
             });
             return row;
@@ -151,11 +159,15 @@ public class ReservationInfoController implements Initializable {
     }
 
     Trainer trainer = new Trainer();
+
     @FXML
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
         if(reservation != null && event.getClickCount() == 2) {
-            SelectedReservation.setCurrentReservation(reservation);
-            SelectedTrainer.setCurrentTrainer(trainer);
+            currentReservation = reservation;
+            currentTrainer = trainer;
+            System.out.println(currentReservation.getReservationNum());
+            System.out.println("Reservation details: " + reservation.toString());
+            System.out.println(trainer);
             movePageCenter(event, "/view/trainer/reservationDetail");
         }
     }

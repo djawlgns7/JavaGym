@@ -34,6 +34,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static domain.trainer.SelectedTrainer.currentTrainer;
+
 
 public class ControllerUtil {
 
@@ -101,9 +103,11 @@ public class ControllerUtil {
         membersTable.setItems(FXCollections.observableArrayList(members));
     }
     public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
-        int trainerNum = SelectedTrainer.currentTrainer.getNum();
+        int trainerNum = currentTrainer.getNum();
+        Trainer trainer = currentTrainer;
         List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
         reservationTable.setItems(FXCollections.observableArrayList(reservations));
+
     }
     public static void columnBindingTrainer(TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
                                      TableColumn<Trainer, String> genderCol, TableColumn<Trainer, String> workTimeCol, TableColumn<Trainer, String> birthCol,
@@ -215,7 +219,7 @@ public class ControllerUtil {
     }
 
     public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
-        int trainerNum = TrainerService.currentTrainerNum;
+        int trainerNum = currentTrainer.getNum();
         ReservationRepository reservationRepository = new ReservationRepository();
         List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
         scheduleTable.setItems(FXCollections.observableArrayList(schedules));

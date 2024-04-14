@@ -18,7 +18,6 @@ import static util.PageUtil.*;
 
 public class TrainerService {
 
-    public static int currentTrainerNum;
     private final TrainerRepository trainerRepository;
     private ReservationRepository reservationRepository = new ReservationRepository();
 
@@ -39,9 +38,14 @@ public class TrainerService {
         }
 
         Trainer findTrainer = trainerRepository.findById(id);
-
+        System.out.println(findTrainer);
+        if (findTrainer == null) {
+            showAlertLoginFail("notFound");
+            return;
+        }
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
+
             System.out.println(currentTrainer);
             movePage(event, "/view/trainer/helloTrainer" );
         } else {
