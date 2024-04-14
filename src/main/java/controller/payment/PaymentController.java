@@ -607,8 +607,15 @@ public class PaymentController implements Initializable {
             return;
         }
 
+        String totalPriceText;
+
         totalPrice = gymPrice + ptPrice + lockerPrice + clothesPrice;
-        String totalPriceText = "\n총 " + totalPrice / 1000 + ",000원";
+        if(totalPrice >= 1000000){
+            totalPriceText = "\n총 " + (totalPrice / 1000000) + "," + (totalPrice % 1000000 / 1000) + ",000원";
+        }else{
+            totalPriceText = "\n총 " +  (totalPrice / 1000) + ",000원";
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("결제를 정상 진행하시겠습니까?\n\n");
 
@@ -626,7 +633,13 @@ public class PaymentController implements Initializable {
             if(ticket instanceof PtTicket){
                 int time = ((PtTicket)ticket).getTime();
                 int price = ((PtTicket)ticket).getPrice();
-                String priceText = price / 1000 + ",000원";
+                String priceText;
+
+                if(price >= 1000000) {
+                    priceText = (price / 1000000) + "," + (price % 1000000 / 1000) + ",000원";
+                }else{
+                    priceText = price / 1000 + ",000원";
+                }
 
                 sb.append("PT ").append(time).append("회 ").append(priceText).append("\n");
             }
