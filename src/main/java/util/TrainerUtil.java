@@ -20,7 +20,7 @@ public class TrainerUtil {
     // 트레이너와 기간을 입력하면, 오늘부터 입력한 기간 동안의 트레이너의 예약 가능 날자를 List<Boolean>[] 배열에 담아서 반환한다
     public static List<Boolean>[] getTrainerSchedule(Trainer trainer, int period){
         String sql = "select r_time, datediff(r_date, current_date()) as DDay from reservation where r_date > current_date() " +
-                "and t_no = ? and datediff(r_date, current_date()) <= ? order by dday";
+                "and t_no = ? and datediff(r_date, current_date()) <= ? order by DDay";
 
         Connection conn = null;
         PreparedStatement pstmt = null;

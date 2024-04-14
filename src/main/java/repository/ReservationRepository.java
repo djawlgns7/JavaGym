@@ -125,7 +125,7 @@ public class ReservationRepository {
     public List<MemberSchedule> findMemberSchedule(int memberNum) {
         String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
                 "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
-                "where m.m_no = ? and r_date >= ? and r_time >= ? order by r_date, r_time asc";
+                "where m.m_no = ? and (r_date > ? or (r_date = ? and r_time >= ?)) order by r_date, r_time asc";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -138,7 +138,8 @@ public class ReservationRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, memberNum);
             pstmt.setString(2, today.toString());
-            pstmt.setInt(3, currentTime);
+            pstmt.setString(3, today.toString());
+            pstmt.setInt(4, currentTime);
 
             rs = pstmt.executeQuery();
             List<MemberSchedule> list = new ArrayList<>();
