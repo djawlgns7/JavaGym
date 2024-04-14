@@ -36,11 +36,6 @@
             <Label text="회원 정보" />
             <TableView fx:id="reservationTable" prefHeight="550.0">
                 <columns>
-                    <TableColumn fx:id="selectCol" text="선택" prefWidth="50">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="selected" />
-                        </cellValueFactory>
-                    </TableColumn>
                     <TableColumn text="회원 번호" fx:id="memberNumCol" />
                     <TableColumn text="회원 이름" fx:id="memberNameCol" />
                     <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" />

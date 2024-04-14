@@ -259,10 +259,6 @@ public class ValidateUtil {
             return true;
         }
 
-        if(isWithinWorkingHours(rtime, trainer)) {
-            showAlertAddMemberFail("wrongRtime");
-            return true;
-        }
         return false;
     }
 
@@ -309,20 +305,6 @@ public class ValidateUtil {
         return !(phone.length() == 8);
     }
 
-    public static boolean isWithinWorkingHours(Integer time, Trainer trainer) {
-        WorkingHour workingHour = trainer.getWorkingHour();
-        int startHour=0;
-        int endHour=0;
-
-        if(workingHour == WorkingHour.AM) {
-            startHour = 8;
-            endHour = 14;
-        } else if(workingHour == WorkingHour.PM) {
-            startHour = 14;
-            endHour = 20;
-        }
-        return time >= startHour && time < endHour;
-    }
 
     private static boolean isDuplicateDate(String date) {
         int month = Integer.parseInt(date.substring(2, 4));
@@ -339,4 +321,6 @@ public class ValidateUtil {
     public static boolean isDateInFuture(LocalDate rdate) {
         return !rdate.isBefore(LocalDate.now());
     }
+
+
 }

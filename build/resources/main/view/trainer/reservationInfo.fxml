@@ -38,7 +38,7 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <Button text="예약 등록" onAction="#addReservation"/>
+                <Button text="예약 등록" onAction="#addReservationInfo"/>
                 <Button text="뒤로 가기" onAction="#goBack"/>
             </HBox>
         </VBox>
