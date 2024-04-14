@@ -1,5 +1,6 @@
 package controller.member;
 
+import controller.payment.PaymentTab;
 import domain.Item;
 import domain.member.Member;
 import domain.member.MemberSchedule;
@@ -23,7 +24,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static controller.payment.PaymentController.*;
 import static domain.member.SelectedMember.currentMember;
+import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
@@ -114,6 +117,10 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void moveToPaymentPage(ActionEvent event) throws IOException {
+        selectTrainer = false;
+        currentTrainer = null;
+
+        PaymentTab.getInstance().setSelectedTabIndex(0);
         movePageCenter(event, "/view/member/payment");
     }
 }

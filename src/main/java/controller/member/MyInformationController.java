@@ -116,7 +116,7 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
-                System.out.println(memberSchedules.get(i).getReservationTime());
+                // println 지웠어 (성진)
                 newLabel = new Label(reservationTime);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Time");
                 newVBox.getChildren().add(newLabel);
