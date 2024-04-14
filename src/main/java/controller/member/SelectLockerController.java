@@ -1,8 +1,11 @@
 package controller.member;
 
+import controller.payment.PaymentTab;
 import domain.member.Member;
 import domain.member.UsingLocker;
+import domain.payment.Locker;
 import domain.trainer.Trainer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,16 +18,20 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static controller.payment.PaymentController.basket;
+import static controller.payment.PaymentController.removeItem;
 import static domain.member.SelectedMember.currentMember;
 import static util.AlertUtil.showAlert;
 import static util.MemberUtil.getTrainerNumForMember;
+import static util.PageUtil.movePageCenter;
 
-public class LockerSelectionController implements Initializable {
+public class SelectLockerController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
     private final MemberRepository memberRepository = new MemberRepository();
@@ -62,10 +69,12 @@ public class LockerSelectionController implements Initializable {
             makeOnclickListner();
 
             makeLockerArea(1);
+
+            moveToNextPage();
+            moveToPreviousPage();
         }else{
-            int memberNum = 1000;
-            member = memberRepository.findByNum(memberNum);
-            trainer = trainerRepository.findByNum(getTrainerNumForMember(memberNum));
+            member = memberRepository.findByNum(1000);
+            trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             lockers = new ArrayList<>();
             usingLockers = purchaseRepository.findAllUsingLocker();
 
@@ -78,9 +87,15 @@ public class LockerSelectionController implements Initializable {
             makeLockerList();
             makeLockerArea(1);
             makeOnclickListner();
+
+            makeLockerArea(1);
+
+            moveToNextPage();
+            moveToPreviousPage();
         }
     }
 
+    //현재 락커의 상태를 받아와서 리스트에 저장
     public void makeLockerList(){
         for(int i = 0; i < 200; i++){
             int lockerNum = lockers.size() + 1;
@@ -104,6 +119,7 @@ public class LockerSelectionController implements Initializable {
         }
     }
 
+    //현재 락터의 상태를 표 형식으로 출력
     public void makeLockerArea(int startNum) {
         startNum--;
 
@@ -127,6 +143,7 @@ public class LockerSelectionController implements Initializable {
         }
     }
 
+    //락커를 선택하는 이벤트 생성
     public void makeOnclickListner(){
         for(int i = 0; i < lockers.size(); i++){
             Label currentLocker = lockers.get(i);
@@ -174,7 +191,7 @@ public class LockerSelectionController implements Initializable {
         previousButton.getStyleClass().add("unclickable");
     }
 
-    public void comfirmButtonClicked(){
+    public void comfirmButtonClicked(ActionEvent event) throws IOException {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
         if(selectedLockerNumberText.equals("")){
@@ -193,11 +210,19 @@ public class LockerSelectionController implements Initializable {
         String selectedLockerPeriodText = selectedRadio.getText();
         String[] lockerPeriodTexts = selectedLockerPeriodText.split("일");
         int selectedLockerPeriod = Integer.parseInt(lockerPeriodTexts[0]);
+        String selectedLockerPrice = lockerPeriodTexts[1].replace(" ", "").replace(",", "")
+                        .replace("원", "");
+        int selectedLockerPriceNum = Integer.parseInt(selectedLockerPrice);
 
-        System.out.println(selectedLockerNumber + "번 " + selectedLockerPeriod);
+        removeItem(basket, Locker.class);
+        basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
+
+        PaymentTab.getInstance().setSelectedTabIndex(2);
+        movePageCenter(event, "/view/member/payment");
     }
 
-    public void goBackButtonClicked(){
-
+    public void goBackButtonClicked(ActionEvent event) throws IOException {
+        PaymentTab.getInstance().setSelectedTabIndex(2);
+        movePageCenter(event, "/view/member/payment");
     }
 }

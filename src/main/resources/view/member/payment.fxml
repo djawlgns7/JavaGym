@@ -126,7 +126,13 @@
                     <Tab fx:id="etcTab" text="기타">
                         <VBox>
                             <Label text="사물함"/>
-                            <Button text="사물함 선택" onAction="#selectLocker"/>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label fx:id="selectLockerLabel" text="선택 안 함" />
+                                <Label fx:id="lockerNumberLabel" text="" visible="false" />
+                                <Label fx:id="lockerPeriodLabel" text="" visible="false" />
+                                <Label fx:id="lockerPriceLabel" text="" visible="false" />
+                            </HBox>
+                            <Button text="사물함 선택" onAction="#selectLocker" />
 
                             <Label text="운동복"/>
                             <fx:define>

@@ -31,7 +31,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
         SelectedMember.currentMember = repository.findByNum(1068);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/payment.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         stage.setScene(new Scene(loginRoot));
         stage.setTitle("JavaGym");
         stage.show();
