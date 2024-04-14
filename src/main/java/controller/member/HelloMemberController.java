@@ -48,7 +48,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        movePageCenter(event, "/view/member/memberLogin");
     }
 
     @FXML
@@ -63,13 +63,13 @@ public class HelloMemberController implements Initializable {
         }else if(memberReservationNum >= 4){
             showAlert("최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
         }else {
-            movePage(event, "/view/member/reservation");
+            movePageCenter(event, "/view/member/reservation");
         }
     }
 
     @FXML
     private void myInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/myInformation");
+        movePageCenter(event, "/view/member/myInformation");
     }
 
     @FXML
