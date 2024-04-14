@@ -1,6 +1,7 @@
 package controller.payment;
 
 import domain.payment.Available;
+import domain.payment.Clothes;
 import domain.payment.GymTicket;
 import domain.payment.PtTicket;
 import javafx.beans.value.ChangeListener;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
 
 import java.io.IOException;
@@ -25,8 +27,8 @@ import static util.PageUtil.*;
 
 public class PaymentController implements Initializable {
 
-    private static final ResourceBundle paymentConfig = ResourceBundle.getBundle("config.payment");
     public static boolean selectTrainer = false;
+    public static boolean selectLocker = false;
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
 
@@ -53,14 +55,14 @@ public class PaymentController implements Initializable {
     @FXML
     ToggleGroup gymTicketRadio;
 
-    @FXML
-    Label gymPrice1Label, gymPrice30Label, gymPrice90Label, gymPrice180Label, gymPrice360Label;
-
     /**
      * PT 이용권
      */
     @FXML
     ToggleGroup ptTicketRadio;
+
+    @FXML
+    VBox ptSelectBox;
 
     @FXML
     RadioButton noSelectPtButton, pt10Button, pt20Button, pt30Button;
@@ -69,14 +71,19 @@ public class PaymentController implements Initializable {
     Button selectTrainerButton;
 
     @FXML
-    Label firstSelectTrainerLabel, ptPrice10Label, ptPrice20Label, ptPrice30Label, pt10Won, pt20Won, pt30Won, trainerNameLabel, trainerInfoLabel;
+    Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
 
     @FXML
     ImageView selectTrainerImage;
 
     /**
-     * 기타
+     * 기타 (사물함, 운동복)
      */
+    @FXML
+    ToggleGroup clothesRadio;
+
+    @FXML
+    RadioButton noSelectClothesButton, clothes30Button, clothes90Button, clothes180Button, clothes360Button;
 
     /**
      * 장바구니
@@ -89,7 +96,7 @@ public class PaymentController implements Initializable {
      * 총 가격 정보
      */
     @FXML
-    Label totalLabel, totalPriceLabel, totalWonLabel;
+    Label totalPriceLabel;
 
     int gymPrice, ptPrice, lockerPrice, clothesPrice, totalPrice = 0;
 
@@ -122,23 +129,6 @@ public class PaymentController implements Initializable {
             itemValueLabel.setText(gymExpireDate + " (D-" + gymTicketRemain + ")");
         }
 
-        // 헬스장 이용권 가격 설정
-        gymPrice1Label.setText("   " + paymentConfig.getString("gymPrice1Day"));
-        gymPrice30Label.setText("   " + paymentConfig.getString("gymPrice30Day"));
-        gymPrice90Label.setText("   " + paymentConfig.getString("gymPrice90Day"));
-        gymPrice180Label.setText("   " + paymentConfig.getString("gymPrice180Day"));
-        gymPrice360Label.setText("   " + paymentConfig.getString("gymPrice360Day"));
-
-        // PT 이용권 가격 설정
-        ptPrice10Label.setText("   " + paymentConfig.getString("ptPrice10Time"));
-        ptPrice20Label.setText("   " + paymentConfig.getString("ptPrice20Time"));
-        ptPrice30Label.setText("   " + paymentConfig.getString("ptPrice30Time"));
-
-        // 기타 가격 설정
-        /**
-         *
-         */
-
         // 상품 탭을 이동할 때마다 해당 상품에 대한 회원의 구매 정보 생성
         tab.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -164,7 +154,6 @@ public class PaymentController implements Initializable {
                     currentLockerNumLabel.setVisible(false);
                     currentClothesPeriodLabel.setVisible(false);
                     currentClothesSizeLabel.setVisible(false);
-
 
                     // PT 이용권 탭
                 } else if (newTab == ptTab) {
@@ -228,15 +217,41 @@ public class PaymentController implements Initializable {
                             gym1Button.setSelected(true);
                             gymPrice = 20000;
 
-                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                             selectGymDayLabel.setText("1일");
-                            selectGymPriceLabel.setText(gymPrice1Label.getText() + "원");
+                            selectGymPriceLabel.setText("20,000원");
                             break;
                         case 30:
                             gym30Button.setSelected(true);
+                            gymPrice = 50000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectGymDayLabel.setText("30일");
+                            selectGymPriceLabel.setText("50,000원");
                             break;
                         case 90:
                             gym90Button.setSelected(true);
+                            gymPrice = 150000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectGymDayLabel.setText("90일");
+                            selectGymPriceLabel.setText("150,000원");
+                            break;
+                        case 180:
+                            gym180Button.setSelected(true);
+                            gymPrice = 280000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectGymDayLabel.setText("180일");
+                            selectGymPriceLabel.setText("280,000원");
+                            break;
+                        case 360:
+                            gym360Button.setSelected(true);
+                            gymPrice = 510000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectGymDayLabel.setText("360일");
+                            selectGymPriceLabel.setText("510,000원");
                             break;
                     }
                 }
@@ -250,9 +265,25 @@ public class PaymentController implements Initializable {
                             pt10Button.setSelected(true);
                             ptPrice = 700000;
 
-                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                             selectPtTicketLabel.setText("10회");
-                            selectPtPriceLabel.setText(ptPrice10Label.getText() + "원");
+                            selectPtPriceLabel.setText("700,000원");
+                            break;
+                        case 20:
+                            pt20Button.setSelected(true);
+                            ptPrice = 1300000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectPtTicketLabel.setText("20회");
+                            selectPtPriceLabel.setText("1,300,000원");
+                            break;
+                        case 30:
+                            pt30Button.setSelected(true);
+                            ptPrice = 1800000;
+
+                            totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                            selectPtTicketLabel.setText("30회");
+                            selectPtPriceLabel.setText("1,800,000원");
                             break;
                     }
                 }
@@ -267,41 +298,16 @@ public class PaymentController implements Initializable {
         clothesLabel.setVisible(false);
         currentClothesSizeLabel.setVisible(false);
 
-        // 헬스장 이용권을 선택할 때마다 가격 업데이트
-        gymTicketRadio.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
-            if (newVal != null) {
-                updateGymPrice((RadioButton) newVal);
-            }
-        });
-
         // 트레이너 선택 전
         if (!selectTrainer) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
+            ptSelectBox.setVisible(false);
 
-            noSelectPtButton.setVisible(false);
-            pt10Button.setVisible(false);
-            pt20Button.setVisible(false);
-            pt30Button.setVisible(false);
-            noSelectPtButton.setVisible(false);
-            ptPrice10Label.setVisible(false);
-            ptPrice20Label.setVisible(false);
-            ptPrice30Label.setVisible(false);
-            pt10Won.setVisible(false);
-            pt20Won.setVisible(false);
-            pt30Won.setVisible(false);
-
-        // 트레이너 선택 후
+            // 트레이너 선택 후
         } else {
             firstSelectTrainerLabel.setVisible(false);
             selectTrainerButton.setText("트레이너 변경"); // "트레이너 선택" 버튼 -> "트레이너 변경" 버튼
         }
-
-        // PT 이용권을 선택할 때마다 가격 업데이트
-        ptTicketRadio.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
-            if (newVal != null) {
-                updatePtPrice((RadioButton) newVal);
-            }
-        });
 
         if (currentTrainer != null) {
             ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
@@ -310,19 +316,33 @@ public class PaymentController implements Initializable {
             trainerInfoLabel.setText(currentTrainer.getHeight() + "|" + currentTrainer.getWeight() + "|" + trainerRepository.getAge(currentTrainer) + "세");
         }
 
+        // 헬스장 이용권을 선택할 때마다 가격 업데이트
+        gymTicketRadio.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                updateGymPrice((RadioButton) newVal);
+            }
+        });
+
+        // PT 이용권을 선택할 때마다 가격 업데이트
+        ptTicketRadio.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                updatePtPrice((RadioButton) newVal);
+            }
+        });
+
+        // 운동복 이용권을 선택할 때마다 가격 업데이트
+        clothesRadio.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                updateClothesPrice((RadioButton) newVal);
+            }
+        });
+
         int tabIndex = PaymentTab.getInstance().getSelectedTabIndex();
         tab.getSelectionModel().select(tabIndex);
     } // initialize() 끝
 
-    // 헬스장 이용권
     private void updateGymPrice(RadioButton selectedButton) {
         String selected = selectedButton.getText();
-
-        String gym1Price = gymPrice1Label.getText();
-        String gym30Price = gymPrice30Label.getText();
-        String gym90Price = gymPrice90Label.getText();
-        String gym180Price = gymPrice180Label.getText();
-        String gym360Price = gymPrice360Label.getText();
 
         switch (selected) {
             case "1일":
@@ -330,9 +350,9 @@ public class PaymentController implements Initializable {
                 selectGymDayLabel.setVisible(true);
                 selectGymPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectGymDayLabel.setText("1일");
-                selectGymPriceLabel.setText(gym1Price + "원");
+                selectGymPriceLabel.setText("20,000원");
 
                 removeItem(basket, GymTicket.class);
                 basket.add(new GymTicket(1, 20000));
@@ -343,9 +363,9 @@ public class PaymentController implements Initializable {
                 selectGymDayLabel.setVisible(true);
                 selectGymPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectGymDayLabel.setText("30일");
-                selectGymPriceLabel.setText(gym30Price + "원");
+                selectGymPriceLabel.setText("50,000원");
 
                 removeItem(basket, GymTicket.class);
                 basket.add(new GymTicket(30, 50000));
@@ -356,9 +376,9 @@ public class PaymentController implements Initializable {
                 selectGymDayLabel.setVisible(true);
                 selectGymPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectGymDayLabel.setText("90일");
-                selectGymPriceLabel.setText(gym90Price + "원");
+                selectGymPriceLabel.setText("150,000원");
 
                 removeItem(basket, GymTicket.class);
                 basket.add(new GymTicket(90, 50000));
@@ -368,9 +388,9 @@ public class PaymentController implements Initializable {
                 selectGymDayLabel.setVisible(true);
                 selectGymPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectGymDayLabel.setText("180일");
-                selectGymPriceLabel.setText(gym180Price + "원");
+                selectGymPriceLabel.setText("280,000원");
 
                 removeItem(basket, GymTicket.class);
                 basket.add(new GymTicket(180, 280000));
@@ -380,16 +400,16 @@ public class PaymentController implements Initializable {
                 selectGymDayLabel.setVisible(true);
                 selectGymPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectGymDayLabel.setText("360일");
-                selectGymPriceLabel.setText(gym360Price + "원");
+                selectGymPriceLabel.setText("510,000원");
 
                 removeItem(basket, GymTicket.class);
                 basket.add(new GymTicket(360, 510000));
                 break;
             default:
                 gymPrice = 0;
-                totalPriceLabel.setText(" " + (gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + (gymPrice + ptPrice + clothesPrice));
                 selectGymPriceLabel.setVisible(false);
                 selectGymDayLabel.setVisible(false);
                 removeItem(basket, GymTicket.class);
@@ -405,19 +425,15 @@ public class PaymentController implements Initializable {
     private void updatePtPrice(RadioButton selectedButton) {
         String selected = selectedButton.getText();
 
-        String pt1Price = ptPrice10Label.getText();
-        String pt20Price = ptPrice20Label.getText();
-        String pt30Price = ptPrice30Label.getText();
-
         switch (selected) {
             case "10회":
                 ptPrice = 700000;
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectPtTicketLabel.setText("10회");
-                selectPtPriceLabel.setText(pt1Price + "원");
+                selectPtPriceLabel.setText("700,000원");
 
                 removeItem(basket, PtTicket.class);
                 basket.add(new PtTicket(10, 700000));
@@ -427,9 +443,9 @@ public class PaymentController implements Initializable {
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectPtTicketLabel.setText("20회");
-                selectPtPriceLabel.setText(pt20Price + "원");
+                selectPtPriceLabel.setText("1,300,000원");
 
                 removeItem(basket, PtTicket.class);
                 basket.add(new PtTicket(20, 1300000));
@@ -439,19 +455,86 @@ public class PaymentController implements Initializable {
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
 
-                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
                 selectPtTicketLabel.setText("30회");
-                selectPtPriceLabel.setText(pt30Price + "원");
+                selectPtPriceLabel.setText("1,800,000원");
 
                 removeItem(basket, PtTicket.class);
                 basket.add(new PtTicket(30, 1800000));
                 break;
             default:
                 ptPrice = 0;
-                totalPriceLabel.setText(" " + (gymPrice + ptPrice));
+                totalPriceLabel.setText(" " + (gymPrice + ptPrice + clothesPrice));
                 selectPtTicketLabel.setVisible(false);
                 selectPtPriceLabel.setVisible(false);
                 removeItem(basket, PtTicket.class);
+        }
+    }
+
+    @FXML
+    private void selectLocker(ActionEvent event) throws IOException {
+        movePageCenter(event, "/view/member/selectLocker");
+    }
+
+    private void updateClothesPrice(RadioButton selectedButton) {
+        String selected = selectedButton.getText();
+
+        switch (selected) {
+            case "30일":
+                clothesPrice = 7000;
+                selectClothesPeriodLabel.setVisible(true);
+                selectClothesPriceLabel.setVisible(true);
+
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                selectClothesPeriodLabel.setText("30일");
+                selectClothesPriceLabel.setText("7,000원");
+
+                removeItem(basket, Clothes.class);
+                basket.add(new Clothes(30, 7000));
+                break;
+
+            case "90일":
+                clothesPrice = 18000;
+                selectClothesPeriodLabel.setVisible(true);
+                selectClothesPriceLabel.setVisible(true);
+
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                selectClothesPeriodLabel.setText("90일");
+                selectClothesPriceLabel.setText("18,000원");
+
+                removeItem(basket, Clothes.class);
+                basket.add(new Clothes(90, 18000));
+                break;
+            case "180일":
+                clothesPrice = 31000;
+                selectClothesPeriodLabel.setVisible(true);
+                selectClothesPriceLabel.setVisible(true);
+
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                selectClothesPeriodLabel.setText("180일");
+                selectClothesPriceLabel.setText("31,000원");
+
+                removeItem(basket, Clothes.class);
+                basket.add(new Clothes(180, 31000));
+                break;
+            case "360일":
+                clothesPrice = 52000;
+                selectClothesPeriodLabel.setVisible(true);
+                selectClothesPriceLabel.setVisible(true);
+
+                totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + clothesPrice));
+                selectClothesPeriodLabel.setText("360일");
+                selectClothesPriceLabel.setText("52,000원");
+
+                removeItem(basket, Clothes.class);
+                basket.add(new Clothes(360, 52000));
+                break;
+            default:
+                clothesPrice = 0;
+                totalPriceLabel.setText(" " + (gymPrice + ptPrice + clothesPrice));
+                selectClothesPeriodLabel.setVisible(false);
+                selectClothesPriceLabel.setVisible(false);
+                removeItem(basket, Clothes.class);
         }
     }
 

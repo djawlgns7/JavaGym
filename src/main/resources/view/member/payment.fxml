@@ -47,31 +47,31 @@
 
                             <HBox>
                                 <RadioButton fx:id="gym1Button" text="1일" toggleGroup="$gymTicketRadio" />
-                                <Label fx:id="gymPrice1Label"/>
+                                <Label text="20,000"/>
                                 <Label text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" />
-                                <Label fx:id="gymPrice30Label"/>
+                                <Label text="50,000"/>
                                 <Label text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" />
-                                <Label fx:id="gymPrice90Label"/>
+                                <Label text="150,000"/>
                                 <Label text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" />
-                                <Label fx:id="gymPrice180Label"/>
+                                <Label text="280,000"/>
                                 <Label text="원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" />
-                                <Label fx:id="gymPrice360Label"/>
+                                <Label text="510,000"/>
                                 <Label text="원"/>
                             </HBox>
 
@@ -96,28 +96,29 @@
                             <fx:define>
                                 <ToggleGroup fx:id="ptTicketRadio"/>
                             </fx:define>
+                            <VBox fx:id="ptSelectBox">
+                                <HBox>
+                                    <RadioButton fx:id="noSelectPtButton" text="선택 안 함" toggleGroup="$ptTicketRadio" />
+                                </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="noSelectPtButton" text="선택 안 함" toggleGroup="$ptTicketRadio" />
-                            </HBox>
+                                <HBox>
+                                    <RadioButton fx:id="pt10Button" text="10회" toggleGroup="$ptTicketRadio" />
+                                    <Label text="700,000"/>
+                                    <Label text="원"/>
+                                </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="pt10Button" text="10회" toggleGroup="$ptTicketRadio" />
-                                <Label fx:id="ptPrice10Label"/>
-                                <Label fx:id="pt10Won" text="원"/>
-                            </HBox>
+                                <HBox>
+                                    <RadioButton fx:id="pt20Button" text="20회" toggleGroup="$ptTicketRadio" />
+                                    <Label text="1,300,000"/>
+                                    <Label text="원"/>
+                                </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="pt20Button" text="20회" toggleGroup="$ptTicketRadio" />
-                                <Label fx:id="ptPrice20Label"/>
-                                <Label fx:id="pt20Won" text="원"/>
-                            </HBox>
-
-                            <HBox>
-                                <RadioButton fx:id="pt30Button" text="30회" toggleGroup="$ptTicketRadio" />
-                                <Label fx:id="ptPrice30Label"/>
-                                <Label fx:id="pt30Won" text="원"/>
-                            </HBox>
+                                <HBox>
+                                    <RadioButton fx:id="pt30Button" text="30회" toggleGroup="$ptTicketRadio" />
+                                    <Label text="1,800,000"/>
+                                    <Label text="원"/>
+                                </HBox>
+                            </VBox>
                         </VBox>
                     </Tab>
 
@@ -125,32 +126,38 @@
                     <Tab fx:id="etcTab" text="기타">
                         <VBox>
                             <Label text="사물함"/>
-                            <Button text="사물함 선택"/>
+                            <Button text="사물함 선택" onAction="#selectLocker"/>
 
                             <Label text="운동복"/>
-<!--                            <HBox>-->
-<!--                                <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" />-->
-<!--                                <Label fx:id="gymPrice30Label"/>-->
-<!--                                <Label text="원"/>-->
-<!--                            </HBox>-->
+                            <fx:define>
+                                <ToggleGroup fx:id="clothesRadio"/>
+                            </fx:define>
+                            <HBox>
+                                <RadioButton fx:id="noSelectClothesButton" text="선택 안 함" toggleGroup="$clothesRadio" />
+                            </HBox>
+                            <HBox>
+                                <RadioButton fx:id="clothes30Button" text="30일" toggleGroup="$clothesRadio" />
+                                <Label text="7,000"/>
+                                <Label text="원"/>
+                            </HBox>
 
-<!--                            <HBox>-->
-<!--                                <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" />-->
-<!--                                <Label fx:id="gymPrice90Label"/>-->
-<!--                                <Label text="원"/>-->
-<!--                            </HBox>-->
+                            <HBox>
+                                <RadioButton fx:id="clothes90Button" text="90일" toggleGroup="$clothesRadio" />
+                                <Label text="18,000"/>
+                                <Label text="원"/>
+                            </HBox>
 
-<!--                            <HBox>-->
-<!--                                <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" />-->
-<!--                                <Label fx:id="gymPrice180Label"/>-->
-<!--                                <Label text="원"/>-->
-<!--                            </HBox>-->
+                            <HBox>
+                                <RadioButton fx:id="clothes180Button" text="180일" toggleGroup="$clothesRadio" />
+                                <Label text="31,000"/>
+                                <Label text="원"/>
+                            </HBox>
 
-<!--                            <HBox>-->
-<!--                                <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" />-->
-<!--                                <Label fx:id="gymPrice360Label"/>-->
-<!--                                <Label text="원"/>-->
-<!--                            </HBox>-->
+                            <HBox>
+                                <RadioButton fx:id="clothes360Button" text="360일" toggleGroup="$clothesRadio" />
+                                <Label text="52,000"/>
+                                <Label text="원"/>
+                            </HBox>
                         </VBox>
                     </Tab>
                 </tabs>
@@ -195,9 +202,9 @@
 
             <!-- 총 가격 정보 -->
             <HBox alignment="CENTER">
-                <Label fx:id="totalLabel" text="총"/>
+                <Label text="총"/>
                 <Label fx:id="totalPriceLabel" text=" 0"/>
-                <Label fx:id="totalWonLabel" text="원"/>
+                <Label text="원"/>
             </HBox>
 
             <HBox alignment="CENTER">
