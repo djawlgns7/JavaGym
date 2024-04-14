@@ -76,11 +76,11 @@ public class ReservationController implements Initializable {
             int memberReservationNum = memberSchedule.size();
             availableReservationNum = 4 - memberReservationNum;
 
-//            try {
-//                setMyInfo();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
 
         }

@@ -1,11 +1,10 @@
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class JavaGymApplication extends Application {
 
@@ -16,7 +15,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/lockerSelection.fxml"));
         stage.setScene(new Scene(loginRoot));
 
         // 프로젝트 실행 아이콘 이미지 로드 (승빈)
