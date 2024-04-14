@@ -1,7 +1,6 @@
 package service;
 
 import domain.trainer.Reservation;
-import domain.trainer.SelectedTrainer;
 import  domain.trainer.Trainer;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

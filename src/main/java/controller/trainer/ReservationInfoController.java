@@ -29,7 +29,7 @@ import java.util.function.UnaryOperator;
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertAddScheduleFail;
+import static util.AlertUtil.showAlertAddReservationFail;
 import static util.AlertUtil.showAlertAndMove;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
@@ -38,6 +38,7 @@ import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
 
+    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
 
     private TrainerRepository trainerRepository = new TrainerRepository();
     private ReservationRepository reservationRepository = new ReservationRepository();

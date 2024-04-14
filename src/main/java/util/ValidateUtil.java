@@ -1,10 +1,8 @@
 package util;
 
 import domain.member.Member;
-import domain.trainer.Reservation;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
-import domain.trainer.WorkingHour;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -13,13 +11,9 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
+import static util.AlertUtil.showAlertAddMemberFail;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
 
@@ -30,7 +24,6 @@ public class ValidateUtil {
 
     private static final MemberRepository memberRepository = new MemberRepository();
     private static final TrainerRepository trainerRepository = new TrainerRepository();
-    private static final ReservationRepository reservationRepository = new ReservationRepository();
 
     public static boolean isEmptyAnyField(TextField name, TextField emailId, ComboBox<String> emailDomain,
                                           TextField birth, TextField phone, PasswordField password,
@@ -79,17 +72,8 @@ public class ValidateUtil {
         return name.getText().trim().isEmpty();
     }
 
-    public static boolean isEmptyAnyField(TextField name,TextField date, TextField time) {
-        return name.getText().trim().isEmpty() ||
-                date.getText().trim().isEmpty() ||
-                time.getText().trim().isEmpty();
-    }
-    public static boolean signUpValidate(String name, String pw, String pwConfirm, String phone, String email, String birth) {
+    public static boolean signUpValidate(String pw, String pwConfirm, String phone, String email, String birth) {
 
-        if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
-            return true;
-        }
 
         if (isDuplicatePhone(phone)) {
             showAlertSignUpFail("duplicatePhone");
@@ -132,11 +116,6 @@ public class ValidateUtil {
         }
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
             showAlertAddMemberFail("duplicatePhoneAndEmail");
-            return true;
-        }
-
-        if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
             return true;
         }
 

@@ -2,6 +2,7 @@ package repository;
 
 import domain.Item;
 import domain.member.MemberSchedule;
+import domain.reservation.ReservationInformation;
 import domain.trainer.Reservation;
 import domain.trainer.TrainerSchedule;
 
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static connection.ConnectionUtils.*;
@@ -60,11 +62,10 @@ public class ReservationRepository {
      * (성진)
      * 트레이너 번호 -> 해당 트레이너의 PT 일정
      */
-
     public List<TrainerSchedule> findTrainerSchedule(int trainerNum) {
         String sql = "SELECT m_name, r_date, r_time " +
-                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
-                "WHERE r.t_no = ?";
+                    "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
+                    "WHERE r.t_no = ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -121,20 +122,24 @@ public class ReservationRepository {
 
     /**
      * 회원의 PT 예약 정보를 가져온다. 이미 지난 예약 내역은 가져오지 않는다. (조회 시점 기준 예약 정보)
+     * 오늘치 예약도 결과로 잡히도록 수정(지훈)
      */
     public List<MemberSchedule> findMemberSchedule(int memberNum) {
         String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
                 "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
-                "where m.m_no = ? and r_date > now()";
+                "where m.m_no = ? and r_date >= ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        LocalDate today = LocalDate.now();
 
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, memberNum);
+            pstmt.setString(2, today.toString());
+
             rs = pstmt.executeQuery();
             List<MemberSchedule> list = new ArrayList<>();
             int count = 0;
@@ -157,30 +162,6 @@ public class ReservationRepository {
         }
     }
 
-    public void insertReservation(Reservation reservation) {
-        String sql = "insert into reservation(m_no, t_no, r_date, r_time) values (?, ?, ?, ?)";
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try{
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-
-            pstmt.setInt(1, reservation.getMemberNum());
-            pstmt.setInt(2, reservation.getTrainerNum());
-            pstmt.setDate(3, reservation.getReservationDate());
-            pstmt.setInt(4, reservation.getReservationTime());
-            pstmt.executeUpdate();
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(conn, pstmt, null);
-        }
-
-
-    }
     public void deleteReservation(int num) {
         String sql = "delete from reservation where r_no = ?";
 
@@ -195,6 +176,32 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, null);
+        }
+    }
+    /**
+     * 오늘을 기준으로 가장 최근 예약일을 얻는다.
+     * 회원 입장 시 검증에 사용한다. (성진)
+     */
+    public Date getTodayReservationDate(int memberNum) {
+        String sql = "select r_date from reservation where m_no = ? and r_date <= now() order by 1 desc limit 1";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, memberNum);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("r_date");
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
         }
     }
 
@@ -216,6 +223,53 @@ public class ReservationRepository {
             throw new RuntimeException(e);
         } finally {
             close(conn, pstmt, null);
+        }
+    }
+
+    public void insertReservation(Reservation reservation){
+        String sql = "insert into reservation (m_no, t_no, r_date, r_time) values(?, ?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, reservation.getMemberNum());
+            pstmt.setInt(2, reservation.getTrainerNum());
+            pstmt.setDate(3, reservation.getReservationDate());
+            pstmt.setInt(4, reservation.getReservationTime());
+
+            pstmt.executeUpdate();
+
+            setRemain(reservation.getMemberNum(), Item.PT_TICKET, -1);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
+    //예약 클래스 배열 안에 특정 예약이 존재하는지 확인해줌
+    public boolean isReservationExist(List<ReservationInformation> reservation, int dDay, int rTime){
+        boolean result = false;
+
+        for(int i = 0; i < reservation.size(); i++){
+            boolean tempResult = reservation.get(i).isExist(dDay, rTime);
+            if(tempResult){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    //예약 클래스 배열 내의 특정 예약 정보를 없앰
+    public void removeReservation(List<ReservationInformation> reservation, int dDay, int rTime){
+        for(int i = 0; i < reservation.size(); i++){
+            if(reservation.get(i).isExist(dDay, rTime)){
+                reservation.remove(i);
+            }
         }
     }
 }

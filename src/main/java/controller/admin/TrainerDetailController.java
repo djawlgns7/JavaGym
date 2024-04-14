@@ -1,5 +1,6 @@
 package controller.admin;
 
+import controller.TabController;
 import domain.*;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
@@ -58,7 +59,9 @@ public class TrainerDetailController implements Initializable {
     @FXML
     private TableColumn<TrainerSchedule, String> countColumn, memberNameColumn, dateColumn, timeColumn;
 
+    @FXML
     private final ToggleGroup genderRadio = new ToggleGroup();
+    @FXML
     private final ToggleGroup workTimeRadio = new ToggleGroup();
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
@@ -135,7 +138,8 @@ public class TrainerDetailController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/admin/trainerInfo");
+        TabController.getInstance().setSelectedTabIndex(1);
+        movePageCenter(event, "/view/admin/helloAdminV2");
     }
 
     @Override
