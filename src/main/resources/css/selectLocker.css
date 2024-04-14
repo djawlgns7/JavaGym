@@ -1,0 +1,53 @@
+/* 락커 복도 */
+.lockerAreaPath{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+}
+
+/* 락커 */
+.locker{
+    -fx-border-color: #bf9dfc;
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+}
+
+/* 락커가 선택됐을 경우 색 */
+.selectedLocker{
+    -fx-background-color: green;
+    -fx-border-color: green;
+}
+
+/* 단순히 선택되지 않은 락커를 구분하기 위한 클래스. 꾸미고 싶으면 꾸미세요 */
+.unselectedLocker{
+
+}
+
+/* 다른 회원이 선택하고 있는 락커 색 */
+.occupiedLocker{
+    -fx-background-color: gray;
+    -fx-border-color: gray;
+}
+
+/* 락커 선택 버튼 활성화 */
+.clickable{
+    -fx-background-color: white;
+    -fx-border-color: #bf9dfc;
+    -fx-padding: 10;
+}
+
+/* 락커 선택 버튼 활성화 */
+.unclickable{
+    -fx-background-color: gray;
+    -fx-border-color: gray;
+    -fx-padding: 10;
+}
+
+.navigationSize{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+}
