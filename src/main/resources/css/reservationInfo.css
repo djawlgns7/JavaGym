@@ -3,9 +3,74 @@
     -fx-font-family: "Jua";
 }
 
-.nameInput, .rDateInput, .rTimeInput {
-    -fx-pref-width: 200;
-    -fx-pref-height: 40;
+TextField {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.reservationInfo_EntryBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.reservationInfo_goBackBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.reservationInfo_EntryBtn:hover, .reservationInfo_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+
+/*.nameInput, .rDateInput, .rTimeInput {*/
+/*    -fx-pref-width: 200;*/
+/*    -fx-pref-height: 40;*/
+/*}*/
+
+.reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_phoneCol,
+.reservationInfo_dayCol, .reservationInfo_timeCol {
+    -fx-font-family: "Jua";
+}
+
+.reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_timeCol {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_phoneCol {
+    -fx-pref-width: 130;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_dayCol {
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 /* ============== Button ============== */
@@ -13,6 +78,8 @@
     -fx-spacing: 50;
     -fx-font-family: "Jua";
 }
+
+/* @@밑에서부터 필요 없는 부분 지울 것@@ */
 
 .addReservationBtn {
     -fx-background-color: #9747FF;
