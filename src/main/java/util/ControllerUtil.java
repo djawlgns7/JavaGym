@@ -219,7 +219,7 @@ public class ControllerUtil {
     }
 
     public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
-        int trainerNum = TrainerService.currentTrainerNum;
+        int trainerNum = currentTrainer.getNum();
         ReservationRepository reservationRepository = new ReservationRepository();
         List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
         scheduleTable.setItems(FXCollections.observableArrayList(schedules));

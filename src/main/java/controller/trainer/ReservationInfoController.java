@@ -56,7 +56,7 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
         if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
-            showAlertAddScheduleFail("emptyAnyField");
+            showAlertAddReservationFail("emptyAnyField");
             return;
         }
         Reservation reservation = new Reservation();

@@ -292,14 +292,16 @@ public class ValidateUtil {
         return(1 > month || month > 12) || (1 > day || day > 31);
     }
 
+    public static boolean isEmptyAnyField(TextField name,TextField date, TextField time) {
+        return name.getText().trim().isEmpty() ||
+                date.getText().trim().isEmpty() ||
+                time.getText().trim().isEmpty();
+    }
     /*private static boolean isReservationAvailable(Date rDate, Integer rTime, Integer TrainerNum) {
         List<Reservation> reservation = reservationRepository.findSchedule(currentTrainer.getNum());
         return reservation.stream().noneMatch(res-> res.getReservationTime().equals(rTime));
     }*/
 
-    public static boolean isDateInFuture(LocalDate rdate) {
-        return !rdate.isBefore(LocalDate.now());
-    }
 
 
 }
