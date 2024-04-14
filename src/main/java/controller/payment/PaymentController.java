@@ -436,7 +436,7 @@ public class PaymentController implements Initializable {
                 selectGymPriceLabel.setText("150,000원");
 
                 removeItem(basket, GymTicket.class);
-                basket.add(new GymTicket(90, 50000));
+                basket.add(new GymTicket(90, 150000));
                 break;
             case "180일":
                 gymPrice = 280000;
