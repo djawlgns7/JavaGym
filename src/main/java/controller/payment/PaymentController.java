@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import repository.TrainerRepository;
-import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
