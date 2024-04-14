@@ -49,6 +49,17 @@ public class LockerSelectionController implements Initializable {
             member = currentMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             lockers = new ArrayList<>();
+            usingLockers = purchaseRepository.findAllUsingLocker();
+
+            lockerPeriodGroup = new ToggleGroup();
+            locker30Days.setToggleGroup(lockerPeriodGroup);
+            locker90Days.setToggleGroup(lockerPeriodGroup);
+            locker180Days.setToggleGroup(lockerPeriodGroup);
+            locker360Days.setToggleGroup(lockerPeriodGroup);
+
+            makeLockerList();
+            makeLockerArea(1);
+            makeOnclickListner();
 
             makeLockerArea(1);
         }else{
