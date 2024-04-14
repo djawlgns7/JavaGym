@@ -25,6 +25,7 @@ import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePageCenter;
 import static util.PurchaseUtil.purchaseItem;
+import static util.SoundUtil.*;
 
 public class PaymentController implements Initializable {
 
@@ -609,6 +610,8 @@ public class PaymentController implements Initializable {
 
         String totalPriceText;
 
+        play("checkPayment");
+
         totalPrice = gymPrice + ptPrice + lockerPrice + clothesPrice;
         if(totalPrice >= 1000000){
             totalPriceText = "\n총 " + (totalPrice / 1000000) + "," + (totalPrice % 1000000 / 1000) + ",000원";
@@ -721,9 +724,5 @@ public class PaymentController implements Initializable {
 
     public static void removeItem(Set<Available> basket, Class<?> type) {
         basket.removeIf(ticket -> type.isInstance(ticket));
-    }
-
-    public static void printBasket() {
-        basket.forEach(ticket -> System.out.println(ticket));
     }
 }
