@@ -150,7 +150,7 @@ SplitPane {
     -fx-background-color: #DABDFF;
 }
 
-/* Radio Button Hover 상태 색상 변경 */
+/* Radio Button Non-selected Hover 상태 색상 변경 */
 .trainerInfo_sex_radioBtn_1 .radio:hover,
 .trainerInfo_sex_radioBtn_2 .radio:hover {
     -fx-background-color: #C4A3FF;
@@ -160,6 +160,12 @@ SplitPane {
 .trainerInfo_sex_radioBtn_1:selected .radio,
 .trainerInfo_sex_radioBtn_2:selected .radio {
     -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.trainerInfo_sex_radioBtn_1:selected .radio:hover,
+.trainerInfo_sex_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
 }
 
 /* Radio Button Dot 색상 변경 */
@@ -181,7 +187,7 @@ SplitPane {
     -fx-background-color: #DABDFF;
 }
 
-/* Radio Button Hover 상태 색상 변경 */
+/* Radio Button Non-selected Hover 상태 색상 변경 */
 .trainerInfo_worktime_radioBtn_1 .radio:hover,
 .trainerInfo_worktime_radioBtn_2 .radio:hover {
     -fx-background-color: #C4A3FF;
@@ -191,6 +197,12 @@ SplitPane {
 .trainerInfo_worktime_radioBtn_1:selected .radio,
 .trainerInfo_worktime_radioBtn_2:selected .radio {
     -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.trainerInfo_worktime_radioBtn_1:selected .radio:hover,
+.trainerInfo_worktime_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
 }
 
 /* Radio Button Dot 색상 변경 */
@@ -253,40 +265,45 @@ SplitPane {
 }
 
 .trainerInfo_numColumn {
-    -fx-pref-width: 65;
+    -fx-pref-width: 70;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 .trainerInfo_nameColumn {
-    -fx-pref-width: 100;
+    -fx-pref-width: 110;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 .trainerInfo_genderColumn, .trainerInfo_workTimeColumn {
-    -fx-pref-width: 80;
+    -fx-pref-width: 90;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 .trainerInfo_idColumn, .trainerInfo_birthColumn {
-    -fx-pref-width: 120;
+    -fx-pref-width: 140;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 .trainerInfo_phoneColumn {
-    -fx-pref-width: 150;
+    -fx-pref-width: 160;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 /* TableView 헤더 스타일 */
 .table-view .column-header-background .label {
     -fx-background-color: #9747FF;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-size: 14;
     -fx-font-weight: bold;
 }
 

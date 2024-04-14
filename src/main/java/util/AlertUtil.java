@@ -6,8 +6,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -34,6 +34,31 @@ public class AlertUtil {
         alert.setTitle("알림");
         alert.setHeaderText(null);
         alert.setContentText(basicMessage.getString(messageCode));
+
+        /* Alert CSS 적용 */
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
+        );
+
+        /* Content Text */
+        for (Node node : dialogPane.lookupAll(".content")) {
+            if (node instanceof Label) {
+                node.getStyleClass().add("alert_ContentText");
+            }
+        }
+
+        /* Button */
+        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(checkButtonType);
+
+        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
+        checkButton.getStyleClass().add("alert_Button");
+
+        /* Execution Logo Icon */
+        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         alert.showAndWait();
     }
 
@@ -42,6 +67,31 @@ public class AlertUtil {
         alert.setTitle(errorMessage.getString("loginFail"));
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
+
+        /* Alert CSS 적용 */
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
+        );
+
+        /* Content Text */
+        for (Node node : dialogPane.lookupAll(".content")) {
+            if (node instanceof Label) {
+                node.getStyleClass().add("alert_ContentText");
+            }
+        }
+
+        /* Button */
+        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(checkButtonType);
+
+        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
+        checkButton.getStyleClass().add("alert_Button");
+
+        /* Execution Logo Icon */
+        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         alert.showAndWait();
     }
 
@@ -50,6 +100,31 @@ public class AlertUtil {
         alert.setTitle(errorMessage.getString("signUpFail"));
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
+
+        /* Alert CSS 적용 */
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
+        );
+
+        /* Content Text */
+        for (Node node : dialogPane.lookupAll(".content")) {
+            if (node instanceof Label) {
+                node.getStyleClass().add("alert_ContentText");
+            }
+        }
+
+        /* Button */
+        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(checkButtonType);
+
+        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
+        checkButton.getStyleClass().add("alert_Button");
+
+        /* Execution Logo Icon */
+        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         alert.showAndWait();
     }
 

@@ -211,7 +211,7 @@ public class HelloAdminControllerV2 implements Initializable {
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/LockerInfo.css").toExternalForm());
 
-        // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
+        /* Execution Logo Icon */
         Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
         dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 

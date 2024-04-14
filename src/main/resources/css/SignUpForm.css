@@ -68,6 +68,22 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
+/* ComboBox - List Cell */
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
+}
+
 /* Button */
 .signUp_Btn {
     -fx-font-family: "Jua";
@@ -156,7 +172,7 @@ AnchorPane {
     -fx-background-color: #DABDFF;
 }
 
-/* Radio Button Hover 상태 색상 변경 */
+/* Radio Button Non-selected Hover 상태 색상 변경 */
 .signUp_sex_radioBtn_1 .radio:hover,
 .signUp_sex_radioBtn_2 .radio:hover {
     -fx-background-color: #C4A3FF;
@@ -166,6 +182,12 @@ AnchorPane {
 .signUp_sex_radioBtn_1:selected .radio,
 .signUp_sex_radioBtn_2:selected .radio {
     -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.signUp_sex_radioBtn_1:selected .radio:hover,
+.signUp_sex_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
 }
 
 /* Radio Button Dot 색상 변경 */

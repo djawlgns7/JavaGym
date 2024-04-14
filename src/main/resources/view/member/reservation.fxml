@@ -11,7 +11,7 @@
 
         <HBox alignment="CENTER_LEFT" styleClass="textMain">
             <Region HBox.hgrow="ALWAYS" />
-            <Label text="JAVA GYM" stylesheets="/css/fonts.css" styleClass="title_label">
+            <Label text="JAVA GYM" styleClass="title_label">
                 <font>
                     <Font name="Anton-Regular" />
                 </font>

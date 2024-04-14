@@ -2,12 +2,12 @@
     -fx-font-size: 36;
     -fx-font-family: "Jua";
 }
-
+/*
 .nameInput, .rDateInput, .rTimeInput {
     -fx-pref-width: 200;
     -fx-pref-height: 40;
 }
-
+*/
 /* ============== Button ============== */
 .reservationInfo_Btn {
     -fx-spacing: 50;
