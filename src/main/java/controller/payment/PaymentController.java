@@ -1,5 +1,6 @@
 package controller.payment;
 
+import domain.Item;
 import domain.payment.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,17 +15,16 @@ import repository.TrainerRepository;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static util.AlertUtil.showAlert;
+import static util.AlertUtil.showAlertChoose;
 import static util.ControllerUtil.createImageViewFromBytes;
-import static util.MemberUtil.getLockerNum;
-import static util.MemberUtil.getRemainAll;
+import static util.MemberUtil.*;
 import static util.PageUtil.movePageCenter;
+import static util.PurchaseUtil.purchaseItem;
 
 public class PaymentController implements Initializable {
 
@@ -601,8 +601,109 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    private void payment(ActionEvent event) {
+    private void payment(ActionEvent event) throws IOException {
+        if(basket.isEmpty()){
+            showAlert("물품을 하나 이상 선택해 주세요", Alert.AlertType.ERROR);
+            return;
+        }
 
+        totalPrice = gymPrice + ptPrice + lockerPrice + clothesPrice;
+        String totalPriceText = "\n총 " + totalPrice / 1000 + ",000원";
+        StringBuilder sb = new StringBuilder();
+        sb.append("결제를 정상 진행하시겠습니까?\n\n");
+
+        for(Available ticket : basket){
+            if(ticket instanceof GymTicket){
+                int period = ((GymTicket)ticket).getPeriod();
+                int price = ((GymTicket)ticket).getPrice();
+                String priceText = price / 1000 + ",000원";
+
+                sb.append("이용권 ").append(period).append("일 ").append(priceText).append("\n");
+            }
+        }
+
+        for(Available ticket : basket){
+            if(ticket instanceof PtTicket){
+                int time = ((PtTicket)ticket).getTime();
+                int price = ((PtTicket)ticket).getPrice();
+                String priceText = price / 1000 + ",000원";
+
+                sb.append("PT ").append(time).append("회 ").append(priceText).append("\n");
+            }
+        }
+
+        for(Available ticket : basket){
+            if(ticket instanceof Locker){
+                int period = ((Locker)ticket).getPeriod();
+                int number = ((Locker)ticket).getNum();
+                int price = ((Locker)ticket).getPrice();
+                String priceText = price / 1000 + ",000원";
+
+                sb.append("사물함 No.").append(number).append(" ").append(period).append("일 ").append(priceText).append("\n");
+            }
+        }
+
+        for(Available ticket : basket){
+            if(ticket instanceof Clothes){
+                int period = ((Clothes)ticket).getPeriod();
+                int price = ((Clothes)ticket).getPrice();
+                String priceText = price / 1000 + ",000원";
+
+                sb.append("운동복 ").append(period).append("일 ").append(priceText).append("\n");
+            }
+        }
+
+        sb.append(totalPriceText);
+
+        Optional<ButtonType> result = showAlertChoose(sb.toString());
+
+        if(result.get() == ButtonType.OK){
+            int memberNum = currentMember.getNum();
+
+            for(Available ticket : basket){
+                if(ticket instanceof PtTicket){
+                    int trainerNum = currentTrainer.getNum();
+                    int quantity = ((PtTicket)ticket).getTime();
+
+                    purchaseItem(memberNum, Item.PT_TICKET, quantity);
+                    changeTrainerOfMember(memberNum, trainerNum);
+                }
+
+                if(ticket instanceof GymTicket){
+                    int quantity = ((GymTicket)ticket).getPeriod();
+
+                    purchaseItem(memberNum, Item.GYM_TICKET, quantity);
+                }
+
+                if(ticket instanceof Locker){
+                    int quantity = ((Locker)ticket).getPeriod();
+                    int lockerNum = ((Locker)ticket).getNum();
+                    int currentLockerNum = getLockerNum(memberNum);
+
+                    if(currentLockerNum == 0){
+                        purchaseItem(memberNum, Item.LOCKER, quantity);
+                        setLockerNum(memberNum, lockerNum);
+                    }else{
+                        deleteLockerNum(memberNum);
+                        purchaseItem(memberNum, Item.LOCKER, quantity);
+                        setLockerNum(memberNum, lockerNum);
+                    }
+                }
+
+                if(ticket instanceof Clothes){
+                    int quantity = ((Clothes)ticket).getPeriod();
+
+                    purchaseItem(memberNum, Item.CLOTHES, quantity);
+                }
+            }
+
+            showAlert("결제가 완료되었습니다!", Alert.AlertType.INFORMATION);
+
+            selectTrainer = false;
+            currentTrainer = null;
+            basket.clear();
+            movePageCenter(event, "/view/member/memberLogin");
+        }
     }
 
     public static void removeItem(Set<Available> basket, Class<?> type) {
