@@ -10,7 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import repository.TrainerRepository;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +28,7 @@ import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePageCenter;
 import static util.PurchaseUtil.purchaseItem;
+import static util.SoundUtil.*;
 
 public class PaymentController implements Initializable {
 
@@ -435,7 +439,7 @@ public class PaymentController implements Initializable {
                 selectGymPriceLabel.setText("150,000원");
 
                 removeItem(basket, GymTicket.class);
-                basket.add(new GymTicket(90, 50000));
+                basket.add(new GymTicket(90, 150000)); // 수정 (성진)
                 break;
             case "180일":
                 gymPrice = 280000;
@@ -607,6 +611,8 @@ public class PaymentController implements Initializable {
             return;
         }
 
+        play("checkPayment");
+
         totalPrice = gymPrice + ptPrice + lockerPrice + clothesPrice;
         String totalPriceText = "\n총 " + totalPrice / 1000 + ",000원";
         StringBuilder sb = new StringBuilder();
@@ -708,9 +714,5 @@ public class PaymentController implements Initializable {
 
     public static void removeItem(Set<Available> basket, Class<?> type) {
         basket.removeIf(ticket -> type.isInstance(ticket));
-    }
-
-    public static void printBasket() {
-        basket.forEach(ticket -> System.out.println(ticket));
     }
 }
