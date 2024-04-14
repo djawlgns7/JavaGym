@@ -5,6 +5,7 @@ ConnectionConst.java
 .gradle/
 build/
 build/tmp/
+.idea/
 
 .gradle/
 build/

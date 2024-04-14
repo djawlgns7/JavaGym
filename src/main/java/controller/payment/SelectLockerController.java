@@ -1,6 +1,5 @@
-package controller.member;
+package controller.payment;
 
-import controller.payment.PaymentTab;
 import domain.member.Member;
 import domain.member.UsingLocker;
 import domain.payment.Locker;
