@@ -69,6 +69,7 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+
             selectedReservations = new ArrayList<>();
 
             List<MemberSchedule> memberSchedule;
