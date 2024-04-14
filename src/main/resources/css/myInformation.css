@@ -21,11 +21,11 @@ AnchorPane {
 .myInformation_Trainer_Info {
     -fx-font-family: "Jua";
     -fx-font-size: 20;
-    -fx-background-color: #E9E9E9;
-    -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-pref-height: 180;
-    -fx-translate-y: -50;
+   -fx-background-color: #E9E9E9;
+   -fx-border-color: black;
+   -fx-border-width: 1;
+   -fx-pref-height: 180;
+   -fx-translate-y: -50;
 }
 
 .myInformation_PTReservation_Info {
