@@ -16,7 +16,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/reservation.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         stage.setScene(new Scene(loginRoot));
 
         // 프로젝트 실행 아이콘 이미지 로드 (승빈)
