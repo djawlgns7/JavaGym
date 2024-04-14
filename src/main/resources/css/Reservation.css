@@ -1,6 +1,32 @@
 /* jihun  + mintaek */
 /* Label 스타일 */
 
+.reservation_TopBtn {
+    -fx-font-family: "Jua";
+    -fx-padding: 0 20 0 0;
+    -fx-translate-y: 37;
+}
+
+.reservation_MainIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.reservation_MainIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+}
+
+.reservation_title {
+    -fx-font-size: 84;
+    -fx-font-family: "Anton";
+    -fx-translate-y: -50;
+}
+
+
 Button {
     -fx-pref-width: 70px;
     -fx-pref-height: 30px;
@@ -13,15 +39,6 @@ Button:hover {
     -fx-background-color: #EA8ABE;
 }
 
-.textMain {
-    -fx-translate-x: 60px;
-}
-
-#home {
-    -fx-font-size: 15px;
-    -fx-padding: 0 15 0 0;
-}
-
 .trainerInfoView {
     -fx-translate-y: -50px;
 }
@@ -29,11 +46,6 @@ Button:hover {
 .trainerProfile {
     -fx-font-size: 20px;
     -fx-padding: 20 0 0 0;
-}
-
-.moveMainPage2 {
-    -fx-padding: 0 20 0 0;
-
 }
 
 .title_label {
@@ -44,16 +56,6 @@ Button:hover {
 .imageProfile {
     -fx-padding: 0 0 0 50;
 }
-
-/*.ticketSelectHeader{*/
-/*    -fx-pref-width: 400;*/
-/*    -fx-background-color: transparent;*/
-/*    -fx-font-size: 15px;*/
-/*    -fx-text-fill: #333333;*/
-/*    -fx-pref-height: 50;*/
-/*    -fx-alignment: "javafx.geometry.Pos.CENTER";*/
-/*    -fx-border-color: lightgray;*/
-/*}*/
 
 .count {
     -fx-translate-y: -40px;
@@ -205,16 +207,16 @@ Button:hover {
 }
 
 .timeStamp {
-    -fx-pref-height: 50;
-    -fx-pref-width: 400;
+    -fx-pref-width: 300;
+    -fx-pref-height: 200;
     -fx-font-size: 20px;
     -fx-border-color: transparent;
-    -fx-translate-y: -50px;
+    -fx-translate-y: -80px;
 }
 
 /* 선택한 예약 목록이 있는 곳 */
 
-.selectedReservationArea {
+.selectReservation {
     -fx-translate-y: -40px;
 }
 
@@ -230,6 +232,12 @@ Button:hover {
 
 /* fxml에 없는거임 건들지 마셈 */
 #selectedReservationList {
-    -fx-translate-y: -35px;
+    -fx-translate-y: -55px;
     -fx-font-size: 20px;
+}
+
+.selectedReservationList {
+    -fx-pref-height: 100;
+    -fx-border-color: #bf9dfc;
+    -fx-border-radius: 5px;
 }
