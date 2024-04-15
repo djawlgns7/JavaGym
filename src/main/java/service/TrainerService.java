@@ -43,7 +43,7 @@ public class TrainerService {
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
             System.out.println(currentTrainer);
-            movePage(event, "/view/trainer/helloTrainer" );
+            movePageCenter(event, "/view/trainer/helloTrainer" );
         } else {
             showAlertLoginFail("wrongPw");
         }

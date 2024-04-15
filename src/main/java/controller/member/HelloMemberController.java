@@ -29,7 +29,6 @@ import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePage;
 import static util.PageUtil.movePageCenter;
 
 public class HelloMemberController implements Initializable {
@@ -48,7 +47,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        movePageCenter(event, "/view/member/memberLogin");
     }
 
     @FXML
@@ -63,13 +62,13 @@ public class HelloMemberController implements Initializable {
         }else if(memberReservationNum >= 4){
             showAlert("최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
         }else {
-            movePage(event, "/view/member/reservation");
+            movePageCenter(event, "/view/member/reservation");
         }
     }
 
     @FXML
     private void myInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/myInformation");
+        movePageCenter(event, "/view/member/myInformation");
     }
 
     @FXML
@@ -82,7 +81,7 @@ public class HelloMemberController implements Initializable {
         String today = LocalDate.now().toString();
         if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
             entryLogRepository.save(memberNum);
-            showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMoveCenter(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         } else {
             showAlertUseMessage("DeniedEntry");
         }

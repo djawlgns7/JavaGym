@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,7 +15,6 @@ import repository.MemberRepository;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import service.MemberService;
-import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +22,6 @@ import java.util.ResourceBundle;
 
 import static util.AlertUtil.*;
 import static util.PageUtil.*;
-import static util.SoundUtil.*;
 
 public class MemberLoginController implements Initializable {
 
@@ -48,17 +44,17 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/signUpForm");
+        movePageCenter(event, "/view/member/signUpForm");
     }
 
     @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/admin/adminLogin");
+        movePageCenter(event, "/view/admin/adminLogin");
     }
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePage(event, "/view/trainer/trainerLogin");
+        movePageCenter(event, "/view/trainer/trainerLogin");
     }
 
     @FXML
@@ -91,8 +87,5 @@ public class MemberLoginController implements Initializable {
 
         Circle cilpCircle = new Circle(100, 100, 100);
         profileImage.setClip(cilpCircle);
-
-
-        play("welcome");
     }
 }
