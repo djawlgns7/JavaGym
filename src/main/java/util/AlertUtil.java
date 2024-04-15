@@ -1,7 +1,6 @@
 package util;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
