@@ -5,12 +5,14 @@ import domain.member.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
 import service.SmsService;
+import thread.InactivityManager;
 //import service.SmsService;
 import java.io.IOException;
 import java.net.URL;
@@ -87,7 +89,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        movePageCenter(event, "/view/member/memberLogin");
     }
 
     @Override

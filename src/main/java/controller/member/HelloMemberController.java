@@ -29,7 +29,6 @@ import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePage;
 import static util.PageUtil.movePageCenter;
 
 public class HelloMemberController implements Initializable {

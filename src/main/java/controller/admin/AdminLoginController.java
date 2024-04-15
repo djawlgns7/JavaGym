@@ -32,7 +32,7 @@ public class AdminLoginController {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        movePageCenter(event, "/view/member/memberLogin");
     }
 
     @FXML

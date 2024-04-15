@@ -19,6 +19,7 @@ import java.util.Date;
 
 import static domain.member.SelectedMember.*;
 import static util.AlertUtil.*;
+import static util.PageUtil.*;
 import static util.ValidateUtil.isWrongLengthPhone;
 
 public class MemberService {
@@ -64,7 +65,7 @@ public class MemberService {
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
             currentMember = findMember;
-            PageUtil.movePage(event, "/view/member/helloMember");
+            movePageCenter(event, "/view/member/helloMember");
         } else {
             showAlertLoginFail("wrongPw");
 
@@ -107,7 +108,9 @@ public class MemberService {
             String today = LocalDate.now().toString();
             if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
                 entryLogRepository.save(findMember.getNum());
-                showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+                showDialogAndMovePage(findMember.getName() + "님 오늘도 파이팅!", "/view/member/memberLogin", event);
+
+//                showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
             } else {
                 showAlertUseMessage("DeniedEntry");
             }
