@@ -1,11 +1,7 @@
 package controller.trainer;
 
-import converter.DateToStringConverter;
-import domain.member.Member;
 import domain.trainer.Reservation;
-import domain.trainer.SelectedReservation;
 import domain.trainer.Trainer;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -24,11 +19,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
-import static domain.trainer.SelectedTrainer.*;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.DialogUtil.*;
 import static util.DialogUtil.showDialogChoose;
@@ -39,7 +32,6 @@ import static util.ValidateUtil.*;
 public class ReservationDetailController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     @FXML
     private TextField rTimeField;

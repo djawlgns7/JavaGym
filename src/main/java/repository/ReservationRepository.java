@@ -50,7 +50,6 @@ public class ReservationRepository {
                 reservation.setReservationTime(rs.getInt("r_time"));
 
                 list.add(reservation);
-                System.out.println("Loaded reservation number: " + reservation.getReservationNum());
             }
             return list;
         } catch (SQLException e) {
@@ -222,7 +221,6 @@ public class ReservationRepository {
             pstmt.setDate(1, reservation.getReservationDate());
             pstmt.setInt(2, reservation.getReservationTime());
             pstmt.setInt(3, reservation.getReservationNum());
-            System.out.println(reservation.getReservationNum());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

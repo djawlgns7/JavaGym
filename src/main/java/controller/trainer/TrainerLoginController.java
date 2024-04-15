@@ -29,6 +29,9 @@ public class TrainerLoginController {
 
     @FXML
     public void login(ActionEvent event) throws IOException {
+        String id = idField.getText().trim();
+        String password = passwordField.getText().trim();
+
         service.login(idField, passwordField, event);
     }
 

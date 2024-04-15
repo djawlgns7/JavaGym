@@ -1,7 +1,5 @@
 package controller.trainer;
 
-
-import domain.member.Member;
 import domain.trainer.*;
 
 import javafx.event.ActionEvent;
@@ -9,26 +7,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
-import repository.AdminRepository;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
