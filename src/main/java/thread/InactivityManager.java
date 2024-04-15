@@ -10,6 +10,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import util.SoundUtil;
 
 public class InactivityManager {
     private static Stage mainStage;
@@ -25,7 +26,10 @@ public class InactivityManager {
             inactivityTimer.stop();
         }
 
-        inactivityTimer = new Timeline(new KeyFrame(Duration.seconds(60), e -> moveToMainScreen()));
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(50), e -> SoundUtil.play("toMainPage"));
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(60), e -> moveToMainScreen());
+
+        inactivityTimer = new Timeline(alertFrame, endFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
 
         // 마우스 움직임과 키 이벤트를 감지하도록 이벤트 리스너를 추가
