@@ -1,5 +1,88 @@
+/* Tab */
+.tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* 선택된 Tab */
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected,
+.tab-pane .tab:selected {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-background-color: #9747FF;
+    -fx-border-color: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 선택된 Tab Hover */
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected:hover,
+.tab-pane .tab:selected:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE transparent #EA8ABE;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 5;
+}
+
+/* 선택되지 않은 Tab */
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-background-color: #BAA6FF;
+    -fx-border-color: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 선택되지 않은 Tab Hover */
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE transparent #EA8ABE;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 5;
+}
+
+.memberInfo_Tab, .trainerInfo_Tab {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 178px;
+    -fx-pref-height: 30px;
+    -fx-text-fill: #FFFFFF;
+}
+
 /* VBox */
 SplitPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* SplitPane */
+.split-pane-divider {
+    -fx-background-color: #C4A3FF; /* 분할선의 색상 변경 */
+    -fx-border-color: transparent; /* 분할선의 테두리 색상 변경 */
+    -fx-padding: 0.5px; /* 분할선의 너비 변경 */
+}
+
+/* Scroll Bar */
+.scroll-bar {
+    -fx-background-color: #C4A3FF;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #DABDFF;
+    -fx-background-insets: 2, 2, 2;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #C4A3FF;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #DABDFF;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
     -fx-background-color: #FFFFFF;
 }
 

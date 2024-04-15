@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static util.PageUtil.movePageCenter;
 
 public class AlertUtil {
 
@@ -34,31 +37,6 @@ public class AlertUtil {
         alert.setTitle("알림");
         alert.setHeaderText(null);
         alert.setContentText(basicMessage.getString(messageCode));
-
-        /* Alert CSS 적용 */
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
-        );
-
-        /* Content Text */
-        for (Node node : dialogPane.lookupAll(".content")) {
-            if (node instanceof Label) {
-                node.getStyleClass().add("alert_ContentText");
-            }
-        }
-
-        /* Button */
-        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(checkButtonType);
-
-        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
-        checkButton.getStyleClass().add("alert_Button");
-
-        /* Execution Logo Icon */
-        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
         alert.showAndWait();
     }
 
@@ -67,31 +45,6 @@ public class AlertUtil {
         alert.setTitle(errorMessage.getString("loginFail"));
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
-
-        /* Alert CSS 적용 */
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
-        );
-
-        /* Content Text */
-        for (Node node : dialogPane.lookupAll(".content")) {
-            if (node instanceof Label) {
-                node.getStyleClass().add("alert_ContentText");
-            }
-        }
-
-        /* Button */
-        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(checkButtonType);
-
-        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
-        checkButton.getStyleClass().add("alert_Button");
-
-        /* Execution Logo Icon */
-        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
         alert.showAndWait();
     }
 
@@ -100,31 +53,6 @@ public class AlertUtil {
         alert.setTitle(errorMessage.getString("signUpFail"));
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
-
-        /* Alert CSS 적용 */
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                AlertUtil.class.getResource("/css/AlertPopUp.css").toExternalForm()
-        );
-
-        /* Content Text */
-        for (Node node : dialogPane.lookupAll(".content")) {
-            if (node instanceof Label) {
-                node.getStyleClass().add("alert_ContentText");
-            }
-        }
-
-        /* Button */
-        ButtonType checkButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(checkButtonType);
-
-        Button checkButton = (Button) alert.getDialogPane().lookupButton(checkButtonType);
-        checkButton.getStyleClass().add("alert_Button");
-
-        /* Execution Logo Icon */
-        Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(AlertUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
         alert.showAndWait();
     }
 
@@ -176,6 +104,7 @@ public class AlertUtil {
             newStage.setScene(newScene);
             newStage.show();
         }
+
     }
 
     public static void showAlertAndMoveCenter(String message, Alert.AlertType type, String viewPath, ActionEvent event) throws IOException {

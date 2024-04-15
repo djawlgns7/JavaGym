@@ -35,31 +35,32 @@
 - 내 정보 페이지 최종 수정 (완료)
 - spinner, datepicker, combobox TextField 색상 변경 (완료)
 - 관리자 페이지 테이블 뷰 크기 조정 (완료)
-===================================================================================================================================
+- 중앙선, 스크롤바 디자인 변경 (완료)
+==================================================================================================
 - spinner, datepicker, combobox, radiobutton 버튼 및 화살표 색, 디자인 변경 (진행 중)
   /* 완료 */
   == MemberDetail, TrainerDetail, helloAdminV2, SignUp
   /* 미완료 */
   == Trainer, Reservation, Payment
-
+==================================================================================================
 - 전체 페이지 틀 크기(높이 + 너비) 동일한 값으로 조정
   /* 완료 */
   =(회원)= MemberLogin, HelloMember, MyInformation, SignUp,
   =(관리자)= AdminLogin, helloAdminV2, memberDetail, trainerDetail
   /* 미완료 */
   == Trainer, Reservation, Payment
-
-- 각종 팝업창(알림) 통일 및 디자인 (진행 중)
+==================================================================================================
+- 각종 팝업창(알림) 통일 및 디자인
   /* 완료 */
-  == SMS Message Alert, Member & Login Alert, SignUp Alert
+  ==
   /* 미완료 */
-  == Admin Add & Update Member Alert, Admin Add & Update Trainer Alert, Show & Move Alert, Show & MoveCenter Alert, 2 Choose Alert
-===================================================================================================================================
-
+  == SMS Message Alert, Member & Login Alert, SignUp Alert, Admin Add & Update Member Alert,
+  == Admin Add & Update Trainer Alert, Show & Move Alert, Show & MoveCenter Alert, 2 Choose Alert
+==================================================================================================
 
 - 예약 페이지 디자인 통일
 - 트레이너 페이지 디자인 통일
 - 결제 페이지 디자인
-- 중앙선, 스크롤바 디자인 변경
 
-- 피그마 디자인 수정 및 관리자 부분 디자인 추가
+- 피그마 디자인 수정 및 관리자 부분 디자인 추가 (완료)
+- 피그마 디자인 수정 및 트레이너 부분 디자인 추가
