@@ -1,23 +1,34 @@
 package controller.trainer;
 
+import domain.trainer.SelectedTrainer;
+import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import repository.TrainerRepository;
 
 import java.io.IOException;
-
+import static domain.trainer.SelectedTrainer.*;
 import static util.PageUtil.movePage;
+
 
 public class HelloTrainerController {
 
     @FXML
     private ImageView profileImage;
 
+    private TrainerRepository trainerRepository = new TrainerRepository();
     @FXML
     public void reservationInfo(ActionEvent event) throws IOException {
-        movePage(event, "/view/trainer/reservationInfo");
+        if (SelectedTrainer.currentTrainer != null && SelectedTrainer.currentTrainer.getId() != null) {
+            Trainer updatedTrainer = trainerRepository.findById(SelectedTrainer.currentTrainer.getId());
+            if (updatedTrainer != null) {
+                SelectedTrainer.setCurrentTrainer(updatedTrainer); // 갱신된 트레이너 정보로 업데이트
+                movePage(event, "/view/trainer/reservationInfo");
+            }
+        }
     }
 
     @FXML

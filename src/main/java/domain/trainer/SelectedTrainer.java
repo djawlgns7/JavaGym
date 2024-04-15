@@ -11,7 +11,4 @@ public class SelectedTrainer {
         SelectedTrainer.currentTrainer = currentTrainer;
     }
 
-    public static Trainer getCurrentTrainer() {
-        return currentTrainer;
-    }
 }
