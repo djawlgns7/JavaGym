@@ -39,10 +39,7 @@ public class TrainerService {
 
         Trainer findTrainer = trainerRepository.findById(id);
         System.out.println(findTrainer);
-        if (findTrainer == null) {
-            showAlertLoginFail("notFound");
-            return;
-        }
+
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
 
