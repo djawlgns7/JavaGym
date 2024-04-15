@@ -4,8 +4,6 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 <AnchorPane stylesheets="/css/common.css" prefHeight="1000.0" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.payment.PaymentController">
         <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
