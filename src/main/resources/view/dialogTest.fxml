@@ -6,12 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.DialogTestController"
-            prefHeight="400.0" prefWidth="600.0"
-            fx:id="window">
+<AnchorPane fx:controller="controller.DialogTestController" xmlns:fx="http://javafx.com/fxml" prefHeight="400" prefWidth="600" fx:id="root">
 <VBox alignment="CENTER">
-    <Label fx:id="asdf"></Label>
+    <Label fx:id="timer"></Label>
 </VBox>
 </AnchorPane>

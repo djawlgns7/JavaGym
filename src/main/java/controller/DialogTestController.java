@@ -1,14 +1,13 @@
 package controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,17 +15,19 @@ import java.util.ResourceBundle;
 public class DialogTestController implements Initializable {
 
     @FXML
-    private Label asdf;
-    @FXML
-    private AnchorPane window;
+    private Label timer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setTimer();
+    }
+
+    public void setTimer(){
         Thread thread = new Thread(() -> {
-            for(int i = 5; i > 0; i--) {
+            for(int i = 10; i > 0; i--) {
                 int finalI = i;
                 Platform.runLater(() -> {
-                    asdf.setText(finalI + "초 남음");
+                    timer.setText(finalI + "초 남음");
                 });
                 try {
                     Thread.sleep(1000);
@@ -35,19 +36,16 @@ public class DialogTestController implements Initializable {
                 }
             }
 
-            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                closeDialog(); // 다이얼로그를 닫는 메소드 호출
-            }));
-            timeline.setCycleCount(1); // 타이머를 한 번만 실행하도록 설정
-            timeline.play();
+            Platform.runLater(() -> {
+                closeDialog();
+            });
         });
 
         thread.start();
     }
 
     public void closeDialog() {
-        Stage stage = (Stage) window.getScene().getWindow();
-        // Stage를 닫음
+        Stage stage = (Stage) timer.getScene().getWindow();
         stage.close();
     }
 }

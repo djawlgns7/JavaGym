@@ -2,7 +2,6 @@ package util;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -11,8 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -24,8 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static util.PageUtil.*;
 
@@ -197,7 +192,8 @@ public class AlertUtil {
 
             // 새로운 Stage 생성
             Stage dialogStage = new Stage();
-            dialogStage.setScene(new Scene(root));
+            Scene newScene = new Scene(root);
+            dialogStage.setScene(newScene);
             dialogStage.setTitle("Custom Dialog");
             dialogStage.showAndWait(); // 다이얼로그를 표시하고 대기
         } catch (IOException e) {
