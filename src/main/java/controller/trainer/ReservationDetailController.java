@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -57,7 +58,7 @@ public class ReservationDetailController implements Initializable {
     private void updateReservation(ActionEvent event) throws IOException {
         //수정 내용이 없을 경우
         if(isSameReservationTime() && isSameReservationDate()) {
-            showAlertUpdateReservationFail("isSame");
+            showDialogErrorMessage("isSame");
             return;
         }
 
@@ -68,18 +69,19 @@ public class ReservationDetailController implements Initializable {
             Date rDate = Date.valueOf(ptDatePicker.getValue());
             LocalDate localrDate = rDate.toLocalDate();
             Integer rTime = Integer.valueOf(rTimeField.getText().trim());
+
             if (!isValidTimeForTrainer(currentTrainer, rTime)) {
-                showAlertUpdateReservationFail("wrongTimeForTrainer");
+                showDialogErrorMessage("wrongTimeForTrainer");
                 return;
             }
 
             if (!isDateAndTimeValid(localrDate, rTime)) {
-                showAlertUpdateReservationFail("wrongTime");
+                showDialogErrorMessage("wrongTime");
                 return;
             }
 
-            if (!isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
-                showDialogUpdateReservationFail("reservationHasExist");
+            if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+                showDialogErrorMessage("reservationHasExist");
                 return;
             }
 
@@ -106,7 +108,7 @@ public class ReservationDetailController implements Initializable {
 
                 }
 
-                showDialogAndMoveCenter("예약 정보가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
+                showDialogAndMovePage("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
             }
         }
     }
@@ -115,7 +117,7 @@ public class ReservationDetailController implements Initializable {
     private void cancelReservation(ActionEvent event) {
         Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            reservationRepository.deleteReservation(reservation.getReservationNum());
+            reservationRepository.deleteReservation(currentReservation.getReservationNum());
             showDialog("예약이 취소되었습니다.");
         }
     }
@@ -180,7 +182,7 @@ public class ReservationDetailController implements Initializable {
     private void goBack(ActionEvent event) {
         try {
             if (currentTrainer != null && currentTrainer.getNum() != null) {
-                movePageCenter(event, "/view/trainer/reservationInfo");
+                movePage(event, "/view/trainer/reservationInfo");
             }
         } catch (Exception e) {
             e.printStackTrace();

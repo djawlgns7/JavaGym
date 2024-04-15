@@ -5,6 +5,7 @@ import domain.member.Member;
 import domain.trainer.Reservation;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
+import domain.trainer.WorkingHour;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -236,12 +237,12 @@ public class ValidateUtil {
 
     public static boolean addReservationValidate(String name, String phone) {
         if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
+            showDialogErrorMessage("tooLongName");
             return true;
         }
 
         if (isWrongLengthPhone(phone)) {
-            showAlertAddMemberFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
         }
 
         return false;

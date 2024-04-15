@@ -15,6 +15,7 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
+import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,11 +29,11 @@ import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertAddReservationFail;
-import static util.AlertUtil.showAlertAndMove;
+
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
-import static util.PageUtil.movePageCenter;
+import static util.DialogUtil.*;
+import static util.PageUtil.movePage;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -55,7 +56,7 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
         if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
-            showAlertAddReservationFail("emptyAnyField");
+            showDialogErrorMessage("emptyAnyField");
             return;
         }
 
@@ -70,27 +71,27 @@ public class ReservationInfoController implements Initializable {
         LocalDate localrDate = rDate.toLocalDate();
 
         if (!isValidTimeForTrainer(currentTrainer, rTime)) {
-            showAlertAddReservationFail("wrongTimeForTrainer");
+            showDialogErrorMessage("wrongTimeForTrainer");
             return;
         }
 
         if (!isDateAndTimeValid(localrDate, rTime)) {
-            showAlertAddReservationFail("wrongTime");
+            showDialogErrorMessage("wrongTime");
             return;
         }
 
         if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
-            showAlertAddReservationFail("reservationHasExist");
+            showDialogErrorMessage("reservationHasExist");
             return;
         }
 
         if (!isValidPtTicket(memberNum)) {
-            showAlertAddReservationFail("noPTTicket");
+            showDialogErrorMessage("noPTTicket");
             return;
         }
 
         if(isNotYourMember(memberNum)) {
-            showAlertAddReservationFail("notYourMember");
+            showDialogErrorMessage("notYourMember");
             return;
         }
 
@@ -183,7 +184,7 @@ public class ReservationInfoController implements Initializable {
         if(reservation != null && event.getClickCount() == 2) {
             currentReservation = reservation;
             currentTrainer = trainer;
-            movePageCenter(event, "/view/trainer/reservationDetail");
+            movePage(event, "/view/trainer/reservationDetail");
         }
     }
 

@@ -26,7 +26,7 @@ public class HelloTrainerController {
             Trainer updatedTrainer = trainerRepository.findById(SelectedTrainer.currentTrainer.getId());
             if (updatedTrainer != null) {
                 SelectedTrainer.setCurrentTrainer(updatedTrainer); // 갱신된 트레이너 정보로 업데이트
-                movePageCenter(event, "/view/trainer/reservationInfo");
+                movePage(event, "/view/trainer/reservationInfo");
             }
         }
     }

@@ -122,12 +122,12 @@ SplitPane {
 
 .trainerInfo_ImageBtn:hover, .trainerInfo_addTrainerBtn:hover, .trainerInfo_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerInfo_ImageBtn:pressed, .trainerInfo_addTrainerBtn:pressed, .trainerInfo_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
@@ -175,12 +175,12 @@ SplitPane {
 
 .trainerInfo_searchBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerInfo_searchBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerInfo_numColumn, .trainerInfo_nameColumn, .trainerInfo_idColumn,
@@ -281,10 +281,10 @@ SplitPane {
 
 .trainerInfo_refreshBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerInfo_refreshBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
