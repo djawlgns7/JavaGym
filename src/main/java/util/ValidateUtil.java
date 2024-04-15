@@ -2,18 +2,15 @@ package util;
 
 import domain.member.Member;
 import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import repository.MemberRepository;
-import repository.ReservationRepository;
 import repository.TrainerRepository;
 
 import static domain.trainer.SelectedTrainer.*;
-import static util.AlertUtil.*;
-import static util.AlertUtil.showAlertAddMemberFail;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
 
@@ -76,32 +73,32 @@ public class ValidateUtil {
 
 
         if (isDuplicatePhone(phone)) {
-            showAlertSignUpFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
             return true;
         }
 
         if (!pw.equals(pwConfirm)) {
-            showAlertSignUpFail("wrongPw");
+            showDialogErrorMessage("wrongPw");
             return true;
         }
 
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
-            showAlertSignUpFail("duplicatePhoneAndEmail");
+            showDialogErrorMessage("duplicatePhoneAndEmail");
             return true;
         }
 
         if (isWrongEmail(email)) {
-            showAlertSignUpFail("wrongEmail");
+            showDialogErrorMessage("wrongEmail");
             return true;
         }
 
         if (isDuplicateEmail(email)) {
-            showAlertSignUpFail("duplicateEmail");
+            showDialogErrorMessage("duplicateEmail");
             return true;
         }
 
         if (isWrongBirth(birth)) {
-            showAlertSignUpFail("wrongBirth");
+            showDialogErrorMessage("wrongBirth");
             return true;
         }
 
@@ -111,31 +108,31 @@ public class ValidateUtil {
     public static boolean addMemberValidate(String name, String phone, String email, String birth) {
 
         if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
+            showDialogErrorMessage("tooLongName");
             return true;
         }
         if (isDuplicatePhone(phone) && isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicatePhoneAndEmail");
+            showDialogErrorMessage("duplicatePhoneAndEmail");
             return true;
         }
 
         if (isWrongBirth(birth)) {
-            showAlertAddMemberFail("wrongBirth");
+            showDialogErrorMessage("wrongBirth");
             return true;
         }
 
         if (isDuplicateEmail(email)) {
-            showAlertAddMemberFail("duplicateEmail");
+            showDialogErrorMessage("duplicateEmail");
             return true;
         }
 
         if (isDuplicatePhone(phone)) {
-            showAlertAddMemberFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
             return true;
         }
 
         if (isWrongEmail(email)) {
-            showAlertAddMemberFail("wrongEmail");
+            showDialogErrorMessage("wrongEmail");
             return true;
         }
         return false;
@@ -144,42 +141,42 @@ public class ValidateUtil {
     public static boolean addTrainerValidate(String name, String phone, String id, String birth, Double height, Double weight) {
 
         if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
+            showDialogErrorMessage("tooLongName");
             return true;
         }
 
         if (isDuplicateName(name)) {
-            showAlertAddMemberFail("duplicateName");
+            showDialogErrorMessage("duplicateName");
             return true;
         }
 
         if (isDuplicatePhone(phone) && isDuplicateTrainerId(id)) {
-            showAlertAddTrainerFail("duplicateIdAndPhone");
+            showDialogErrorMessage("duplicateIdAndPhone");
             return true;
         }
 
         if (isDuplicateTrainerId(id)) {
-            showAlertAddTrainerFail("duplicateId");
+            showDialogErrorMessage("duplicateId");
             return true;
         }
 
         if (isWrongBirth(birth)) {
-            showAlertAddTrainerFail("wrongBirth");
+            showDialogErrorMessage("wrongBirth");
             return true;
         }
 
         if (isDuplicatePhone(phone)) {
-            showAlertAddTrainerFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
             return true;
         }
 
         if (isWrongId(id)) {
-            showAlertAddTrainerFail("wrongID");
+            showDialogErrorMessage("wrongID");
             return true;
         }
 
         if (!((100 < height && height < 220) || (30 < weight && weight < 150))) {
-            showAlertAddTrainerFail("wrongHeightOrWeight");
+            showDialogErrorMessage("wrongHeightOrWeight");
             return true;
         }
         return false;
@@ -188,37 +185,37 @@ public class ValidateUtil {
     public static boolean updateTrainerValidate(String name, String phone, String id, Double height, Double weight) {
 
         if (name.length() > 10) {
-            showAlertAddMemberFail("tooLongName");
+            showDialogErrorMessage("tooLongName");
             return true;
         }
 
         if (isDuplicateName(name) && !currentTrainer.getName().equals(name)) {
-            showAlertAddMemberFail("duplicateName");
+            showDialogErrorMessage("duplicateName");
             return true;
         }
 
         if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !currentTrainer.getPhone().equals(phone) && !currentTrainer.getId().equals(id)) {
-            showAlertAddTrainerFail("duplicateIdAndPhone");
+            showDialogErrorMessage("duplicateIdAndPhone");
             return true;
         }
 
         if (isDuplicateTrainerId(id) && !currentTrainer.getId().equals(id)) {
-            showAlertAddTrainerFail("duplicateId");
+            showDialogErrorMessage("duplicateId");
             return true;
         }
 
         if (isDuplicatePhone(phone) && !currentTrainer.getPhone().equals(phone)) {
-            showAlertAddTrainerFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
             return true;
         }
 
         if (isWrongId(id)) {
-            showAlertAddTrainerFail("wrongID");
+            showDialogErrorMessage("wrongID");
             return true;
         }
 
         if (!((100 < height && height < 220) || (30 < weight && weight < 150))) {
-            showAlertAddTrainerFail("wrongHeightOrWeight");
+            showDialogErrorMessage("wrongHeightOrWeight");
             return true;
         }
         return false;

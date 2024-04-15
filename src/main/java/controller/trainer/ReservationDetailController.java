@@ -1,12 +1,7 @@
 package controller.trainer;
 
-import converter.DateToStringConverter;
-import domain.member.Member;
 import domain.trainer.Reservation;
 import domain.trainer.SelectedReservation;
-import domain.trainer.SelectedTrainer;
-import domain.trainer.Trainer;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,19 +13,20 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
-import util.AlertUtil;
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static domain.trainer.SelectedReservation.*;
-import static domain.trainer.SelectedTrainer.*;
+
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
+import static util.DialogUtil.showDialogChoose;
 import static util.PageUtil.*;
 
 public class ReservationDetailController implements Initializable {
@@ -39,7 +35,7 @@ public class ReservationDetailController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
 
     @FXML
-    private TextField rTimeField;
+    private TextField nameField, rDateField, rTimeField;
 
     @FXML
     private DatePicker ptDatePicker;
@@ -48,96 +44,82 @@ public class ReservationDetailController implements Initializable {
     private TableView<Reservation> reservationTable;
 
     @FXML
-    private TableColumn<Reservation, String> memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
-
+    private TableColumn<Reservation, String>  memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
 
     @FXML
-    private void updateReservation(ActionEvent event) throws IOException {
+    private TableColumn<Reservation, Boolean> selectCol;
+
+    private Reservation reservation;
+
+    @FXML
+    private void updateReservation(ActionEvent event) throws IOException, ParseException {
+        reservation = SelectedReservation.getCurrentReservation();
+        Date newDate = Date.valueOf(ptDatePicker.getValue());
+        int newTime = Integer.parseInt(rTimeField.getText().trim());
         //수정 내용이 없을 경우
-        if(isSameReservationTime() && isSameReservationDate()) {
+        /*if(isSame(newDate, newTime)) {
             showAlertUpdateReservationFail("isSame");
             return;
-        }
+        }*/
 
         //수정 내용이 있을 경우
-        Optional<ButtonType> response = showAlertChoose("예약 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
 
-            if (!isSameReservationDate() || !isSameReservationTime()) {
-                //PT 날짜만 변경, 시간 동일
-                if(!isSameReservationDate() && isSameReservationTime()) {
-                    currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
-                    reservationRepository.updateReservation(currentReservation);
-
-                }
-
-                //PT 시간만 변경, 날짜 동일
-                if(isSameReservationDate() && !isSameReservationTime()) {
-                    currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
-                    reservationRepository.updateReservation(currentReservation);
-                }
-
-                //PT 날짜, 시간 모두 변경
-                if(!isSameReservationDate() && !isSameReservationTime()) {
-                    currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
-                    currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
-                    reservationRepository.updateReservation(currentReservation);
-
-
-                }
-
-                showAlertAndMoveCenter("예약 정보가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
-            }
+            //PT 일정, 시간 모두 변경
+            reservation.setReservationDate(newDate);
+            reservation.setReservationTime(newTime);
+            reservationRepository.updateReservation(reservation);
+            System.out.println(reservation.getReservationNum());
         }
     }
 
     @FXML
-    private void cancelReservation(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = AlertUtil.showAlertChoose("정말로 취소하시겠습니까?");
+    private void cancelReservation(ActionEvent event) {
+        Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            reservationRepository.deleteReservation(currentReservation.getReservationNum());
-            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
+            reservationRepository.deleteReservation(reservation.getReservationNum());
+            showDialog("예약이 취소되었습니다.");
         }
     }
 
-    private boolean isSameReservationDate() {
-        Date inputPTdate = Date.valueOf(ptDatePicker.getValue());
-        Date currentPTdate = currentReservation.getReservationDate();
+    private boolean isSameBasicInfo() {
+        Date ptdate = Date.valueOf(ptDatePicker.getValue());
+        Integer pttime = Integer.valueOf(rTimeField.getText().trim());
 
-        return inputPTdate.equals(currentPTdate);
+        return reservation.getReservationDate().equals(ptdate) && reservation.getReservationTime()==(pttime);
     }
 
-    private boolean isSameReservationTime() {
-        Integer inputPTtime = Integer.valueOf(rTimeField.getText());
-        Integer currentPTtime = currentReservation.getReservationTime();
-        return inputPTtime.equals(currentPTtime);
+
+    private boolean isSame(Date rdate, Integer rtime) {
+        return reservation.getReservationDate().equals(rdate) && reservation.getReservationTime() == rtime;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(currentReservation != null) {
-            Reservation reservation = currentReservation;
-            Trainer trainer = currentTrainer;
+        TextFormatter<String> rTimeFormmater = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if(newText.matches("([01]?[0-9]|2[0-3])")) {
+                return change;
+            }
+            return null;
+        });
 
-            TextFormatter<String> rTimeFormatter = new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.matches("([01]?[0-9]|2[0-3])")) {
-                    return change;
-                }
-                return null;
-            });
-
+        reservation = SelectedReservation.getCurrentReservation();
+        if(currentTrainer != null) {
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
-            rTimeField.setTextFormatter(rTimeFormatter);
+            rTimeField.setTextFormatter(rTimeFormmater);
             columnBinding();
             loadReservationDetails();
-
         }
+
 
     }
 
     private void columnBinding() {
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
+        selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
         memberPhoneCol.setCellValueFactory(new PropertyValueFactory<>("memberPhone"));
@@ -146,19 +128,15 @@ public class ReservationDetailController implements Initializable {
         rTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
     }
     private void loadReservationDetails() {
+        List<Reservation> reservation = reservationRepository.findReservation(currentTrainer.getNum());
         ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-        reservations.add(currentReservation);
+        reservations.addAll(reservation);
+
         reservationTable.setItems(reservations);
     }
 
     @FXML
-    private void goBack(ActionEvent event) {
-        try {
-            if (currentTrainer != null && currentTrainer.getNum() != null) {
-                movePageCenter(event, "/view/trainer/reservationInfo");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void goBack(ActionEvent event) throws IOException {
+        movePage(event, "/view/trainer/reservationInfo");
     }
 }

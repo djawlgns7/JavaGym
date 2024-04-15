@@ -181,4 +181,22 @@ public class MemberUtil {
             close(conn, cstmt, null);
         }
     }
+
+    //회원의 배정된 사물함 번호를 없애는 매소드
+    public static void deleteLockerNum(int memberNum) {
+        Connection conn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall("{call deleteLockerNum(?)}");
+
+            cstmt.setInt(1, memberNum);
+            cstmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, cstmt, null);
+        }
+    }
 }

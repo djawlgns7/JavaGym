@@ -13,13 +13,13 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.PageUtil.*;
 
 public class TrainerService {
 
     private final TrainerRepository trainerRepository;
-    private ReservationRepository reservationRepository = new ReservationRepository();
+    private final ReservationRepository reservationRepository = new ReservationRepository();
 
     public TrainerService(TrainerRepository repository) { this.trainerRepository = repository; }
 
@@ -28,12 +28,12 @@ public class TrainerService {
         String password = passwordField.getText().trim();
 
         if(id.isEmpty()) {
-            showAlertLoginFail("emptyId");
+            showDialogErrorMessage("emptyId");
             return;
         }
 
         if (password.isEmpty()) {
-            showAlertLoginFail("emptyPw");
+            showDialogErrorMessage("emptyPw");
             return;
         }
 
@@ -49,7 +49,7 @@ public class TrainerService {
             System.out.println(currentTrainer);
             movePage(event, "/view/trainer/helloTrainer" );
         } else {
-            showAlertLoginFail("wrongPw");
+            showDialogErrorMessage("wrongPw");
         }
     }
 

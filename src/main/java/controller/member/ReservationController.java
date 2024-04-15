@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,6 +17,7 @@ import javafx.scene.layout.HBox;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import util.DialogUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
@@ -69,6 +69,7 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+
             selectedReservations = new ArrayList<>();
 
             List<MemberSchedule> memberSchedule;
@@ -76,11 +77,11 @@ public class ReservationController implements Initializable {
             int memberReservationNum = memberSchedule.size();
             availableReservationNum = 4 - memberReservationNum;
 
-//            try {
-//                setMyInfo();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
 
         }
@@ -208,7 +209,7 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            showAlert("더 이상 선택할 수 없습니다", Alert.AlertType.INFORMATION);
+                            DialogUtil.showDialog("더 이상 선택할 수 없습니다");
                         //추가 가능한 횟수가 있을 경우
                         }else {
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
@@ -266,13 +267,13 @@ public class ReservationController implements Initializable {
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
         if(getSelectedPTTicket() == 0){
-            showAlert("한 개 이상의 시간대를 선택해 주세요", Alert.AlertType.WARNING);
+            DialogUtil.showDialog("한 개 이상의 시간대를 선택해 주세요");
             return;
         }
 
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            showAlert("선택한 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
+            DialogUtil.showDialog("선택한 예약권의 수 만큼 예약을 해주세요");
             return;
         }
 
@@ -303,7 +304,7 @@ public class ReservationController implements Initializable {
         String reservationConfirmMsg = sb.toString();
 
         //예약이 가능한 경우
-        Optional<ButtonType> result = showAlertChoose(reservationConfirmMsg);
+        Optional<ButtonType> result = showDialogChoose(reservationConfirmMsg);
 
         if (result.get() == ButtonType.OK){
             LocalDate today = LocalDate.now();
@@ -312,7 +313,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showDialogAndMovePage("예약이 확정되었습니다!", "/view/member/memberLogin", event);
         }
     }
 
