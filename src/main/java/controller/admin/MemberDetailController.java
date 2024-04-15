@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import repository.*;
-import util.DialogUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -440,7 +439,7 @@ public class MemberDetailController implements Initializable {
     private void cancelReservation(ActionEvent event) throws IOException {
 
         if (ptTable.getItems().isEmpty()) {
-            DialogUtil.showDialog("PT 예약 정보가 없습니다.");
+            showDialog("PT 예약 정보가 없습니다.");
             return;
         }
 
@@ -451,7 +450,7 @@ public class MemberDetailController implements Initializable {
 
         // 선택된 예약 정보가 있는지 확인
         if (selectedSchedules.isEmpty()) {
-            DialogUtil.showDialog("취소할 예약을 선택해주세요.");
+            showDialog("취소할 예약을 선택해주세요.");
             return;
         }
 

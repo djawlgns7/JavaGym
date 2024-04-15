@@ -74,6 +74,22 @@ public class DialogUtil {
         movePage(event, viewPath);
     }
 
+    public static void showDialogAndMoveMainPage(String message, ActionEvent event) throws IOException {
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
+        dialog.setTitle("알림");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(new Label(message));
+        dialog.getDialogPane().setContent(vbox);
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+
+        dialog.showAndWait();
+        moveToMainPage(event);
+    }
+
     public static Optional<ButtonType> showDialogChoose(String message) {
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);

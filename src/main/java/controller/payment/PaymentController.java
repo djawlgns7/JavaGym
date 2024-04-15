@@ -23,6 +23,7 @@ import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
+import static util.PageUtil.moveToMainPage;
 import static util.PurchaseUtil.purchaseItem;
 import static util.SoundUtil.*;
 
@@ -182,6 +183,7 @@ public class PaymentController implements Initializable {
 
                     // 기타 이용권 탭
                 } else {
+
                     lockerLabel.setVisible(true);
                     currentLockerNumLabel.setVisible(true);
                     currentLockerPeriodLabel.setVisible(true);
@@ -203,7 +205,6 @@ public class PaymentController implements Initializable {
                     } else {
                         currentClothesPeriodLabel.setText(clothesExpireDate + " (D-" + clothesRemain + ")");
                     }
-
                     itemTypeLabel.setVisible(false);
                     itemValueLabel.setVisible(false);
                 }
@@ -719,7 +720,7 @@ public class PaymentController implements Initializable {
             currentTrainer = null;
             basket.clear();
 
-            movePage(event, "/view/member/memberLogin");
+            moveToMainPage(event);
         }
     }
 

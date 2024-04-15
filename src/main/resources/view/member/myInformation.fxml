@@ -13,7 +13,7 @@
       <Button fx:id="invisibleButton" managed="false" visible="true" />
       <!-- 메인 화면 버튼 -->
       <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="myInformation_TopBtn">
-         <Button onAction="#moveToMain" prefWidth="48" prefHeight="48" styleClass="myInformation_MainIcon">
+         <Button onAction="#goBack" prefWidth="48" prefHeight="48" styleClass="myInformation_MainIcon">
             <graphic>
                <ImageView fitWidth="48" fitHeight="48">
                   <image><Image url="/image/Main_Icon.png"/></image>

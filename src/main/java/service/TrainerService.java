@@ -38,7 +38,6 @@ public class TrainerService {
         }
 
         Trainer findTrainer = trainerRepository.findById(id);
-        System.out.println(findTrainer);
         if (findTrainer == null) {
             showDialogErrorMessage("notFound");
             return;
@@ -46,7 +45,6 @@ public class TrainerService {
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
 
-            System.out.println(currentTrainer);
             movePage(event, "/view/trainer/helloTrainer" );
         } else {
             showDialogErrorMessage("wrongPw");

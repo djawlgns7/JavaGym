@@ -26,7 +26,7 @@
                     <SplitPane dividerPositions="0.35" >
                         <items>
                             <VBox fx:id="memberDetailArea" spacing="50" alignment="CENTER">
-                                <Label text="회원 관리" styleClass="memberInfo_title_1"/>
+                                <Label text="회원 등록" styleClass="memberInfo_title_1"/>
 
                                 <HBox alignment="CENTER">
                                     <TextField fx:id="memberNameField" promptText="이름" styleClass="memberInfo_nameInput"/>

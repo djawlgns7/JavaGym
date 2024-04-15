@@ -23,7 +23,7 @@
                     <Label fx:id="currentLockerNumLabel"/>
                     <Label fx:id="currentLockerPeriodLabel"/>
                 </HBox>
-                <HBox alignment="CENTER">
+                <HBox fx:id="hBox" alignment="CENTER">
                     <Label fx:id="clothesLabel" text="운동복"/>
                     <Label fx:id="currentClothesSizeLabel" text="FREE"/>
                     <Label fx:id="currentClothesPeriodLabel"/>

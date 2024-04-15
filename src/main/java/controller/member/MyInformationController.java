@@ -117,7 +117,6 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
-                System.out.println(memberSchedules.get(i).getReservationTime());
                 newLabel = new Label(reservationTime);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Time");
                 newVBox.getChildren().add(newLabel);
@@ -161,7 +160,7 @@ public class MyInformationController implements Initializable {
     }
 
     @FXML
-    public void moveToMain(ActionEvent event) throws IOException {
+    public void goBack(ActionEvent event) throws IOException {
         movePage(event, "/view/member/helloMember");
     }
 }

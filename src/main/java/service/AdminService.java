@@ -43,7 +43,7 @@ public class AdminService {
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            movePage(event, "/view/admin/helloAdminV2");
+            movePageTimerOff(event, "/view/admin/helloAdminV2");
         } else {
             showDialogErrorMessage("adminLoginFail");
         }
