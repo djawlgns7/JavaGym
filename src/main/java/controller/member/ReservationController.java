@@ -2,7 +2,7 @@ package controller.member;
 
 import domain.member.Member;
 import domain.member.MemberSchedule;
-import domain.reservation.Reservation;
+import domain.reservation.ReservationInformation;
 import domain.trainer.Trainer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,8 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.converter.LocalDateStringConverter;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -55,7 +53,7 @@ public class ReservationController implements Initializable {
     private ImageView imageView;
 
     List<Boolean>[] reservations;
-    List<Reservation> selectedReservations;
+    List<ReservationInformation> selectedReservations;
     HBox[] weeks;
     HBox firstHBoxInScroll;
     Member member;
@@ -71,6 +69,7 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+
             selectedReservations = new ArrayList<>();
 
             List<MemberSchedule> memberSchedule;
@@ -78,11 +77,11 @@ public class ReservationController implements Initializable {
             int memberReservationNum = memberSchedule.size();
             availableReservationNum = 4 - memberReservationNum;
 
-//            try {
-//                setMyInfo();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
 
         }
@@ -214,7 +213,7 @@ public class ReservationController implements Initializable {
                         //추가 가능한 횟수가 있을 경우
                         }else {
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
-                            Reservation newReservation = new Reservation();
+                            ReservationInformation newReservation = new ReservationInformation();
                             newReservation.setDDay(day);
                             newReservation.setRTime(rTime);
                             selectedReservations.add(newReservation);
@@ -283,8 +282,6 @@ public class ReservationController implements Initializable {
         ObservableList<Node> hBoxChildren = selectedReservationList.getChildren();
         String firstDateTime = hBoxChildren.get(0).toString();
 
-        System.out.println(firstDateTime);
-
         String[] splittedDateTime = firstDateTime.split("\\'");
         String[] dateNTime = splittedDateTime[1].split(" ");
         String date = dateNTime[0].replace("/", "-");
@@ -349,7 +346,7 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        Reservation removedReservation;
+        ReservationInformation removedReservation;
         removedReservation =  selectedReservations.remove(selectedReservations.size() - 1);
 
         int rDDay = removedReservation.getDDay();
@@ -458,20 +455,20 @@ public class ReservationController implements Initializable {
 
     //선택한 예약 목록을 스크롤페인에 출력
     public void showSelectedReservations(){
-        List<Reservation> copiedReservations = new ArrayList<>();
-        List<Reservation> sortedReservations = new ArrayList<>();
+        List<ReservationInformation> copiedReservations = new ArrayList<>();
+        List<ReservationInformation> sortedReservations = new ArrayList<>();
 
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
 
         for(int i = 0; i < selectedReservations.size(); i++){
-            copiedReservations.add(new Reservation());
+            copiedReservations.add(new ReservationInformation());
             copiedReservations.get(i).setDDay(selectedReservations.get(i).getDDay());
             copiedReservations.get(i).setRTime(selectedReservations.get(i).getRTime());
         }
 
         while(!copiedReservations.isEmpty()){
-            sortedReservations.add(new Reservation());
+            sortedReservations.add(new ReservationInformation());
             int earliestIndex = 0;
             for(int i = 1; i < copiedReservations.size(); i++){
                 int earliestDDay = copiedReservations.get(earliestIndex).getDDay();

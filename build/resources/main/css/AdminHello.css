@@ -1,0 +1,43 @@
+/* VBox */
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.hello_title_label {
+    -fx-font-size: 72;
+    -fx-font-family: "Anton";
+}
+
+.hello_subtitle_label {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* Button */
+.Hello_page_Btn {
+    -fx-font-family: "Jua";
+}
+
+.memberManagementBtn, .trainerManagementBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+}
+
+.logOutBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+}
+
+.memberManagementBtn:hover, .trainerManagementBtn:hover, .logOutBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+}
+
+

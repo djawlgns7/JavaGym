@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.Gender;
 import domain.member.Member;
 import domain.member.SelectedMember;
@@ -188,7 +187,7 @@ public class HelloAdminControllerV2 implements Initializable {
         trainerBirthField.setTextFormatter(trainerBirthFormatter);
         trainerPhoneField.setTextFormatter(trainerPhoneFormatter);
 
-        int tabIndex = TabController.getInstance().getSelectedTabIndex();
+        int tabIndex = AdminTab.getInstance().getSelectedTabIndex();
         tabPane.getSelectionModel().select(tabIndex);
     }
 
@@ -239,7 +238,7 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private void resetPageMember(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(0);
+        AdminTab.getInstance().setSelectedTabIndex(0);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 
@@ -370,7 +369,7 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private void resetPageTrainer(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(1);
+        AdminTab.getInstance().setSelectedTabIndex(1);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 }

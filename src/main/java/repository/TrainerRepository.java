@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -278,7 +277,7 @@ public class TrainerRepository {
 
 
     public List<Trainer> findAllTrainer() {
-        String sql = "select t_no, t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight from trainer";
+        String sql = "select t_no, t_id, t_name, t_pw, t_phone, t_birthdate, t_sex, t_working_hour, t_height, t_weight, t_photo from trainer";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -303,6 +302,7 @@ public class TrainerRepository {
                 trainer.setWorkingHour(WorkingHour.valueOf(rs.getString("t_working_hour")));
                 trainer.setHeight(rs.getDouble("t_height"));
                 trainer.setWeight(rs.getDouble("t_weight"));
+                trainer.setPhoto(rs.getBytes("t_photo"));
 
                 trainers.add(trainer);
             }

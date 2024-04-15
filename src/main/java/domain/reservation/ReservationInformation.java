@@ -2,10 +2,8 @@ package domain.reservation;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
-public class Reservation {
+public class ReservationInformation {
     private int dDay;
     private int rTime;
 

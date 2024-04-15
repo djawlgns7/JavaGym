@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.*;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
@@ -24,12 +23,9 @@ import repository.TrainerRepository;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -138,13 +134,15 @@ public class TrainerDetailController implements Initializable {
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
-            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerInfo", event);
+
+            AdminTab.getInstance().setSelectedTabIndex(1);
+            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(1);
+        AdminTab.getInstance().setSelectedTabIndex(1);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 

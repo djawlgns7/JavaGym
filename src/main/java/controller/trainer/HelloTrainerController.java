@@ -1,5 +1,6 @@
 package controller.trainer;
 
+import domain.trainer.SelectedTrainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -8,6 +9,7 @@ import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
+import static domain.trainer.SelectedTrainer.*;
 import static util.PageUtil.movePage;
 import static util.PageUtil.movePageCenter;
 

@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.*;
 import domain.member.EntryLog;
 import domain.member.Member;
@@ -19,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import repository.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -397,6 +397,8 @@ public class MemberDetailController implements Initializable {
         return inputLockerPeriod.equals(currentLockerPeriod);
     }
 
+
+
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
         Optional<ButtonType> response = showAlertChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
@@ -455,17 +457,21 @@ public class MemberDetailController implements Initializable {
         Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
+            int count = 0;
             // 선택한 예약 내역을 모두 삭제
             for (MemberSchedule schedule : selectedSchedules) {
                 reservationRepository.deleteReservation(schedule.getReservationNum());
+                count++;
             }
+            // 삭제한 예약 내역만큼 PT 이용권 돌려주기
+            setRemain(currentMember.getNum(), PT_TICKET, count);
             showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(0);
+        AdminTab.getInstance().setSelectedTabIndex(0);
         movePageCenter(event, "/view/admin/helloAdminV2");
     }
 

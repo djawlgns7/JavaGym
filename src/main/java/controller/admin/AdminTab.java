@@ -1,17 +1,17 @@
-package controller;
+package controller.admin;
 
 /**
  * 탭 기능 사용 시 탭의 인덱스를 기억하기 위해 사용 (성진)
  */
-public class TabController {
+public class AdminTab {
 
-    private static TabController instance = new TabController();
+    private static AdminTab instance = new AdminTab();
 
     private int selectedTabIndex = 0;
 
-    private TabController() {}
+    private AdminTab() {}
 
-    public static TabController getInstance() {
+    public static AdminTab getInstance() {
         return instance;
     }
 
