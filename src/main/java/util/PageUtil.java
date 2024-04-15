@@ -17,9 +17,7 @@ import static thread.InactivityManager.*;
 
 public class PageUtil {
 
-    private static final ResourceBundle init = ResourceBundle.getBundle("config.init");
-
-    public static void movePageCenter(Event event, String viewPath) throws IOException {
+    public static void movePage(Event event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);

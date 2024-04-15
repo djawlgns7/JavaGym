@@ -8,7 +8,7 @@ import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
 
 public class HelloTrainerController {
 
@@ -17,12 +17,12 @@ public class HelloTrainerController {
 
     @FXML
     public void reservationInfo(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/trainer/reservationInfo");
+        movePage(event, "/view/trainer/reservationInfo");
     }
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/memberLogin");
+        movePage(event, "/view/member/memberLogin");
     }
 
     @FXML

@@ -19,10 +19,10 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
 
 public class ReservationInfoController implements Initializable {
 
@@ -64,7 +64,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showAlertAndMoveCenter("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
+        showDialogAndMovePage("예약 등록 성공", "/view/trainer/reservationInfo", event);
 
     }
 
@@ -145,12 +145,12 @@ public class ReservationInfoController implements Initializable {
         if(reservation != null && event.getClickCount() == 2) {
             SelectedReservation.setCurrentReservation(reservation);
             SelectedTrainer.setCurrentTrainer(trainer);
-            movePageCenter(event, "/view/trainer/reservationDetail");
+            movePage(event, "/view/trainer/reservationDetail");
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/trainer/helloTrainer");
+        movePage(event, "/view/trainer/helloTrainer");
     }
 }

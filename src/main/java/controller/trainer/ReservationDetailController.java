@@ -1,11 +1,7 @@
 package controller.trainer;
 
-import converter.DateToStringConverter;
-import domain.member.Member;
 import domain.trainer.Reservation;
 import domain.trainer.SelectedReservation;
-import domain.trainer.Trainer;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +13,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
-import util.AlertUtil;
 
 
 import java.io.IOException;
@@ -25,15 +20,13 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertChoose;
-/*import static util.AlertUtil.showAlertUpdateReservationFail;*/
+import static util.DialogUtil.*;
+import static util.DialogUtil.showDialogChoose;
 import static util.PageUtil.*;
 
 public class ReservationDetailController implements Initializable {
@@ -70,7 +63,7 @@ public class ReservationDetailController implements Initializable {
         }*/
 
         //수정 내용이 있을 경우
-        Optional<ButtonType> response = showAlertChoose("예약 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
 
@@ -84,10 +77,10 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void cancelReservation(ActionEvent event) {
-        Optional<ButtonType> response = AlertUtil.showAlertChoose("정말로 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
         if(response.isPresent() && response.get() == ButtonType.OK) {
             reservationRepository.deleteReservation(reservation.getReservationNum());
-            AlertUtil.showAlertChoose("예약이 취소되었습니다.");
+            showDialog("예약이 취소되었습니다.");
         }
     }
 
@@ -144,6 +137,6 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/trainer/reservationInfo");
+        movePage(event, "/view/trainer/reservationInfo");
     }
 }

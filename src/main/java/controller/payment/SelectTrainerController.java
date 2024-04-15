@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static controller.payment.PaymentController.*;
 import static domain.trainer.SelectedTrainer.*;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.PageUtil.*;
 
@@ -40,13 +40,13 @@ public class SelectTrainerController implements Initializable {
 
     @FXML
     private void selectTrainer(Trainer trainer, Event event) throws IOException {
-        Optional<ButtonType> result = showAlertChoose(trainer.getName() + " 트레이너를 선택하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose(trainer.getName() + " 트레이너를 선택하시겠습니까?");
 
         if (result.get() == ButtonType.OK) {
             selectTrainer = true;
             currentTrainer = trainer;
             PaymentTab.getInstance().setSelectedTabIndex(1);
-            movePageCenter(event, "/view/member/payment");
+            movePage(event, "/view/member/payment");
         } else {
             selectTrainer = false;
             currentTrainer = null;
@@ -56,7 +56,7 @@ public class SelectTrainerController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         PaymentTab.getInstance().setSelectedTabIndex(1);
-        movePageCenter(event, "/view/member/payment");
+        movePage(event, "/view/member/payment");
     }
 
     @Override
