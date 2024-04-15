@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static thread.InactivityManager.registerDialog;
 import static util.PageUtil.*;
 
 public class DialogUtil {
@@ -18,6 +19,7 @@ public class DialogUtil {
 
     public static void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
+        registerDialog(dialog);
         dialog.setTitle("알림");
 
         VBox vbox = new VBox();
@@ -31,6 +33,7 @@ public class DialogUtil {
 
     public static void showDialogErrorMessage(String messageCode) {
         Dialog<String> dialog = new Dialog<>();
+        registerDialog(dialog);
         dialog.setTitle("알림");
 
         VBox vbox = new VBox();
@@ -44,6 +47,7 @@ public class DialogUtil {
 
     public static void showDialogBasicMessage(String messageCode) {
         Dialog<String> dialog = new Dialog<>();
+        registerDialog(dialog);
         dialog.setTitle("알림");
 
         VBox vbox = new VBox();
@@ -56,7 +60,8 @@ public class DialogUtil {
     }
 
     public static void showDialogAndMovePage(String message, String viewPath, ActionEvent event) throws IOException {
-        Dialog<String> dialog = new Dialog<>();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
         dialog.setTitle("알림");
 
         VBox vbox = new VBox();
@@ -66,12 +71,12 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
         dialog.showAndWait();
-
         movePage(event, viewPath);
     }
 
     public static Optional<ButtonType> showDialogChoose(String message) {
         Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
         dialog.setTitle("알림");
 
         dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
