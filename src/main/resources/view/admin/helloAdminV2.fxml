@@ -19,183 +19,185 @@
 <BorderPane prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/common.css"
             xmlns:fx="http://javafx.com/fxml" fx:controller="controller.admin.HelloAdminControllerV2">
     <center>
-        <TabPane fx:id="tabPane">
-            <tabs>
-                <!-- 회원 탭 MemberInfo.fxml -->
-                <Tab text="회원 관리" closable="false" styleClass="memberInfo_Tab">
-                    <SplitPane dividerPositions="0.35" >
-                        <items>
-                            <VBox fx:id="memberDetailArea" spacing="50" alignment="CENTER">
-                                <Label text="회원 등록" styleClass="memberInfo_title_1"/>
+        <StackPane>
+            <TabPane fx:id="tabPane">
+                <tabs>
+                    <!-- 회원 탭 MemberInfo.fxml -->
+                    <Tab text="회원 관리" closable="false" styleClass="memberInfo_Tab">
+                        <SplitPane dividerPositions="0.35" >
+                            <items>
+                                <VBox fx:id="memberDetailArea" spacing="50" alignment="CENTER">
+                                    <Label text="회원 등록" styleClass="memberInfo_title_1"/>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="memberNameField" promptText="이름" styleClass="memberInfo_nameInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="memberNameField" promptText="이름" styleClass="memberInfo_nameInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="memberPhoneField" promptText="전화번호" styleClass="memberInfo_phoneInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="memberPhoneField" promptText="전화번호" styleClass="memberInfo_phoneInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER" spacing="35" >
-                                    <Label text="성별" styleClass="memberInfo_sex_radioBtn_title"/>
-                                    <fx:define>
-                                        <ToggleGroup fx:id="memberGenderRadio"/>
-                                    </fx:define>
-                                    <RadioButton fx:id="memberMaleButton" text="남" toggleGroup="$memberGenderRadio" styleClass="memberInfo_sex_radioBtn_1"/>
-                                    <RadioButton fx:id="memberFemaleButton" text="여" toggleGroup="$memberGenderRadio" styleClass="memberInfo_sex_radioBtn_2"/>
-                                </HBox>
+                                    <HBox alignment="CENTER" spacing="35" >
+                                        <Label text="성별" styleClass="memberInfo_sex_radioBtn_title"/>
+                                        <fx:define>
+                                            <ToggleGroup fx:id="memberGenderRadio"/>
+                                        </fx:define>
+                                        <RadioButton fx:id="memberMaleButton" text="남" toggleGroup="$memberGenderRadio" styleClass="memberInfo_sex_radioBtn_1"/>
+                                        <RadioButton fx:id="memberFemaleButton" text="여" toggleGroup="$memberGenderRadio" styleClass="memberInfo_sex_radioBtn_2"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="emailField" promptText="이메일" styleClass="memberInfo_emailInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="emailField" promptText="이메일" styleClass="memberInfo_emailInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="memberBirthField" promptText="생년월일(6자리)" styleClass="memberInfo_birthInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="memberBirthField" promptText="생년월일(6자리)" styleClass="memberInfo_birthInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER" spacing="20" styleClass="memberInfo_Btn">
-                                    <Button text="회원 등록" onAction="#addMember" styleClass="memberInfo_addMemberBtn"/>
-                                    <Button text="로그아웃" onAction="#logout" styleClass="memberInfo_goBackBtn"/>
-                                </HBox>
-                            </VBox>
+                                    <HBox alignment="CENTER" spacing="20" styleClass="memberInfo_Btn">
+                                        <Button text="회원 등록" onAction="#addMember" styleClass="memberInfo_addMemberBtn"/>
+                                        <Button text="로그아웃" onAction="#logout" styleClass="memberInfo_goBackBtn"/>
+                                    </HBox>
+                                </VBox>
 
-                            <!-- 회원 목록 영역 -->
-                            <VBox fx:id="memberListArea" spacing="10" alignment="CENTER" stylesheets="/css/common.css">
-                                <Label text="회원 정보" styleClass="memberInfo_title_2"/>
+                                <!-- 회원 목록 영역 -->
+                                <VBox fx:id="memberListArea" spacing="10" alignment="CENTER" stylesheets="/css/common.css">
+                                    <Label text="회원 정보" styleClass="memberInfo_title_2"/>
 
-                                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
-                                    <Button onAction="#searchMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_SearchIcon">
-                                        <graphic>
-                                            <ImageView fitWidth="16" fitHeight="16">
-                                                <image><Image url="/image/Search_Icon.png"/></image>
-                                            </ImageView>
-                                        </graphic>
-                                    </Button>
-                                    <TextField fx:id="searchMemberNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
-                                    <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
-                                </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
+                                        <Button onAction="#searchMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_SearchIcon">
+                                            <graphic>
+                                                <ImageView fitWidth="16" fitHeight="16">
+                                                    <image><Image url="/image/Search_Icon.png"/></image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <TextField fx:id="searchMemberNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
+                                    </HBox>
 
-                                <TableView fx:id="membersTable" prefHeight="550.0">
-                                    <columns>
-                                        <TableColumn text="번호" fx:id="memberNumCol" styleClass="memberInfo_numColumn"/>
-                                        <TableColumn text="이름" fx:id="memberNameCol" styleClass="memberInfo_nameColumn"/>
-                                        <TableColumn text="성별" fx:id="memberGenderCol" styleClass="memberInfo_genderColumn"/>
-                                        <TableColumn text="이메일" fx:id="emailCol" styleClass="memberInfo_emailColumn"/>
-                                        <TableColumn text="생년월일" fx:id="memberBirthCol" styleClass="memberInfo_birthColumn"/>
-                                        <TableColumn text="전화번호" fx:id="memberPhoneCol" styleClass="memberInfo_phoneColumn"/>
-                                        <TableColumn text="가입일" fx:id="enrollCol" styleClass="memberInfo_enrollColumn"/>
-                                    </columns>
-                                </TableView>
+                                    <TableView fx:id="membersTable" prefHeight="550.0">
+                                        <columns>
+                                            <TableColumn text="번호" fx:id="memberNumCol" styleClass="memberInfo_numColumn"/>
+                                            <TableColumn text="이름" fx:id="memberNameCol" styleClass="memberInfo_nameColumn"/>
+                                            <TableColumn text="성별" fx:id="memberGenderCol" styleClass="memberInfo_genderColumn"/>
+                                            <TableColumn text="이메일" fx:id="emailCol" styleClass="memberInfo_emailColumn"/>
+                                            <TableColumn text="생년월일" fx:id="memberBirthCol" styleClass="memberInfo_birthColumn"/>
+                                            <TableColumn text="전화번호" fx:id="memberPhoneCol" styleClass="memberInfo_phoneColumn"/>
+                                            <TableColumn text="가입일" fx:id="enrollCol" styleClass="memberInfo_enrollColumn"/>
+                                        </columns>
+                                    </TableView>
 
-                                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_subBtn">
-                                    <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
-                                    <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
-                                </HBox>
-                            </VBox>
-                        </items>
-                    </SplitPane>
-                </Tab>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_subBtn">
+                                        <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
+                                        <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
+                                    </HBox>
+                                </VBox>
+                            </items>
+                        </SplitPane>
+                    </Tab>
 
-                <!-- 트레이너 탭 trainerInfo.fxml -->
-                <Tab text="트레이너 관리" closable="false" styleClass="trainerInfo_Tab">
-                    <SplitPane dividerPositions="0.35" stylesheets="/css/common.css">
-                        <items>
-                            <VBox fx:id="trainerDetailArea" spacing="30" alignment="CENTER">
-                                <Label text="트레이너 등록"  styleClass="trainerInfo_title_1"/>
+                    <!-- 트레이너 탭 trainerInfo.fxml -->
+                    <Tab text="트레이너 관리" closable="false" styleClass="trainerInfo_Tab">
+                        <SplitPane dividerPositions="0.35" stylesheets="/css/common.css">
+                            <items>
+                                <VBox fx:id="trainerDetailArea" spacing="30" alignment="CENTER">
+                                    <Label text="트레이너 등록"  styleClass="trainerInfo_title_1"/>
 
-                                <HBox alignment="CENTER" spacing="10">
-                                    <StackPane styleClass="trainerInfo_ImageContainer" prefHeight="151.2" prefWidth="113.4">
-                                        <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
-                                    </StackPane>
-                                </HBox>
-                                <HBox alignment="CENTER">
-                                    <Button text="사진 등록" onAction="#selectPhoto" styleClass="trainerInfo_ImageBtn"/>
-                                </HBox>
+                                    <HBox alignment="CENTER" spacing="10">
+                                        <StackPane styleClass="trainerInfo_ImageContainer" prefHeight="151.2" prefWidth="113.4">
+                                            <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
+                                        </StackPane>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                        <Button text="사진 등록" onAction="#selectPhoto" styleClass="trainerInfo_ImageBtn"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="trainerNameField" promptText="이름" styleClass="trainerInfo_nameInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="trainerNameField" promptText="이름" styleClass="trainerInfo_nameInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="idField" promptText="아이디" styleClass="trainerInfo_idInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="idField" promptText="아이디" styleClass="trainerInfo_idInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="trainerPhoneField" promptText="전화번호 (8자리)" styleClass="trainerInfo_phoneInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="trainerPhoneField" promptText="전화번호 (8자리)" styleClass="trainerInfo_phoneInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER" spacing="35">
-                                    <Label text="성별" styleClass="trainerInfo_sex_radioBtn_title" />
-                                    <fx:define>
-                                        <ToggleGroup fx:id="trainerGenderRadio"/>
-                                    </fx:define>
-                                    <RadioButton fx:id="trainerMaleButton" text="남" toggleGroup="$trainerGenderRadio" styleClass="trainerInfo_sex_radioBtn_1"/>
-                                    <RadioButton fx:id="trainerFemaleButton" text="여" toggleGroup="$trainerGenderRadio" styleClass="trainerInfo_sex_radioBtn_2"/>
-                                </HBox>
+                                    <HBox alignment="CENTER" spacing="35">
+                                        <Label text="성별" styleClass="trainerInfo_sex_radioBtn_title" />
+                                        <fx:define>
+                                            <ToggleGroup fx:id="trainerGenderRadio"/>
+                                        </fx:define>
+                                        <RadioButton fx:id="trainerMaleButton" text="남" toggleGroup="$trainerGenderRadio" styleClass="trainerInfo_sex_radioBtn_1"/>
+                                        <RadioButton fx:id="trainerFemaleButton" text="여" toggleGroup="$trainerGenderRadio" styleClass="trainerInfo_sex_radioBtn_2"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="heightField" promptText="키" styleClass="trainerInfo_heightInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="heightField" promptText="키" styleClass="trainerInfo_heightInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="weightField" promptText="몸무게" styleClass="trainerInfo_weightInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="weightField" promptText="몸무게" styleClass="trainerInfo_weightInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER">
-                                    <TextField fx:id="trainerBirthField" promptText="생년월일 (6자리)" styleClass="trainerInfo_birthInput"/>
-                                </HBox>
+                                    <HBox alignment="CENTER">
+                                        <TextField fx:id="trainerBirthField" promptText="생년월일 (6자리)" styleClass="trainerInfo_birthInput"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER" spacing="35">
-                                    <Label text="근무 시간" styleClass="trainerInfo_worktime_radioBtn_title"/>
-                                    <fx:define>
-                                        <ToggleGroup fx:id="workTimeRadio"/>
-                                    </fx:define>
-                                    <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" styleClass="trainerInfo_worktime_radioBtn_1"/>
-                                    <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" styleClass="trainerInfo_worktime_radioBtn_2"/>
-                                </HBox>
+                                    <HBox alignment="CENTER" spacing="35">
+                                        <Label text="근무 시간" styleClass="trainerInfo_worktime_radioBtn_title"/>
+                                        <fx:define>
+                                            <ToggleGroup fx:id="workTimeRadio"/>
+                                        </fx:define>
+                                        <RadioButton fx:id="amButton" text="AM" toggleGroup="$workTimeRadio" styleClass="trainerInfo_worktime_radioBtn_1"/>
+                                        <RadioButton fx:id="pmButton" text="PM" toggleGroup="$workTimeRadio" styleClass="trainerInfo_worktime_radioBtn_2"/>
+                                    </HBox>
 
-                                <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_Btn">
-                                    <Button text="트레이너 등록" onAction="#addTrainer" styleClass="trainerInfo_addTrainerBtn"/>
-                                    <Button text="로그아웃" onAction="#logout" styleClass="trainerInfo_goBackBtn"/>
-                                </HBox>
-                            </VBox>
+                                    <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_Btn">
+                                        <Button text="트레이너 등록" onAction="#addTrainer" styleClass="trainerInfo_addTrainerBtn"/>
+                                        <Button text="로그아웃" onAction="#logout" styleClass="trainerInfo_goBackBtn"/>
+                                    </HBox>
+                                </VBox>
 
-                            <!-- 트레이너 목록 영역 -->
-                            <VBox fx:id="trainerListArea" spacing="10" alignment="CENTER">
-                                <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
+                                <!-- 트레이너 목록 영역 -->
+                                <VBox fx:id="trainerListArea" spacing="10" alignment="CENTER">
+                                    <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
 
-                                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
-                                    <Button onAction="#searchTrainer" prefWidth="16" prefHeight="16" styleClass="trainerInfo_SearchIcon">
-                                        <graphic>
-                                            <ImageView fitWidth="16" fitHeight="16">
-                                                <image><Image url="/image/Search_Icon.png"/></image>
-                                            </ImageView>
-                                        </graphic>
-                                    </Button>
-                                    <TextField fx:id="searchTrainerNameField" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
-                                    <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
-                                </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
+                                        <Button onAction="#searchTrainer" prefWidth="16" prefHeight="16" styleClass="trainerInfo_SearchIcon">
+                                            <graphic>
+                                                <ImageView fitWidth="16" fitHeight="16">
+                                                    <image><Image url="/image/Search_Icon.png"/></image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <TextField fx:id="searchTrainerNameField" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
+                                    </HBox>
 
-                                <TableView fx:id="trainerTable" prefHeight="550.0">
-                                    <columns>
-                                        <TableColumn text="번호" fx:id="trainerNumCol"  styleClass="trainerInfo_numColumn"/>
-                                        <TableColumn text="이름" fx:id="trainerNameCol" styleClass="trainerInfo_nameColumn"/>
-                                        <TableColumn text="아이디" fx:id="idCol" styleClass="trainerInfo_idColumn"/>
-                                        <TableColumn text="성별" fx:id="trainerGenderCol" styleClass="trainerInfo_genderColumn"/>
-                                        <TableColumn text="근무시간" fx:id="workTimeCol" styleClass="trainerInfo_workTimeColumn"/>
-                                        <TableColumn text="생년월일" fx:id="trainerBirthCol" styleClass="trainerInfo_birthColumn"/>
-                                        <TableColumn text="전화번호" fx:id="trainerPhoneCol" styleClass="trainerInfo_phoneColumn"/>
-                                    </columns>
-                                </TableView>
+                                    <TableView fx:id="trainerTable" prefHeight="550.0">
+                                        <columns>
+                                            <TableColumn text="번호" fx:id="trainerNumCol"  styleClass="trainerInfo_numColumn"/>
+                                            <TableColumn text="이름" fx:id="trainerNameCol" styleClass="trainerInfo_nameColumn"/>
+                                            <TableColumn text="아이디" fx:id="idCol" styleClass="trainerInfo_idColumn"/>
+                                            <TableColumn text="성별" fx:id="trainerGenderCol" styleClass="trainerInfo_genderColumn"/>
+                                            <TableColumn text="근무시간" fx:id="workTimeCol" styleClass="trainerInfo_workTimeColumn"/>
+                                            <TableColumn text="생년월일" fx:id="trainerBirthCol" styleClass="trainerInfo_birthColumn"/>
+                                            <TableColumn text="전화번호" fx:id="trainerPhoneCol" styleClass="trainerInfo_phoneColumn"/>
+                                        </columns>
+                                    </TableView>
 
-                                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_subBtn">
-                                    <Button text="새로고침" onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn"/>
-                                </HBox>
-                            </VBox>
-                        </items>
-                    </SplitPane>
-                </Tab>
-            </tabs>
-        </TabPane>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_subBtn">
+                                        <Button text="새로고침" onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn"/>
+                                    </HBox>
+                                </VBox>
+                            </items>
+                        </SplitPane>
+                    </Tab>
+                </tabs>
+            </TabPane>
+        </StackPane>
     </center>
 </BorderPane>

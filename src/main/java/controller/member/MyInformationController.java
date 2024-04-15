@@ -32,7 +32,7 @@ public class MyInformationController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
-    private Label memberName, trainerName, myPtRemain, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+    private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
             clothesAvailability, clothesRemain, trainerPhone;
     @FXML
     private HBox myPtInformation;
@@ -117,6 +117,7 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
+                System.out.println(memberSchedules.get(i).getReservationTime());
                 newLabel = new Label(reservationTime);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Time");
                 newVBox.getChildren().add(newLabel);
@@ -142,9 +143,9 @@ public class MyInformationController implements Initializable {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
-            lockerRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
+
+            lockerRemain.setText(expireDate + " (D - " + locker + ")");
         }
 
         if(clothes == 0){
@@ -152,9 +153,8 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
-            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
-            clothesRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
+            clothesRemain.setText(expireDate + " (D - " + clothes + ")");
 
         }
     }

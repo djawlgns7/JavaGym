@@ -1,0 +1,291 @@
+/* VBox */
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.payment_Title {
+    -fx-font-size: 64;
+    -fx-font-family: "Anton";
+}
+
+/* Login Member */
+.payment_Member {
+    -fx-font-size: 28;
+    -fx-font-family: "NanumGothic";
+    -fx-translate-y: -15;
+}
+
+/* Item & Value */
+.payment_ItemInfo_GYMBundle {
+   -fx-background-color: #F4F5F7;
+   -fx-border-color: black;
+   -fx-border-width: 1;
+   -fx-pref-height: 30;
+}
+
+.payment_ItemGYM {
+    -fx-translate-y: 45;
+}
+
+.payment_ItemType {
+    -fx-font-size: 32;
+    -fx-text-fill: #9747FF;
+    -fx-font-family: "Jua";
+}
+
+.payment_ItemValue {
+    -fx-font-size: 32;
+    -fx-font-family: "Jua";
+}
+
+.payment_ItemETC {
+    -fx-translate-y: -45;
+}
+
+/* Tab */
+.paymentGYM_Tab {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 206;
+    -fx-pref-height: 60;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 0 50 0 62;
+}
+
+.tab-pane .paymentGYM_Tab .tab-label {
+    -fx-font-size: 22;
+}
+
+.paymentPT_Tab {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 206;
+    -fx-pref-height: 60;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 0 50 0 82;
+}
+
+.tab-pane .paymentPT_Tab .tab-label {
+    -fx-font-size: 22;
+}
+
+.paymentETC_Tab {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 206;
+    -fx-pref-height: 60;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 0 50 0 80;
+}
+
+.tab-pane .paymentETC_Tab .tab-label {
+    -fx-font-size: 22;
+}
+
+.tab-header-background {
+    -fx-background-color: #F4F5F7;
+}
+
+/* Split Line */
+.payment_FirstLine {
+    -fx-pref-width: 650;
+    -fx-pref-height: 0.8;
+    -fx-background-color: black;
+    -fx-translate-y: -15;
+}
+
+.payment_SecondLine {
+    -fx-pref-width: 650;
+    -fx-pref-height: 0.8;
+    -fx-background-color: black;
+    -fx-translate-y: -20;
+}
+
+.payment_ThirdLine {
+    -fx-pref-width: 650;
+    -fx-pref-height: 0.8;
+    -fx-background-color: black;
+}
+
+/* Gym Ticket */
+/* Radio Button */
+.paymentGYM_Day_radioBtn_Title, .paymentGYM_Days_radioBtn_Title {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 22;
+    -fx-text-fill: #676767;
+    -fx-translate-x: -270;
+    -fx-translate-y: -20;
+}
+
+.paymentGYM_NonSelected_radioBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+    -fx-translate-x: 220;
+    -fx-translate-y: -5;
+}
+
+.paymentGYM_Day_radioBtn, .paymentGYM_Day_radioBtn_Text {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+    -fx-translate-x: 190;
+    -fx-translate-y: -10;
+}
+
+.paymentGYM_Days_radioBtn_1, .paymentGYM_Days_radioBtn_Text_1 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-translate-x: 45;
+    -fx-translate-y: 0;
+}
+
+.paymentGYM_Days_radioBtn_2, .paymentGYM_Days_radioBtn_Text_2 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-translate-x: 45;
+    -fx-translate-y: 0;
+}
+
+.paymentGYM_Days_radioBtn_3, .paymentGYM_Days_radioBtn_Text_3 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-translate-x: 45;
+    -fx-translate-y: 0;
+}
+
+.paymentGYM_Days_radioBtn_4, .paymentGYM_Days_radioBtn_Text_4 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-translate-x: 45;
+    -fx-translate-y: 0;
+}
+
+.paymentGYM_Day_radioBtn,
+.paymentGYM_Days_radioBtn_1,
+.paymentGYM_Days_radioBtn_2,
+.paymentGYM_Days_radioBtn_3,
+.paymentGYM_Days_radioBtn_4 {
+    -fx-text-fill: #9747FF;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.paymentGYM_NonSelected_radioBtn .radio,
+.paymentGYM_Day_radioBtn .radio,
+.paymentGYM_Days_radioBtn_1 .radio,
+.paymentGYM_Days_radioBtn_2 .radio,
+.paymentGYM_Days_radioBtn_3 .radio,
+.paymentGYM_Days_radioBtn_4 .radio {
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.paymentGYM_NonSelected_radioBtn .radio:hover,
+.paymentGYM_Day_radioBtn .radio:hover,
+.paymentGYM_Day_radioBtn .radio:hover,
+.paymentGYM_Days_radioBtn_1 .radio:hover,
+.paymentGYM_Days_radioBtn_2 .radio:hover,
+.paymentGYM_Days_radioBtn_3 .radio:hover,
+.paymentGYM_Days_radioBtn_4 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.paymentGYM_NonSelected_radioBtn:selected .radio,
+.paymentGYM_Day_radioBtn:selected .radio,
+.paymentGYM_Days_radioBtn_1:selected .radio,
+.paymentGYM_Days_radioBtn_2:selected .radio,
+.paymentGYM_Days_radioBtn_3:selected .radio,
+.paymentGYM_Days_radioBtn_4:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.paymentGYM_NonSelected_radioBtn:selected .radio:hover,
+.paymentGYM_Day_radioBtn:selected .radio:hover,
+.paymentGYM_Days_radioBtn_1:selected .radio:hover,
+.paymentGYM_Days_radioBtn_2:selected .radio:hover,
+.paymentGYM_Days_radioBtn_3:selected .radio:hover,
+.paymentGYM_Days_radioBtn_4:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.paymentGYM_NonSelected_radioBtn:selected .dot,
+.paymentGYM_Day_radioBtn:selected .dot,
+.paymentGYM_Days_radioBtn_1:selected .dot,
+.paymentGYM_Days_radioBtn_2:selected .dot,
+.paymentGYM_Days_radioBtn_3:selected .dot,
+.paymentGYM_Days_radioBtn_4:selected .dot {
+    -fx-background-color: #FFFFFF;
+}
+
+
+
+/* Cart */
+.payment_Cart {
+    -fx-pref-height: 150;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-translate-y: -10;
+}
+
+.payment_SelectedGymTicket {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 350;
+
+}
+
+.payment_SelectedPTTicket {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 350;
+
+}
+
+.payment_SelectedLockerTicket {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 350;
+
+}
+
+.payment_SelectedClothesTicket {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 350;
+
+}
+
+/* Total Price */
+.payment_TotalPrice {
+    -fx-font-size: 28;
+    -fx-font-family: "Jua";
+    -fx-translate-x: -10;
+    -fx-translate-y: 15;
+}
+
+/* Button */
+.payment_Btn {
+    -fx-font-family: "Jua";
+    -fx-spacing: 50;
+    -fx-translate-y: -30;
+
+}
+
+.payment_CancelBtn, .payment_purchaseBtn {
+    -fx-font-size: 18;
+    -fx-pref-width: 80;
+    -fx-pref-height: 40;
+    -fx-background-color: #F4B6FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #F4B6FF;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
