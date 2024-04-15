@@ -6,14 +6,14 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0"
+<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationDetailController">
 
     <items>
 
         <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
-            <Label text="예약 상세 정보" />
+            <Label text="예약 수정" />
 
             <HBox alignment="CENTER">
                 <Label>예약 일자</Label>
@@ -33,14 +33,10 @@
 
         <!-- 예약 목록 영역 -->
         <VBox fx:id="listArea" spacing="20" alignment="CENTER">
-            <Label text="회원 정보" />
+            <Label text="예약 정보" />
             <TableView fx:id="reservationTable" prefHeight="550.0">
                 <columns>
-                    <TableColumn fx:id="selectCol" text="선택" prefWidth="50">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="selected" />
-                        </cellValueFactory>
-                    </TableColumn>
+                    <TableColumn text="예약 번호" fx:id="reservationNumCol" />
                     <TableColumn text="회원 번호" fx:id="memberNumCol" />
                     <TableColumn text="회원 이름" fx:id="memberNameCol" />
                     <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" />

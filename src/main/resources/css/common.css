@@ -3,16 +3,20 @@
 @import url(/css/MemberHello.css);
 @import url(/css/SignUpForm.css);
 @import url(/css/MyInformation.css);
+@import url(/css/reservationInfo.css);
+@import url(/css/reservationDetail.css);
+/* reservation 페이지는 독립 */
 
 /* SeungBeen's CSS */
 @import url(/css/AdminLogin.css);
-@import url(/css/AdminHello.css);
 @import url(/css/MemberInfo.css);
 @import url(/css/TrainerInfo.css);
 @import url(/css/MemberDetail.css);
 @import url(/css/TrainerDetail.css);
+@import url(/css/Payment.css);
 
 /* Individual CSS (주석) */
 /* @import url(/css/Entrylog.css); */
 /* @import url(/css/LockerInfo.css); */
+
 /* @import url(/css/helloTrainer.css); */

@@ -3,14 +3,18 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
+.memberLogin_VBox {
+    -fx-translate-y: -50;
+}
+
 /* Title */
-.login_title_label {
-    -fx-font-size: 72;
+.memberLogin_title {
+    -fx-font-size: 84;
     -fx-font-family: "Anton";
 }
 
 /* TextField */
-.Login_phoneInput, .Login_passwordInput {
+.memberLogin_phoneInput, .memberLogin_passwordInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -24,43 +28,17 @@ AnchorPane {
 }
 
 /* Button */
-.Login_page_Btn {
+.memberLogin_Btn {
     -fx-font-family: "Jua";
-    -fx-spacing: 50;
 }
 
-.Login_page_TopBtn {
+.memberLogin_TopBtn {
     -fx-font-family: "Jua";
-    -fx-padding: 10 10 0 0;
+    -fx-padding: 0 20 0 0;
+    -fx-translate-y: 5;
 }
 
-.loginBtn, .signupBtn {
-    -fx-background-color: #9747FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
-    -fx-pref-height: 50;
-}
-
-.immediateEntryBtn {
-    -fx-background-color: #DE14FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
-    -fx-pref-height: 50;
-}
-
-.loginBtn:hover, .signupBtn:hover, .immediateEntryBtn:hover {
-    -fx-background-color: #F4B6FF;
-    -fx-cursor: hand;
-}
-
-.loginBtn:pressed, .signupBtn:pressed, .immediateEntryBtn:pressed {
-    -fx-background-color: #F4B6FF;
-    -fx-cursor: hand;
-}
-
-.Login_TrainerIcon, .Login_AdminIcon {
+.memberLogin_TrainerIcon, .memberLogin_AdminIcon {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -68,9 +46,37 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.Login_TrainerIcon:hover, .Login_AdminIcon:hover {
+.memberLogin_TrainerIcon:hover, .memberLogin_AdminIcon:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
+
+.memberLoginBtn, .memberSignupBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+}
+
+.memberImmediateEntryBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18;
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+}
+
+.memberLoginBtn:hover, .memberSignupBtn:hover, .memberImmediateEntryBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.memberLoginBtn:pressed, .memberSignupBtn:pressed, .memberImmediateEntryBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+
 
 

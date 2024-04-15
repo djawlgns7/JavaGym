@@ -4,7 +4,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import thread.InactivityManager;
+
+import static thread.InactivityManager.*;
 
 public class JavaGymApplication extends Application {
 
@@ -22,7 +23,7 @@ public class JavaGymApplication extends Application {
         stage.setResizable(false);
         stage.show();
 
-        InactivityManager.setMainStage(stage);
+        setMainStage(stage);
     }
 
     public static void main(String[] args) {

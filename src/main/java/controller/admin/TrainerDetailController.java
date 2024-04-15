@@ -14,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -29,7 +32,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.PageUtil.*;
 import static util.ValidateUtil.updateTrainerValidate;
@@ -42,6 +45,9 @@ public class TrainerDetailController implements Initializable {
     @FXML
     private ImageView imageView;
     private String updatedImagePath;
+
+    @FXML
+    private GridPane trainerDetailGrid;
 
     @FXML
     private DatePicker birthPicker;
@@ -76,11 +82,11 @@ public class TrainerDetailController implements Initializable {
         Double weight = Double.valueOf(weightField.getText().trim());
 
         if (isSame(id, name, gender, phone, birth, workingHour, height, weight) && isSamePhoto()) {
-            showAlertUpdateTrainerFail("isSame");
+            showDialogErrorMessage("isSame");
             return;
         }
 
-        Optional<ButtonType> result = showAlertChoose("트레이너 정보를 수정하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("트레이너 정보를 수정하시겠습니까?");
         if (result.get() == ButtonType.OK) {
 
             if (updateTrainerValidate(name, phone, id, height, weight)) return;
@@ -100,7 +106,7 @@ public class TrainerDetailController implements Initializable {
             currentTrainer.setWeight(weight);
 
             trainerRepository.updateTrainer(currentTrainer);
-            showAlertAndMoveCenter("트레이너가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerDetail", event);
+            showDialogAndMovePage("트레이너가 수정되었습니다.", "/view/admin/trainerDetail", event);
         }
     }
 
@@ -124,20 +130,20 @@ public class TrainerDetailController implements Initializable {
 
     @FXML
     private void deleteTrainer(ActionEvent event) throws IOException {
-        Optional<ButtonType> result = showAlertChoose("정말로 " + currentTrainer.getName() + " 트레이너를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("정말로 " + currentTrainer.getName() + " 트레이너를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
 
             AdminTab.getInstance().setSelectedTabIndex(1);
-            showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("트레이너가 삭제되었습니다.", "/view/admin/helloAdminV2", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
-        movePageCenter(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @Override
@@ -169,6 +175,14 @@ public class TrainerDetailController implements Initializable {
             heightField.setTextFormatter(heightFormatter);
             weightField.setTextFormatter(weightFormatter);
             phoneField.setTextFormatter(phoneFormatter);
+
+            // GridPane 행 설정
+            RowConstraints[] rows = new RowConstraints[7];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = new RowConstraints();
+                rows[i].setPercentHeight(50);
+                trainerDetailGrid.getRowConstraints().add(rows[i]);
+            }
         }
     }
 

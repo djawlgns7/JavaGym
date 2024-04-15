@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.image.Image?>
@@ -14,7 +13,7 @@
       <Button fx:id="invisibleButton" managed="false" visible="true" />
       <!-- 메인 화면 버튼 -->
       <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="myInformation_TopBtn">
-         <Button onAction="#moveToMain" prefWidth="48" prefHeight="48" styleClass="myInformation_MainIcon">
+         <Button onAction="#goBack" prefWidth="48" prefHeight="48" styleClass="myInformation_MainIcon">
             <graphic>
                <ImageView fitWidth="48" fitHeight="48">
                   <image><Image url="/image/Main_Icon.png"/></image>
@@ -42,14 +41,14 @@
                   <Label fx:id="trainerName" text="노승빈 트레이너" styleClass="myInformation_Trainer_Name" />
                   <Label fx:id="trainerPhone" text="010-1234-5678" styleClass="myInformation_Trainer_Phone" />
                </VBox>
-               <VBox alignment="CENTER" spacing="45">
+               <VBox alignment="CENTER" spacing="42">
                   <Label text="PT 이용권 잔여 개수" styleClass="myInformation_PTTicket_InfoTitle" />
                   <Label fx:id="PTTicketRemain" text="10개" styleClass="myInformation_PTTicket_Cnt" />
                </VBox>
             </HBox>
          </VBox>
          <!-- PT 예약 내역 -->
-         <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_PTReservation_Info">
+         <VBox  alignment="CENTER" spacing="20" styleClass="myInformation_PTReservation_Info">
             <Label text="PT 예약 내역" styleClass="myInformation_PTReservation_InfoTitle" />
             <HBox fx:id="myPtInformation" alignment="CENTER" spacing="30" styleClass="myInformation_PTReservation_Bundle">
                <Label fx:id="myPtRemain" text="예약 내역이 없습니다" styleClass="myInformation_PTReservation_Label"/>
@@ -57,23 +56,23 @@
          </VBox>
 
          <!-- 헬스장 이용 종료 기간 -->
-         <VBox  alignment="CENTER" spacing="10" styleClass="myInformation_gymTicket_Info">
+         <VBox  alignment="CENTER" spacing="20" styleClass="myInformation_gymTicket_Info">
             <Label text="헬스장 이용 종료 기간" styleClass="myInformation_gymTicket_InfoTitle"/>
             <Label fx:id="gymTicketRemain" text="2024-10-20 (D-200)" styleClass="myInformation_gymTicket_Date"/>
          </VBox>
 
          <!-- 사물함 및 운동복 정보 -->
-         <VBox alignment="CENTER" spacing="10" styleClass="myInformation_locker_clothes_Info">
-            <HBox alignment="CENTER" spacing="20">
-               <Label text="사물함" styleClass="myInformation_locker_InfoTitle"/>
-               <Label fx:id="lockerNo" text="No.100" styleClass="myInformation_locker_Num"/>
-               <Label fx:id="lockerRemain" text="2024-10-20 (D-200)" styleClass="myInformation_locker_Date"/>
-            </HBox>
-            <HBox alignment="CENTER" spacing="20">
-               <Label text="운동복" styleClass="myInformation_clothes_InfoTitle"/>
-               <Label fx:id="clothesAvailability" text="사용 가능" styleClass="myInformation_clothes_Available"/>
-               <Label fx:id="clothesRemain" text="2024-10-20 (D-200)" styleClass="myInformation_clothes_Date"/>
-            </HBox>
+         <VBox alignment="CENTER" spacing="20" styleClass="myInformation_locker_clothes_Info">
+            <GridPane alignment="CENTER" hgap="30" vgap="30">
+               <!-- Row 0. 사물함 -->
+               <Label text="사물함" styleClass="myInformation_locker_InfoTitle" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+               <Label fx:id="lockerNo" text="No.100" styleClass="myInformation_locker_Num" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+               <Label fx:id="lockerRemain" text="2024-10-20 (D-200)" styleClass="myInformation_locker_Date" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+               <!-- Row 1. 운동복 -->
+               <Label text="운동복" styleClass="myInformation_clothes_InfoTitle" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+               <Label fx:id="clothesAvailability" text="사용 가능" styleClass="myInformation_clothes_Available" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+               <Label fx:id="clothesRemain" text="2024-10-20 (D-200)" styleClass="myInformation_clothes_Date" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            </GridPane>
          </VBox>
       </VBox>
    </VBox>

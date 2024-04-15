@@ -34,7 +34,7 @@ public class TrainerLoginController {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML

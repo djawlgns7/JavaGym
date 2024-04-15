@@ -4,82 +4,108 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
-<AnchorPane stylesheets="/css/payment.css" prefHeight="800.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane stylesheets="/css/common.css" prefHeight="1000.0" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.payment.PaymentController">
         <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Label text="JAVA GYM"/>
+            <!-- 자바짐 타이틀 -->
+            <Label text="JAVA GYM" styleClass="payment_Title" />
 
-            <HBox alignment="CENTER">
+            <!-- 회원 환영 문구 -->
+            <HBox alignment="CENTER" styleClass="payment_Member">
                 <Label fx:id="memberNameLabel" />
                 <Label text=" 회원님, 환영합니다!" />
             </HBox>
 
             <!-- 회원의 현재 구매 정보 -->
-            <VBox alignment="CENTER">
-                <Label fx:id="itemTypeLabel" />
-                <Label fx:id="itemValueLabel" />
-                <HBox alignment="CENTER">
-                    <Label fx:id="lockerLabel" text="사물함"/>
-                    <Label fx:id="currentLockerNumLabel"/>
-                    <Label fx:id="currentLockerPeriodLabel"/>
-                </HBox>
-                <HBox alignment="CENTER">
-                    <Label fx:id="clothesLabel" text="운동복"/>
-                    <Label fx:id="currentClothesSizeLabel" text="FREE"/>
-                    <Label fx:id="currentClothesPeriodLabel"/>
-                </HBox>
+            <VBox alignment="CENTER" styleClass="payment_ItemInfo_GYMBundle">
+                <VBox fx:id="itemGYM" spacing="15" alignment="CENTER" styleClass="payment_ItemGYM">
+                    <Label fx:id="itemTypeLabel" styleClass="payment_ItemType"/>
+                    <Label fx:id="itemValueLabel" styleClass="payment_ItemValue"/>
+                </VBox>
+                <VBox fx:id="itemETC" spacing="15" alignment="CENTER">
+                    <GridPane alignment="CENTER" hgap="20" vgap="20" styleClass="payment_ItemETC">
+                        <!-- Row 0. 사물함 -->
+                        <Label fx:id="lockerLabel" text="사물함" styleClass="payment_ItemType" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label fx:id="currentLockerNumLabel" styleClass="payment_ItemValue" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label fx:id="currentLockerPeriodLabel" styleClass="payment_ItemValue" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <!-- Row 1. 운동복 -->
+                        <Label fx:id="clothesLabel" text="운동복" styleClass="payment_ItemType" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Label fx:id="currentClothesSizeLabel" text="FREE" styleClass="payment_ItemValue" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label fx:id="currentClothesPeriodLabel" styleClass="payment_ItemValue" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    </GridPane>
+                </VBox>
             </VBox>
 
+            <!-- 결제 -->
             <TabPane fx:id="tab" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                 <tabs>
-
                     <!-- Gym Tab -->
-                    <Tab fx:id="gymTab" text="이용권">
+                    <Tab fx:id="gymTab" text="이  용  권" closable="false" styleClass="paymentGYM_Tab">
                         <VBox alignment="CENTER" spacing="10">
 
                             <fx:define>
                                 <ToggleGroup fx:id="gymTicketRadio"/>
                             </fx:define>
-
+                            <!-- 선택 안함 -->
                             <HBox>
-                                <RadioButton fx:id="noSelectGymButton" text="선택 안 함" toggleGroup="$gymTicketRadio" />
+                                <RadioButton fx:id="noSelectGymButton" text="선택 안 함" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_NonSelected_radioBtn"/>
                             </HBox>
 
+                            <!-- Line -->
+                            <Pane styleClass="payment_FirstLine"/>
+
+                            <!-- 일일권 -->
+                            <Label text="일 일 권" styleClass="paymentGYM_Day_radioBtn_Title"/>
                             <HBox>
-                                <RadioButton fx:id="gym1Button" text="1일" toggleGroup="$gymTicketRadio" />
-                                <Label text="20,000"/>
-                                <Label text="원"/>
+                                <GridPane hgap="30" vgap="30">
+                                    <RadioButton fx:id="gym1Button" text="1일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Day_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label text="20,000원" styleClass="paymentGYM_Day_radioBtn_Text" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                </GridPane>
                             </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" />
-                                <Label text="50,000"/>
-                                <Label text="원"/>
-                            </HBox>
+                            <!-- Line -->
+                            <Pane styleClass="payment_SecondLine"/>
 
-                            <HBox>
-                                <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" />
-                                <Label text="150,000"/>
-                                <Label text="원"/>
-                            </HBox>
+                            <!-- 월간권 -->
+                            <Label text="월 간 권" styleClass="paymentGYM_Days_radioBtn_Title"/>
+                            <GridPane hgap="30" vgap="30">
+                                <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                    <GridPane hgap="25" vgap="10">
+                                        <RadioButton fx:id="gym30Button" text="30일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Days_radioBtn_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="50,000원" styleClass="paymentGYM_Days_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                    </GridPane>
+                                </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" />
-                                <Label text="280,000"/>
-                                <Label text="원"/>
-                            </HBox>
+                                <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                    <GridPane hgap="25" vgap="10">
+                                        <RadioButton fx:id="gym90Button" text="90일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Days_radioBtn_2" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="150,000원" styleClass="paymentGYM_Days_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                    </GridPane>
+                                </HBox>
 
-                            <HBox>
-                                <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" />
-                                <Label text="510,000"/>
-                                <Label text="원"/>
-                            </HBox>
+                                <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                    <GridPane hgap="10" vgap="10">
+                                        <RadioButton fx:id="gym180Button" text="180일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Days_radioBtn_3" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="280,000원" styleClass="paymentGYM_Days_radioBtn_Text_3" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                    </GridPane>
+                                </HBox>
+
+                                <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                    <GridPane hgap="10" vgap="10">
+                                        <RadioButton fx:id="gym360Button" text="360일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Days_radioBtn_4" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="510,000원" styleClass="paymentGYM_Days_radioBtn_Text_4" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                    </GridPane>
+                                </HBox>
+                            </GridPane>
+
+                            <!-- Line -->
+                            <Pane styleClass="payment_ThirdLine" />
 
                         </VBox>
                     </Tab>
 
                     <!-- PT Tab -->
-                    <Tab fx:id="ptTab" text="PT">
+                    <Tab fx:id="ptTab" text="P  T" closable="false" styleClass="paymentPT_Tab">
                         <VBox alignment="CENTER" spacing="10">
 
                             <!-- 선택한 트레이너 정보 -->
@@ -103,27 +129,24 @@
 
                                 <HBox>
                                     <RadioButton fx:id="pt10Button" text="10회" toggleGroup="$ptTicketRadio" />
-                                    <Label text="700,000"/>
-                                    <Label text="원"/>
+                                    <Label text="700,000원"/>
                                 </HBox>
 
                                 <HBox>
                                     <RadioButton fx:id="pt20Button" text="20회" toggleGroup="$ptTicketRadio" />
-                                    <Label text="1,300,000"/>
-                                    <Label text="원"/>
+                                    <Label text="1,300,000원"/>
                                 </HBox>
 
                                 <HBox>
                                     <RadioButton fx:id="pt30Button" text="30회" toggleGroup="$ptTicketRadio" />
-                                    <Label text="1,800,000"/>
-                                    <Label text="원"/>
+                                    <Label text="1,800,000원"/>
                                 </HBox>
                             </VBox>
                         </VBox>
                     </Tab>
 
                     <!-- etc Tab -->
-                    <Tab fx:id="etcTab" text="기타">
+                    <Tab fx:id="etcTab" text="기  타" closable="false" styleClass="paymentETC_Tab">
                         <VBox>
                             <Label text="사물함"/>
                             <HBox alignment="CENTER_LEFT" spacing="10">
@@ -143,26 +166,22 @@
                             </HBox>
                             <HBox>
                                 <RadioButton fx:id="clothes30Button" text="30일" toggleGroup="$clothesRadio" />
-                                <Label text="7,000"/>
-                                <Label text="원"/>
+                                <Label text="7,000원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="clothes90Button" text="90일" toggleGroup="$clothesRadio" />
-                                <Label text="18,000"/>
-                                <Label text="원"/>
+                                <Label text="18,000원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="clothes180Button" text="180일" toggleGroup="$clothesRadio" />
-                                <Label text="31,000"/>
-                                <Label text="원"/>
+                                <Label text="31,000원"/>
                             </HBox>
 
                             <HBox>
                                 <RadioButton fx:id="clothes360Button" text="360일" toggleGroup="$clothesRadio" />
-                                <Label text="52,000"/>
-                                <Label text="원"/>
+                                <Label text="52,000원"/>
                             </HBox>
                         </VBox>
                     </Tab>
@@ -170,52 +189,55 @@
             </TabPane>
 
             <!-- 장바구니 -->
-            <HBox alignment="CENTER" spacing="80">
-                <VBox alignment="CENTER" spacing="10">
+            <GridPane alignment="CENTER" styleClass="payment_Cart" hgap="50" vgap="50">
+                <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedGymTicket" GridPane.rowIndex="0" GridPane.columnIndex="0">
                     <Label text="이용권"/>
-                    <HBox>
+                    <Label fx:id="selectGymTypeLabel"/>
+                    <HBox spacing="5">
                         <Label fx:id="selectGymDayLabel"/>
                         <Label fx:id="selectGymPriceLabel"/>
                     </HBox>
                 </VBox>
 
-                <VBox alignment="CENTER" spacing="10">
+                <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedPTTicket" GridPane.rowIndex="0" GridPane.columnIndex="1">
                     <Label text="PT"/>
                     <Label fx:id="selectTrainerNameLabel"/>
-                    <HBox>
+                    <HBox spacing="5">
                         <Label fx:id="selectPtTicketLabel"/>
                         <Label fx:id="selectPtPriceLabel"/>
                     </HBox>
                 </VBox>
 
-                <VBox alignment="CENTER" spacing="10">
+                <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedLockerTicket" GridPane.rowIndex="0" GridPane.columnIndex="2">
                     <Label text="사물함"/>
                     <Label fx:id="selectLockerNumLabel"/>
-                    <HBox>
+                    <HBox spacing="5">
                         <Label fx:id="selectLockerPeriodLabel"/>
                         <Label fx:id="selectLockerPriceLabel"/>
                     </HBox>
                 </VBox>
 
-                <VBox alignment="CENTER" spacing="10">
+                <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedClothesTicket" GridPane.rowIndex="0" GridPane.columnIndex="3">
                     <Label text="운동복"/>
-                    <HBox>
+                    <Label fx:id="selectClothesSizeLabel"/>
+                    <HBox spacing="5">
                         <Label fx:id="selectClothesPeriodLabel"/>
                         <Label fx:id="selectClothesPriceLabel"/>
                     </HBox>
                 </VBox>
-            </HBox>
+            </GridPane>
 
             <!-- 총 가격 정보 -->
-            <HBox alignment="CENTER">
+            <HBox alignment="BOTTOM_RIGHT" styleClass="payment_TotalPrice">
                 <Label text="총"/>
-                <Label fx:id="totalPriceLabel" text=" 0"/>
+                <Label fx:id="totalPriceLabel" text=" 0" />
                 <Label text="원"/>
             </HBox>
 
-            <HBox alignment="CENTER">
-                <Button text="취소" onAction="#cancelPayment"/>
-                <Button text="결제" onAction="#payment"/>
+            <HBox alignment="CENTER" styleClass="payment_Btn">
+                <Button text="취소" onAction="#cancelPayment" styleClass="payment_CancelBtn"/>
+                <Button text="결제" onAction="#payment" styleClass="payment_purchaseBtn"/>
+
             </HBox>
         </VBox>
 </AnchorPane>

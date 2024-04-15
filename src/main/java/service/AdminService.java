@@ -13,7 +13,7 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
-import static util.AlertUtil.showAlertLoginFail;
+import static util.DialogUtil.showDialogErrorMessage;
 import static util.PageUtil.*;
 
 public class AdminService {
@@ -31,21 +31,21 @@ public class AdminService {
         String password = passwordField.getText().trim();
 
         if (id.isEmpty()) {
-            showAlertLoginFail("emptyId");
+            showDialogErrorMessage("emptyId");
             return;
         }
 
         if (password.isEmpty()) {
-            showAlertLoginFail("emptyPw");
+            showDialogErrorMessage("emptyPw");
             return;
         }
 
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            movePageCenter(event, "/view/admin/helloAdminV2");
+            movePageTimerOff(event, "/view/admin/helloAdminV2");
         } else {
-            showAlertLoginFail("adminLoginFail");
+            showDialogErrorMessage("adminLoginFail");
         }
     }
 
