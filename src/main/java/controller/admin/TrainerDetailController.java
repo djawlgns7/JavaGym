@@ -104,7 +104,12 @@ public class TrainerDetailController implements Initializable {
             currentTrainer.setWeight(weight);
 
             trainerRepository.updateTrainer(currentTrainer);
-            showAlertAndMoveCenter("트레이너가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/trainerDetail", event);
+            if (result.get() == ButtonType.OK){
+                trainerRepository.deleteTrainer(currentTrainer.getNum());
+
+                TabController.getInstance().setSelectedTabIndex(1);
+                showAlertAndMoveCenter("트레이너가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
+            }
         }
     }
 

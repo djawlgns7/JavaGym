@@ -64,7 +64,7 @@
                                 <Label text="회원 정보" styleClass="memberInfo_title_2"/>
 
                                 <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
-                                    <TextField fx:id="searchNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
+                                    <TextField fx:id="searchMemberNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
                                     <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
                                 </HBox>
 

@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities;
 import org.w3c.dom.Text;
 import repository.AdminRepository;
 import repository.MemberRepository;
@@ -23,14 +24,14 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertAddReservationFail;
-import static util.AlertUtil.showAlertAndMove;
+import static util.AlertUtil.*;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
 import static util.PageUtil.movePageCenter;
@@ -38,62 +39,82 @@ import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
 
-    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
-
     private TrainerRepository trainerRepository = new TrainerRepository();
     private ReservationRepository reservationRepository = new ReservationRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
     @FXML
-    private TextField numField, nameField, phoneField, rdateField, rtimeField;
+    private TextField numField, nameField, phoneField, rtimeField;
+    @FXML
+    private DatePicker rDatePicker;
 
     @FXML
     private TableView<Reservation> reservationTable;
 
     @FXML
-    private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol;
+    private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol;
 
 
     @FXML
     private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
-        if (isEmptyAnyField(nameField, rdateField, rtimeField)) {
+        if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
             showAlertAddReservationFail("emptyAnyField");
             return;
         }
+
         Reservation reservation = new Reservation();
 
         // 예약 추가 로직 구현
         Integer memberNum = Integer.valueOf(numField.getText().trim());
         String memberName = nameField.getText().trim();
         String memberPhone = phoneField.getText().trim();
-        String rdate = rdateField.getText().trim();
-        Integer rtime = Integer.valueOf(rtimeField.getText().trim());
+        Date rDate = Date.valueOf(rDatePicker.getValue());
+        Integer rTime = Integer.valueOf(rtimeField.getText().trim());
+        LocalDate localrDate = rDate.toLocalDate();
 
-        if(addReservationValidate(memberName, memberPhone,rdate, rtime, trainer)) return;
+        if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+            showAlertAddReservationFail("wrongTimeForTrainer");
+            return;
+        }
+
+        if (!isDateAndTimeValid(localrDate, rTime)) {
+            showAlertAddReservationFail("wrongTime");
+            return;
+        }
+
+        if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+            showAlertAddReservationFail("reservationHasExist");
+            return;
+        }
+
+        if (!isValidPtTicket(memberNum)) {
+            showAlertAddReservationFail("noPTTicket");
+            return;
+        }
+
+        if(isNotYourMember(memberNum)) {
+            showAlertAddReservationFail("notYourMember");
+            return;
+        }
+
+        if(addReservationValidate(memberName, memberPhone)) return;
         reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
         reservation.setMemberPhone(memberPhone);
-        reservation.setReservationDate(stringToDate(rdate));
-        reservation.setReservationTime(rtime);
+        reservation.setReservationDate(rDate);
+        reservation.setReservationTime(rTime);
 
         //예약 저장
         service.addReservation(reservation);
-        showAlertAndMove("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
+        showAlertAndMoveCenter("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
-        columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rdateCol, rtimeCol);
+        columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol);
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
-        TextFormatter<String> rdateFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if(newText.matches("\\d{0,6}")) {
-                return change;
-            }
-            return null;
-        });
 
         TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -135,7 +156,7 @@ public class ReservationInfoController implements Initializable {
         numField.setTextFormatter(memberNumFormatter);
         nameField.setTextFormatter(memberNameFormatter);
         phoneField.setTextFormatter(phoneFormatter);
-        rdateField.setTextFormatter(rdateFormatter);
+        rDatePicker.setValue(LocalDate.now());
         rtimeField.setTextFormatter(rtimeFormatter);
 
         reservationTable.setRowFactory(tv -> {
@@ -144,7 +165,6 @@ public class ReservationInfoController implements Initializable {
                 if (!row.isEmpty() && event.getClickCount() == 2) {
                     Reservation selectedReservation = row.getItem();
                     if (selectedReservation != null) {
-                        System.out.println("Clicked reservation number: " + selectedReservation.getReservationNum());
                         SelectedReservation.currentReservation = selectedReservation; // 현재 예약을 선택된 예약으로 설정
                         try {
                             reservationDetail(selectedReservation, event);

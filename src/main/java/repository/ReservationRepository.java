@@ -172,6 +172,8 @@ public class ReservationRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, num);
             pstmt.executeUpdate();
+
+            setRemain(num, Item.PT_TICKET, +1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -272,4 +274,33 @@ public class ReservationRepository {
             }
         }
     }
+
+    public boolean checkReservation(int trainerNum, LocalDate reservationDate, int reservationTime) {
+        String sql = "SELECT COUNT(*) FROM reservation " +
+                "WHERE t_no = ? AND r_date = ? AND r_time = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, trainerNum);
+            pstmt.setDate(2, java.sql.Date.valueOf(reservationDate));
+            pstmt.setInt(3, reservationTime);
+
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
 }

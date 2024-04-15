@@ -100,24 +100,17 @@ public class MemberService {
         Member findMember = repository.findByPhone(phone);
         if (BCrypt.checkpw(password, findMember.getPassword())) {
 
+            // 코드 수정 (성진)
             Integer gymTicket = MemberUtil.getRemain(findMember.getNum(), Item.GYM_TICKET);
             Date reservation = reservationRepository.getTodayReservationDate(findMember.getNum());
 
-            // 헬스장 이용권이 존재하거나 당일 PT 예약인 경우만 입장 가능
-
             String today = LocalDate.now().toString();
-            if (gymTicket.equals(0) && reservation == null) {
+            if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+                entryLogRepository.save(findMember.getNum());
+                showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            } else {
                 showAlertUseMessage("DeniedEntry");
-                return;
             }
-
-            if (!reservation.toString().equals(today)) {
-                showAlertUseMessage("DeniedEntry");
-                return;
-            }
-
-            entryLogRepository.save(findMember.getNum());
-            showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         } else {
             showAlertLoginFail("wrongPw");
             passwordField.setText("");

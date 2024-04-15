@@ -193,7 +193,6 @@ public class ControllerUtil {
                                                 TableColumn<Reservation, String> memberPhoneCol,
                                                 TableColumn<Reservation, String> reservationDateCol,
                                                 TableColumn<Reservation, String> reservationTimeCol) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("MemberNum"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("MemberName"));
@@ -207,10 +206,8 @@ public class ControllerUtil {
             return new SimpleStringProperty(formattedPhoneNumber);
         });
 
-        reservationDateCol.setCellValueFactory(cellData ->  {
-            Date sqlDate = cellData.getValue().getReservationDate();
-            return sqlDateToLocalDate(sqlDate, formatter);
-        });
+        reservationDateCol.setCellValueFactory(cellData -> new SimpleStringProperty(
+                new SimpleDateFormat("yyyy-MM-dd").format(cellData.getValue().getReservationDate())));
 
         reservationTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
                 String.format("%02d:00", cellData.getValue().getReservationTime())));

@@ -1,21 +1,29 @@
 package util;
 
+import domain.Item;
 import domain.member.Member;
+import domain.trainer.Reservation;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import domain.trainer.WorkingHour;
+import javafx.scene.control.*;
+import org.w3c.dom.Text;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import static domain.trainer.SelectedTrainer.*;
 import static util.AlertUtil.*;
 import static util.AlertUtil.showAlertAddMemberFail;
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.getSelectedWorkingTime;
+import static util.MemberUtil.*;
 
 /**
  * 검증 시 사용하는 메서드 분리 (성진)
@@ -24,6 +32,8 @@ public class ValidateUtil {
 
     private static final MemberRepository memberRepository = new MemberRepository();
     private static final TrainerRepository trainerRepository = new TrainerRepository();
+
+    private static final ReservationRepository reservationRepository = new ReservationRepository();
 
     public static boolean isEmptyAnyField(TextField name, TextField emailId, ComboBox<String> emailDomain,
                                           TextField birth, TextField phone, PasswordField password,
@@ -224,7 +234,7 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addReservationValidate(String name, String phone, String rdate, Integer rtime, Trainer trainer) {
+    public static boolean addReservationValidate(String name, String phone) {
         if (name.length() > 10) {
             showAlertAddMemberFail("tooLongName");
             return true;
@@ -232,10 +242,6 @@ public class ValidateUtil {
 
         if (isWrongLengthPhone(phone)) {
             showAlertAddMemberFail("duplicatePhone");
-        }
-        if (isDuplicateDate(rdate)) {
-            showAlertAddMemberFail("wrongRdate");
-            return true;
         }
 
         return false;
@@ -290,18 +296,56 @@ public class ValidateUtil {
         int day = Integer.parseInt(date.substring(4));
 
         return(1 > month || month > 12) || (1 > day || day > 31);
+
     }
 
-    public static boolean isEmptyAnyField(TextField name,TextField date, TextField time) {
-        return name.getText().trim().isEmpty() ||
-                date.getText().trim().isEmpty() ||
+    public static boolean isEmptyAnyField(TextField num, TextField name, TextField phone, TextField time) {
+        return  num.getText().trim().isEmpty() ||
+                name.getText().trim().isEmpty() ||
+                phone.getText().trim().isEmpty() ||
                 time.getText().trim().isEmpty();
     }
-    /*private static boolean isReservationAvailable(Date rDate, Integer rTime, Integer TrainerNum) {
-        List<Reservation> reservation = reservationRepository.findSchedule(currentTrainer.getNum());
-        return reservation.stream().noneMatch(res-> res.getReservationTime().equals(rTime));
-    }*/
 
+    //트레이너 근무 시간 검증
+    public static boolean isValidTimeForTrainer(Trainer trainer, int hour) {
+        if (trainer.getWorkingHour() == WorkingHour.AM) {
+            return hour >= 8 && hour < 14;
+        } else if (trainer.getWorkingHour() == WorkingHour.PM) {
+            return hour >= 14 && hour < 20;
+        }
+        return false;
+    }
 
+    // 두달 제한 검증, 과거 시간 검증
+    public static boolean isDateAndTimeValid(LocalDate reservationDate, int reservationTime) {
+        LocalDate now = LocalDate.now();
+        int currentHour = LocalTime.now().getHour();
+        long daysBeetween = ChronoUnit.DAYS.between(now, reservationDate);
 
+        //두 달 제한 검증
+        boolean twoMonths = daysBeetween >= 0 && daysBeetween <= 60;
+
+        //과거 시간 검증
+        boolean timeValid = reservationDate.isAfter(now) || (reservationDate.isEqual(now) && reservationTime > currentHour);
+
+        return twoMonths && timeValid;
+    }
+
+    //중복 예약 검증
+    public static boolean isReservationExist (int trainerNum, LocalDate date, int time) {
+        return reservationRepository.checkReservation(trainerNum, date, time);
+
+    }
+
+    //PT 이용권 검증
+    public static boolean isValidPtTicket(int memberNum) {
+        Member member = memberRepository.findByNum(memberNum);
+        int remainPT = getRemain(memberNum, Item.PT_TICKET);
+        return remainPT != 0;
+    }
+
+    public static boolean isNotYourMember(int memberNum) {
+        int trainerNum = getTrainerNumForMember(memberNum);
+        return trainerNum != currentTrainer.getNum();
+    }
 }

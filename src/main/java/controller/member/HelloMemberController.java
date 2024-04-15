@@ -72,23 +72,18 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     public void entry(ActionEvent event) throws IOException {
-
-        Integer gymTicket = getRemain(currentMember.getNum(), Item.GYM_TICKET);
-        Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
+        // 코드 수정 (성진)
+        Integer memberNum = currentMember.getNum();
+        Integer gymTicket = MemberUtil.getRemain(memberNum, Item.GYM_TICKET);
+        Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
-        if (gymTicket.equals(0) && reservation == null) {
+        if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+            entryLogRepository.save(memberNum);
+            showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+        } else {
             showAlertUseMessage("DeniedEntry");
-            return;
         }
-
-        if (!reservation.toString().equals(today)) {
-            showAlertUseMessage("DeniedEntry");
-            return;
-        }
-
-        entryLogRepository.save(currentMember.getNum());
-        showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
     }
 
     @Override

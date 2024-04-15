@@ -31,7 +31,9 @@ import static domain.trainer.SelectedReservation.*;
 import static domain.trainer.SelectedTrainer.*;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AlertUtil.*;
+import static util.ControllerUtil.formatPhone;
 import static util.PageUtil.*;
+import static util.ValidateUtil.*;
 
 public class ReservationDetailController implements Initializable {
 
@@ -48,7 +50,7 @@ public class ReservationDetailController implements Initializable {
     private TableView<Reservation> reservationTable;
 
     @FXML
-    private TableColumn<Reservation, String> memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
+    private TableColumn<Reservation, String> reservationNumCol, memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
 
 
     @FXML
@@ -63,6 +65,23 @@ public class ReservationDetailController implements Initializable {
         Optional<ButtonType> response = showAlertChoose("예약 정보를 수정하시겠습니까?");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
+            Date rDate = Date.valueOf(ptDatePicker.getValue());
+            LocalDate localrDate = rDate.toLocalDate();
+            Integer rTime = Integer.valueOf(rTimeField.getText().trim());
+            if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+                showAlertUpdateReservationFail("wrongTimeForTrainer");
+                return;
+            }
+
+            if (!isDateAndTimeValid(localrDate, rTime)) {
+                showAlertUpdateReservationFail("wrongTime");
+                return;
+            }
+
+            if (!isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+                showAlertUpdateReservationFail("reservationHasExist");
+                return;
+            }
 
             if (!isSameReservationDate() || !isSameReservationTime()) {
                 //PT 날짜만 변경, 시간 동일
@@ -97,7 +116,7 @@ public class ReservationDetailController implements Initializable {
         Optional<ButtonType> response = AlertUtil.showAlertChoose("정말로 취소하시겠습니까?");
         if(response.isPresent() && response.get() == ButtonType.OK) {
             reservationRepository.deleteReservation(currentReservation.getReservationNum());
-            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
+            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
         }
     }
 
@@ -138,12 +157,18 @@ public class ReservationDetailController implements Initializable {
     }
 
     private void columnBinding() {
+        reservationNumCol.setCellValueFactory(new PropertyValueFactory<>("reservationNum"));
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
-        memberPhoneCol.setCellValueFactory(new PropertyValueFactory<>("memberPhone"));
+        memberPhoneCol.setCellValueFactory(cellData -> {
+            String rawPhoneNumber = cellData.getValue().getMemberPhone();
+            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
+            return new SimpleStringProperty(formattedPhoneNumber);
+        });
         rDateCol.setCellValueFactory(cellData -> new SimpleStringProperty(
                 new SimpleDateFormat("yyyy-MM-dd").format(cellData.getValue().getReservationDate())));
-        rTimeCol.setCellValueFactory(new PropertyValueFactory<>("reservationTime"));
+        rTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
+                String.format("%02d:00", cellData.getValue().getReservationTime())));
     }
     private void loadReservationDetails() {
         ObservableList<Reservation> reservations = FXCollections.observableArrayList();

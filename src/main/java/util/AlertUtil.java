@@ -136,7 +136,7 @@ public class AlertUtil {
 
     public static void showAlertAddReservationFail (String messageCode){
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(errorMessage.getString("loginFail"));
+        alert.setTitle(errorMessage.getString("addReservationFail"));
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
