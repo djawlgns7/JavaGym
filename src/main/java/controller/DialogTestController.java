@@ -17,6 +17,8 @@ public class DialogTestController implements Initializable {
     @FXML
     private Label timer;
 
+    private Scene scene;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTimer();
@@ -48,4 +50,35 @@ public class DialogTestController implements Initializable {
         Stage stage = (Stage) timer.getScene().getWindow();
         stage.close();
     }
+
+    public void setEvent(){
+        scene.setOnMouseMoved(e -> closeDialog());
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> closeDialog());
+        scene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> closeDialog());
+    }
 }
+
+//public static void openCustomDialog() {
+//    try {
+//        URL url = ControllerUtil.class.getResource("/view/dialogTest.fxml");
+//        // 컨트롤러 로드
+//        FXMLLoader loader = new FXMLLoader(url);
+//        Parent root = loader.load(url);
+//
+//        // 새로운 Stage 생성
+//        Stage dialogStage = new Stage();
+//        Scene newScene = new Scene(root);
+//        dialogStage.setScene(newScene);
+//        dialogStage.setTitle("Custom Dialog");
+//        SelectedMember.timerScene = newScene;
+//        if(SelectedMember.timerScene == null)
+//            System.out.println("널이다히히");
+//        Platform.runLater(() -> {
+//            dialogStage.show();
+//        });
+//
+//
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
+//}

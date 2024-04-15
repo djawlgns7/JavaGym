@@ -21,8 +21,6 @@ public class InactivityManager {
     private static Timeline inactivityTimer;
     private static List<Dialog> openDialogs = new ArrayList<>();  // 다이얼로그 리스트
 
-    private static Stage dialogStage = null;
-
     public static void setMainStage(Stage stage) {
         mainStage = stage;
     }
@@ -63,11 +61,6 @@ public class InactivityManager {
         if (inactivityTimer != null) {
             inactivityTimer.stop();
             inactivityTimer.play();
-        }
-
-        if(dialogStage != null){
-            dialogStage.close();
-            dialogStage = null;
         }
     }
 

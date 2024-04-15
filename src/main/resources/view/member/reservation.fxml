@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/Reservation.css"
+<AnchorPane prefHeight="1000" prefWidth="550" stylesheets="/css/Reservation.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.ReservationController">
     <VBox alignment="CENTER" prefHeight="1000" prefWidth="550" spacing="15.0">
 

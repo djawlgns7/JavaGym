@@ -1,7 +1,10 @@
 package util;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -10,7 +13,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static thread.InactivityManager.registerDialog;
-import static util.PageUtil.*;
+import static util.PageUtil.movePage;
 
 public class DialogUtil {
 
