@@ -10,14 +10,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import util.AlertUtil;
-import util.ControllerUtil;
 import util.SoundUtil;
-
-import java.io.IOException;
-import java.net.URL;
-
-import static util.AlertUtil.openCustomDialog;
 
 public class InactivityManager {
     private static Stage mainStage;
@@ -35,11 +28,10 @@ public class InactivityManager {
             inactivityTimer.stop();
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10), e -> SoundUtil.play("toMainPage"));
-        KeyFrame alertDialogFrame = new KeyFrame(Duration.seconds(10), e -> openCustomDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(20), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(50), e -> SoundUtil.play("toMainPage"));
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(60), e -> moveToMainScreen());
 
-        inactivityTimer = new Timeline(alertFrame, alertDialogFrame, endFrame);
+        inactivityTimer = new Timeline(alertFrame, endFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
 
         // 마우스 움직임과 키 이벤트를 감지하도록 이벤트 리스너를 추가
@@ -48,31 +40,6 @@ public class InactivityManager {
         scene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> resetInactivityTimer());
 
         inactivityTimer.play();
-    }
-
-    public static void openCustomDialog() {
-        try {
-            URL url = ControllerUtil.class.getResource("/view/dialogTest.fxml");
-            // 컨트롤러 로드
-            FXMLLoader loader = new FXMLLoader(url);
-            Parent root = loader.load();
-
-            // 새로운 Stage 생성
-            dialogStage = new Stage();
-            Scene newScene = new Scene(root);
-            dialogStage.setScene(newScene);
-            dialogStage.setTitle("Custom Dialog");
-            Platform.runLater(() -> {
-                dialogStage.showAndWait();
-            });
-
-//            newScene.setOnMouseMoved(e -> resetInactivityTimer());
-//            newScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> resetInactivityTimer());
-//            newScene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> resetInactivityTimer());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void resetInactivityTimer() {
