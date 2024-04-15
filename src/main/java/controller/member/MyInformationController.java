@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePage;
+import static util.PageUtil.movePageCenter;
 
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
@@ -158,6 +158,6 @@ public class MyInformationController implements Initializable {
 
     @FXML
     public void moveToMain(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/helloMember");
+        movePageCenter(event, "/view/member/helloMember");
     }
 }

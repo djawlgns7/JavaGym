@@ -32,7 +32,7 @@ import static domain.member.SelectedMember.currentMember;
 import static util.AlertUtil.*;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
-import static util.PageUtil.movePage;
+import static util.PageUtil.movePageCenter;
 import static util.TrainerUtil.getTrainerSchedule;
 
 public class ReservationController implements Initializable {
@@ -313,13 +313,13 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMoveCenter("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
 
     @FXML
     public void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/helloMember");
+        movePageCenter(event, "/view/member/helloMember");
     }
 
     @FXML
