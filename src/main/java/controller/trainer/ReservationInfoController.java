@@ -1,7 +1,6 @@
 package controller.trainer;
 
 
-import domain.member.Member;
 import domain.trainer.*;
 
 import javafx.event.ActionEvent;
@@ -9,9 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
-import repository.AdminRepository;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
@@ -20,20 +16,16 @@ import static domain.trainer.SelectedReservation.currentReservation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Time;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
 import static util.DialogUtil.*;
-import static util.PageUtil.movePage;
+import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -54,7 +46,7 @@ public class ReservationInfoController implements Initializable {
 
 
     @FXML
-    private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
+    private void addReservationInfo(ActionEvent event) throws IOException {
         if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
@@ -105,7 +97,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showDialogAndMovePage("예약 등록 성공", "/view/trainer/reservationInfo", event);
+        showDialogAndMovePageTimerOff("예약 등록 성공", "/view/trainer/reservationInfo", event);
 
     }
 
@@ -131,14 +123,6 @@ public class ReservationInfoController implements Initializable {
             return null;
         });
 
-        UnaryOperator<TextFormatter.Change> filter = change -> {
-            String text = change.getText();
-            if (text.matches("[^0-9]*")) {
-                return change;
-            }
-            return null;
-        };
-
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.
@@ -150,10 +134,8 @@ public class ReservationInfoController implements Initializable {
         };
 
         TextFormatter<String> memberNumFormatter = new TextFormatter<>(filter2);
-        TextFormatter<String> memberNameFormatter = new TextFormatter<>(filter);
 
         numField.setTextFormatter(memberNumFormatter);
-        nameField.setTextFormatter(memberNameFormatter);
         phoneField.setTextFormatter(phoneFormatter);
         rDatePicker.setValue(LocalDate.now());
         rtimeField.setTextFormatter(rtimeFormatter);
@@ -184,12 +166,12 @@ public class ReservationInfoController implements Initializable {
         if(reservation != null && event.getClickCount() == 2) {
             currentReservation = reservation;
             currentTrainer = trainer;
-            movePage(event, "/view/trainer/reservationDetail");
+            movePageTimerOff(event, "/view/trainer/reservationDetail");
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/trainer/helloTrainer");
+        movePageTimerOff(event, "/view/trainer/helloTrainer");
     }
 }

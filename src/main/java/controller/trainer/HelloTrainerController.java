@@ -10,8 +10,8 @@ import javafx.scene.shape.Circle;
 import repository.TrainerRepository;
 
 import java.io.IOException;
-import static domain.trainer.SelectedTrainer.*;
-import static util.PageUtil.movePage;
+
+import static util.PageUtil.*;
 
 
 public class HelloTrainerController {
@@ -26,14 +26,14 @@ public class HelloTrainerController {
             Trainer updatedTrainer = trainerRepository.findById(SelectedTrainer.currentTrainer.getId());
             if (updatedTrainer != null) {
                 SelectedTrainer.setCurrentTrainer(updatedTrainer); // 갱신된 트레이너 정보로 업데이트
-                movePage(event, "/view/trainer/reservationInfo");
+                movePageTimerOff(event, "/view/trainer/reservationInfo");
             }
         }
     }
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML

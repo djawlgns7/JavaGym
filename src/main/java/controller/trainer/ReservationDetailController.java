@@ -1,11 +1,7 @@
 package controller.trainer;
 
-import converter.DateToStringConverter;
-import domain.member.Member;
 import domain.trainer.Reservation;
-import domain.trainer.SelectedReservation;
 import domain.trainer.Trainer;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -24,11 +19,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
-import static domain.trainer.SelectedTrainer.*;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.DialogUtil.*;
 import static util.DialogUtil.showDialogChoose;
@@ -108,7 +101,7 @@ public class ReservationDetailController implements Initializable {
 
                 }
 
-                showDialogAndMovePage("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
+                showDialogAndMovePageTimerOff("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
             }
         }
     }
@@ -182,7 +175,7 @@ public class ReservationDetailController implements Initializable {
     private void goBack(ActionEvent event) {
         try {
             if (currentTrainer != null && currentTrainer.getNum() != null) {
-                movePage(event, "/view/trainer/reservationInfo");
+                movePageTimerOff(event, "/view/trainer/reservationInfo");
             }
         } catch (Exception e) {
             e.printStackTrace();

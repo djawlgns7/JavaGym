@@ -70,15 +70,18 @@ public class PageUtil {
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("JavaGym");
 
-        stage.setScene(scene);
+        if (stage != null) {
+            stage.setTitle("JavaGym");
 
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setScene(scene);
 
-        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        stage.show();
+            stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+
+            stage.show();
+        }
     }
 }

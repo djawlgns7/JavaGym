@@ -8,6 +8,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +31,13 @@ public class InactivityManager {
 
     public static void registerDialog(Dialog dialog) {
         openDialogs.add(dialog);
+
+        DialogPane dialogPane = dialog.getDialogPane();
+
+        dialogPane.addEventFilter(MouseEvent.MOUSE_MOVED, e -> resetInactivityTimer());
+        dialogPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> resetInactivityTimer());
+        dialogPane.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> resetInactivityTimer());
+
         dialog.setOnCloseRequest(e -> openDialogs.remove(dialog));
     }
 
@@ -62,7 +70,6 @@ public class InactivityManager {
         if (inactivityTimer != null) {
             inactivityTimer.stop();
             inactivityTimer.play();
-            System.out.println("resetTimer");
         }
     }
 

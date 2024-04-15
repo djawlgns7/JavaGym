@@ -106,9 +106,7 @@ public class MemberService {
             String today = LocalDate.now().toString();
             if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
                 entryLogRepository.save(findMember.getNum());
-                showDialogAndMovePage(findMember.getName() + "님 오늘도 파이팅!", "/view/member/memberLogin", event);
-
-//                showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+                showDialogAndMoveMainPage(findMember.getName() + "님 오늘도 파이팅!", event);
             } else {
                 showDialogBasicMessage("DeniedEntry");
             }

@@ -2,7 +2,6 @@ package util;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -31,7 +30,6 @@ public class DialogUtil {
         vbox.getChildren().add(label);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
-//        vbox.getChildren().add(new Label(message));
 
         dialog.getDialogPane().setContent(vbox);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
@@ -49,7 +47,6 @@ public class DialogUtil {
 
 
         VBox vbox = new VBox();
-//        vbox.getChildren().add(new Label(errorMessage.getString(messageCode)));
         vbox.getChildren().add(label);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
@@ -69,7 +66,6 @@ public class DialogUtil {
         label.getStyleClass().add("label");
 
         VBox vbox = new VBox();
-//        vbox.getChildren().add(new Label(basicMessage.getString(messageCode)));
         vbox.getChildren().add(label);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
@@ -89,7 +85,6 @@ public class DialogUtil {
         label.getStyleClass().add("label");
 
         VBox vbox = new VBox();
-//        vbox.getChildren().add(new Label(message));
         vbox.getChildren().add(label);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
@@ -101,17 +96,43 @@ public class DialogUtil {
         movePage(event, viewPath);
     }
 
+    public static void showDialogAndMovePageTimerOff(String message, String viewPath, ActionEvent event) throws IOException {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
+        dialog.setTitle("알림");
+
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        dialog.getDialogPane().setContent(vbox);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
+        dialog.showAndWait();
+        movePageTimerOff(event, viewPath);
+    }
+
     public static void showDialogAndMoveMainPage(String message, ActionEvent event) throws IOException {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);
         dialog.setTitle("알림");
 
-        VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(message));
-        dialog.getDialogPane().setContent(vbox);
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
 
+        VBox vbox = new VBox();
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        dialog.getDialogPane().setContent(vbox);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         dialog.showAndWait();
         moveToMainPage(event);
