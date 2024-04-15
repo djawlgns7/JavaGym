@@ -1,5 +1,8 @@
 package util;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -8,15 +11,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class AlertUtil {
+public class AlertUtil extends  Thread {
 
     private static final ResourceBundle errorMessage = ResourceBundle.getBundle("message.error");
     private static final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
@@ -140,5 +148,37 @@ public class AlertUtil {
         alert.setHeaderText(null);
         alert.setContentText(errorMessage.getString(messageCode));
         alert.showAndWait();
+    }
+
+    public static void showAlertAndAutoClose(String message, int seconds) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("알림");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        // 일정 시간 후에 자동으로 닫히도록 설정
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), event -> alert.close()));
+        timeline.setCycleCount(1);
+        timeline.play();
+
+        // 알림 창 표시
+        alert.showAndWait();
+    }
+
+    public static void openCustomDialog(String position) {
+        try {
+            URL url = AlertUtil.class.getResource(position);
+            // 컨트롤러 로드
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent root = loader.load();
+
+            // 새로운 Stage 생성
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+            dialogStage.setTitle("Custom Dialog");
+            dialogStage.showAndWait(); // 다이얼로그를 표시하고 대기
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
