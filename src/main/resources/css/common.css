@@ -6,13 +6,14 @@
 
 /* SeungBeen's CSS */
 @import url(/css/AdminLogin.css);
-@import url(/css/AdminHello.css);
 @import url(/css/MemberInfo.css);
 @import url(/css/TrainerInfo.css);
 @import url(/css/MemberDetail.css);
 @import url(/css/TrainerDetail.css);
 
+
 /* Individual CSS (주석) */
 /* @import url(/css/Entrylog.css); */
 /* @import url(/css/LockerInfo.css); */
+
 /* @import url(/css/helloTrainer.css); */

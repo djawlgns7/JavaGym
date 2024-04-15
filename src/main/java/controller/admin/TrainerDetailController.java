@@ -14,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -42,6 +45,9 @@ public class TrainerDetailController implements Initializable {
     @FXML
     private ImageView imageView;
     private String updatedImagePath;
+
+    @FXML
+    private GridPane trainerDetailGrid;
 
     @FXML
     private DatePicker birthPicker;
@@ -169,6 +175,14 @@ public class TrainerDetailController implements Initializable {
             heightField.setTextFormatter(heightFormatter);
             weightField.setTextFormatter(weightFormatter);
             phoneField.setTextFormatter(phoneFormatter);
+
+            // GridPane 행 설정
+            RowConstraints[] rows = new RowConstraints[7];
+            for (int i = 0; i < rows.length; i++) {
+                rows[i] = new RowConstraints();
+                rows[i].setPercentHeight(50);
+                trainerDetailGrid.getRowConstraints().add(rows[i]);
+            }
         }
     }
 

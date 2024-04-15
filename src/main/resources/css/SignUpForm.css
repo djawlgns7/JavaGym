@@ -3,14 +3,19 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
+.signUp_VBox {
+     -fx-translate-y: -50;
+}
+
 /* Title */
-.signup_title_label {
-    -fx-font-size: 72;
+.signUp_title {
+    -fx-font-size: 84;
     -fx-font-family: "Anton";
 }
 
 /* TextField */
-.SignUp_nameInput, .SignUp_phoneInput, .SignUp_CertificationNumInput, .SignUp_passwordInput, .SignUp_birthInput {
+.signUp_nameInput, .signUp_phoneInput, .signUp_CertificationNumInput,
+.signUp_passwordInput, .signUp_birthInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -23,7 +28,7 @@ AnchorPane {
     -fx-prompt-text-fill: #999999;
 }
 
-.SignUp_emailInput, .SignUp_emailComboBox {
+.signUp_emailInput, .signUp_emailComboBox {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
     -fx-pref-height: 50;
@@ -36,21 +41,66 @@ AnchorPane {
     -fx-prompt-text-fill: #999999;
 }
 
+/* ComboBox - TextField 배경색 변경 */
+.signUp_emailComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+/* ComboBox - Button 색상 변경 */
+.signUp_emailComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Button Hover 색상 변경 */
+.signUp_emailComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Arrow 색상 변경 */
+.signUp_emailComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
+}
+
 /* Button */
-.SignUp_page_Btn {
+.signUp_Btn {
     -fx-font-family: "Jua";
     -fx-spacing: 50;
 }
 
-.SignUp_page_TopBtn, .SignUp_Phone, .SignUp_CertificationNum {
+.signUp_Phone, .signUp_CertificationNum {
     -fx-font-family: "Jua";
 }
 
-.SignUp_page_TopBtn {
-    -fx-padding: 10 10 0 0;
+.signUp_TopBtn {
+    -fx-font-family: "Jua";
+    -fx-padding: 0 20 0 0;
+    -fx-translate-y: 44;
 }
 
-.SignUp_addMemberBtn {
+.signUp_addMemberBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -60,17 +110,17 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.SignUp_addMemberBtn:hover {
+.signUp_addMemberBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.SignUp_addMemberBtn:pressed {
+.signUp_addMemberBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.SignUp_loginBtn {
+.signUp_loginBtn {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -78,12 +128,12 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.SignUp_loginBtn:hover {
+.signUp_loginBtn:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
 
-.SignUp_SendBtn, .SignUp_CheckBtn {
+.signUp_SendBtn, .signUp_CheckBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 12;
@@ -93,27 +143,57 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.SignUp_SendBtn:hover, .SignUp_CheckBtn:hover {
+.signUp_SendBtn:hover, .signUp_CheckBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.SignUp_SendBtn:pressed, .SignUp_CheckBtn:pressed {
+.signUp_SendBtn:pressed, .signUp_CheckBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
 /* Radio Button */
-.SingUp_sex_radioBtn_title, .SignUp_atSign {
+.signUp_sex_radioBtn_title, .signUp_atSign {
     -fx-font-family: "Jua";
     -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 
-.SingUp_sex_radioBtn_1, .SingUp_sex_radioBtn_2 {
+.signUp_sex_radioBtn_1, .signUp_sex_radioBtn_2 {
     -fx-font-family: "NanumGothic";
     -fx-font-size: 20;
     -fx-font-weight: bold;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.signUp_sex_radioBtn_1 .radio,
+.signUp_sex_radioBtn_2 .radio {
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.signUp_sex_radioBtn_1 .radio:hover,
+.signUp_sex_radioBtn_2 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.signUp_sex_radioBtn_1:selected .radio,
+.signUp_sex_radioBtn_2:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.signUp_sex_radioBtn_1:selected .radio:hover,
+.signUp_sex_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.signUp_sex_radioBtn_1:selected .dot,
+.signUp_sex_radioBtn_2:selected .dot {
+    -fx-background-color: #FFFFFF;
 }
 
 /* Password Field Error */
@@ -123,6 +203,6 @@ AnchorPane {
 }
 
 /* Phone & CertificationNum 위치 조정 */
-.SignUp_Phone, .SignUp_CertificationNum {
+.signUp_Phone, .signUp_CertificationNum {
     -fx-translate-x: 35;
 }

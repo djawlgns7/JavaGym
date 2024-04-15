@@ -3,42 +3,65 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
+.helloMember_VBox {
+    -fx-translate-y: -50;
+}
+
 /* Title */
-.hello_title_label {
-    -fx-font-size: 72;
+.helloMember_title {
+    -fx-font-size: 84;
     -fx-font-family: "Anton";
 }
 
 /* Label */
-.Hello_PT_Info, .Hello_Name_Info, .Hello_GYM_Info {
-    -fx-font-size: 20;
+.helloMember_PT_InfoTitle, .helloMember_GYM_InfoTitle {
+    -fx-text-fill: #9747FF;
+    -fx-font-size: 28;
     -fx-font-family: "Jua";
 }
 
-.Hello_PT_Info {
-    -fx-translate-x: 45;
+.helloMember_PT_Info, .helloMember_Name_Info, .helloMember_GYM_Info {
+    -fx-font-size: 28;
+    -fx-font-family: "Jua";
 }
 
-.Hello_Name_Info {
-    -fx-translate-x: 40;
+.helloMember_PT_InfoTitle, .helloMember_PT_Info {
+    -fx-translate-x: 70;
 }
 
-.Hello_GYM_Info {
-    -fx-translate-x: 55;
+.helloMember_Name_Info {
+    -fx-translate-x: 120;
+}
+
+.helloMember_GYM_InfoTitle, .helloMember_GYM_Info {
+    -fx-translate-x: 130;
 }
 
 /* Button */
-.Hello_page_Btn {
+.helloMember_Btn {
     -fx-font-family: "Jua";
-    -fx-spacing: 50;
 }
 
-.Hello_page_TopBtn {
+.helloMember_TopBtn {
     -fx-font-family: "Jua";
-    -fx-padding: 10 10 0 0;
+    -fx-padding: 0 20 0 0;
+    -fx-translate-y: 17;
 }
 
-.reservationBtn, .purchaseBtn {
+.helloMember_myPageIcon, .helloMember_logOutIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.helloMember_myPageIcon:hover, .helloMember_logOutIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+}
+
+.helloMember_reservationBtn, .helloMember_purchaseBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -46,7 +69,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.entryBtn {
+.helloMember_entryBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -54,24 +77,13 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.reservationBtn:hover, .purchaseBtn:hover, .entryBtn:hover {
+.helloMember_reservationBtn:hover, .helloMember_purchaseBtn:hover, .helloMember_entryBtn:hover {
     -fx-background-color: #F4B6FF;
 }
 
-.reservationBtn:pressed, .purchaseBtn:pressed, .entryBtn:pressed {
+.helloMember_reservationBtn:pressed, .helloMember_purchaseBtn:pressed, .helloMember_entryBtn:pressed {
     -fx-background-color: #F4B6FF;
 }
 
 
-.Hello_myPageIcon, .Hello_logOutIcon {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #000000;
-        -fx-border-width: 1;
-        -fx-border-style: solid;
-        -fx-border-radius: 5;
-}
 
-.Hello_myPageIcon:hover, .Hello_logOutIcon:hover {
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
-}

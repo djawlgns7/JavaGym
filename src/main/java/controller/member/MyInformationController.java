@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -31,7 +32,7 @@ public class MyInformationController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
-    private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
+    private Label memberName, trainerName, myPtRemain, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
             clothesAvailability, clothesRemain, trainerPhone;
     @FXML
     private HBox myPtInformation;
@@ -78,7 +79,7 @@ public class MyInformationController implements Initializable {
             Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
             String phone = trainer.getPhone();
-            String calculatedTrainerPhone = "010-" + phone.substring(0, 4) + "-" + phone.substring(4, 8);
+            String calculatedTrainerPhone = "010 - " + phone.substring(0, 4) + " - " + phone.substring(4, 8);
 
             trainerName.setText(trainer.getName() + " 트레이너");
             trainerPhone.setText(calculatedTrainerPhone);
@@ -116,7 +117,7 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
-                // println 지웠어 (성진)
+                System.out.println(memberSchedules.get(i).getReservationTime());
                 newLabel = new Label(reservationTime);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Time");
                 newVBox.getChildren().add(newLabel);
@@ -129,7 +130,8 @@ public class MyInformationController implements Initializable {
             gymTicketRemain.setText("결제 내역이 없습니다");
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
-            gymTicketRemain.setText(expireDate + " (D-" + gymTicket + ")");
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
+            gymTicketRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -141,8 +143,9 @@ public class MyInformationController implements Initializable {
             int lockerNum = getLockerNum(memberNum);
 
             LocalDate expireDate = today.plusDays(locker);
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             lockerNo.setText("No." + lockerNum);
-            lockerRemain.setText(expireDate + " (D-" + locker + ")");
+            lockerRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
         }
 
         if(clothes == 0){
@@ -150,8 +153,9 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
+            long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
             clothesAvailability.setText("대여 가능");
-            clothesRemain.setText(expireDate + " (D-" + clothes + ")");
+            clothesRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
 
         }
     }
