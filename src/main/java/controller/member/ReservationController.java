@@ -313,7 +313,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showAlertAndMoveCenter("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         }
     }
 

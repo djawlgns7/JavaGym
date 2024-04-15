@@ -28,8 +28,7 @@ import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlertAddReservationFail;
-import static util.AlertUtil.showAlertAndMove;
+import static util.AlertUtil.*;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
 import static util.PageUtil.movePageCenter;
@@ -75,7 +74,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showAlertAndMove("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
+        showAlertAndMoveCenter("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
 
     }
 
