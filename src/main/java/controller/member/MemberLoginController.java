@@ -5,21 +5,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import service.MemberService;
-import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static util.PageUtil.*;
-import static util.SoundUtil.*;
 
 public class MemberLoginController implements Initializable {
 
@@ -85,8 +81,5 @@ public class MemberLoginController implements Initializable {
 
         Circle cilpCircle = new Circle(100, 100, 100);
         profileImage.setClip(cilpCircle);
-
-
-        play("welcome");
     }
 }

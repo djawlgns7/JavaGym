@@ -713,11 +713,13 @@ public class PaymentController implements Initializable {
                 }
             }
 
-            showAlert("결제가 완료되었습니다!", Alert.AlertType.INFORMATION);
+            play("completePayment");
+            showAlert("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.", Alert.AlertType.INFORMATION);
 
             selectTrainer = false;
             currentTrainer = null;
             basket.clear();
+
             movePageCenter(event, "/view/member/memberLogin");
         }
     }

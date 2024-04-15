@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import thread.InactivityManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +25,7 @@ public class PageUtil {
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(init.getString("title"));
+        stage.setTitle("JavaGym");
 
         stage.setScene(scene);
         setupInactivityTimer(scene); // 추가
