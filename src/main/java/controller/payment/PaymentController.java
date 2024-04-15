@@ -19,11 +19,10 @@ import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.showAlert;
-import static util.AlertUtil.showAlertChoose;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
 import static util.PurchaseUtil.purchaseItem;
 import static util.SoundUtil.*;
 
@@ -474,7 +473,7 @@ public class PaymentController implements Initializable {
     // PT 이용권
     @FXML
     private void selectTrainer(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/selectTrainer");
+        movePage(event, "/view/member/selectTrainer");
     }
 
     private void updatePtPrice(RadioButton selectedButton) {
@@ -528,7 +527,7 @@ public class PaymentController implements Initializable {
 
     @FXML
     private void selectLocker(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/selectLocker");
+        movePage(event, "/view/member/selectLocker");
     }
 
     private void updateClothesPrice(RadioButton selectedButton) {
@@ -598,13 +597,13 @@ public class PaymentController implements Initializable {
         selectTrainer = false;
         currentTrainer = null;
         basket.clear();
-        movePageCenter(event, "/view/member/helloMember");
+        movePage(event, "/view/member/helloMember");
     }
 
     @FXML
     private void payment(ActionEvent event) throws IOException {
         if(basket.isEmpty()){
-            showAlert("물품을 하나 이상 선택해 주세요", Alert.AlertType.ERROR);
+            showDialog("물품을 하나 이상 선택해 주세요");
             return;
         }
 
@@ -671,7 +670,7 @@ public class PaymentController implements Initializable {
 
         sb.append(totalPriceText);
 
-        Optional<ButtonType> result = showAlertChoose(sb.toString());
+        Optional<ButtonType> result = showDialogChoose(sb.toString());
 
         if(result.get() == ButtonType.OK){
             int memberNum = currentMember.getNum();
@@ -714,13 +713,13 @@ public class PaymentController implements Initializable {
             }
 
             play("completePayment");
-            showAlert("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.", Alert.AlertType.INFORMATION);
+            showDialog("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.");
 
             selectTrainer = false;
             currentTrainer = null;
             basket.clear();
 
-            movePageCenter(event, "/view/member/memberLogin");
+            movePage(event, "/view/member/memberLogin");
         }
     }
 

@@ -24,6 +24,7 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
+import util.DialogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +36,10 @@ import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
-import static util.AlertUtil.showAlert;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
 import static util.ValidateUtil.*;
 
 public class HelloAdminControllerV2 implements Initializable {
@@ -63,7 +63,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void addMember(ActionEvent event) throws ParseException, IOException {
         if (isEmptyAnyField(memberNameField, emailField, memberBirthField, memberPhoneField, memberMaleButton, memberFemaleButton)) {
-            showAlertAddMemberFail("emptyAnyField");
+            showDialogErrorMessage("emptyAnyField");
             return;
         }
 
@@ -83,14 +83,14 @@ public class HelloAdminControllerV2 implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
-        showAlertAndMoveCenter("회원 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdmin2", event);
+        showDialogAndMovePage("회원 등록 성공", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
     private void memberDetail(Member member, MouseEvent event) throws IOException {
         if (member != null && event.getClickCount() == 2) {
             SelectedMember.currentMember = member;
-            movePageCenter(event, "/view/admin/memberDetail");
+            movePage(event, "/view/admin/memberDetail");
         }
     }
 
@@ -221,14 +221,14 @@ public class HelloAdminControllerV2 implements Initializable {
         String searchName = searchMemberNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            showAlert("이름을 입력해 주세요.", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("이름을 입력해 주세요.");
             return;
         }
 
         List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
 
         if (searchedMembers.isEmpty()) {
-            showAlert("해당 이름의 회원이 없습니다.", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("해당 이름의 회원이 없습니다.");
             return;
         }
         ObservableList<Member> observableList = FXCollections.observableArrayList(searchedMembers);
@@ -238,12 +238,12 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageMember(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePageCenter(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/memberLogin");
+        movePage(event, "/view/member/memberLogin");
     }
 
     // 트레이너 영역
@@ -269,7 +269,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void addTrainer(ActionEvent event) throws IOException, ParseException {
         if (isEmptyAnyField(trainerNameField, idField, trainerBirthField, trainerPhoneField, trainerMaleButton, trainerFemaleButton, amButton, pmButton, heightField, weightField)) {
-            showAlertAddTrainerFail("emptyAnyField");
+            showDialogErrorMessage("emptyAnyField");
             return;
         }
 
@@ -318,14 +318,14 @@ public class HelloAdminControllerV2 implements Initializable {
             }
         }
 
-        showAlertAndMoveCenter("트레이너 등록 성공", Alert.AlertType.INFORMATION, "/view/admin/helloAdmin2", event);
+        showDialogAndMovePage("트레이너 등록 성공", "/view/admin/helloAdmin2", event);
     }
 
     @FXML
     private void trainerDetail(Trainer trainer, MouseEvent event) throws IOException {
         if (trainer != null && event.getClickCount() == 2) {
             currentTrainer = trainerRepository.findByNum(trainer.getNum());
-            movePageCenter(event, "/view/admin/trainerDetail");
+            movePage(event, "/view/admin/trainerDetail");
         }
     }
 
@@ -352,14 +352,14 @@ public class HelloAdminControllerV2 implements Initializable {
         String searchName = searchTrainerNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            showAlert("이름을 입력해 주세요.", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("이름을 입력해 주세요.");
             return;
         }
 
         Trainer trainer = trainerRepository.findByName(searchName);
 
         if (trainer == null) {
-            showAlert("해당 이름의 트레이너가 없습니다.", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("해당 이름의 트레이너가 없습니다.");
             return;
         }
         ObservableList<Trainer> observableList = FXCollections.observableArrayList(trainer);
@@ -369,6 +369,6 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageTrainer(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
-        movePageCenter(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 }

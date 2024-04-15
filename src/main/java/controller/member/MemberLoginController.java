@@ -38,17 +38,17 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/signUpForm");
+        movePage(event, "/view/member/signUpForm");
     }
 
     @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/admin/adminLogin");
+        movePage(event, "/view/admin/adminLogin");
     }
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/trainer/trainerLogin");
+        movePage(event, "/view/trainer/trainerLogin");
     }
 
     @FXML

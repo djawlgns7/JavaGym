@@ -7,7 +7,6 @@ import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -26,9 +25,9 @@ import java.util.ResourceBundle;
 import static controller.payment.PaymentController.basket;
 import static controller.payment.PaymentController.removeItem;
 import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.showAlert;
+import static util.DialogUtil.showDialog;
 import static util.MemberUtil.getTrainerNumForMember;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
 
 public class SelectLockerController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
@@ -194,7 +193,7 @@ public class SelectLockerController implements Initializable {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
         if(selectedLockerNumberText.equals("")){
-            showAlert("락커 번호를 선택하지 않았습니다", Alert.AlertType.ERROR);
+            showDialog("락커 번호를 선택하지 않았습니다");
             return;
         }
 
@@ -202,7 +201,7 @@ public class SelectLockerController implements Initializable {
         RadioButton selectedRadio = (RadioButton)lockerPeriodGroup.getSelectedToggle();
 
         if(selectedRadio == null){
-            showAlert("기간을 선택하지 않았습니다", Alert.AlertType.ERROR);
+            showDialog("기간을 선택하지 않았습니다");
             return;
         }
 
@@ -217,11 +216,11 @@ public class SelectLockerController implements Initializable {
         basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
 
         PaymentTab.getInstance().setSelectedTabIndex(2);
-        movePageCenter(event, "/view/member/payment");
+        movePage(event, "/view/member/payment");
     }
 
     public void goBackButtonClicked(ActionEvent event) throws IOException {
         PaymentTab.getInstance().setSelectedTabIndex(2);
-        movePageCenter(event, "/view/member/payment");
+        movePage(event, "/view/member/payment");
     }
 }
