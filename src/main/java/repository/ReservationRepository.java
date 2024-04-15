@@ -1,4 +1,3 @@
-
 package repository;
 
 import domain.Item;
@@ -66,8 +65,8 @@ public class ReservationRepository {
      */
     public List<TrainerSchedule> findTrainerSchedule(int trainerNum) {
         String sql = "SELECT m_name, r_date, r_time " +
-                "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
-                "WHERE r.t_no = ?";
+                    "FROM reservation r JOIN member m JOIN trainer t ON r.m_no = m.m_no AND r.t_no = t.t_no " +
+                    "WHERE r.t_no = ?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
