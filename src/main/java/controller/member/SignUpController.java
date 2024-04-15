@@ -10,14 +10,15 @@ import org.mindrot.jbcrypt.BCrypt;
 import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
+import service.SmsService;
+import util.DialogUtil;
 //import service.SmsService;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
-import static util.AlertUtil.*;
-import static util.AlertUtil.showAlert;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
 import static util.PageUtil.*;
@@ -30,7 +31,7 @@ public class SignUpController implements Initializable {
 
     private final MemberRepository repository = new MemberRepository();
     private final MemberService service = new MemberService(repository);
-//    private final SmsService smsService = new SmsService();
+    private final SmsService smsService = new SmsService();
     private final CodeStore codeStore = CodeStore.getInstance();
 
     @FXML
@@ -52,7 +53,7 @@ public class SignUpController implements Initializable {
     private void signUp(ActionEvent event) throws IOException, ParseException {
 
         if (isEmptyAnyField(nameField, emailIdField, emailDomainField, birthField, phoneField, passwordField, passwordConfirmField, maleButton, femaleButton)) {
-            showAlertSignUpFail("emptyAnyField");
+            showDialogErrorMessage("emptyAnyField");
             return;
         }
 
@@ -63,13 +64,13 @@ public class SignUpController implements Initializable {
         String email = getFullEmail(emailIdField.getText().trim(), emailDomainField.getValue().trim());
         String birth = birthField.getText().trim();
 
-        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
-
         // 전화번호를 인증한 사용자만 회원가입 가능
-//        if (!codeStore.codeCheck) {
-//            showAlertSignUpFail("NotAuthentication");
-//            return;
-//        }
+        if (!codeStore.codeCheck) {
+            showDialogErrorMessage("NotAuthentication");
+            return;
+        }
+
+        if (signUpValidate(password, passwordConfirm, phone, email, birth)) return;
 
         Member member = new Member();
         member.setName(name);
@@ -80,7 +81,7 @@ public class SignUpController implements Initializable {
         member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
-        showAlert(signUpMember.getName() + "님. 회원가입을 환영합니다!", Alert.AlertType.INFORMATION);
+        DialogUtil.showDialog(signUpMember.getName() + "님. 회원가입을 환영합니다!");
         goBack(event);
     }
 
@@ -157,33 +158,33 @@ public class SignUpController implements Initializable {
 
         // 전화번호를 입력하지 않은 경우
         if (phone.isEmpty()) {
-            showAlertSignUpFail("emptyPhone");
+            showDialogErrorMessage("emptyPhone");
             return;
         }
 
         // 전화번호가 중복 됐을 경우
         if (isDuplicatePhone(phone)) {
-            showAlertSignUpFail("duplicatePhone");
+            showDialogErrorMessage("duplicatePhone");
             return;
         }
 
         // 전화번호 길이를 잘못 입력했을 경우
         if (isWrongLengthPhone(phone)) {
-            showAlertSignUpFail("wrongPhone");
+            showDialogErrorMessage("wrongPhone");
             return;
         }
 
         // 정상 로직
 
         // 인증번호 전송
-//        smsService.send(phone);
+        smsService.send(phone);
 
         // 전송 버튼을 재전송으로 바꾼다.
         sendButton.setText("재전송");
 
         codeStore.phoneCheck = true;
         codeStore.isSend = true;
-        showAlertUseMessage("sendCode");
+        showDialogBasicMessage("sendCode");
     }
 
     @FXML
@@ -193,19 +194,19 @@ public class SignUpController implements Initializable {
 
         // 전화번호와 인증번호를 입력하지 않았을 경우
         if (phone.isEmpty() && code.isEmpty()) {
-            showAlertSignUpFail("emptyPhone");
+            showDialogErrorMessage("emptyPhone");
             return;
         }
 
         // 인증번호를 발송하지 않은 경우
         if (!codeStore.isSend) {
-            showAlertSignUpFail("notSend");
+            showDialogErrorMessage("notSend");
             return;
         }
 
         // 인증번호를 발송했으나 입력하지 않은 경우
         if (code.isEmpty() && codeStore.phoneCheck) {
-            showAlertSignUpFail("emptyCode");
+            showDialogErrorMessage("emptyCode");
             return;
         }
 
@@ -215,7 +216,7 @@ public class SignUpController implements Initializable {
 
         // 입력한 값과 인증번호가 일치하는 경우
         if (codeStore.verifyCode(phoneField.getText(), inputCode)) {
-            showAlertSignUpFail("correctCode");
+            showDialogErrorMessage("correctCode");
             codeStore.codeCheck = true;
 
             // 버튼을 사용할 수 없도록 변경
@@ -229,7 +230,7 @@ public class SignUpController implements Initializable {
             // 메모리에서 전화번호와 인증번호 제거
             codeStore.removeCode(phone);
         } else {
-            showAlertSignUpFail("failCode");
+            showDialogErrorMessage("failCode");
         }
     }
 }

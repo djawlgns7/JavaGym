@@ -4,7 +4,6 @@ import converter.DateToStringConverter;
 import domain.member.Member;
 import domain.trainer.Reservation;
 import domain.trainer.SelectedReservation;
-import domain.trainer.SelectedTrainer;
 import domain.trainer.Trainer;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,19 +17,20 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
-import util.AlertUtil;
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
 import static domain.trainer.SelectedTrainer.*;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
+import static util.DialogUtil.showDialogChoose;
 import static util.ControllerUtil.formatPhone;
 import static util.PageUtil.*;
 import static util.ValidateUtil.*;
@@ -62,7 +62,7 @@ public class ReservationDetailController implements Initializable {
         }
 
         //수정 내용이 있을 경우
-        Optional<ButtonType> response = showAlertChoose("예약 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
@@ -79,7 +79,7 @@ public class ReservationDetailController implements Initializable {
             }
 
             if (!isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
-                showAlertUpdateReservationFail("reservationHasExist");
+                showDialogUpdateReservationFail("reservationHasExist");
                 return;
             }
 
@@ -106,17 +106,17 @@ public class ReservationDetailController implements Initializable {
 
                 }
 
-                showAlertAndMoveCenter("예약 정보가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
+                showDialogAndMoveCenter("예약 정보가 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationDetail", event);
             }
         }
     }
 
     @FXML
-    private void cancelReservation(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = AlertUtil.showAlertChoose("정말로 취소하시겠습니까?");
+    private void cancelReservation(ActionEvent event) {
+        Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            reservationRepository.deleteReservation(currentReservation.getReservationNum());
-            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
+            reservationRepository.deleteReservation(reservation.getReservationNum());
+            showDialog("예약이 취소되었습니다.");
         }
     }
 

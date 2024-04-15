@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities;
 import org.w3c.dom.Text;
 import repository.AdminRepository;
 import repository.MemberRepository;
@@ -24,14 +23,13 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
-import static domain.trainer.SelectedReservation.currentReservation;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AlertUtil.*;
+import static util.AlertUtil.showAlertAddReservationFail;
+import static util.AlertUtil.showAlertAndMove;
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
 import static util.PageUtil.movePageCenter;
@@ -106,7 +104,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showAlertAndMoveCenter("예약 등록 성공", Alert.AlertType.INFORMATION, "/view/trainer/reservationInfo", event);
+        showDialogAndMovePage("예약 등록 성공", "/view/trainer/reservationInfo", event);
 
     }
 
@@ -185,15 +183,12 @@ public class ReservationInfoController implements Initializable {
         if(reservation != null && event.getClickCount() == 2) {
             currentReservation = reservation;
             currentTrainer = trainer;
-            System.out.println(currentReservation.getReservationNum());
-            System.out.println("Reservation details: " + reservation.toString());
-            System.out.println(trainer);
             movePageCenter(event, "/view/trainer/reservationDetail");
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/trainer/helloTrainer");
+        movePage(event, "/view/trainer/helloTrainer");
     }
 }

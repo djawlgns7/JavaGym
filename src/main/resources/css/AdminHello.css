@@ -37,7 +37,7 @@ AnchorPane {
 
 .memberManagementBtn:hover, .trainerManagementBtn:hover, .logOutBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 

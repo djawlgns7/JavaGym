@@ -38,7 +38,7 @@ public class AdminLoginController {
     @FXML
     public void initialize() {
         // 이미지 로드 설정
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         // 원형 클리핑 설정

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox prefHeight="800" prefWidth="550"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.payment.SelectTrainerController">
+
+    <Label text="트레이너 선택" />
+    <Button text="뒤로 가기" onAction="#goBack"/>
+
+    <ComboBox fx:id="timeComboBox">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="AM"/>
+                <String fx:value="PM"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <VBox fx:id="trainerList" spacing="10" alignment="CENTER">
+        <!-- 동적으로 트레이너 생성 -->
+    </VBox>
+
+</VBox>

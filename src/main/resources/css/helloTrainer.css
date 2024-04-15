@@ -41,6 +41,7 @@
 }
 
 .memberManagementBtn:hover, .trainerManagementBtn:hover, .logOutBtn:hover, .reservationBtn:hover {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
 

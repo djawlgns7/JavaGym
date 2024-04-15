@@ -15,10 +15,21 @@
         <Button fx:id="invisibleButton" managed="false" visible="true" />
 
         <!-- 내 정보 & 로그아웃 버튼 -->
-        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="Hello_page_TopBtn">
-            <Region HBox.hgrow="ALWAYS" />
-            <Button onAction="#myInfo" text="내 정보" styleClass="Hello_myPageBtn" />
-            <Button onAction="#goBack" text="로그아웃" styleClass="Hello_logOutBtn" />
+        <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="Hello_page_TopBtn">
+            <Button onAction="#myInfo" prefWidth="36" prefHeight="36" styleClass="Hello_myPageIcon">
+                <graphic>
+                    <ImageView fitWidth="36" fitHeight="36">
+                        <image><Image url="/image/MyPage_Icon.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button onAction="#goBack" prefWidth="36" prefHeight="36" styleClass="Hello_logOutIcon">
+                <graphic>
+                    <ImageView fitWidth="36" fitHeight="36">
+                        <image><Image url="/image/LogOut_Icon.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
 
         <!-- 자바짐 타이틀 -->
@@ -40,10 +51,10 @@
             </HBox>
         </HBox>
 
-        <HBox alignment="CENTER" spacing="60">
-            <Button text="예약" styleClass="reservationBtn" onAction="#reservation"/>
-            <Button fx:id="entry" text="입장" onAction="#entry" styleClass="entryBtn"/>
-            <Button text="결제" styleClass="purchaseBtn"/>
+        <HBox alignment="CENTER" spacing="60" styleClass="Hello_page_Btn">
+            <Button text="예약" onAction="#reservation" styleClass="reservationBtn" />
+            <Button fx:id="entry" text="입장" onAction="#entry" styleClass="entryBtn" />
+            <Button text="결제" styleClass="purchaseBtn" onAction="#moveToPaymentPage" />
         </HBox>
     </VBox>
 </AnchorPane>

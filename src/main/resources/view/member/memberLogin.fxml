@@ -14,17 +14,28 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="800.0" prefWidth="550.0" stylesheets="/css/common.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.MemberLoginController">
 
-    <VBox alignment="CENTER" prefHeight="750" prefWidth="550" spacing="30.0">
+    <VBox alignment="CENTER" prefHeight="800" prefWidth="550" spacing="30.0">
         <Button fx:id="invisibleButton" managed="false" visible="true" />
-
         <!-- 트레이너 & 관리자 버튼 -->
-        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="Login_page_TopBtn">
-            <Region HBox.hgrow="ALWAYS" />
-            <Button onAction="#showTrainerLogin" text="트레이너" styleClass="TrainerBtn" />
-            <Button onAction="#showAdminLogin" text="관리자" styleClass="AdminBtn" />
+        <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="Login_page_TopBtn">
+            <Button onAction="#showTrainerLogin" prefWidth="36" prefHeight="36" styleClass="Login_TrainerIcon">
+                <graphic>
+                    <ImageView fitWidth="36" fitHeight="36">
+                        <image><Image url="/image/Trainer_Icon.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button onAction="#showAdminLogin" prefWidth="36" prefHeight="36" styleClass="Login_AdminIcon">
+                <graphic>
+                    <ImageView fitWidth="36" fitHeight="36">
+                        <image><Image url="/image/Admin_Icon_2.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
 
         <!-- 자바짐 타이틀 -->

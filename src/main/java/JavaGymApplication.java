@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import thread.InactivityManager;
 
 public class JavaGymApplication extends Application {
 
@@ -12,27 +13,17 @@ public class JavaGymApplication extends Application {
         // 폰트 로드
         Font.loadFont(getClass().getResourceAsStream("/fonts/Anton-Regular.ttf"), 20);
         Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Regular.ttf"), 20);
 
+        // 메인 화면 로드
         Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
-        stage.setScene(new Scene(loginRoot));
+        Scene scene = new Scene(loginRoot);
+        stage.setScene(scene);
         stage.setTitle("JavaGym");
-        stage.show();
         stage.setResizable(false);
-    }
+        stage.show();
 
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//        // 폰트 로드
-//        Font.loadFont(getClass().getResourceAsStream("/fonts/Anton-Regular.ttf"), 20);
-//        Font.loadFont(getClass().getResourceAsStream("/fonts/Jua-Regular.ttf"), 20);
-//
-//        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/payment.fxml"));
-//        stage.setScene(new Scene(loginRoot));
-//        stage.setTitle("JavaGym");
-//        stage.show();
-//        stage.setResizable(false);
-//    }
+        InactivityManager.setMainStage(stage);
+    }
 
     public static void main(String[] args) {
         launch();

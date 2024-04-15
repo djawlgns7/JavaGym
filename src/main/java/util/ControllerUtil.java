@@ -3,8 +3,6 @@ package util;
 import domain.member.EntryLog;
 import domain.member.Member;
 import domain.member.UsingLocker;
-import domain.member.SelectedMember;
-import domain.member.UsingLocker;
 import domain.trainer.Reservation;
 import domain.trainer.SelectedTrainer;
 import domain.trainer.Trainer;
@@ -14,19 +12,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import repository.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import service.TrainerService;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
-import service.TrainerService;
 
-import java.rmi.server.RemoteServer;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -222,5 +217,15 @@ public class ControllerUtil {
         scheduleTable.setItems(FXCollections.observableArrayList(schedules));
 
         return trainerNum;
+    }
+
+    public static ImageView createImageViewFromBytes(byte[] imageData) {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+        Image image = new Image(inputStream);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setPreserveRatio(true);
+        return imageView;
     }
 }

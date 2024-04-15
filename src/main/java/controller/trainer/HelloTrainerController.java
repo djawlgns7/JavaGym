@@ -10,11 +10,8 @@ import javafx.scene.shape.Circle;
 import repository.TrainerRepository;
 
 import java.io.IOException;
-
 import static domain.trainer.SelectedTrainer.*;
-import static util.AlertUtil.showAlert;
 import static util.PageUtil.movePage;
-import static util.PageUtil.movePageCenter;
 
 
 public class HelloTrainerController {
@@ -42,7 +39,7 @@ public class HelloTrainerController {
     @FXML
     public void initialize() {
         // 이미지 로드 설정
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         // 원형 클리핑 설정

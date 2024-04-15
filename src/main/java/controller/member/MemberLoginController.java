@@ -10,7 +10,6 @@ import repository.MemberRepository;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import service.MemberService;
-import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -77,7 +76,7 @@ public class MemberLoginController implements Initializable {
         phoneField.setTextFormatter(phoneFormatter);
         passwordField.setTextFormatter(passwordFormatter);
 
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         Circle cilpCircle = new Circle(100, 100, 100);

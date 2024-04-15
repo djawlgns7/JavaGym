@@ -51,12 +51,12 @@ SplitPane {
 
 .memberInfo_addMemberBtn:hover, .memberInfo_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .memberInfo_addMemberBtn:pressed, .memberInfo_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
@@ -102,12 +102,12 @@ SplitPane {
 
 .memberInfo_searchBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .memberInfo_searchBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
@@ -190,7 +190,7 @@ SplitPane {
 
 /* 정렬 화살표 스타일 */
 .table-view .column-header .arrow {
-    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+    -fx-background-color: #FFFFFF; /* 화살표 색상 변경 */
 }
 
 /* 오름차순 화살표 스타일 */
@@ -231,10 +231,10 @@ SplitPane {
 
 .memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }

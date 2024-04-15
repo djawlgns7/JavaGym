@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -127,18 +128,21 @@ public class ReservationRepository {
     public List<MemberSchedule> findMemberSchedule(int memberNum) {
         String sql = "SELECT r_no, r_date, r_time, r.t_no, t_name " +
                 "FROM reservation r join member m join trainer t on r.m_no = m.m_no and r.t_no = t.t_no " +
-                "where m.m_no = ? and r_date >= ?";
+                "where m.m_no = ? and (r_date > ? or (r_date = ? and r_time >= ?)) order by r_date, r_time asc";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         LocalDate today = LocalDate.now();
+        int currentTime = LocalTime.now().getHour();
 
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, memberNum);
             pstmt.setString(2, today.toString());
+            pstmt.setString(3, today.toString());
+            pstmt.setInt(4, currentTime);
 
             rs = pstmt.executeQuery();
             List<MemberSchedule> list = new ArrayList<>();
