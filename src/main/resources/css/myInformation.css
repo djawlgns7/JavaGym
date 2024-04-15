@@ -1,0 +1,124 @@
+/* VBox */
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Title */
+.myInformation_title {
+    -fx-font-size: 84;
+    -fx-font-family: "Anton";
+    -fx-translate-y: -50;
+}
+
+/* Label */
+.myInformation_Name_Info {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 32;
+    -fx-translate-y: -50;
+}
+
+/* Sub Box */
+.myInformation_Trainer_Info {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+   -fx-background-color: #E9E9E9;
+   -fx-border-color: black;
+   -fx-border-width: 1;
+   -fx-pref-height: 180;
+   -fx-translate-y: -50;
+}
+
+.myInformation_PTReservation_Info {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+    -fx-background-color: #E9E9E9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-pref-height: 180;
+    -fx-translate-y: -50;
+}
+
+.myInformation_gymTicket_Info {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+    -fx-background-color: #E9E9E9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-pref-height: 180;
+    -fx-translate-y: -50;
+}
+
+.myInformation_locker_clothes_Info {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+    -fx-background-color: #E9E9E9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-pref-height: 180;
+    -fx-translate-y: -50;
+}
+
+/* Sub Label */
+.myInformation_Trainer_InfoTitle, .myInformation_PTTicket_InfoTitle,
+.myInformation_PTReservation_InfoTitle, .myInformation_gymTicket_InfoTitle {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-text-fill: #9747FF;
+}
+
+.myInformation_locker_InfoTitle, .myInformation_clothes_InfoTitle {
+    -fx-font-family: "Jua";
+    -fx-font-size: 24;
+    -fx-text-fill: #9747FF;
+}
+
+.myInformation_Trainer_Name, .myInformation_Trainer_Phone, .myInformation_PTTicket_Cnt {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+}
+
+.myInformation_PTReservation_Bundle {
+    -fx-padding: 0 10;
+}
+
+.myInformation_PTReservation_One {
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-background-color: #FFFFFF;
+    -fx-pref-width: 120;
+    -fx-pref-height: 60;
+    -fx-padding: 5;
+}
+
+.myInformation_PTReservation_Num, .myInformation_PTReservation_Date, .myInformation_PTReservation_Time {
+    -fx-font-family: "Jua";
+    -fx-font-size: 14;
+}
+
+.myInformation_PTReservation_Label, .myInformation_gymTicket_Date, .myInformation_locker_Num,
+.myInformation_locker_Date, .myInformation_clothes_Available, .myInformation_clothes_Date {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+}
+
+/* Button */
+.myInformation_TopBtn {
+    -fx-font-family: "Jua";
+    -fx-padding: 0 20 0 0;
+    -fx-translate-y: 37;
+}
+
+.myInformation_MainIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.myInformation_MainIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+}

@@ -1,0 +1,81 @@
+.reservationDetail_title_1, .reservationDetail_title_2 {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+TextField, .reservationDetail_date {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.reservationDetail_label_1, .reservationDetail_label_2 {
+    -fx-font-size: 18;
+    -fx-font-family: "Jua";
+}
+
+.reservationDetail_EntryBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.reservationDetail_goBackBtn {
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.reservationDetail_EntryBtn:hover, .reservationDetail_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.reservationDetail_numCol, .reservationDetail_nameCol, .reservationDetail_phoneCol,
+.reservationDetail_dayCol, .reservationDetail_timeCol {
+    -fx-font-family: "Jua";
+}
+
+.reservationDetail_numCol, .reservationDetail_nameCol, .reservationDetail_timeCol {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationDetail_phoneCol {
+    -fx-pref-width: 130;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationCancel {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-translate-x: -20;
+}
+
+.reservationCancel:hover {
+    -fx-background-color: #F4B6FF;
+}
