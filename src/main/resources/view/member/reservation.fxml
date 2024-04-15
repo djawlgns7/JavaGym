@@ -74,7 +74,7 @@
         <VBox alignment="CENTER">
             <HBox alignment="TOP_CENTER" fx:id="timeArea" styleClass="timeStamp" />
             <HBox alignment="CENTER" spacing="20">
-            <HBox alignment="CENTER" prefWidth="400" spacing="20" fx:id="selectedReservationList" styleClass="selectedReservationList"/>
+                <HBox alignment="CENTER" prefWidth="500" spacing="20" fx:id="selectedReservationList" styleClass="selectedReservationList"/>
             </HBox>
         </VBox>
 

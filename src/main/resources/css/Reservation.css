@@ -208,7 +208,7 @@ Button:hover {
 
 .timeStamp {
     -fx-pref-width: 300;
-    -fx-pref-height: 200;
+    -fx-pref-height: 100;
     -fx-font-size: 20px;
     -fx-border-color: transparent;
     -fx-translate-y: -80px;
@@ -222,7 +222,12 @@ Button:hover {
 
 .selectBtn {
     -fx-font-size: 20px;
-    /*-fx-translate-y: -35px;*/
+}
+
+.rBtn {
+    -fx-font-size: 25px;
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
 }
 
 /* fxml에 없는거임 건들지 마셈 */
@@ -233,11 +238,13 @@ Button:hover {
 /* fxml에 없는거임 건들지 마셈 */
 #selectedReservationList {
     -fx-translate-y: -55px;
-    -fx-font-size: 20px;
+    -fx-font-size: 25px;
+    -fx-text-fill: #bf9dfc;;
 }
 
 .selectedReservationList {
-    -fx-pref-height: 100;
+    -fx-pref-height: 200;
     -fx-border-color: #bf9dfc;
     -fx-border-radius: 5px;
+
 }
