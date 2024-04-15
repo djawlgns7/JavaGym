@@ -32,7 +32,6 @@ import static util.ValidateUtil.*;
 public class ReservationDetailController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     @FXML
     private TextField rTimeField;
