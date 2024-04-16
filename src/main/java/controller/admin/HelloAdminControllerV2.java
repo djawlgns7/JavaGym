@@ -318,7 +318,7 @@ public class HelloAdminControllerV2 implements Initializable {
             }
         }
 
-        showDialogAndMovePage("트레이너 등록 성공", "/view/admin/helloAdmin2", event);
+        showDialogAndMovePage("트레이너 등록 성공", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
