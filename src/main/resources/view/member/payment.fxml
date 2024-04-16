@@ -164,7 +164,8 @@
                             <Label fx:id="lockerNumberLabel" text="" visible="false" styleClass="paymentETC_LockerNum"/>
                             <Label fx:id="lockerPeriodLabel" text="" visible="false" styleClass="paymentETC_LockerPeriod"/>
                             <Label fx:id="lockerPriceLabel" text="" visible="false" styleClass="paymentETC_LockerPrice"/>
-                            <Button text="사물함 선택" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
+                            <Button fx:id="selectLockerButton" text="사물함 선택" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
+                            <Button fx:id="changeLockerButton" text="사물함 변경" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
                         </HBox>
 
                         <!-- Line -->

@@ -120,6 +120,7 @@ public class HelloMemberController implements Initializable {
     @FXML
     private void moveToPaymentPage(ActionEvent event) throws IOException {
         selectTrainer = false;
+        selectLocker = false;
         currentTrainer = null;
 
         PaymentTab.getInstance().setSelectedTabIndex(0);

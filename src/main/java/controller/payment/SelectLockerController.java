@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static controller.payment.PaymentController.basket;
-import static controller.payment.PaymentController.removeItem;
+import static controller.payment.PaymentController.*;
 import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.showDialog;
 import static util.MemberUtil.getTrainerNumForMember;
@@ -46,7 +45,6 @@ public class SelectLockerController implements Initializable {
     List<Label> lockers;
     List<UsingLocker> usingLockers;
     ToggleGroup lockerPeriodGroup;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -208,6 +206,7 @@ public class SelectLockerController implements Initializable {
 
         if (selectedRadio.getText().equals("선택 안 함")) {
             removeItem(basket, Locker.class);
+            selectLocker = false;
             PaymentTab.getInstance().setSelectedTabIndex(2);
             movePage(event, "/view/member/payment");
         } else {
@@ -222,6 +221,7 @@ public class SelectLockerController implements Initializable {
             basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
 
             PaymentTab.getInstance().setSelectedTabIndex(2);
+            selectLocker = true;
             movePage(event, "/view/member/payment");
         }
     }

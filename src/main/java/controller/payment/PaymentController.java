@@ -35,6 +35,7 @@ import static util.SoundUtil.*;
 public class PaymentController implements Initializable {
 
     public static boolean selectTrainer = false;
+    public static boolean selectLocker = false;
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final SmsService smsService = new SmsService();
@@ -107,6 +108,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     RadioButton noSelectClothesButton, clothes30Button, clothes90Button, clothes180Button, clothes360Button;
+
+    @FXML
+    Button selectLockerButton, changeLockerButton;
 
     /**
      * 장바구니
@@ -405,6 +409,16 @@ public class PaymentController implements Initializable {
             firstSelectTrainerLabel.setVisible(false);
             selectTrainerButton.setVisible(false);
             reorderNodes();
+        }
+
+        // 사물함 선택 전
+        if (!selectLocker) {
+            changeLockerButton.setVisible(false);
+
+        // 사물함 선택 후
+        } else {
+            changeLockerButton.setVisible(true);
+            selectLockerButton.setVisible(false);
         }
 
         if (currentTrainer != null) {
@@ -787,6 +801,7 @@ public class PaymentController implements Initializable {
             showDialog("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.");
 
             selectTrainer = false;
+            selectLocker = false;
             currentTrainer = null;
             basket.clear();
 
