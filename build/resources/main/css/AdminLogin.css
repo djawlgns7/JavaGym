@@ -1,17 +1,21 @@
 /* VBox */
 AnchorPane {
-    -fx-background-color: #FFFFFF; /* 배경색 지정 */
+    -fx-background-color: #FFFFFF;
 }
 
-
 /* Title */
-.login_title_label {
-    -fx-font-size: 72;
+.adminLogin_title {
+    -fx-font-size: 86;
     -fx-font-family: "Anton";
 }
 
+.adminLogin_subtitle {
+    -fx-font-size: 48;
+    -fx-font-family: "Jua";
+}
+
 /* TextField */
-.Login_idInput, .Login_passwordInput {
+.adminLogin_idInput, .adminLogin_passwordInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -25,12 +29,12 @@ AnchorPane {
 }
 
 /* Button */
-.Login_page_Btn {
+.adminLogin_Btn {
      -fx-font-family: "Jua";
      -fx-spacing: 50;
 }
 
-.Login_loginBtn {
+.adminLogin_loginBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -38,7 +42,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.Login_goBackBtn {
+.adminLogin_goBackBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -46,12 +50,12 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.Login_goBackBtn:hover, .Login_loginBtn:hover {
+.adminLogin_loginBtn:hover, .adminLogin_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.Login_goBackBtn:pressed, .Login_loginBtn:pressed {
+.adminLogin_loginBtn:pressed, .adminLogin_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
