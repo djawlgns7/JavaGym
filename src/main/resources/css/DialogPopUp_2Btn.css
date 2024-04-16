@@ -1,7 +1,7 @@
 .dialog-pane {
     -fx-background-color: rgba(151, 71, 255, 0.07);
     -fx-pref-height: 300;
-    -fx-pref-width: 400;
+    -fx-pref-width: 450;
 }
 
 .label {
@@ -17,7 +17,7 @@
     -fx-padding: 10px 20px; /* 내부 여백 설정 */
     -fx-min-width: 90px; /* 최소 너비 설정 */
     -fx-max-width: 150px; /* 최대 너비 설정 */
-    -fx-translate-x: -97; /* 4/5 --- 8 9 10 11 12 13 */
+    -fx-translate-x: -120; /* 4/5 --- 8 9 10 11 12 13 */
     -fx-translate-y: -15;
     -fx-font-family: "Jua";
 }

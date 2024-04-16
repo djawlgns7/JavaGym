@@ -54,6 +54,7 @@ AnchorPane {
     -fx-border-style: solid;
 }
 
+
 /* ComboBox - Button Hover 색상 변경 */
 .signUp_emailComboBox .arrow-button:hover {
     -fx-cursor: hand;
@@ -128,7 +129,16 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.signUp_loginBtn:hover {
+.signUp_CallIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-translate-x: -450;
+}
+
+.signUp_loginBtn:hover, .signUp_CallIcon:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
