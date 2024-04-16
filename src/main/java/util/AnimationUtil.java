@@ -1,6 +1,6 @@
 package util;
 
-import javafx.animation.FadeTransition;
+import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,15 +25,17 @@ public class AnimationUtil {
     }
 
     public static void applyFadeIn(Stage stage) {
-        // 페이드 인 애니메이션 설정
+        // 페이드 인
         Node root = stage.getScene().getRoot();
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), root);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
 
-        // 초기 투명도 설정
+        // 초기 투명도
         root.setOpacity(0);
         fadeIn.setOnFinished(event -> root.setOpacity(1));
     }
+
+
 }

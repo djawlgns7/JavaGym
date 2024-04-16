@@ -4,7 +4,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
 
 @Getter @Setter
@@ -18,9 +17,7 @@ public class Reservation {
     private Date reservationDate;
     private int reservationTime;
 
-
-    // 선택 상태를 위한 BooleanProperty 추가
-    private final BooleanProperty selected = new SimpleBooleanProperty();
+    public final BooleanProperty selected = new SimpleBooleanProperty();
 
     public BooleanProperty selectedProperty() {
         return selected;
@@ -29,5 +26,4 @@ public class Reservation {
     public boolean isSelected() {
         return selected.get();
     }
-
 }

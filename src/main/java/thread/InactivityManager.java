@@ -67,7 +67,7 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> SoundUtil.play("toMainPage"));
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> setUpInactivitySound());
         KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
         KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
 
@@ -183,5 +183,13 @@ public class InactivityManager {
             closeDialogTimer = 1;
         });
         thread.start();
+    }
+
+    private static void setUpInactivitySound() {
+        if (currentMember == null) {
+            return;
+        }
+
+        SoundUtil.play("toMainPage");
     }
 }

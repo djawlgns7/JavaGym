@@ -11,8 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
-import repository.TrainerRepository;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +30,6 @@ import static util.ValidateUtil.*;
 public class ReservationDetailController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final TrainerRepository trainerRepository = new TrainerRepository();
 
     @FXML
     private TextField rTimeField;
@@ -41,10 +38,7 @@ public class ReservationDetailController implements Initializable {
     private DatePicker ptDatePicker;
 
     @FXML
-    private TableView<Reservation> reservationTable;
-
-    @FXML
-    private TableColumn<Reservation, String> reservationNumCol, memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
+    private Label memberNameLabel, memberPhoneLabel, rDateLabel, rTimeLabel;
 
 
     @FXML
@@ -106,15 +100,6 @@ public class ReservationDetailController implements Initializable {
         }
     }
 
-    @FXML
-    private void cancelReservation(ActionEvent event) {
-        Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
-        if(response.isPresent() && response.get() == ButtonType.OK) {
-            reservationRepository.deleteReservation(currentReservation.getReservationNum());
-            showDialog("예약이 취소되었습니다.");
-        }
-    }
-
     private boolean isSameReservationDate() {
         Date inputPTdate = Date.valueOf(ptDatePicker.getValue());
         Date currentPTdate = currentReservation.getReservationDate();
@@ -143,32 +128,15 @@ public class ReservationDetailController implements Initializable {
             });
 
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
-            rTimeField.setTextFormatter(rTimeFormatter);
-            columnBinding();
-            loadReservationDetails();
+            rTimeField.setText(String.format("%02d:00", reservation.getReservationTime()));
+
+            memberNameLabel.setText(reservation.getMemberName());
+            memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
+            rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
+            rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
 
         }
 
-    }
-
-    private void columnBinding() {
-        reservationNumCol.setCellValueFactory(new PropertyValueFactory<>("reservationNum"));
-        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
-        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
-        memberPhoneCol.setCellValueFactory(cellData -> {
-            String rawPhoneNumber = cellData.getValue().getMemberPhone();
-            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
-            return new SimpleStringProperty(formattedPhoneNumber);
-        });
-        rDateCol.setCellValueFactory(cellData -> new SimpleStringProperty(
-                new SimpleDateFormat("yyyy-MM-dd").format(cellData.getValue().getReservationDate())));
-        rTimeCol.setCellValueFactory(cellData -> new SimpleStringProperty(
-                String.format("%02d:00", cellData.getValue().getReservationTime())));
-    }
-    private void loadReservationDetails() {
-        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-        reservations.add(currentReservation);
-        reservationTable.setItems(reservations);
     }
 
     @FXML
