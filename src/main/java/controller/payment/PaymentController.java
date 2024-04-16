@@ -331,7 +331,7 @@ public class PaymentController implements Initializable {
                     lockerPeriodLabel.setVisible(true);
                     lockerPriceLabel.setVisible(true);
 
-                    lockerNumberLabel.setText("No." + number);
+                    lockerNumberLabel.setText(number + "번");
                     lockerPeriodLabel.setText(period + "일");
                     lockerPriceLabel.setText(lockerPriceText);
 
