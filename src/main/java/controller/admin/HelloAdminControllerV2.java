@@ -24,6 +24,7 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
+import service.SmsService;
 import util.DialogUtil;
 
 import java.io.File;
@@ -36,6 +37,7 @@ import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static service.SmsService.getRandomPassword;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -49,6 +51,8 @@ public class HelloAdminControllerV2 implements Initializable {
     private final AdminService service = new AdminService(adminRepository);
     private final MemberRepository memberRepository = new MemberRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
+
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private TabPane tabPane;
@@ -76,7 +80,11 @@ public class HelloAdminControllerV2 implements Initializable {
 
         Member member = new Member();
         member.setName(name);
-        member.setPassword(BCrypt.hashpw(config.getString("initial.member.password"), BCrypt.gensalt()));
+
+        int initPassword = getRandomPassword();
+        member.setPassword(BCrypt.hashpw(String.valueOf(initPassword), BCrypt.gensalt()));
+        smsService.sendInitPassword(phone, initPassword);
+
         member.setGender(Gender.valueOf(getSelectedGender(memberMaleButton, memberFemaleButton)));
         member.setEmail(email);
         member.setBirthDate(stringToDate(birth));
