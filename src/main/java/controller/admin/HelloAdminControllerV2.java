@@ -40,7 +40,7 @@ import static converter.StringToDateConverter.stringToDate;
 import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static service.SmsService.getRandomPassword;
-import static thread.InactivityManager.inactivityTimer;
+import static util.AnimationUtil.animateTabFade;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -201,7 +201,13 @@ public class HelloAdminControllerV2 implements Initializable {
 
         int tabIndex = AdminTab.getInstance().getSelectedTabIndex();
         tabPane.getSelectionModel().select(tabIndex);
-    }
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null && oldTab != null) {
+                animateTabFade(newTab.getContent(), oldTab.getContent());
+            }
+        });
+    } // initialize 끝
 
     @FXML
     private void showUsingLocker() {

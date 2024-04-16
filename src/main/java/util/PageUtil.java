@@ -15,6 +15,7 @@ import java.net.URL;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static thread.InactivityManager.*;
+import static util.AnimationUtil.applyFadeIn;
 
 public class PageUtil {
 
@@ -35,6 +36,7 @@ public class PageUtil {
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
+        applyFadeIn(stage);
         stage.show();
     }
 
@@ -59,6 +61,7 @@ public class PageUtil {
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
+        applyFadeIn(stage);
         stage.show();
     }
 
@@ -86,6 +89,7 @@ public class PageUtil {
             stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
             stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
+            applyFadeIn(stage);
             stage.show();
         }
     }
