@@ -3,19 +3,20 @@ package controller.member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import service.MemberService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static util.PageUtil.*;
+import static util.PageUtil.movePage;
 
 public class MemberLoginController implements Initializable {
 

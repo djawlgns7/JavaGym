@@ -74,9 +74,6 @@ public class MyInformationController implements Initializable {
 
         }else{
             Trainer trainer = trainerRepository.findByNum(trainerNum);
-            LocalDate expireDate = today;
-            int trainerAge = trainerRepository.getAge(trainer);
-            Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
             String phone = trainer.getPhone();
             String calculatedTrainerPhone = "010 - " + phone.substring(0, 4) + " - " + phone.substring(4, 8);

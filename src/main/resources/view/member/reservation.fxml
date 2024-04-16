@@ -26,12 +26,14 @@
 
         <!-- 트레이너 정보 -->
         <HBox fx:id="trainerView" alignment="CENTER" styleClass="trainerInfoView" spacing="15">
+            <Region HBox.hgrow="ALWAYS" />
             <ImageView fx:id="imageView" styleClass="imageProfile" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" />
             <VBox styleClass="trainerProfile" alignment="CENTER" spacing="10">
                 <Label fx:id="trainerName" text="노승빈 트레이너" />
                 <Label fx:id="trainerInfo" text="181cm | 82kg | 26세" />
                 <Label fx:id="PTTicketRemain" />
             </VBox>
+            <Region HBox.hgrow="ALWAYS" />
         </HBox>
 
         <!-- PT 예약 개수 -->
