@@ -14,6 +14,7 @@ import javafx.scene.shape.Circle;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
+import service.SmsService;
 import util.DialogUtil;
 import util.MemberUtil;
 
@@ -35,6 +36,7 @@ public class HelloMemberController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private ImageView profileImage;
@@ -122,5 +124,10 @@ public class HelloMemberController implements Initializable {
 
         PaymentTab.getInstance().setSelectedTabIndex(0);
         movePage(event, "/view/member/payment");
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }

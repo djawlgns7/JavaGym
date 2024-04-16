@@ -230,4 +230,9 @@ public class SignUpController implements Initializable {
             showDialogErrorMessage("failCode");
         }
     }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
+    }
 }

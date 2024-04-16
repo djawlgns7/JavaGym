@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import repository.MemberRepository;
 import service.MemberService;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,7 @@ public class MemberLoginController implements Initializable {
 
     private final MemberRepository memberRepository = new MemberRepository();
     private final MemberService service = new MemberService(memberRepository);
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private void login(ActionEvent event) throws IOException {
@@ -82,5 +84,10 @@ public class MemberLoginController implements Initializable {
 
         Circle cilpCircle = new Circle(150, 150, 150);
         profileImage.setClip(cilpCircle);
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }

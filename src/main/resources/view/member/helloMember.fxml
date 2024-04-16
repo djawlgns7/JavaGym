@@ -14,6 +14,8 @@
         <Button fx:id="invisibleButton" managed="false" visible="true" />
         <!-- 내 정보 & 로그아웃 버튼 -->
         <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="helloMember_TopBtn">
+            <!-- 관리자 호출 버튼 임시로 추가함(지훈) -->
+            <Button onAction="#callAdmin" text="관리자 호출" />
             <Button onAction="#myInfo" prefWidth="48" prefHeight="48" styleClass="helloMember_myPageIcon">
                 <graphic>
                     <ImageView fitWidth="48" fitHeight="48">

@@ -6,6 +6,7 @@ import domain.reservation.ReservationInformation;
 import domain.trainer.Trainer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import service.SmsService;
 import util.DialogUtil;
 
 import java.io.IOException;
@@ -38,6 +40,7 @@ public class ReservationController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
@@ -346,8 +349,15 @@ public class ReservationController implements Initializable {
             return;
         }
 
+        int index = selectedReservations.size() - 1;
+        removeselectedReservation(index);
+
+    }
+
+    //입력한 인덱스에 해당하는 예약을 삭제 후 버튼들 색 갱신
+    public void removeselectedReservation(int index){
         ReservationInformation removedReservation;
-        removedReservation =  selectedReservations.remove(selectedReservations.size() - 1);
+        removedReservation =  selectedReservations.remove(index);
 
         int rDDay = removedReservation.getDDay();
         int rRTime = removedReservation.getRTime() - adder;
@@ -506,6 +516,24 @@ public class ReservationController implements Initializable {
             Label newDateTime = new Label(indexDateTime);
             newDateTime.getStyleClass().add("selectedResrevationList");
 
+            newDateTime.setOnMouseClicked(Event -> {
+                for(int j = 0; j < selectedReservations.size(); j++){
+                    if(selectedReservations.get(j).isExist(indexDDay, indexRTime)){
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(indexDateTime).append(" ~ ").append(indexRTime + 1).append(":00")
+                                .append("\n\n해당 예약을 삭제하시겠습니까?");
+
+                        String deleteConfirmMsg = sb.toString();
+                        Optional<ButtonType> result = showDialogChoose(deleteConfirmMsg);
+
+                        if (result.get() == ButtonType.OK){
+                            selectedReservationList.getChildren().remove(newDateTime);
+                            removeselectedReservation(j);
+                        }
+                    }
+                }
+            });
+
             selectedReservationList.getChildren().add(newDateTime);
         }
     }
@@ -542,4 +570,8 @@ public class ReservationController implements Initializable {
         selectedReaservationNum.setText("총" + reservationNum + "회");
     }
 
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
+    }
 }
