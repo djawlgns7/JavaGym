@@ -190,7 +190,7 @@ SplitPane {
 
 /* Table */
 .memberInfo_searchBox {
-    -fx-padding: 0 15 10 0;
+    -fx-padding: 0 15 5 0;
 }
 
 .memberInfo_SearchIcon {

@@ -3,49 +3,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.50" orientation="HORIZONTAL" prefHeight="400.0" prefWidth="850.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationDetailController">
 
     <items>
+        <VBox fx:id="detailArea" spacing="30" alignment="CENTER">
+            <Label text="예약 수정" styleClass=""/>
 
-        <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
-            <Label text="예약 수정" />
-
-            <HBox alignment="CENTER">
-                <Label>예약 일자</Label>
-                <DatePicker fx:id="ptDatePicker" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label>예약 시간</Label>
-                <TextField fx:id="rTimeField" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Button text="예약 수정" onAction="#updateReservation"/>
-                <Button text="뒤로 가기" onAction="#goBack"/>
+            <GridPane hgap="10" vgap="30" alignment="CENTER" >
+<!--            <HBox alignment="CENTER">-->
+                <Label text="예약 일자" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="reservation_text"/>
+                <DatePicker fx:id="ptDatePicker" promptText="예약 일자" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="reservation_date"/>
+<!--            </HBox>-->
+<!--            <HBox alignment="CENTER" spacing="10">-->
+                <Label text="예약 시간" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="reservation_text" />
+                <TextField fx:id="rTimeField" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="reservation_date"/>
+<!--            </HBox>-->
+            </GridPane>
+            <HBox alignment="CENTER" spacing="20" styleClass="rDetail_Btn">
+                <Button text="예약 수정" onAction="#updateReservation" styleClass="reservationDetail_Btn" />
+                <Button text="뒤로 가기" onAction="#goBack" styleClass="reservationDetail_Btn" />
             </HBox>
         </VBox>
 
         <!-- 예약 목록 영역 -->
-        <VBox fx:id="listArea" spacing="20" alignment="CENTER">
+        <VBox fx:id="listArea" spacing="40" alignment="CENTER">
             <Label text="예약 정보" />
-            <GridPane>
-                <Label text="회원 이름:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                <Label fx:id="memberNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+            <GridPane hgap="20" vgap="30" alignment="CENTER">
+                <Label text="회원 이름" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="gridPane_label"/>
+                <Label fx:id="memberNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="gridPane_value"/>
 
-                <Label text="회원 전화번호:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                <Label fx:id="memberPhoneLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                <Label text="회원 전화번호" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="gridPane_label" />
+                <Label fx:id="memberPhoneLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="gridPane_value"/>
 
-                <Label text="예약 일자:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                <Label fx:id="rDateLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                <Label text="예약 일자" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="gridPane_label"/>
+                <Label fx:id="rDateLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="gridPane_value"/>
 
-                <Label text="예약 시간:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                <Label fx:id="rTimeLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                <Label text="예약 시간" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="gridPane_label"/>
+                <Label fx:id="rTimeLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="gridPane_value"/>
             </GridPane>
         </VBox>
     </items>
