@@ -750,7 +750,6 @@ public class PaymentController implements Initializable {
             selectTrainer = false;
             currentTrainer = null;
             basket.clear();
-            currentMember = null;
 
             moveToMainPage(event);
         }
