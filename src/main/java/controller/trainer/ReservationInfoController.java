@@ -2,6 +2,7 @@ package controller.trainer;
 
 
 import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -13,31 +14,32 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
-import repository.AdminRepository;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
+
+import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Time;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
+import static util.MemberUtil.setRemain;
 import static util.PageUtil.movePage;
+import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -140,14 +142,6 @@ public class ReservationInfoController implements Initializable {
             return null;
         });
 
-        UnaryOperator<TextFormatter.Change> filter = change -> {
-            String text = change.getText();
-            if (text.matches("[^0-9]*")) {
-                return change;
-            }
-            return null;
-        };
-
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.
@@ -159,10 +153,8 @@ public class ReservationInfoController implements Initializable {
         };
 
         TextFormatter<String> memberNumFormatter = new TextFormatter<>(filter2);
-        TextFormatter<String> memberNameFormatter = new TextFormatter<>(filter);
 
         numField.setTextFormatter(memberNumFormatter);
-        nameField.setTextFormatter(memberNameFormatter);
         phoneField.setTextFormatter(phoneFormatter);
         rDatePicker.setValue(LocalDate.now());
         rtimeField.setTextFormatter(rtimeFormatter);

@@ -45,7 +45,7 @@ public class TrainerService {
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
 
-            movePageTimerOff(event, "/view/trainer/helloTrainer" );
+            movePageTimerOff(event, "/view/trainer/reservationInfo" );
         } else {
             showDialogErrorMessage("wrongPw");
         }
