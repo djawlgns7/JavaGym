@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+import static domain.member.SelectedMember.currentMember;
+import static domain.trainer.SelectedTrainer.currentTrainer;
 import static thread.InactivityManager.*;
 
 public class PageUtil {
@@ -64,6 +66,9 @@ public class PageUtil {
         if (inactivityTimer != null) {
             inactivityTimer.stop();
         }
+
+        currentMember = null;
+        currentTrainer = null;
 
         URL url = ControllerUtil.class.getResource("/view/member/memberLogin.fxml");
         Parent newRoot = FXMLLoader.load(url);

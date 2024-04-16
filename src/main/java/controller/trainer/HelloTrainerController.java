@@ -33,7 +33,6 @@ public class HelloTrainerController {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        SelectedTrainer.currentTrainer = null;
         moveToMainPage(event);
     }
 

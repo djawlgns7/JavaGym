@@ -47,7 +47,6 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        currentMember = null;
         moveToMainPage(event);
     }
 
@@ -83,7 +82,6 @@ public class HelloMemberController implements Initializable {
         if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
             entryLogRepository.save(memberNum);
             showDialogAndMoveMainPage(currentMember.getName() + "님 오늘도 파이팅!", event);
-            currentMember = null;
         } else {
             showDialogBasicMessage("DeniedEntry");
         }
