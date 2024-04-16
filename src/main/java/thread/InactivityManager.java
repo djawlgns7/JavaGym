@@ -138,6 +138,7 @@ public class InactivityManager {
             return;
         }
         Stage stage = (Stage) scene.getWindow();
+        SoundUtil.stop();
         stage.close();
     }
 

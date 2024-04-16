@@ -63,7 +63,7 @@ public class SelectLockerController implements Initializable {
 
             makeLockerList();
             makeLockerArea(1);
-            makeOnclickListner();
+            makeOnclickListener();
 
             makeLockerArea(1);
 
@@ -83,7 +83,7 @@ public class SelectLockerController implements Initializable {
 
             makeLockerList();
             makeLockerArea(1);
-            makeOnclickListner();
+            makeOnclickListener();
 
             makeLockerArea(1);
 
@@ -141,7 +141,7 @@ public class SelectLockerController implements Initializable {
     }
 
     //락커를 선택하는 이벤트 생성
-    public void makeOnclickListner(){
+    public void makeOnclickListener(){
         for(int i = 0; i < lockers.size(); i++){
             Label currentLocker = lockers.get(i);
             if(currentLocker.getStyleClass().contains("unselectedLocker")){
