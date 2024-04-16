@@ -32,17 +32,17 @@ public class AdminLoginController {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML
     public void initialize() {
         // 이미지 로드 설정
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         // 원형 클리핑 설정
-        Circle clipCircle = new Circle(100, 100, 100); // ImageView 중앙에 위치하고 반지름 100인 원
+        Circle clipCircle = new Circle(150, 150, 150); // ImageView 중앙에 위치하고 반지름 100인 원
         profileImage.setClip(clipCircle);
     }
 }

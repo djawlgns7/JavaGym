@@ -1,12 +1,12 @@
 package controller.member;
 
+import controller.payment.PaymentTab;
 import domain.Item;
 import domain.member.Member;
 import domain.member.MemberSchedule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +14,8 @@ import javafx.scene.shape.Circle;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
-import repository.ReservationRepository;
+import service.SmsService;
+import util.DialogUtil;
 import util.MemberUtil;
 
 import java.io.IOException;
@@ -24,16 +25,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.*;
-import static util.AlertUtil.*;
+import static controller.payment.PaymentController.*;
+import static domain.member.SelectedMember.currentMember;
+import static domain.trainer.SelectedTrainer.*;
+import static util.DialogUtil.*;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePage;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.*;
 
 public class HelloMemberController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private ImageView profileImage;
@@ -46,7 +49,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML
@@ -57,9 +60,9 @@ public class HelloMemberController implements Initializable {
         int memberReservationNum = memberSchedule.size();
 
         if(trainerNum == 0){
-            showAlert("배정된 트레이너가 존재하지 않습니다.", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("배정된 트레이너가 존재하지 않습니다.");
         }else if(memberReservationNum >= 4){
-            showAlert("최대 예약 횟수만큼 예약을 했습니다", Alert.AlertType.INFORMATION);
+            DialogUtil.showDialog("최대 예약 횟수만큼 예약을 했습니다");
         }else {
             movePage(event, "/view/member/reservation");
         }
@@ -72,23 +75,18 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     public void entry(ActionEvent event) throws IOException {
-
-        Integer gymTicket = getRemain(currentMember.getNum(), Item.GYM_TICKET);
-        Date reservation = reservationRepository.getTodayReservationDate(currentMember.getNum());
+        // 코드 수정 (성진)
+        Integer memberNum = currentMember.getNum();
+        Integer gymTicket = MemberUtil.getRemain(memberNum, Item.GYM_TICKET);
+        Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
-        if (gymTicket.equals(0) && reservation == null) {
-            showAlertUseMessage("DeniedEntry");
-            return;
+        if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+            entryLogRepository.save(memberNum);
+            showDialogAndMoveMainPage(currentMember.getName() + "님 오늘도 파이팅!", event);
+        } else {
+            showDialogBasicMessage("DeniedEntry");
         }
-
-        if (!reservation.toString().equals(today)) {
-            showAlertUseMessage("DeniedEntry");
-            return;
-        }
-
-        entryLogRepository.save(currentMember.getNum());
-        showAlertAndMove(currentMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
     }
 
     @Override
@@ -99,10 +97,11 @@ public class HelloMemberController implements Initializable {
             int PTTicket = remain.get(1);
             int gymTicket = getRemain(member.getNum(), Item.GYM_TICKET);
 
-            PTTicketRemain.setText("PT 이용권 " + PTTicket + "개");
-            memberName.setText(member.getName() + "님,환영합니다!");
+            PTTicketRemain.setText(PTTicket + "개");
+            memberName.setText(member.getName() + "님");
+
             if(gymTicket > 0) {
-                DDay.setText("D-" + gymTicket);
+                DDay.setText("D - " + gymTicket);
             }else if(repository.hasReservationToday(member.getNum())){
                 DDay.setText("입장 가능");
             }
@@ -111,15 +110,25 @@ public class HelloMemberController implements Initializable {
             }
         }
 
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
-        Circle clipCircle = new Circle(100, 100, 100);
+        Circle clipCircle = new Circle(150, 150, 150);
         profileImage.setClip(clipCircle);
     }
 
     @FXML
     private void moveToPaymentPage(ActionEvent event) throws IOException {
-        movePageCenter(event, "/view/member/payment");
+        selectTrainer = false;
+        selectLocker = false;
+        currentTrainer = null;
+
+        PaymentTab.getInstance().setSelectedTabIndex(0);
+        movePage(event, "/view/member/payment");
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }

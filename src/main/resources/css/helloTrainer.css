@@ -1,6 +1,4 @@
-.container {
-    -fx-background-color: #D9D9D9; /* 추후 제거 */
-}
+
 
 .hello_title_label {
     -fx-font-size: 72;
@@ -41,6 +39,7 @@
 }
 
 .memberManagementBtn:hover, .trainerManagementBtn:hover, .logOutBtn:hover, .reservationBtn:hover {
-    -fx-background-color: #EA8ABE;
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
 

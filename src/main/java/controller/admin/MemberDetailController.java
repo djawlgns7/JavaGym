@@ -1,6 +1,5 @@
 package controller.admin;
 
-import controller.TabController;
 import domain.*;
 import domain.member.EntryLog;
 import domain.member.Member;
@@ -15,8 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -26,10 +28,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.Item.*;
 import static domain.member.SelectedMember.*;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePageCenter;
+import static util.PageUtil.movePage;
+import static util.PageUtil.movePageTimerOff;
 
 public class MemberDetailController implements Initializable {
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
@@ -84,12 +87,12 @@ public class MemberDetailController implements Initializable {
         // 수정 내역이 없는 경우
         if (isSameBasicInfo() && isSameAdditionalInfo()) {
             System.out.println("수정 내용 없음");
-            showAlertUpdateMemberFail("isSame");
+            showDialogErrorMessage("isSame");
             return;
         }
 
         // 수정 내역이 있는 경우
-        Optional<ButtonType> response = showAlertChoose("회원 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("회원 정보를 수정하시겠습니까?");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
 
@@ -142,12 +145,12 @@ public class MemberDetailController implements Initializable {
                     System.out.println("PT 이용권 변경");
 
                     if (inputTrainerName.isEmpty()) {
-                        showAlertUpdateMemberFail("emptyTrainer");
+                        showDialogErrorMessage("emptyTrainer");
                         return;
                     }
 
                     if (inputPtTicket == 0) {
-                        showAlertUpdateMemberFail("notDeleteTrainer");
+                        showDialogErrorMessage("notDeleteTrainer");
                         return;
                     }
 
@@ -165,17 +168,17 @@ public class MemberDetailController implements Initializable {
                     System.out.println("트레이너 변경");
 
                     if (inputTrainerName.isEmpty()) {
-                        showAlertUpdateMemberFail("emptyTrainer");
+                        showDialogErrorMessage("emptyTrainer");
                         return;
                     }
 
                     if (trainerRepository.findByName(inputTrainerName) == null) {
-                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        showDialogErrorMessage("wrongNameTrainer");
                         return;
                     }
 
                     if (inputPtTicket == 0) {
-                        showAlertUpdateMemberFail("emptyPtTicket");
+                        showDialogErrorMessage("emptyPtTicket");
                         return;
                     }
 
@@ -192,7 +195,7 @@ public class MemberDetailController implements Initializable {
                     }
 
                     if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
-                        showAlertUpdateMemberFail("wrongNameTrainer");
+                        showDialogErrorMessage("wrongNameTrainer");
                         return;
                     }
 
@@ -245,23 +248,23 @@ public class MemberDetailController implements Initializable {
                     System.out.println("사물함 번호 변경");
 
                     if (inputLockerPeriod == 0) {
-                        showAlertUpdateMemberFail("emptyLockerPeriod");
+                        showDialogErrorMessage("emptyLockerPeriod");
                         return;
                     }
 
                     if (inputLockerNum == 0) {
-                        showAlertUpdateMemberFail("emptyLockerNum");
-                        movePageCenter(event, "/view/admin/memberDetail");
+                        showDialogErrorMessage("emptyLockerNum");
+                        movePage(event, "/view/admin/memberDetail");
                         return;
                     }
 
                     if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
-                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        showDialogErrorMessage("isUsingLockerNum");
                         return;
                     }
 
                     if (inputLockerNum > 200) {
-                        showAlertUpdateMemberFail("maxLockerNum");
+                        showDialogErrorMessage("maxLockerNum");
                         return;
                     }
                     setLockerNum(memberNum, inputLockerNum);
@@ -272,13 +275,13 @@ public class MemberDetailController implements Initializable {
                     System.out.println("사물함 기간 변경");
 
                     if (inputLockerNum == 0) {
-                        showAlertUpdateMemberFail("emptyLockerNum");
+                        showDialogErrorMessage("emptyLockerNum");
                         return;
                     }
 
                     if (inputLockerPeriod == 0) {
-                        showAlertUpdateMemberFail("emptyLockerPeriod");
-                        movePageCenter(event, "/view/admin/memberDetail");
+                        showDialogErrorMessage("emptyLockerPeriod");
+                        movePage(event, "/view/admin/memberDetail");
                         return;
                     }
 
@@ -296,12 +299,12 @@ public class MemberDetailController implements Initializable {
                     System.out.println("사물함 번호, 사물함 기간 모두 변경");
 
                     if (purchaseRepository.isUsingLockerNum(inputLockerNum)) {
-                        showAlertUpdateMemberFail("isUsingLockerNum");
+                        showDialogErrorMessage("isUsingLockerNum");
                         return;
                     }
 
                     if (inputLockerNum > 200) {
-                        showAlertUpdateMemberFail("maxLockerNum");
+                        showDialogErrorMessage("maxLockerNum");
                         return;
                     }
 
@@ -322,7 +325,7 @@ public class MemberDetailController implements Initializable {
                         }
                     }
                 }
-                showAlertAndMoveCenter("회원이 수정되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
+                showDialogAndMovePageTimerOff("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
             }
         }
     }
@@ -395,13 +398,15 @@ public class MemberDetailController implements Initializable {
         return inputLockerPeriod.equals(currentLockerPeriod);
     }
 
+
+
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = showAlertChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
-            showAlertAndMoveCenter("회원이 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageTimerOff("회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
         }
     }
 
@@ -424,6 +429,10 @@ public class MemberDetailController implements Initializable {
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/Entrylog.css").toExternalForm());
 
+        // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
     }
 
@@ -431,7 +440,7 @@ public class MemberDetailController implements Initializable {
     private void cancelReservation(ActionEvent event) throws IOException {
 
         if (ptTable.getItems().isEmpty()) {
-            showAlert("PT 예약 정보가 없습니다.", Alert.AlertType.INFORMATION);
+            showDialog("PT 예약 정보가 없습니다.");
             return;
         }
 
@@ -442,25 +451,29 @@ public class MemberDetailController implements Initializable {
 
         // 선택된 예약 정보가 있는지 확인
         if (selectedSchedules.isEmpty()) {
-            showAlert("취소할 예약을 선택해주세요.", Alert.AlertType.INFORMATION);
+            showDialog("취소할 예약을 선택해주세요.");
             return;
         }
 
-        Optional<ButtonType> result = showAlertChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
+            int count = 0;
             // 선택한 예약 내역을 모두 삭제
             for (MemberSchedule schedule : selectedSchedules) {
                 reservationRepository.deleteReservation(schedule.getReservationNum());
+                count++;
             }
-            showAlertAndMoveCenter("예약 정보가 삭제되었습니다.", Alert.AlertType.INFORMATION, "/view/admin/memberDetail", event);
+            // 삭제한 예약 내역만큼 PT 이용권 돌려주기
+            setRemain(currentMember.getNum(), PT_TICKET, count);
+            showDialogAndMovePageTimerOff("예약 정보가 삭제되었습니다.", "/view/admin/memberDetail", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        TabController.getInstance().setSelectedTabIndex(0);
-        movePageCenter(event, "/view/admin/helloAdminV2");
+        AdminTab.getInstance().setSelectedTabIndex(0);
+        movePageTimerOff(event, "/view/admin/helloAdminV2");
     }
 
     /**

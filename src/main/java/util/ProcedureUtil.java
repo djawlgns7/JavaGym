@@ -5,7 +5,6 @@ import domain.Item;
 import java.util.Arrays;
 import java.util.List;
 
-import static repository.PurchaseRepository.*;
 import static util.MemberUtil.getRemain;
 
 public class ProcedureUtil {

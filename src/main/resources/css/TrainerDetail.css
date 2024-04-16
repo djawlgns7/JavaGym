@@ -3,6 +3,39 @@ SplitPane {
     -fx-background-color: #FFFFFF;
 }
 
+/* SplitPane */
+.split-pane-divider {
+    -fx-background-color: #C4A3FF; /* 분할선의 색상 변경 */
+    -fx-border-color: transparent; /* 분할선의 테두리 색상 변경 */
+    -fx-padding: 0.5px; /* 분할선의 너비 변경 */
+}
+
+/* Scroll Bar */
+.scroll-bar {
+    -fx-background-color: #C4A3FF;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #DABDFF;
+    -fx-background-insets: 2, 2, 2;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #C4A3FF;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #DABDFF;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #FFFFFF;
+}
+
 /* Title */
 .trainerDetail_title_1, .trainerDetail_title_2 {
     -fx-font-size: 36;
@@ -18,6 +51,11 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
+/* GridPane */
+.trainerDetail_GridPane {
+    -fx-translate-x: 10;
+}
+
 /* Label */
 .trainerDetail_nameLabel, .trainerDetail_idLabel, .trainerDetail_phoneLabel,
 .trainerDetail_heightLabel, .trainerDetail_weightLabel, .trainerDetail_birthLabel {
@@ -30,9 +68,9 @@ SplitPane {
 .trainerDetail_nameInput, .trainerDetail_idInput, .trainerDetail_phoneInput,
 .trainerDetail_heightInput, .trainerDetail_weightInput, .trainerDetail_birthPicker {
     -fx-font-family: "NanumGothic";
-    -fx-pref-width: 250;
-    -fx-pref-height: 30;
-    -fx-font-size: 16;
+    -fx-pref-width: 270;
+    -fx-pref-height: 40;
+    -fx-font-size: 18;
     -fx-background-color: #F4F5F7;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -41,7 +79,43 @@ SplitPane {
     -fx-prompt-text-fill: #999999;
 }
 
+/* DatePicker - TextField 배경색 변경 */
+.trainerDetail_birthPicker .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+/* DatePicker - Button 색상 변경 */
+.trainerDetail_birthPicker .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* DatePicker - Button Hover 색상 변경 */
+.trainerDetail_birthPicker .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+/* DatePicker - Arrow 색상 변경 */
+.trainerDetail_birthPicker .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* DatePicker - Day Cell */
+.date-picker-popup .day-cell:filled:hover {
+    -fx-background-color: #DABDFF; /* 호버 시 날짜의 배경색 */
+    -fx-text-fill: white; /* 호버 시 날짜의 글자색 */
+}
+
 /* Button */
+.trainerDetail_ImageBtn {
+    -fx-translate-y: -10;
+}
+
 .trainerDetail_updateImageBtn {
     -fx-font-family: "Jua";
     -fx-background-color: #9747FF;
@@ -67,6 +141,7 @@ SplitPane {
 .trainerDetail_Btn {
     -fx-font-family: "Jua";
     -fx-spacing: 20;
+    -fx-translate-y: 20;
 }
 
 .trainerDetail_updateTrainerBtn, .trainerDetail_deleteTrainerBtn {
@@ -89,16 +164,16 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
-.trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover .trainerDetail_updateTrainerBtn:hover,
+.trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover, .trainerDetail_updateTrainerBtn:hover,
 .trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 .trainerDetail_updateImageBtn:pressed, .trainerDetail_resetImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
 .trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
-    -fx-border-color: #EA8ABE #EA8ABE #EA8ABE #EA8ABE;
+    -fx-cursor: hand;
 }
 
 /* Radio Button */
@@ -108,32 +183,94 @@ SplitPane {
     -fx-font-weight: bold;
 }
 
+/* Sex radio Button */
 .trainerDetail_sex_radioBtn_1 {
     -fx-font-family: "NanumGothic";
-    -fx-padding: 0 0 0 50;
-    -fx-font-size: 16;
-    -fx-font-weight: bold;
-}
-
-.trainerDetail_worktime_radioBtn_1 {
-    -fx-font-family: "NanumGothic";
-    -fx-padding: 0 0 0 40;
-    -fx-font-size: 16;
+    -fx-padding: 5 0 0 40;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
 .trainerDetail_sex_radioBtn_2 {
     -fx-font-family: "NanumGothic";
-    -fx-padding: 0 10 0 0;
-    -fx-font-size: 16;
+    -fx-padding: 5 0 0 15;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.trainerDetail_sex_radioBtn_1 .radio,
+.trainerDetail_sex_radioBtn_2 .radio {
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.trainerDetail_sex_radioBtn_1 .radio:hover,
+.trainerDetail_sex_radioBtn_2 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.trainerDetail_sex_radioBtn_1:selected .radio,
+.trainerDetail_sex_radioBtn_2:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.trainerDetail_sex_radioBtn_1:selected .radio:hover,
+.trainerDetail_sex_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.trainerDetail_sex_radioBtn_1:selected .dot,
+.trainerDetail_sex_radioBtn_2:selected .dot {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Worktime radio Button */
+.trainerDetail_worktime_radioBtn_1 {
+    -fx-font-family: "NanumGothic";
+    -fx-padding: 0 0 0 40;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
 .trainerDetail_worktime_radioBtn_2 {
     -fx-font-family: "NanumGothic";
     -fx-padding: 0 40 0 0;
-    -fx-font-size: 16;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.trainerDetail_worktime_radioBtn_1 .radio,
+.trainerDetail_worktime_radioBtn_2 .radio {
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.trainerDetail_worktime_radioBtn_1 .radio:hover,
+.trainerDetail_worktime_radioBtn_2 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.trainerDetail_worktime_radioBtn_1:selected .radio,
+.trainerDetail_worktime_radioBtn_2:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.trainerDetail_worktime_radioBtn_1:selected .radio:hover,
+.trainerDetail_worktime_radioBtn_2:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.trainerDetail_worktime_radioBtn_1:selected .dot,
+.trainerDetail_worktime_radioBtn_2:selected .dot {
+    -fx-background-color: #FFFFFF;
 }
 
 /* Table */
@@ -157,14 +294,14 @@ SplitPane {
 }
 
 .trainerDetail_DateColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 165;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .trainerDetail_TimeColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 155;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -202,7 +339,7 @@ SplitPane {
 
 /* 정렬 화살표 스타일 */
 .table-view .column-header .arrow {
-    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+    -fx-background-color: #FFFFFF; /* 화살표 색상 변경 */
 }
 
 /* 오름차순 화살표 스타일 */

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800" prefWidth="550" stylesheets="/css/selectLocker.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.payment.SelectLockerController">
+    <VBox alignment="CENTER" prefHeight="800" prefWidth="550" spacing="20.0">
+        <Label text="사물함을 선택하세요" />
+        <HBox alignment="CENTER" spacing="10">
+            <Label fx:id="lockerAreaHeader" text="1층" />
+            <Label styleClass="locker, navigationSize" />
+            <Label text="이용 가능" />
+            <Label styleClass="locker, selectedLocker, navigationSize" />
+            <Label text="선택" />
+            <Label styleClass="locker, occupiedLocker, navigationSize" />
+            <Label text="이용 중" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="←" fx:id="previousButton" styleClass="unclickable" />
+            <HBox fx:id="lockerArea" alignment="CENTER" spacing="0">
+                <!-- 락커 목록이 표시되는 공간 -->
+            </HBox>
+            <Label text="→" fx:id="nextButton" styleClass="clickable" onMouseClicked="#moveToNextPage"/>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Label text="선택한 락커 번호: " />
+            <Label fx:id="selectedLockerNum" text=""/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <RadioButton fx:id="noSelectLockerButton" text="선택 안 함"/>
+            <RadioButton fx:id="locker30Days" text="30일 7,000원"/>
+            <RadioButton fx:id="locker90Days" text="90일 18,000원"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <RadioButton fx:id="locker180Days" text="180일 31,000원"/>
+            <RadioButton fx:id="locker360Days" text="360일 52,000원"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <Button fx:id="comfirm" text="선택" onAction="#confirmButtonClicked" />
+            <Button fx:id="goBack" text="취소" onAction="#goBackButtonClicked" />
+        </HBox>
+    </VBox>
+</AnchorPane>

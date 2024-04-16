@@ -2,14 +2,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
-<SplitPane dividerPositions="0.40" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.40" prefHeight="1000.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/common.css"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
         <!-- 회원 상세 정보 영역 -->
         <VBox fx:id="memberDetailArea" alignment="CENTER" spacing="30.0">
             <Label text="회원 상세 정보" styleClass="memberDetail_title_1"/>
 
-            <GridPane fx:id="memberDetailGrid" alignment="CENTER" hgap="20" vgap="20">
+            <GridPane fx:id="memberDetailGrid" alignment="CENTER" hgap="20" vgap="30">
                 <!-- Row 0. Name -->
                 <Label text="이름" styleClass="memberDetail_nameLabel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <TextField fx:id="nameField" promptText="이름" styleClass="memberDetail_nameInput" GridPane.rowIndex="0" GridPane.columnIndex="1"/>

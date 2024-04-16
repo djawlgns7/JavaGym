@@ -11,46 +11,46 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+
+import static domain.member.SelectedMember.currentMember;
+import static domain.trainer.SelectedTrainer.currentTrainer;
+import static thread.InactivityManager.*;
+import static util.AnimationUtil.applyFadeIn;
 
 public class PageUtil {
 
-    private static final ResourceBundle init = ResourceBundle.getBundle("config.init");
-
     public static void movePage(Event event, String viewPath) throws IOException {
-        URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
+
+        URL url = PageUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(init.getString("title"));
+        stage.setTitle("JavaGym");
 
         stage.setScene(scene);
+        setupInactivityTimer(scene); // 추가
+
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+
+        applyFadeIn(stage);
         stage.show();
     }
 
-    public static void movePage(Event event, String viewPath, String cssPath) throws IOException {
-        URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
-        Parent newRoot = FXMLLoader.load(url);
-        Scene scene = new Scene(newRoot);
+    public static void movePageTimerOff(Event event, String viewPath) throws IOException {
+        if (inactivityTimer != null) {
+            inactivityTimer.stop();
+        }
 
-        String css = ControllerUtil.class.getResource(cssPath + ".css").toExternalForm();
-        scene.getStylesheets().add(css);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(init.getString("title"));
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void movePageCenter(Event event, String viewPath) throws IOException {
         URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(init.getString("title"));
+        stage.setTitle("JavaGym");
 
         stage.setScene(scene);
 
@@ -61,27 +61,36 @@ public class PageUtil {
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
+        applyFadeIn(stage);
         stage.show();
     }
 
-    public static void movePageCenter(Event event, String viewPath, String cssPath) throws IOException {
-        URL url = ControllerUtil.class.getResource(viewPath + ".fxml");
+    public static void moveToMainPage(Event event) throws IOException {
+        if (inactivityTimer != null) {
+            inactivityTimer.stop();
+        }
+
+        currentMember = null;
+        currentTrainer = null;
+
+        URL url = ControllerUtil.class.getResource("/view/member/memberLogin.fxml");
         Parent newRoot = FXMLLoader.load(url);
         Scene scene = new Scene(newRoot);
 
-        String css = ControllerUtil.class.getResource(cssPath + ".css").toExternalForm();
-        scene.getStylesheets().add(css);
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(init.getString("title"));
 
-        stage.setScene(scene);
+        if (stage != null) {
+            stage.setTitle("JavaGym");
 
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setScene(scene);
 
-        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        stage.show();
+            stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+
+            applyFadeIn(stage);
+            stage.show();
+        }
     }
 }

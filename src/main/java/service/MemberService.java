@@ -3,7 +3,6 @@ package service;
 import domain.Item;
 import domain.member.Member;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,14 +10,14 @@ import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import util.MemberUtil;
-import util.PageUtil;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
 import static domain.member.SelectedMember.*;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
+import static util.PageUtil.*;
 import static util.ValidateUtil.isWrongLengthPhone;
 
 public class MemberService {
@@ -41,22 +40,22 @@ public class MemberService {
         String password = passwordField.getText().trim();
 
         if (phone.isEmpty()) {
-            showAlertLoginFail("emptyPhone");
+            showDialogErrorMessage("emptyPhone");
             return;
         }
 
         if (isWrongLengthPhone(phone)) {
-            showAlertLoginFail("wrongPhone");
+            showDialogErrorMessage("wrongPhone");
             return;
         }
 
         if (password.isEmpty()) {
-            showAlertLoginFail("emptyPw");
+            showDialogErrorMessage("emptyPw");
             return;
         }
 
         if (repository.findByPhone(phone) == null) {
-            showAlertLoginFail("unregistered");
+            showDialogErrorMessage("unregistered");
             return;
         }
 
@@ -64,9 +63,9 @@ public class MemberService {
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
             currentMember = findMember;
-            PageUtil.movePage(event, "/view/member/helloMember");
+            movePage(event, "/view/member/helloMember");
         } else {
-            showAlertLoginFail("wrongPw");
+            showDialogErrorMessage("wrongPw");
 
             // 비밀번호 잘못 입력 시 비밀번호 필드 초기화!
             passwordField.setText("");
@@ -78,48 +77,41 @@ public class MemberService {
         String password = passwordField.getText().trim();
 
         if (phone.isEmpty()) {
-            showAlertLoginFail("emptyPhone");
+            showDialogErrorMessage("emptyPhone");
             return;
         }
 
         if (isWrongLengthPhone(phone)) {
-            showAlertLoginFail("wrongPhone");
+            showDialogErrorMessage("wrongPhone");
             return;
         }
 
         if (password.isEmpty()) {
-            showAlertLoginFail("emptyPw");
+            showDialogErrorMessage("emptyPw");
             return;
         }
 
         if (repository.findByPhone(phone) == null) {
-            showAlertLoginFail("unregistered");
+            showDialogErrorMessage("unregistered");
             return;
         }
 
         Member findMember = repository.findByPhone(phone);
         if (BCrypt.checkpw(password, findMember.getPassword())) {
 
+            // 코드 수정 (성진)
             Integer gymTicket = MemberUtil.getRemain(findMember.getNum(), Item.GYM_TICKET);
             Date reservation = reservationRepository.getTodayReservationDate(findMember.getNum());
 
-            // 헬스장 이용권이 존재하거나 당일 PT 예약인 경우만 입장 가능
-
             String today = LocalDate.now().toString();
-            if (gymTicket.equals(0) && reservation == null) {
-                showAlertUseMessage("DeniedEntry");
-                return;
+            if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
+                entryLogRepository.save(findMember.getNum());
+                showDialogAndMoveMainPage(findMember.getName() + "님 오늘도 파이팅!", event);
+            } else {
+                showDialogBasicMessage("DeniedEntry");
             }
-
-            if (!reservation.toString().equals(today)) {
-                showAlertUseMessage("DeniedEntry");
-                return;
-            }
-
-            entryLogRepository.save(findMember.getNum());
-            showAlertAndMove(findMember.getName() + "님 오늘도 파이팅!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
         } else {
-            showAlertLoginFail("wrongPw");
+            showDialogErrorMessage("wrongPw");
             passwordField.setText("");
         }
     }

@@ -1,6 +1,6 @@
 package service;
 
-import domain.Admin;
+import domain.admin.Admin;
 import domain.member.Member;
 import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
@@ -13,7 +13,9 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
-import static util.AlertUtil.showAlertLoginFail;
+import static domain.admin.SelectedAdmin.currentAdmin;
+import static domain.member.SelectedMember.currentMember;
+import static util.DialogUtil.showDialogErrorMessage;
 import static util.PageUtil.*;
 
 public class AdminService {
@@ -31,21 +33,23 @@ public class AdminService {
         String password = passwordField.getText().trim();
 
         if (id.isEmpty()) {
-            showAlertLoginFail("emptyId");
+            showDialogErrorMessage("emptyId");
             return;
         }
 
         if (password.isEmpty()) {
-            showAlertLoginFail("emptyPw");
+            showDialogErrorMessage("emptyPw");
             return;
         }
 
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            movePageCenter(event, "/view/admin/helloAdminV2");
+            currentMember = null;
+            movePageTimerOff(event, "/view/admin/helloAdminV2");
+            currentAdmin = new Admin();
         } else {
-            showAlertLoginFail("adminLoginFail");
+            showDialogErrorMessage("adminLoginFail");
         }
     }
 

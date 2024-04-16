@@ -29,18 +29,21 @@ public class TrainerLoginController {
 
     @FXML
     public void login(ActionEvent event) throws IOException {
+        String id = idField.getText().trim();
+        String password = passwordField.getText().trim();
+
         service.login(idField, passwordField, event);
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML
     public void initialize() {
         // 이미지 로드 설정
-        Image image = new Image("/image/JavaGym.jpeg");
+        Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
         // 원형 클리핑 설정

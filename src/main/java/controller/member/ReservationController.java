@@ -2,24 +2,23 @@ package controller.member;
 
 import domain.member.Member;
 import domain.member.MemberSchedule;
-import domain.reservation.Reservation;
+import domain.reservation.ReservationInformation;
 import domain.trainer.Trainer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.converter.LocalDateStringConverter;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import service.SmsService;
+import util.DialogUtil;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
-import static util.AlertUtil.*;
+import static util.DialogUtil.*;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
@@ -41,7 +40,10 @@ public class ReservationController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
+    private final SmsService smsService = new SmsService();
+
+    private boolean isFirstSelectPtTicket = false;
+    private boolean isFirstSelectReservation = false;
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
@@ -50,12 +52,12 @@ public class ReservationController implements Initializable {
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum, minusBtn, plusBtn;
     @FXML
     private ImageView imageView;
 
     List<Boolean>[] reservations;
-    List<Reservation> selectedReservations;
+    List<ReservationInformation> selectedReservations;
     HBox[] weeks;
     HBox firstHBoxInScroll;
     Member member;
@@ -67,22 +69,31 @@ public class ReservationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (currentMember != null) {
+
+            SoundUtil.play("selectPt");
+
             member = currentMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
-            selectedReservations = new ArrayList<>();
+            List<Integer> remain = getRemainAll(member.getNum());
 
+            selectedReservations = new ArrayList<>();
             List<MemberSchedule> memberSchedule;
             memberSchedule = reservationRepository.findMemberSchedule(member.getNum());
             int memberReservationNum = memberSchedule.size();
-            availableReservationNum = 4 - memberReservationNum;
+            int PTTicket = remain.get(1);
 
-//            try {
-//                setMyInfo();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            availableReservationNum = 4 - memberReservationNum;
+            if(PTTicket < availableReservationNum) {
+                availableReservationNum = PTTicket;
+            }
+
+            try {
+                setMyInfo();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             makeCalendar();
 
         }
@@ -99,6 +110,8 @@ public class ReservationController implements Initializable {
         else{todayOfWeek++;}
         calenderDay = calenderDay.minusDays(todayOfWeek - 1);
         startDay = calenderDay.minusDays(todayOfWeek - 1);
+
+        minusBtn.getStyleClass().add("disabled");
 
         for(int i = 0; i < 10; i++) {
             for(int j = 1; j <= 7; j++) {
@@ -210,11 +223,17 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            showAlert("더 이상 선택할 수 없습니다", Alert.AlertType.INFORMATION);
+                            DialogUtil.showDialog("더 이상 선택할 수 없습니다");
                         //추가 가능한 횟수가 있을 경우
                         }else {
+
+                            if (!isFirstSelectReservation) {
+                                SoundUtil.play("cancelReservation");
+                                isFirstSelectReservation = true;
+                            }
+
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
-                            Reservation newReservation = new Reservation();
+                            ReservationInformation newReservation = new ReservationInformation();
                             newReservation.setDDay(day);
                             newReservation.setRTime(rTime);
                             selectedReservations.add(newReservation);
@@ -268,13 +287,13 @@ public class ReservationController implements Initializable {
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
         if(getSelectedPTTicket() == 0){
-            showAlert("한 개 이상의 시간대를 선택해 주세요", Alert.AlertType.WARNING);
+            DialogUtil.showDialog("한 개 이상의 시간대를 선택해 주세요");
             return;
         }
 
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            showAlert("선택한 예약권의 수 만큼 예약을 해주세요", Alert.AlertType.WARNING);
+            DialogUtil.showDialog("선택한 예약권의 수 만큼 예약을 해주세요");
             return;
         }
 
@@ -282,8 +301,6 @@ public class ReservationController implements Initializable {
         int reservationNum = selectedReservations.size() - 1;
         ObservableList<Node> hBoxChildren = selectedReservationList.getChildren();
         String firstDateTime = hBoxChildren.get(0).toString();
-
-        System.out.println(firstDateTime);
 
         String[] splittedDateTime = firstDateTime.split("\\'");
         String[] dateNTime = splittedDateTime[1].split(" ");
@@ -307,7 +324,7 @@ public class ReservationController implements Initializable {
         String reservationConfirmMsg = sb.toString();
 
         //예약이 가능한 경우
-        Optional<ButtonType> result = showAlertChoose(reservationConfirmMsg);
+        Optional<ButtonType> result = showDialogChoose(reservationConfirmMsg);
 
         if (result.get() == ButtonType.OK){
             LocalDate today = LocalDate.now();
@@ -316,7 +333,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showAlertAndMove("예약이 확정되었습니다!", Alert.AlertType.INFORMATION, "/view/member/memberLogin", event);
+            showDialogAndMoveMainPage("예약이 확정되었습니다!", event);
         }
     }
 
@@ -327,19 +344,42 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void ticketPlus(){
-        if(isSetTicketValid(1)){
-            int newPTTicket = getSelectedPTTicket() + 1;
-            ticketSelection.setText(newPTTicket + "개");
+
+        if (!isFirstSelectPtTicket) {
+            SoundUtil.play("selectDateAndTime");
+            isFirstSelectPtTicket = true;
+        }
+
+        if(getSelectedPTTicket() == 0){
+            minusBtn.getStyleClass().remove("disabled");
+            minusBtn.setOnMouseClicked(Event -> ticketMinus());
+        }
+
+        int newPTTicket = getSelectedPTTicket() + 1;
+        ticketSelection.setText(newPTTicket + "개");
+
+        if(newPTTicket == availableReservationNum){
+            plusBtn.getStyleClass().add("disabled");
+            plusBtn.setOnMouseClicked(event -> {});
         }
     }
 
     @FXML
     public void ticketMinus(){
-        if(isSetTicketValid(-1)){
-            int newPTTicket = getSelectedPTTicket() - 1;
-            ticketSelection.setText(newPTTicket + "개");
-            renewReservation();
+        if(getSelectedPTTicket() == availableReservationNum){
+            plusBtn.getStyleClass().remove("disabled");
+            plusBtn.setOnMouseClicked(Event -> ticketPlus());
         }
+
+        int newPTTicket = getSelectedPTTicket() - 1;
+        ticketSelection.setText(newPTTicket + "개");
+
+        if(newPTTicket == 0){
+            minusBtn.getStyleClass().add("disabled");
+            minusBtn.setOnMouseClicked(event -> {});
+        }
+
+        renewReservation();
     }
 
     //사용할 티켓의 수가 선택된 예약의 수보다 적어질 경우 예약 하나 삭제
@@ -349,8 +389,15 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        Reservation removedReservation;
-        removedReservation =  selectedReservations.remove(selectedReservations.size() - 1);
+        int index = selectedReservations.size() - 1;
+        removeselectedReservation(index);
+
+    }
+
+    //입력한 인덱스에 해당하는 예약을 삭제 후 버튼들 색 갱신
+    public void removeselectedReservation(int index){
+        ReservationInformation removedReservation;
+        removedReservation =  selectedReservations.remove(index);
 
         int rDDay = removedReservation.getDDay();
         int rRTime = removedReservation.getRTime() - adder;
@@ -442,36 +489,22 @@ public class ReservationController implements Initializable {
         return PTRemain;
     }
 
-    //사용 할 PT티켓 수를 변경했을 때 그 수가 유효한 지 판별
-    public boolean isSetTicketValid(int adder){
-        int selectedTicket = getSelectedPTTicket();
-        int memberNum = member.getNum();
-
-        selectedTicket += adder;
-
-        if(0 <= selectedTicket && selectedTicket <= availableReservationNum) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     //선택한 예약 목록을 스크롤페인에 출력
     public void showSelectedReservations(){
-        List<Reservation> copiedReservations = new ArrayList<>();
-        List<Reservation> sortedReservations = new ArrayList<>();
+        List<ReservationInformation> copiedReservations = new ArrayList<>();
+        List<ReservationInformation> sortedReservations = new ArrayList<>();
 
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
 
         for(int i = 0; i < selectedReservations.size(); i++){
-            copiedReservations.add(new Reservation());
+            copiedReservations.add(new ReservationInformation());
             copiedReservations.get(i).setDDay(selectedReservations.get(i).getDDay());
             copiedReservations.get(i).setRTime(selectedReservations.get(i).getRTime());
         }
 
         while(!copiedReservations.isEmpty()){
-            sortedReservations.add(new Reservation());
+            sortedReservations.add(new ReservationInformation());
             int earliestIndex = 0;
             for(int i = 1; i < copiedReservations.size(); i++){
                 int earliestDDay = copiedReservations.get(earliestIndex).getDDay();
@@ -509,6 +542,24 @@ public class ReservationController implements Initializable {
             Label newDateTime = new Label(indexDateTime);
             newDateTime.getStyleClass().add("selectedResrevationList");
 
+            newDateTime.setOnMouseClicked(Event -> {
+                for(int j = 0; j < selectedReservations.size(); j++){
+                    if(selectedReservations.get(j).isExist(indexDDay, indexRTime)){
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(indexDateTime).append(" ~ ").append(indexRTime + 1).append(":00")
+                                .append("\n\n해당 예약을 삭제하시겠습니까?");
+
+                        String deleteConfirmMsg = sb.toString();
+                        Optional<ButtonType> result = showDialogChoose(deleteConfirmMsg);
+
+                        if (result.get() == ButtonType.OK){
+                            selectedReservationList.getChildren().remove(newDateTime);
+                            removeselectedReservation(j);
+                        }
+                    }
+                }
+            });
+
             selectedReservationList.getChildren().add(newDateTime);
         }
     }
@@ -545,4 +596,8 @@ public class ReservationController implements Initializable {
         selectedReaservationNum.setText("총" + reservationNum + "회");
     }
 
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
+    }
 }
