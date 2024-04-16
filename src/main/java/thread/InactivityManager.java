@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
+import static domain.member.SelectedMember.currentMember;
+import static domain.trainer.SelectedTrainer.currentTrainer;
 
 public class InactivityManager {
     private static Stage mainStage;
@@ -64,9 +66,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10), e -> SoundUtil.play("toMainPage"));
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(20), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(50), e -> SoundUtil.play("toMainPage"));
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(50), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(60), e -> moveToMainScreen());
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
@@ -96,6 +98,9 @@ public class InactivityManager {
             try {
                 clearBasket();
                 closeAllDialogs();
+                currentMember = null;
+                currentTrainer = null;
+
                 inactivityTimer.stop();
                 timerScene = null;
                 Parent root = FXMLLoader.load(InactivityManager.class.getResource("/view/member/memberLogin.fxml"));
