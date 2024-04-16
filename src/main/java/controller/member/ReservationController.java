@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import util.DialogUtil;
@@ -39,7 +38,6 @@ public class ReservationController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
@@ -327,6 +325,8 @@ public class ReservationController implements Initializable {
         if(isSetTicketValid(1)){
             int newPTTicket = getSelectedPTTicket() + 1;
             ticketSelection.setText(newPTTicket + "개");
+        }else{
+            showDialog("예약은 한번에 최대 4개까지만 가능합니다");
         }
     }
 
