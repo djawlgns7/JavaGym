@@ -150,7 +150,7 @@
                         <VBox>
                             <Label text="사물함"/>
                             <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label fx:id="selectLockerLabel" text="선택 안 함" />
+                                <Label fx:id="noSelectLockerLabel" text="선택 안 함" />
                                 <Label fx:id="lockerNumberLabel" text="" visible="false" />
                                 <Label fx:id="lockerPeriodLabel" text="" visible="false" />
                                 <Label fx:id="lockerPriceLabel" text="" visible="false" />
