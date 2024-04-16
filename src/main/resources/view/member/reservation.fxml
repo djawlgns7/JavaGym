@@ -40,9 +40,9 @@
 
         <!-- PT 예약 개수 -->
         <HBox alignment="CENTER" spacing="10" styleClass="count">
-            <Label styleClass="minusBtn" onMouseClicked="#ticketMinus">-</Label>
+            <Label fx:id="minusBtn" styleClass="minusBtn">-</Label>
             <Label styleClass="ticketSelection" fx:id="ticketSelection">0개</Label>
-            <Label styleClass="plusBtn" onMouseClicked="#ticketPlus">+</Label>
+            <Label fx:id="plusBtn" styleClass="plusBtn" onMouseClicked="#ticketPlus">+</Label>
         </HBox>
 
         <!-- 달력 숫자 표시 -->
