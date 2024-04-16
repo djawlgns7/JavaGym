@@ -1,6 +1,5 @@
 package thread;
 
-import domain.admin.SelectedAdmin;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
-import static domain.admin.SelectedAdmin.*;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
@@ -98,7 +96,7 @@ public class InactivityManager {
 
     private static void moveToMainScreen() {
 
-        if (currentTrainer != null || currentAdmin != null) {
+        if (currentMember == null) {
             return;
         }
 
@@ -144,7 +142,7 @@ public class InactivityManager {
 
     public static void openTimerDialog() {
 
-        if (currentTrainer != null || currentAdmin != null) {
+        if (currentMember == null) {
             return;
         }
 
