@@ -34,14 +34,19 @@
         <!-- 예약 목록 영역 -->
         <VBox fx:id="listArea" spacing="20" alignment="CENTER">
             <Label text="예약 정보" />
-            <TableView fx:id="reservationTable" prefHeight="550.0">
-                <columns>
-                    <TableColumn text="회원 이름" fx:id="memberNameCol" />
-                    <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" />
-                    <TableColumn text="예약 일자" fx:id="rDateCol" />
-                    <TableColumn text="예약 시간" fx:id="rTimeCol" />
-                </columns>
-            </TableView>
+            <GridPane>
+                <Label text="회원 이름:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <Label fx:id="memberNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="회원 전화번호:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <Label fx:id="memberPhoneLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="예약 일자:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="rDateLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <Label text="예약 시간:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <Label fx:id="rTimeLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+            </GridPane>
         </VBox>
     </items>
 </SplitPane>
