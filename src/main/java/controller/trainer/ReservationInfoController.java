@@ -2,16 +2,20 @@ package controller.trainer;
 
 import domain.Item;
 import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -32,8 +36,7 @@ import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 
-import static util.ControllerUtil.columnBindingReservation;
-import static util.ControllerUtil.loadReservationData;
+import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
 import static util.PageUtil.movePage;
@@ -238,7 +241,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> response = showDialogChoose("정말 선택하신 예약들을 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("정말 선택하신 예약을 취소하시겠습니까?");
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
             //선택한 예약 내역 모두 삭제
@@ -249,5 +252,31 @@ public class ReservationInfoController implements Initializable {
             }
             showDialogAndMovePage("예약 정보가 삭제되었습니다.", "/view/trainer/reservationInfo", event);
         }
+    }
+
+    @FXML
+    public void showUserNum() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("회원 정보");
+
+        ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        closeButton.getStyleClass().add("closeBtn");
+
+        TableView<UsingLocker> table = new TableView<>();
+        table.getStyleClass().add("tableView");
+        loadmemberInfo(table, memberRepository);
+
+        VBox vbox = new VBox(table);
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.setContent(vbox);
+        dialogPane.getStylesheets().add(getClass().getResource("/css/MemberInfo.css").toExternalForm());
+
+        // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
+        dialog.showAndWait();
     }
 }

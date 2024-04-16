@@ -1,7 +1,9 @@
 package util;
 
+import com.mysql.cj.xdevapi.Table;
 import domain.member.EntryLog;
 import domain.member.Member;
+import domain.member.MemberSchedule;
 import domain.member.UsingLocker;
 import domain.trainer.Reservation;
 import domain.trainer.SelectedTrainer;
@@ -210,15 +212,6 @@ public class ControllerUtil {
 
     }
 
-    public static int loadReservationData(TableView<TrainerSchedule> scheduleTable) {
-        int trainerNum = currentTrainer.getNum();
-        ReservationRepository reservationRepository = new ReservationRepository();
-        List<TrainerSchedule> schedules = reservationRepository.findTrainerSchedule(trainerNum);
-        scheduleTable.setItems(FXCollections.observableArrayList(schedules));
-
-        return trainerNum;
-    }
-
     public static ImageView createImageViewFromBytes(byte[] imageData) {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
         Image image = new Image(inputStream);
@@ -227,5 +220,25 @@ public class ControllerUtil {
         imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
         return imageView;
+    }
+
+    public static void loadmemberInfo(TableView table, MemberRepository memberRepository) {
+
+        TableColumn<Member, Number> memberNumCol = new TableColumn<>("회원 번호");
+        TableColumn<Member, String> memberNameCol = new TableColumn<>("회원 이름");
+        TableColumn<Member, Number> memberPhoneCol = new TableColumn<>("핸드폰 번호");
+
+        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        memberNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        memberPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        memberNumCol.setPrefWidth(90);
+        memberNameCol.setPrefWidth(90);
+        memberPhoneCol.setPrefWidth(90);
+
+        table.getColumns().addAll(memberNumCol, memberNameCol, memberPhoneCol);
+
+        List<Member> members = memberRepository.findAllMembers();
+        table.setItems(FXCollections.observableArrayList(members));
     }
 }
