@@ -11,6 +11,8 @@ import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
 import service.SmsService;
+import util.SoundUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -78,6 +80,7 @@ public class SignUpController implements Initializable {
         member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
+        SoundUtil.play("welcome");
         showDialog(signUpMember.getName() + "님. 회원가입을 환영합니다!");
         goBack(event);
     }

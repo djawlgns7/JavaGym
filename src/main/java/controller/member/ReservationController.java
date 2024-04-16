@@ -19,6 +19,7 @@ import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
 import util.DialogUtil;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +42,9 @@ public class ReservationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final SmsService smsService = new SmsService();
+
+    private boolean isFirstSelectPtTicket = false;
+    private boolean isFirstSelectReservation = false;
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
@@ -66,6 +70,9 @@ public class ReservationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (currentMember != null) {
+
+            SoundUtil.play("selectPt");
+
             member = currentMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
@@ -220,6 +227,12 @@ public class ReservationController implements Initializable {
                             DialogUtil.showDialog("더 이상 선택할 수 없습니다");
                         //추가 가능한 횟수가 있을 경우
                         }else {
+
+                            if (!isFirstSelectReservation) {
+                                SoundUtil.play("cancelReservation");
+                                isFirstSelectReservation = true;
+                            }
+
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
                             ReservationInformation newReservation = new ReservationInformation();
                             newReservation.setDDay(day);
@@ -332,6 +345,12 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void ticketPlus(){
+
+        if (!isFirstSelectPtTicket) {
+            SoundUtil.play("selectDateAndTime");
+            isFirstSelectPtTicket = true;
+        }
+
         if(getSelectedPTTicket() == 0){
             minusBtn.getStyleClass().remove("disabled");
             minusBtn.setOnMouseClicked(Event -> ticketMinus());

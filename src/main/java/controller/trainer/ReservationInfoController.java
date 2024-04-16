@@ -1,6 +1,8 @@
 package controller.trainer;
 
 
+import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -23,7 +25,6 @@ import static domain.trainer.SelectedReservation.currentReservation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
@@ -32,20 +33,20 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
-import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
+import static util.MemberUtil.setRemain;
+import static util.PageUtil.movePage;
 import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
 
-    private TrainerRepository trainerRepository = new TrainerRepository();
-    private ReservationRepository reservationRepository = new ReservationRepository();
-    private MemberRepository memberRepository = new MemberRepository();
+    private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
     @FXML
     private TextField numField, nameField, phoneField, rtimeField, searchMemberNameField;
