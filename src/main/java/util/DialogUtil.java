@@ -1,13 +1,10 @@
 package util;
 
-import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -48,7 +45,6 @@ public class DialogUtil {
 
         Label label = new Label(errorMessage.getString(messageCode));
         label.getStyleClass().add("label");
-
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -160,24 +156,5 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         return dialog.showAndWait();
-    }
-
-    public static void applyScaleIn(Node node) {
-        ScaleTransition scaleIn = new ScaleTransition(Duration.seconds(0.5), node);
-        scaleIn.setFromX(0.0);
-        scaleIn.setFromY(0.0);
-        scaleIn.setToX(1.0);
-        scaleIn.setToY(1.0);
-        scaleIn.play();
-    }
-
-    public static void applyScaleOut(Node node) {
-        ScaleTransition scaleOut = new ScaleTransition(Duration.seconds(0.5), node);
-        scaleOut.setFromX(1.0);
-        scaleOut.setFromY(1.0);
-        scaleOut.setToX(0.0);
-        scaleOut.setToY(0.0);
-        scaleOut.setOnFinished(event -> node.getScene().getWindow().hide());
-        scaleOut.play();
     }
 }
