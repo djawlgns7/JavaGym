@@ -148,7 +148,7 @@ public class SelectLockerController implements Initializable {
                 currentLocker.setOnMouseClicked(mouseEvent -> {
                     String selectedLockerNumText = selectedLockerNum.getText();
 
-                    if(selectedLockerNumText.equals("")){
+                    if(selectedLockerNumText.isEmpty()){
                         currentLocker.getStyleClass().remove("unselectedLocker");
                         currentLocker.getStyleClass().add("selectedLocker");
                         selectedLockerNum.setText(currentLocker.getText());
@@ -191,7 +191,7 @@ public class SelectLockerController implements Initializable {
     public void confirmButtonClicked(ActionEvent event) throws IOException {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
-        if(selectedLockerNumberText.equals("")){
+        if(selectedLockerNumberText.isEmpty()){
             showDialog("락커 번호를 선택하지 않았습니다");
             return;
         }

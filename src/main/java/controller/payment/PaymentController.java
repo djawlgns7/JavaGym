@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.GridPane;
 import repository.TrainerRepository;
 import service.SmsService;
 
