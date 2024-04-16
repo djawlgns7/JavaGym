@@ -8,10 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -36,6 +39,7 @@ import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
 import static util.PageUtil.movePage;
+import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -249,7 +253,7 @@ public class ReservationInfoController implements Initializable {
         Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
-        TableView<UsingLocker> table = new TableView<>();
+        TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
         loadmemberInfo(table, memberRepository);
 
