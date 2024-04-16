@@ -7,10 +7,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import repository.TrainerRepository;
 
 import java.io.IOException;
@@ -75,6 +77,15 @@ public class PaymentController implements Initializable {
 
     @FXML
     Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
+
+    @FXML
+    VBox selectTrainerImagePane;
+
+    public void reorderNodes() {
+        Node nodeToMoveToFront = updateTrainerButton; // 가장 앞으로 가져오고 싶은 노드
+        selectTrainerImagePane.getChildren().remove(nodeToMoveToFront); // 먼저 자식 목록에서 해당 노드를 제거
+        selectTrainerImagePane.getChildren().add(0, nodeToMoveToFront); // 그런 다음, 원하는 위치(여기서는 가장 앞)에 다시 추가
+    }
 
     @FXML
     StackPane selectTrainerImageView;
@@ -383,6 +394,7 @@ public class PaymentController implements Initializable {
         } else {
             firstSelectTrainerLabel.setVisible(false);
             selectTrainerButton.setVisible(false);
+            reorderNodes();
         }
 
         if (currentTrainer != null) {

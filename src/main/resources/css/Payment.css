@@ -231,20 +231,10 @@ AnchorPane {
 }
 
 /* PT Ticket */
-.paymentPT_ImageContainer {
-    -fx-background-color: #F4F5F7;
-    -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-border-style: solid;
-    -fx-border-radius: 5;
-    -fx-translate-x: 50;
-    -fx-translate-y: 20;
-}
-
 .paymentPT_FirstSelectTrainer_Text {
     -fx-font-family: "Jua";
     -fx-font-size: 32;
-    -fx-translate-y: -120;
+    -fx-translate-y: -180;
 }
 
 .paymentPT_SelectTrainerBtn {
@@ -255,7 +245,22 @@ AnchorPane {
     -fx-border-radius: 5;
     -fx-pref-width: 120;
     -fx-pref-height: 30;
-    -fx-translate-y: -120;
+    -fx-translate-y: -180;
+}
+
+.paymentPT_ImageBox {
+    -fx-translate-x: 10;
+    -fx-translate-y: 50;
+}
+
+.paymentPT_ImageContainer {
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-translate-x: 40;
+    -fx-translate-y: 20;
 }
 
 .paymentPT_UpdateTrainerBtn {
@@ -266,9 +271,8 @@ AnchorPane {
     -fx-border-radius: 5;
     -fx-pref-width: 120;
     -fx-pref-height: 30;
-    -fx-translate-x: 48;
+    -fx-translate-x: 50;
     -fx-translate-y: 25;
-    -fx-z-index: 1;
 }
 
 .paymentPT_SelectTrainerBtn:hover, .paymentPT_UpdateTrainerBtn:hover {
@@ -285,7 +289,7 @@ AnchorPane {
     -fx-font-family: "Jua";
     -fx-font-size: 28;
     -fx-translate-x: 70;
-    -fx-translate-y: -185;
+    -fx-translate-y: -225;
     -fx-spacing: 10;
     -fx-background-color: #F4F5F7;
     -fx-border-color: black;
@@ -301,7 +305,7 @@ AnchorPane {
 .paymentPT_GridPane {
     -fx-translate-x: 50;
     -fx-translate-x: 70;
-    -fx-translate-y: -260;
+    -fx-translate-y: -300;
 }
 
 /* Radio Button */
