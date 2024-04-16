@@ -38,8 +38,7 @@ import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
-import static util.PageUtil.movePage;
-import static util.PageUtil.movePageTimerOff;
+import static util.PageUtil.*;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -214,7 +213,7 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML

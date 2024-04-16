@@ -98,9 +98,6 @@
                             </HBox>
                         </GridPane>
 
-                        <!-- Line -->
-                        <Pane styleClass="paymentGYM_ThirdLine" />
-
                     </VBox>
                 </Tab>
 
@@ -108,9 +105,9 @@
                 <Tab fx:id="ptTab" text="P  T" closable="false" styleClass="paymentPT_Tab">
                     <VBox alignment="CENTER" spacing="10">
                         <!-- 선택한 트레이너 정보 -->
-                        <VBox spacing="10" styleClass="paymentPT_ImageBox">
-                            <StackPane fx:id="selectTrainerImageView" styleClass="paymentPT_ImageContainer" prefHeight="140" prefWidth="116" minHeight="140" minWidth="116" maxHeight="140" maxWidth="116">
-                                <ImageView fx:id="selectTrainerImage" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
+                        <VBox fx:id="selectTrainerImagePane" spacing="20" styleClass="paymentPT_ImageBox">
+                            <StackPane fx:id="selectTrainerImageView" styleClass="paymentPT_ImageContainer" prefHeight="180" prefWidth="140" minHeight="180" minWidth="140" maxHeight="180" maxWidth="140">
+                                <ImageView fx:id="selectTrainerImage" fitHeight="171.2" fitWidth="133.4" pickOnBounds="true" preserveRatio="true"/>
                             </StackPane>
                             <Button fx:id="updateTrainerButton" text="트레이너 변경" onAction="#selectTrainer" styleClass="paymentPT_UpdateTrainerBtn"/>
                         </VBox>
@@ -160,22 +157,21 @@
 
                 <!-- etc Tab -->
                 <Tab fx:id="etcTab" text="기  타" closable="false" styleClass="paymentETC_Tab">
-                    <VBox>
-                        <Label text="사물함" styleClass="paymentETC_Locker_radioBtn_Title"/>
-                        <HBox alignment="CENTER" spacing="10">
-                            <Label fx:id="noSelectLockerLabel" text="선택 안 함" />
-                            <Label fx:id="lockerNumberLabel" text="" visible="false" />
-                            <Label fx:id="lockerPeriodLabel" text="" visible="false" />
-                            <Label fx:id="lockerPriceLabel" text="" visible="false" />
+                    <VBox spacing="10">
+                        <Label text="사 물 함" styleClass="paymentETC_Locker_Title"/>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label fx:id="noSelectLockerLabel" text="선택 안 함" styleClass="paymentETC_NoSelectLocker"/>
+                            <Label fx:id="lockerNumberLabel" text="" visible="false" styleClass="paymentETC_LockerNum"/>
+                            <Label fx:id="lockerPeriodLabel" text="" visible="false" styleClass="paymentETC_LockerPeriod"/>
+                            <Label fx:id="lockerPriceLabel" text="" visible="false" styleClass="paymentETC_LockerPrice"/>
+                            <Button fx:id="selectLockerButton" text="사물함 선택" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
+                            <Button fx:id="changeLockerButton" text="사물함 변경" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
                         </HBox>
-                        <Button text="사물함 선택" onAction="#selectLocker" />
-                    </VBox>
 
-                    <!-- Line -->
-                    <Pane styleClass="paymentETC_FirstLine" />
+                        <!-- Line -->
+                        <Pane styleClass="paymentETC_FirstLine" />
 
-                    <VBox>
-                        <Label text="운동복" styleClass="paymentETC_Clothes_radioBtn_Title"/>
+                        <Label text="운 동 복" styleClass="paymentETC_Clothes_Title"/>
                         <fx:define>
                             <ToggleGroup fx:id="clothesRadio"/>
                         </fx:define>
@@ -202,7 +198,6 @@
                             <Label text="52,000원"/>
                         </HBox>
                     </VBox>
-
                 </Tab>
             </tabs>
         </TabPane>

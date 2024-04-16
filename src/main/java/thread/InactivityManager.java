@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
+import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
@@ -96,7 +97,7 @@ public class InactivityManager {
 
     private static void moveToMainScreen() {
 
-        if (currentMember == null) {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
             return;
         }
 
@@ -137,12 +138,13 @@ public class InactivityManager {
             return;
         }
         Stage stage = (Stage) scene.getWindow();
+        SoundUtil.stop();
         stage.close();
     }
 
     public static void openTimerDialog() {
 
-        if (currentMember == null) {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
             return;
         }
 
@@ -186,7 +188,7 @@ public class InactivityManager {
     }
 
     private static void setUpInactivitySound() {
-        if (currentMember == null) {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
             return;
         }
 

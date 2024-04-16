@@ -13,6 +13,7 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
+import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.showDialogErrorMessage;
 import static util.PageUtil.*;
@@ -46,6 +47,7 @@ public class AdminService {
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
             currentMember = null;
             movePageTimerOff(event, "/view/admin/helloAdminV2");
+            currentAdmin = new Admin();
         } else {
             showDialogErrorMessage("adminLoginFail");
         }
