@@ -40,6 +40,7 @@
 
             <HBox alignment="CENTER" spacing="10">
                 <Button text="예약 등록" onAction="#addReservationInfo"/>
+                <Button text="회원 정보" onAction="#showUserNum" />
                 <Button text="로그아웃" onAction="#logout"/>
             </HBox>
         </VBox>
@@ -49,7 +50,7 @@
             <Label text="예약 정보" />
 
             <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
-                <TextField fx:id="searchMemberNameField" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
+                <TextField fx:id="searchMemberNameField" promptText="회원 이름" onAction="#searchMember" styleClass="memberInfo_searchInput"/>
                 <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_Btn"/>
             </HBox>
 
@@ -60,7 +61,7 @@
                             <PropertyValueFactory property="selected" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn text="회원 번호" fx:id="memberNumCol"/>
+                    <TableColumn text="회원 번호" fx:id="memberNumCol" />
                     <TableColumn text="회원 이름" fx:id="memberNameCol"/>
                     <TableColumn text="회원 전화번호" fx:id="memberPhoneCol"/>
                     <TableColumn text="예약 일자" fx:id="rDateCol"/>

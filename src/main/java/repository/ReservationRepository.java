@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Item;
+import domain.member.Member;
 import domain.member.MemberSchedule;
 import domain.reservation.ReservationInformation;
 import domain.trainer.Reservation;
@@ -342,4 +343,5 @@ public class ReservationRepository {
             close(conn, pstmt, rs);
         }
     }
+
 }
