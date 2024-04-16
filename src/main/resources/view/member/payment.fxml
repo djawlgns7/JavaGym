@@ -113,7 +113,7 @@
                                 <StackPane styleClass="paymentPT_ImageContainer" prefHeight="151.2" prefWidth="113.4">
                                     <ImageView fx:id="selectTrainerImage" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
                                 </StackPane>
-                                <Button fx:id="updateTrainerButton" text="트레이너 변경" styleClass="paymentPT_UpdateTrainerBtn"/>
+                                <Button fx:id="updateTrainerButton" text="트레이너 변경" onAction="#selectTrainer" styleClass="paymentPT_UpdateTrainerBtn"/>
                             </VBox>
                             <VBox alignment="CENTER" styleClass="paymentPT_TrainerInfo">
                                 <Label fx:id="trainerNameLabel"/>

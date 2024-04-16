@@ -70,7 +70,7 @@ public class PaymentController implements Initializable {
     RadioButton noSelectPtButton, pt10Button, pt20Button, pt30Button;
 
     @FXML
-    Button selectTrainerButton;
+    Button updateTrainerButton, selectTrainerButton;
 
     @FXML
     Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
@@ -373,11 +373,12 @@ public class PaymentController implements Initializable {
         if (!selectTrainer) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
             ptSelectBox.setVisible(false);
+            updateTrainerButton.setVisible(false);
 
             // 트레이너 선택 후
         } else {
             firstSelectTrainerLabel.setVisible(false);
-            selectTrainerButton.setText("트레이너 변경"); // "트레이너 선택" 버튼 -> "트레이너 변경" 버튼
+            selectTrainerButton.setVisible(false);
         }
 
         if (currentTrainer != null) {
