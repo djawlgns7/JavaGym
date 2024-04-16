@@ -12,6 +12,7 @@ import repository.TrainerRepository;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.DialogUtil.*;
 import static util.PageUtil.*;
@@ -44,7 +45,7 @@ public class TrainerService {
         }
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
-
+            currentMember = null;
             movePageTimerOff(event, "/view/trainer/reservationInfo" );
         } else {
             showDialogErrorMessage("wrongPw");

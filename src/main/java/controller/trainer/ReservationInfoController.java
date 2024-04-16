@@ -121,6 +121,7 @@ public class ReservationInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
+
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol);
         selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
