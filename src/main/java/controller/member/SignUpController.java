@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
-
-import static thread.InactivityManager.inactivityTimer;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
