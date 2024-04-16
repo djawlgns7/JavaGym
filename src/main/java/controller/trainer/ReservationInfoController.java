@@ -2,6 +2,7 @@ package controller.trainer;
 
 import domain.Item;
 import domain.member.Member;
+import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import service.TrainerService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
@@ -39,7 +41,6 @@ import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
 import static util.PageUtil.movePage;
-import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
