@@ -1,5 +1,6 @@
 package thread;
 
+import domain.admin.SelectedAdmin;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
+import static domain.admin.SelectedAdmin.*;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
@@ -66,9 +68,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10), e -> SoundUtil.play("toMainPage"));
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(20), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> SoundUtil.play("toMainPage"));
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
@@ -94,6 +96,11 @@ public class InactivityManager {
     }
 
     private static void moveToMainScreen() {
+
+        if (currentTrainer != null || currentAdmin != null) {
+            return;
+        }
+
         Platform.runLater(() -> {
             try {
                 clearBasket();
@@ -132,6 +139,11 @@ public class InactivityManager {
     }
 
     public static void openTimerDialog() {
+
+        if (currentTrainer != null || currentAdmin != null) {
+            return;
+        }
+
         try {
             URL url = ControllerUtil.class.getResource("/view/dialog/timerDialog.fxml");
             // 컨트롤러 로드
