@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
 import static thread.InactivityManager.*;
 
 public class JavaGymApplication extends Application {
@@ -20,6 +20,11 @@ public class JavaGymApplication extends Application {
         Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         Scene scene = new Scene(loginRoot);
         stage.setScene(scene);
+
+        // 프로젝트 실행 아이콘 이미지 로드 (승빈)
+        Image icon = new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg"));
+        stage.getIcons().add(icon);
+
         stage.setTitle("JavaGym");
         stage.setResizable(false);
         stage.show();
