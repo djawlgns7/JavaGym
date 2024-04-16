@@ -85,21 +85,21 @@ AnchorPane {
 }
 
 /* Split Line */
-.payment_FirstLine {
+.paymentGYM_FirstLine {
     -fx-pref-width: 650;
     -fx-pref-height: 0.8;
     -fx-background-color: black;
     -fx-translate-y: -15;
 }
 
-.payment_SecondLine {
+.paymentGYM_SecondLine {
     -fx-pref-width: 650;
     -fx-pref-height: 0.8;
     -fx-background-color: black;
     -fx-translate-y: -20;
 }
 
-.payment_ThirdLine {
+.paymentGYM_ThirdLine {
     -fx-pref-width: 650;
     -fx-pref-height: 0.8;
     -fx-background-color: black;
@@ -117,49 +117,49 @@ AnchorPane {
 
 .paymentGYM_NonSelected_radioBtn {
     -fx-font-family: "Jua";
-    -fx-font-size: 32;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 220;
-    -fx-translate-y: -5;
+    -fx-translate-x: 240;
+    -fx-translate-y: -10;
 }
 
 .paymentGYM_Day_radioBtn, .paymentGYM_Day_radioBtn_Text {
     -fx-font-family: "Jua";
-    -fx-font-size: 32;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 190;
-    -fx-translate-y: -10;
+    -fx-translate-x: 200;
+    -fx-translate-y: -20;
 }
 
 .paymentGYM_Days_radioBtn_1, .paymentGYM_Days_radioBtn_Text_1 {
     -fx-font-family: "Jua";
-    -fx-font-size: 28;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 45;
+    -fx-translate-x: 55;
     -fx-translate-y: 0;
 }
 
 .paymentGYM_Days_radioBtn_2, .paymentGYM_Days_radioBtn_Text_2 {
     -fx-font-family: "Jua";
-    -fx-font-size: 28;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 45;
+    -fx-translate-x: 55;
     -fx-translate-y: 0;
 }
 
 .paymentGYM_Days_radioBtn_3, .paymentGYM_Days_radioBtn_Text_3 {
     -fx-font-family: "Jua";
-    -fx-font-size: 28;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 45;
+    -fx-translate-x: 55;
     -fx-translate-y: 0;
 }
 
 .paymentGYM_Days_radioBtn_4, .paymentGYM_Days_radioBtn_Text_4 {
     -fx-font-family: "Jua";
-    -fx-font-size: 28;
+    -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-translate-x: 45;
+    -fx-translate-x: 55;
     -fx-translate-y: 0;
 }
 
@@ -224,7 +224,22 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
+/* PT Ticket */
+.paymentPT_FirstSelectTrainer_Text {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
 
+}
+
+.paymentPT_UpdateTrainerBtn, .paymentPT_SelectTrainerBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+}
 
 /* Cart */
 .payment_SelectedGymTicket, .payment_SelectedPTTicket,
@@ -242,6 +257,11 @@ AnchorPane {
 .payment_Cart_GymTitle, .payment_Cart_PTTitle,
 .payment_Cart_LockerTitle, .payment_Cart_ClothesTitle {
     -fx-font-size: 24;
+}
+
+.payment_GymType, .payment_TrainerName,
+.payment_LockerNum, .payment_ClothesSize {
+    -fx-font-size: 16;
 }
 
 .payment_Cart_GymInfo, .payment_Cart_PTInfo,

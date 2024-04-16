@@ -384,7 +384,7 @@ public class PaymentController implements Initializable {
             ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
             selectTrainerImage.setImage(image.getImage());
             trainerNameLabel.setText(currentTrainer.getName());
-            trainerInfoLabel.setText(currentTrainer.getHeight() + "|" + currentTrainer.getWeight() + "|" + trainerRepository.getAge(currentTrainer) + "세");
+            trainerInfoLabel.setText(currentTrainer.getHeight() + " | " + currentTrainer.getWeight() + " | " + trainerRepository.getAge(currentTrainer) + "세");
         }
 
         // 헬스장 이용권을 선택할 때마다 가격 업데이트
