@@ -32,6 +32,7 @@ public class InactivityManager {
     public static Timeline inactivityTimer;
     private static List<Dialog> openDialogs = new ArrayList<>();
     private static Scene timerScene = null;
+    private static int closeDialogTimer = 0;
 
     public static void setMainStage(Stage stage) {
         mainStage = stage;
@@ -88,7 +89,7 @@ public class InactivityManager {
         }
 
         if(timerScene != null){
-            closeDialog(timerScene);
+            closeDialog(timerScene, closeDialogTimer);
             timerScene = null;
         }
     }
@@ -126,7 +127,10 @@ public class InactivityManager {
         }
     }
 
-    public static void closeDialog(Scene scene) {
+    public static void closeDialog(Scene scene, int index) {
+        if(index == 0){
+            return;
+        }
         Stage stage = (Stage) scene.getWindow();
         stage.close();
     }
@@ -143,15 +147,31 @@ public class InactivityManager {
             timerScene = new Scene(root);
             dialogStage.setScene(timerScene);
             dialogStage.setTitle("자동 로그아웃 알림");
-            timerScene.setOnMouseMoved(e -> closeDialog(timerScene));
-            timerScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> closeDialog(timerScene));
-            timerScene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> closeDialog(timerScene));
+
             Platform.runLater(() -> {
                 dialogStage.show();
             });
 
+            setTimerSceneEvent();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setTimerSceneEvent(){
+        closeDialogTimer = 0;
+        timerScene.setOnMouseMoved(e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> closeDialog(timerScene, closeDialogTimer));
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            closeDialogTimer = 1;
+        });
+        thread.start();
     }
 }
