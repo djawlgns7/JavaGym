@@ -1,6 +1,6 @@
 package repository;
 
-import domain.Admin;
+import domain.admin.Admin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

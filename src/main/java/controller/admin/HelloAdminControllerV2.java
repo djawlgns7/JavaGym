@@ -37,8 +37,10 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
+import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static service.SmsService.getRandomPassword;
+import static thread.InactivityManager.inactivityTimer;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -254,6 +256,7 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
+        currentAdmin = null;
         moveToMainPage(event);
     }
 

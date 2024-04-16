@@ -22,7 +22,7 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="20">
-                <PasswordField fx:id="passwordField" promptText="관리자 비밀번호" styleClass="adminLogin_passwordInput"/>
+                <PasswordField fx:id="passwordField" onAction="#login" promptText="관리자 비밀번호" styleClass="adminLogin_passwordInput"/>
             </HBox>
             <!-- 버튼 -->
             <HBox alignment="CENTER" spacing="20" styleClass="adminLogin_Btn">

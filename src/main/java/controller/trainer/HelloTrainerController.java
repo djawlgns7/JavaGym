@@ -11,6 +11,7 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
+import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.PageUtil.*;
 
 
@@ -22,8 +23,8 @@ public class HelloTrainerController {
     private TrainerRepository trainerRepository = new TrainerRepository();
     @FXML
     public void reservationInfo(ActionEvent event) throws IOException {
-        if (SelectedTrainer.currentTrainer != null && SelectedTrainer.currentTrainer.getId() != null) {
-            Trainer updatedTrainer = trainerRepository.findById(SelectedTrainer.currentTrainer.getId());
+        if (currentTrainer != null && currentTrainer.getId() != null) {
+            Trainer updatedTrainer = trainerRepository.findById(currentTrainer.getId());
             if (updatedTrainer != null) {
                 SelectedTrainer.setCurrentTrainer(updatedTrainer); // 갱신된 트레이너 정보로 업데이트
                 movePageTimerOff(event, "/view/trainer/reservationInfo");
@@ -33,6 +34,7 @@ public class HelloTrainerController {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
+        currentTrainer = null;
         moveToMainPage(event);
     }
 
