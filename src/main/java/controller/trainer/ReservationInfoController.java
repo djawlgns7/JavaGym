@@ -1,8 +1,6 @@
 package controller.trainer;
 
 
-import domain.member.Member;
-import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -20,25 +18,26 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-
-import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import static domain.Item.PT_TICKET;
+import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
-import static util.MemberUtil.setRemain;
-import static util.PageUtil.movePage;
 import static util.PageUtil.movePageTimerOff;
 import static util.ValidateUtil.*;
 
@@ -64,7 +63,7 @@ public class ReservationInfoController implements Initializable {
 
 
     @FXML
-    private void addReservationInfo(ActionEvent event) throws IOException {
+    private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
         if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
@@ -127,6 +126,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
+
         TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0,8}")) {
