@@ -7,8 +7,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
 import service.SmsService;
@@ -20,6 +22,7 @@ import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static util.AnimationUtil.animateTabFade;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
@@ -31,6 +34,7 @@ import static util.SoundUtil.*;
 public class PaymentController implements Initializable {
 
     public static boolean selectTrainer = false;
+    public static boolean selectLocker = false;
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final SmsService smsService = new SmsService();
@@ -66,7 +70,7 @@ public class PaymentController implements Initializable {
     ToggleGroup ptTicketRadio;
 
     @FXML
-    VBox ptSelectBox;
+    VBox selectTrainerInfo, ptSelectBox;
 
     @FXML
     RadioButton noSelectPtButton, pt10Button, pt20Button, pt30Button;
@@ -76,6 +80,18 @@ public class PaymentController implements Initializable {
 
     @FXML
     Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
+
+    @FXML
+    VBox selectTrainerImagePane;
+
+    public void reorderNodes() {
+        Node nodeToMoveToFront = updateTrainerButton; // 가장 앞으로 가져오고 싶은 노드
+        selectTrainerImagePane.getChildren().remove(nodeToMoveToFront); // 먼저 자식 목록에서 해당 노드를 제거
+        selectTrainerImagePane.getChildren().add(0, nodeToMoveToFront); // 그런 다음, 원하는 위치(여기서는 가장 앞)에 다시 추가
+    }
+
+    @FXML
+    StackPane selectTrainerImageView;
 
     @FXML
     ImageView selectTrainerImage;
@@ -91,6 +107,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     RadioButton noSelectClothesButton, clothes30Button, clothes90Button, clothes180Button, clothes360Button;
+
+    @FXML
+    Button selectLockerButton, changeLockerButton;
 
     /**
      * 장바구니
@@ -109,6 +128,12 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null && oldTab != null) {
+                animateTabFade(newTab.getContent(), oldTab.getContent());
+            }
+        });
 
         // 회원의 현재 모든 결제 정보를 얻는다.
         Integer memberNum = currentMember.getNum();
@@ -184,7 +209,6 @@ public class PaymentController implements Initializable {
 
                     // 기타 이용권 탭
                 } else {
-
                     lockerLabel.setVisible(true);
                     currentLockerNumLabel.setVisible(true);
                     currentLockerPeriodLabel.setVisible(true);
@@ -320,7 +344,7 @@ public class PaymentController implements Initializable {
                     lockerPeriodLabel.setVisible(true);
                     lockerPriceLabel.setVisible(true);
 
-                    lockerNumberLabel.setText("No." + number);
+                    lockerNumberLabel.setText(number + "번");
                     lockerPeriodLabel.setText(period + "일");
                     lockerPriceLabel.setText(lockerPriceText);
 
@@ -374,20 +398,33 @@ public class PaymentController implements Initializable {
         // 트레이너 선택 전
         if (!selectTrainer) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
+            selectTrainerImageView.setVisible(false);
+            selectTrainerInfo.setVisible(false);
             ptSelectBox.setVisible(false);
             updateTrainerButton.setVisible(false);
 
-            // 트레이너 선택 후
+        // 트레이너 선택 후
         } else {
             firstSelectTrainerLabel.setVisible(false);
             selectTrainerButton.setVisible(false);
+            reorderNodes();
+        }
+
+        // 사물함 선택 전
+        if (!selectLocker) {
+            changeLockerButton.setVisible(false);
+
+        // 사물함 선택 후
+        } else {
+            changeLockerButton.setVisible(true);
+            selectLockerButton.setVisible(false);
         }
 
         if (currentTrainer != null) {
             ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
             selectTrainerImage.setImage(image.getImage());
-            trainerNameLabel.setText(currentTrainer.getName());
-            trainerInfoLabel.setText(currentTrainer.getHeight() + " | " + currentTrainer.getWeight() + " | " + trainerRepository.getAge(currentTrainer) + "세");
+            trainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+            trainerInfoLabel.setText(currentTrainer.getHeight() + "cm | " + currentTrainer.getWeight() + "kg | " + trainerRepository.getAge(currentTrainer) + "세");
         }
 
         // 헬스장 이용권을 선택할 때마다 가격 업데이트
@@ -763,6 +800,7 @@ public class PaymentController implements Initializable {
             showDialog("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.");
 
             selectTrainer = false;
+            selectLocker = false;
             currentTrainer = null;
             basket.clear();
 

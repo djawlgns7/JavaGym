@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+
 import static thread.InactivityManager.*;
+import static util.AnimationUtil.*;
 
 public class JavaGymApplication extends Application {
 
@@ -27,6 +29,8 @@ public class JavaGymApplication extends Application {
 
         stage.setTitle("JavaGym");
         stage.setResizable(false);
+
+        applyFadeIn(stage);
         stage.show();
 
         setMainStage(stage);

@@ -12,6 +12,7 @@ import repository.TrainerRepository;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.DialogUtil.*;
 import static util.PageUtil.*;

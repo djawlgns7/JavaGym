@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
+import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
@@ -32,6 +33,7 @@ public class InactivityManager {
     public static Timeline inactivityTimer;
     private static List<Dialog> openDialogs = new ArrayList<>();
     private static Scene timerScene = null;
+    private static int closeDialogTimer = 0;
 
     public static void setMainStage(Stage stage) {
         mainStage = stage;
@@ -66,9 +68,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10), e -> SoundUtil.play("toMainPage"));
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(30), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> setUpInactivitySound());
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
@@ -88,12 +90,17 @@ public class InactivityManager {
         }
 
         if(timerScene != null){
-            closeDialog(timerScene);
+            closeDialog(timerScene, closeDialogTimer);
             timerScene = null;
         }
     }
 
     private static void moveToMainScreen() {
+
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+            return;
+        }
+
         Platform.runLater(() -> {
             try {
                 clearBasket();
@@ -126,12 +133,21 @@ public class InactivityManager {
         }
     }
 
-    public static void closeDialog(Scene scene) {
+    public static void closeDialog(Scene scene, int index) {
+        if(index == 0){
+            return;
+        }
         Stage stage = (Stage) scene.getWindow();
+        SoundUtil.stop();
         stage.close();
     }
 
     public static void openTimerDialog() {
+
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+            return;
+        }
+
         try {
             URL url = ControllerUtil.class.getResource("/view/dialog/timerDialog.fxml");
             // 컨트롤러 로드
@@ -143,15 +159,39 @@ public class InactivityManager {
             timerScene = new Scene(root);
             dialogStage.setScene(timerScene);
             dialogStage.setTitle("자동 로그아웃 알림");
-            timerScene.setOnMouseMoved(e -> closeDialog(timerScene));
-            timerScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> closeDialog(timerScene));
-            timerScene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> closeDialog(timerScene));
+
             Platform.runLater(() -> {
                 dialogStage.show();
             });
 
+            setTimerSceneEvent();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setTimerSceneEvent(){
+        closeDialogTimer = 0;
+        timerScene.setOnMouseMoved(e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> closeDialog(timerScene, closeDialogTimer));
+        timerScene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> closeDialog(timerScene, closeDialogTimer));
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            closeDialogTimer = 1;
+        });
+        thread.start();
+    }
+
+    private static void setUpInactivitySound() {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+            return;
+        }
+
+        SoundUtil.play("toMainPage");
     }
 }
