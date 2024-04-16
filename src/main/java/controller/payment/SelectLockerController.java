@@ -7,6 +7,7 @@ import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -36,13 +37,15 @@ public class SelectLockerController implements Initializable {
     @FXML
     private HBox lockerArea;
     @FXML
-    Label selectedLockerNum, lockerAreaHeader, nextButton, previousButton;
+    Label selectedLockerNum, lockerAreaHeader;
+    @FXML
+    Button nextButton, previousButton;
     @FXML
     RadioButton noSelectLockerButton, locker30Days, locker90Days, locker180Days, locker360Days;
 
     Member member;
     Trainer trainer;
-    List<Label> lockers;
+    List<Button> lockers;
     List<UsingLocker> usingLockers;
     ToggleGroup lockerPeriodGroup;
 
@@ -96,7 +99,7 @@ public class SelectLockerController implements Initializable {
     public void makeLockerList(){
         for(int i = 0; i < 200; i++){
             int lockerNum = lockers.size() + 1;
-            Label newLocker = new Label(String.valueOf(lockerNum));
+            Button newLocker = new Button(String.valueOf(lockerNum));
             lockers.add(newLocker);
             newLocker.getStyleClass().add("locker");
             newLocker.getStyleClass().add("unselectedLocker");
@@ -132,7 +135,7 @@ public class SelectLockerController implements Initializable {
                 }
             }else{
                 for(int j = 0; j < 10; j++) {
-                    Label newLocker = lockers.get(startNum);
+                    Button newLocker = lockers.get(startNum);
                     newRow.getChildren().add(newLocker);
                     startNum++;
                 }
@@ -143,8 +146,8 @@ public class SelectLockerController implements Initializable {
     //락커를 선택하는 이벤트 생성
     public void makeOnclickListener(){
         for(int i = 0; i < lockers.size(); i++){
-            Label currentLocker = lockers.get(i);
-            if(currentLocker.getStyleClass().contains("unselectedLocker")){
+            Button currentLocker = lockers.get(i);
+            if(!currentLocker.getStyleClass().contains("occupiedLocker")){
                 currentLocker.setOnMouseClicked(mouseEvent -> {
                     String selectedLockerNumText = selectedLockerNum.getText();
 

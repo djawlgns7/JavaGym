@@ -17,11 +17,11 @@
             <Label text="이용 중" />
         </HBox>
         <HBox spacing="10" alignment="CENTER">
-            <Label text="←" fx:id="previousButton" styleClass="unclickable" />
+            <Button text="←" fx:id="previousButton" styleClass="unclickable" />
             <HBox fx:id="lockerArea" alignment="CENTER" spacing="0">
                 <!-- 락커 목록이 표시되는 공간 -->
             </HBox>
-            <Label text="→" fx:id="nextButton" styleClass="clickable" onMouseClicked="#moveToNextPage"/>
+            <Button text="→" fx:id="nextButton" styleClass="clickable" onMouseClicked="#moveToNextPage"/>
         </HBox>
         <HBox alignment="CENTER">
             <Label text="선택한 락커 번호: " />
