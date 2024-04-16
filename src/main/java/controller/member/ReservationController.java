@@ -70,13 +70,18 @@ public class ReservationController implements Initializable {
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
+            List<Integer> remain = getRemainAll(member.getNum());
 
             selectedReservations = new ArrayList<>();
-
             List<MemberSchedule> memberSchedule;
             memberSchedule = reservationRepository.findMemberSchedule(member.getNum());
             int memberReservationNum = memberSchedule.size();
+            int PTTicket = remain.get(1);
+
             availableReservationNum = 4 - memberReservationNum;
+            if(PTTicket < availableReservationNum) {
+                availableReservationNum = PTTicket;
+            }
 
             try {
                 setMyInfo();
