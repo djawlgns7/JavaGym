@@ -64,6 +64,7 @@ public class SmsService {
 
     public static int getRandomPassword() {
         return (int) (Math.random() * 9000) + 1000;
+    }
 
     //관리자 호출 버튼을 누를 경우
     public void callAdmin(){
