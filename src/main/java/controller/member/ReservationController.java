@@ -49,7 +49,7 @@ public class ReservationController implements Initializable {
     @FXML
     private Label[] days = new Label[71], timeButtons = new Label[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum, minusBtn, plusBtn;
     @FXML
     private ImageView imageView;
 
@@ -104,6 +104,8 @@ public class ReservationController implements Initializable {
         else{todayOfWeek++;}
         calenderDay = calenderDay.minusDays(todayOfWeek - 1);
         startDay = calenderDay.minusDays(todayOfWeek - 1);
+
+        minusBtn.getStyleClass().add("disabled");
 
         for(int i = 0; i < 10; i++) {
             for(int j = 1; j <= 7; j++) {
@@ -330,21 +332,36 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void ticketPlus(){
-        if(isSetTicketValid(1)){
-            int newPTTicket = getSelectedPTTicket() + 1;
-            ticketSelection.setText(newPTTicket + "개");
-        }else{
-            showDialog("예약은 한번에 최대 4개까지만 가능합니다");
+        if(getSelectedPTTicket() == 0){
+            minusBtn.getStyleClass().remove("disabled");
+            minusBtn.setOnMouseClicked(Event -> ticketMinus());
+        }
+
+        int newPTTicket = getSelectedPTTicket() + 1;
+        ticketSelection.setText(newPTTicket + "개");
+
+        if(newPTTicket == availableReservationNum){
+            plusBtn.getStyleClass().add("disabled");
+            plusBtn.setOnMouseClicked(event -> {});
         }
     }
 
     @FXML
     public void ticketMinus(){
-        if(isSetTicketValid(-1)){
-            int newPTTicket = getSelectedPTTicket() - 1;
-            ticketSelection.setText(newPTTicket + "개");
-            renewReservation();
+        if(getSelectedPTTicket() == availableReservationNum){
+            plusBtn.getStyleClass().remove("disabled");
+            plusBtn.setOnMouseClicked(Event -> ticketPlus());
         }
+
+        int newPTTicket = getSelectedPTTicket() - 1;
+        ticketSelection.setText(newPTTicket + "개");
+
+        if(newPTTicket == 0){
+            minusBtn.getStyleClass().add("disabled");
+            minusBtn.setOnMouseClicked(event -> {});
+        }
+
+        renewReservation();
     }
 
     //사용할 티켓의 수가 선택된 예약의 수보다 적어질 경우 예약 하나 삭제
@@ -452,20 +469,6 @@ public class ReservationController implements Initializable {
         int PTRemain = Integer.parseInt(selectedTicketNum);
 
         return PTRemain;
-    }
-
-    //사용 할 PT티켓 수를 변경했을 때 그 수가 유효한 지 판별
-    public boolean isSetTicketValid(int adder){
-        int selectedTicket = getSelectedPTTicket();
-        int memberNum = member.getNum();
-
-        selectedTicket += adder;
-
-        if(0 <= selectedTicket && selectedTicket <= availableReservationNum) {
-            return true;
-        }else{
-            return false;
-        }
     }
 
     //선택한 예약 목록을 스크롤페인에 출력
