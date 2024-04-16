@@ -20,6 +20,7 @@ import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static util.AnimationUtil.animateTabFade;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
@@ -109,6 +110,12 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null && oldTab != null) {
+                animateTabFade(newTab.getContent(), oldTab.getContent());
+            }
+        });
 
         // 회원의 현재 모든 결제 정보를 얻는다.
         Integer memberNum = currentMember.getNum();
