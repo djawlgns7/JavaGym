@@ -48,7 +48,7 @@
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
-                <PasswordField fx:id="passwordField" promptText="비밀번호 입력" styleClass="memberLogin_passwordInput"/>
+                <PasswordField fx:id="passwordField" onAction="#login" promptText="비밀번호 입력" styleClass="memberLogin_passwordInput"/>
             </HBox>
         </VBox>
         <!-- 버튼 -->
