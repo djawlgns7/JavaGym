@@ -18,7 +18,6 @@ import static util.PageUtil.*;
 
 public class TrainerService {
 
-    public static int currentTrainerNum;
     private final TrainerRepository trainerRepository;
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
@@ -39,11 +38,14 @@ public class TrainerService {
         }
 
         Trainer findTrainer = trainerRepository.findById(id);
-
+        if (findTrainer == null) {
+            showDialogErrorMessage("notFound");
+            return;
+        }
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             currentTrainer = findTrainer;
-            System.out.println(currentTrainer);
-            movePage(event, "/view/trainer/helloTrainer" );
+
+            movePageTimerOff(event, "/view/trainer/helloTrainer" );
         } else {
             showDialogErrorMessage("wrongPw");
         }

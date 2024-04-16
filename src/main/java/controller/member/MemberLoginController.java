@@ -80,7 +80,7 @@ public class MemberLoginController implements Initializable {
         Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
-        Circle cilpCircle = new Circle(100, 100, 100);
+        Circle cilpCircle = new Circle(150, 150, 150);
         profileImage.setClip(cilpCircle);
     }
 }

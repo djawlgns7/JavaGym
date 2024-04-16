@@ -39,7 +39,7 @@ import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
-import static util.PageUtil.movePage;
+import static util.PageUtil.*;
 import static util.ValidateUtil.*;
 
 public class HelloAdminControllerV2 implements Initializable {
@@ -238,12 +238,12 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageMember(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePage(event, "/view/admin/helloAdminV2");
+        movePageTimerOff(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     // 트레이너 영역
@@ -369,6 +369,6 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageTrainer(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
-        movePage(event, "/view/admin/helloAdminV2");
+        movePageTimerOff(event, "/view/admin/helloAdminV2");
     }
 }

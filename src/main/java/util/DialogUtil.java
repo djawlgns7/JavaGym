@@ -1,10 +1,8 @@
 package util;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -13,7 +11,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static thread.InactivityManager.registerDialog;
-import static util.PageUtil.movePage;
+import static util.PageUtil.*;
 
 public class DialogUtil {
 
@@ -25,12 +23,17 @@ public class DialogUtil {
         registerDialog(dialog);
         dialog.setTitle("알림");
 
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
+
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(message));
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
         dialog.getDialogPane().setContent(vbox);
-
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
         dialog.showAndWait();
     }
 
@@ -39,12 +42,18 @@ public class DialogUtil {
         registerDialog(dialog);
         dialog.setTitle("알림");
 
+        Label label = new Label(errorMessage.getString(messageCode));
+        label.getStyleClass().add("label");
+
+
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(errorMessage.getString(messageCode)));
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
         dialog.getDialogPane().setContent(vbox);
-
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
         dialog.showAndWait();
     }
 
@@ -53,12 +62,17 @@ public class DialogUtil {
         registerDialog(dialog);
         dialog.setTitle("알림");
 
+        Label label = new Label(basicMessage.getString(messageCode));
+        label.getStyleClass().add("label");
+
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(basicMessage.getString(messageCode)));
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
         dialog.getDialogPane().setContent(vbox);
-
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
         dialog.showAndWait();
     }
 
@@ -67,14 +81,61 @@ public class DialogUtil {
         registerDialog(dialog);
         dialog.setTitle("알림");
 
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
+
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(message));
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
         dialog.getDialogPane().setContent(vbox);
-
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
         dialog.showAndWait();
         movePage(event, viewPath);
+    }
+
+    public static void showDialogAndMovePageTimerOff(String message, String viewPath, ActionEvent event) throws IOException {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
+        dialog.setTitle("알림");
+
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        dialog.getDialogPane().setContent(vbox);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
+        dialog.showAndWait();
+        movePageTimerOff(event, viewPath);
+    }
+
+    public static void showDialogAndMoveMainPage(String message, ActionEvent event) throws IOException {
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
+        dialog.setTitle("알림");
+
+        Label label = new Label(message);
+        label.getStyleClass().add("label");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        dialog.getDialogPane().setContent(vbox);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
+
+        dialog.showAndWait();
+        moveToMainPage(event);
     }
 
     public static Optional<ButtonType> showDialogChoose(String message) {
@@ -88,7 +149,7 @@ public class DialogUtil {
         dialogPane.setContent(new Label(message));
 
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.NO);
-
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
         return dialog.showAndWait();
     }
 }

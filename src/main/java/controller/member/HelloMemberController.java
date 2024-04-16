@@ -29,7 +29,7 @@ import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
-import static util.PageUtil.movePage;
+import static util.PageUtil.*;
 
 public class HelloMemberController implements Initializable {
 
@@ -47,7 +47,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class HelloMemberController implements Initializable {
         String today = LocalDate.now().toString();
         if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
             entryLogRepository.save(memberNum);
-            showDialogAndMovePage(currentMember.getName() + "님 오늘도 파이팅!", "/view/member/memberLogin", event);
+            showDialogAndMoveMainPage(currentMember.getName() + "님 오늘도 파이팅!", event);
         } else {
             showDialogBasicMessage("DeniedEntry");
         }
@@ -95,8 +95,9 @@ public class HelloMemberController implements Initializable {
             int PTTicket = remain.get(1);
             int gymTicket = getRemain(member.getNum(), Item.GYM_TICKET);
 
-            PTTicketRemain.setText("PT 이용권 " + PTTicket + "개");
-            memberName.setText(member.getName() + "님, 환영합니다!");
+            PTTicketRemain.setText(PTTicket + "개");
+            memberName.setText(member.getName() + "님");
+
             if(gymTicket > 0) {
                 DDay.setText("D - " + gymTicket);
             }else if(repository.hasReservationToday(member.getNum())){
@@ -110,7 +111,7 @@ public class HelloMemberController implements Initializable {
         Image image = new Image("/image/JavaGym_Logo.jpeg");
         profileImage.setImage(image);
 
-        Circle clipCircle = new Circle(100, 100, 100);
+        Circle clipCircle = new Circle(150, 150, 150);
         profileImage.setClip(clipCircle);
     }
 

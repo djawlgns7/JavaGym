@@ -11,13 +11,12 @@ import repository.CodeStore;
 import repository.MemberRepository;
 import service.MemberService;
 import service.SmsService;
-import util.DialogUtil;
-//import service.SmsService;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
+import static thread.InactivityManager.inactivityTimer;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static converter.StringToDateConverter.stringToDate;
@@ -81,13 +80,13 @@ public class SignUpController implements Initializable {
         member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
-        DialogUtil.showDialog(signUpMember.getName() + "님. 회원가입을 환영합니다!");
+        showDialog(signUpMember.getName() + "님. 회원가입을 환영합니다!");
         goBack(event);
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @Override
