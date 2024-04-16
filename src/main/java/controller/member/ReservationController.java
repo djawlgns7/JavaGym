@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import service.SmsService;
 import util.DialogUtil;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class ReservationController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
@@ -568,4 +570,8 @@ public class ReservationController implements Initializable {
         selectedReaservationNum.setText("총" + reservationNum + "회");
     }
 
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
+    }
 }

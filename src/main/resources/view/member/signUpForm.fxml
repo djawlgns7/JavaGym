@@ -14,6 +14,8 @@
     <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="30" styleClass="signUp_VBox">
         <!-- 로그인 버튼 -->
         <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="signUp_TopBtn">
+            <!-- 관리자 호출 버튼 임시로 추가함(지훈) -->
+            <Button onAction="#callAdmin" text="관리자 호출" />
             <Button onAction="#goBack" prefWidth="48" prefHeight="48" styleClass="signUp_loginBtn">
                 <graphic>
                     <ImageView fitWidth="48" fitHeight="48">

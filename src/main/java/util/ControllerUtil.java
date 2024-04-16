@@ -4,17 +4,16 @@ import domain.member.EntryLog;
 import domain.member.Member;
 import domain.member.UsingLocker;
 import domain.trainer.Reservation;
-import domain.trainer.SelectedTrainer;
 import domain.trainer.Trainer;
 import domain.trainer.TrainerSchedule;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import service.TrainerService;
 import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
@@ -60,10 +59,13 @@ public class ControllerUtil {
         return new SimpleStringProperty(formattedDate);
     }
 
-    public static void columnBindingMember(TableColumn<Member, String> numCol, TableColumn<Member, String> nameCol, TableColumn<Member, String> genderCol,
+    public static void columnBindingMember(TableColumn<Member, Boolean> selectCol, TableColumn<Member, String> numCol, TableColumn<Member, String> nameCol, TableColumn<Member, String> genderCol,
                                      TableColumn<Member, String> emailCol, TableColumn<Member, String> birthCol, TableColumn<Member, String> phoneCol,
                                      TableColumn<Member, String> enrollCol) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
+        selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
         numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -104,11 +106,14 @@ public class ControllerUtil {
         reservationTable.setItems(FXCollections.observableArrayList(reservations));
 
     }
-    public static void columnBindingTrainer(TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
+    public static void columnBindingTrainer(TableColumn<Trainer, Boolean> selectCol, TableColumn<Trainer, String> numCol, TableColumn<Trainer, String> nameCol, TableColumn<Trainer, String> idCol,
                                      TableColumn<Trainer, String> genderCol, TableColumn<Trainer, String> workTimeCol, TableColumn<Trainer, String> birthCol,
                                      TableColumn<Trainer, String> phoneCol) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
+        selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
         numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));

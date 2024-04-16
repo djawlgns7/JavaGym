@@ -174,7 +174,7 @@ public class SignUpController implements Initializable {
         // 정상 로직
 
         // 인증번호 전송
-        smsService.send(phone);
+        smsService.sendCode(phone);
 
         // 전송 버튼을 재전송으로 바꾼다.
         sendButton.setText("재전송");
@@ -229,5 +229,10 @@ public class SignUpController implements Initializable {
         } else {
             showDialogErrorMessage("failCode");
         }
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }

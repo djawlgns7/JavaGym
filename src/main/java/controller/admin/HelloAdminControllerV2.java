@@ -24,6 +24,7 @@ import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
+import service.SmsService;
 import util.DialogUtil;
 
 import java.io.File;
@@ -31,11 +32,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static service.SmsService.getRandomPassword;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -44,11 +47,12 @@ import static util.ValidateUtil.*;
 
 public class HelloAdminControllerV2 implements Initializable {
 
-    private final ResourceBundle config = ResourceBundle.getBundle("config.init");
     private final AdminRepository adminRepository = new AdminRepository();
     private final AdminService service = new AdminService(adminRepository);
     private final MemberRepository memberRepository = new MemberRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
+
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private TabPane tabPane;
@@ -76,7 +80,11 @@ public class HelloAdminControllerV2 implements Initializable {
 
         Member member = new Member();
         member.setName(name);
-        member.setPassword(BCrypt.hashpw(config.getString("initial.member.password"), BCrypt.gensalt()));
+
+        int initPassword = getRandomPassword();
+        member.setPassword(BCrypt.hashpw(String.valueOf(initPassword), BCrypt.gensalt()));
+        smsService.sendMemberInitPassword(phone, initPassword);
+
         member.setGender(Gender.valueOf(getSelectedGender(memberMaleButton, memberFemaleButton)));
         member.setEmail(email);
         member.setBirthDate(stringToDate(birth));
@@ -98,11 +106,14 @@ public class HelloAdminControllerV2 implements Initializable {
     private TableView<Member> membersTable;
 
     @FXML
+    private TableColumn<Member, Boolean> selectMemberCol;
+
+    @FXML
     private TableColumn<Member, String> memberNumCol, memberNameCol, memberGenderCol, emailCol, memberBirthCol, memberPhoneCol, enrollCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnBindingMember(memberNumCol, memberNameCol, memberGenderCol, emailCol, memberBirthCol, memberPhoneCol, enrollCol);
+        columnBindingMember(selectMemberCol, memberNumCol, memberNameCol, memberGenderCol, emailCol, memberBirthCol, memberPhoneCol, enrollCol);
         loadMemberData(membersTable, memberRepository);
 
         TextFormatter<String> memberBirthFormatter = new TextFormatter<>(change -> {
@@ -137,7 +148,7 @@ public class HelloAdminControllerV2 implements Initializable {
             return row;
         });
 
-        columnBindingTrainer(trainerNumCol, trainerNameCol, idCol, trainerGenderCol, workTimeCol, trainerBirthCol, trainerPhoneCol);
+        columnBindingTrainer(selectTrainerCol, trainerNumCol, trainerNameCol, idCol, trainerGenderCol, workTimeCol, trainerBirthCol, trainerPhoneCol);
         loadTrainerData(trainerTable, trainerRepository);
 
         trainerTable.setRowFactory(tv -> {
@@ -246,6 +257,30 @@ public class HelloAdminControllerV2 implements Initializable {
         moveToMainPage(event);
     }
 
+    @FXML
+    private void deleteMembers(ActionEvent event) throws IOException {
+        boolean hasSelected = membersTable.getItems().stream().anyMatch(Member::isSelected);
+
+        if (!hasSelected) {
+            showDialog("선택한 회원이 없습니다.");
+            return;
+        }
+
+        List<Member> members = membersTable.getItems().stream()
+                .filter(Member::isSelected)
+                .toList();
+
+        Optional<ButtonType> result = showDialogChoose("정말로 선택한 회원을 삭제하시겠습니까?");
+        if (result.get() == ButtonType.OK) {
+            for (Member member : members) {
+                memberRepository.deleteMember(member.getNum());
+            }
+            AdminTab.getInstance().setSelectedTabIndex(0);
+            showDialogAndMovePageTimerOff("선택한 회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+        }
+
+    }
+
     // 트레이너 영역
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
@@ -262,6 +297,9 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private TableView<Trainer> trainerTable;
+
+    @FXML
+    private TableColumn<Trainer, Boolean> selectTrainerCol;
 
     @FXML
     private TableColumn<Trainer, String> trainerNumCol, trainerNameCol, idCol, trainerGenderCol, workTimeCol, trainerBirthCol, trainerPhoneCol;
@@ -286,7 +324,12 @@ public class HelloAdminControllerV2 implements Initializable {
         Trainer trainer = new Trainer();
         trainer.setName(name);
         trainer.setId(id);
-        trainer.setPassword(BCrypt.hashpw(config.getString("initial.trainer.password"), BCrypt.gensalt()));
+
+        int random = getRandomPassword();
+        String initPassword = id + random;
+        trainer.setPassword(BCrypt.hashpw(initPassword, BCrypt.gensalt()));
+        smsService.sendTrainerInitPassword(phone, initPassword);
+
         trainer.setGender(gender);
         trainer.setBirthDate(stringToDate(birth));
         trainer.setPhone(phone);
@@ -318,6 +361,7 @@ public class HelloAdminControllerV2 implements Initializable {
             }
         }
 
+        AdminTab.getInstance().setSelectedTabIndex(1);
         showDialogAndMovePage("트레이너 등록 성공", "/view/admin/helloAdminV2", event);
     }
 
@@ -370,5 +414,28 @@ public class HelloAdminControllerV2 implements Initializable {
     private void resetPageTrainer(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
         movePageTimerOff(event, "/view/admin/helloAdminV2");
+    }
+
+    @FXML
+    private void deleteTrainers(ActionEvent event) throws IOException {
+        boolean hasSelected = trainerTable.getItems().stream().anyMatch(Trainer::isSelected);
+
+        if (!hasSelected) {
+            showDialog("선택한 트레이너가 없습니다.");
+            return;
+        }
+
+        List<Trainer> trainers = trainerTable.getItems().stream()
+                .filter(Trainer::isSelected)
+                .toList();
+
+        Optional<ButtonType> result = showDialogChoose("정말로 선택한 트레이너를 삭제하시겠습니까?");
+        if (result.get() == ButtonType.OK) {
+            for (Trainer trainer : trainers) {
+                trainerRepository.deleteTrainer(trainer.getNum());
+            }
+            AdminTab.getInstance().setSelectedTabIndex(1);
+            showDialogAndMovePageTimerOff("선택한 트레이너가 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+        }
     }
 }

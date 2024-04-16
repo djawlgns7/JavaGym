@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,7 @@ public class PaymentController implements Initializable {
     public static boolean selectTrainer = false;
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final SmsService smsService = new SmsService();
 
     public static Set<Available> basket = new HashSet<>();
 
@@ -70,7 +72,7 @@ public class PaymentController implements Initializable {
     RadioButton noSelectPtButton, pt10Button, pt20Button, pt30Button;
 
     @FXML
-    Button selectTrainerButton;
+    Button updateTrainerButton, selectTrainerButton;
 
     @FXML
     Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
@@ -373,11 +375,12 @@ public class PaymentController implements Initializable {
         if (!selectTrainer) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
             ptSelectBox.setVisible(false);
+            updateTrainerButton.setVisible(false);
 
             // 트레이너 선택 후
         } else {
             firstSelectTrainerLabel.setVisible(false);
-            selectTrainerButton.setText("트레이너 변경"); // "트레이너 선택" 버튼 -> "트레이너 변경" 버튼
+            selectTrainerButton.setVisible(false);
         }
 
         if (currentTrainer != null) {
@@ -769,5 +772,10 @@ public class PaymentController implements Initializable {
 
     public static void removeItem(Set<Available> basket, Class<?> type) {
         basket.removeIf(ticket -> type.isInstance(ticket));
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }
