@@ -11,8 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
-import repository.TrainerRepository;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +41,7 @@ public class ReservationDetailController implements Initializable {
     private TableView<Reservation> reservationTable;
 
     @FXML
-    private TableColumn<Reservation, String> reservationNumCol, memberNumCol, memberNameCol,memberPhoneCol, rDateCol, rTimeCol;
+    private TableColumn<Reservation, String> memberNameCol, memberPhoneCol, rDateCol, rTimeCol;
 
 
     @FXML
@@ -105,15 +103,6 @@ public class ReservationDetailController implements Initializable {
         }
     }
 
-    @FXML
-    private void cancelReservation(ActionEvent event) {
-        Optional<ButtonType> response = showDialogChoose("정말로 취소하시겠습니까?");
-        if(response.isPresent() && response.get() == ButtonType.OK) {
-            reservationRepository.deleteReservation(currentReservation.getReservationNum());
-            showDialog("예약이 취소되었습니다.");
-        }
-    }
-
     private boolean isSameReservationDate() {
         Date inputPTdate = Date.valueOf(ptDatePicker.getValue());
         Date currentPTdate = currentReservation.getReservationDate();
@@ -151,8 +140,6 @@ public class ReservationDetailController implements Initializable {
     }
 
     private void columnBinding() {
-        reservationNumCol.setCellValueFactory(new PropertyValueFactory<>("reservationNum"));
-        memberNumCol.setCellValueFactory(new PropertyValueFactory<>("memberNum"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("memberName"));
         memberPhoneCol.setCellValueFactory(cellData -> {
             String rawPhoneNumber = cellData.getValue().getMemberPhone();

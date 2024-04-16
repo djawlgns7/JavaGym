@@ -10,7 +10,6 @@ import javafx.scene.shape.Circle;
 import repository.TrainerRepository;
 
 import java.io.IOException;
-import static domain.trainer.SelectedTrainer.*;
 import static util.PageUtil.movePage;
 
 

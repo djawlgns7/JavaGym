@@ -1,12 +1,18 @@
 package controller.trainer;
 
+import domain.Item;
+import domain.member.Member;
 import domain.trainer.*;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
@@ -16,15 +22,20 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import static domain.Item.PT_TICKET;
+import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.columnBindingReservation;
 import static util.ControllerUtil.loadReservationData;
 import static util.DialogUtil.*;
+import static util.MemberUtil.setRemain;
 import static util.PageUtil.movePage;
 import static util.ValidateUtil.*;
 
@@ -32,14 +43,18 @@ public class ReservationInfoController implements Initializable {
 
     private TrainerRepository trainerRepository = new TrainerRepository();
     private ReservationRepository reservationRepository = new ReservationRepository();
+    private MemberRepository memberRepository = new MemberRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
     @FXML
-    private TextField numField, nameField, phoneField, rtimeField;
+    private TextField numField, nameField, phoneField, rtimeField, searchMemberNameField;
     @FXML
     private DatePicker rDatePicker;
 
     @FXML
     private TableView<Reservation> reservationTable;
+
+    @FXML
+    private TableColumn<Reservation, Boolean> selectCol;
 
     @FXML
     private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol;
@@ -104,9 +119,10 @@ public class ReservationInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol);
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
+        selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
-
         TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0,8}")) {
@@ -181,7 +197,57 @@ public class ReservationInfoController implements Initializable {
     }
 
     @FXML
-    private void goBack(ActionEvent event) throws IOException {
-        movePage(event, "/view/trainer/helloTrainer");
+    private void searchMember() {
+        String searchName = searchMemberNameField.getText().trim();
+
+        if (searchName.isEmpty()) {
+            showDialog("이름을 입력해 주세요.");
+            return;
+        }
+
+        List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
+
+        if(searchedMembers.isEmpty()) {
+            showDialog("해당 이름의 회원이 없습니다.");
+            return;
+        }
+
+        List<Reservation> reservations = reservationRepository.findByMemberName(searchName);
+        ObservableList<Reservation> observableList = FXCollections.observableArrayList(reservations);
+        reservationTable.setItems(observableList);
+    }
+
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        movePage(event, "/view/member/memberLogin");
+    }
+
+    @FXML
+    public void cancelReservation(ActionEvent event) throws IOException {
+        if(reservationTable.getItems().isEmpty()) {
+            showDialog("예약 정보가 없습니다.");
+            return;
+        }
+
+        List<Reservation> selectedReservations = reservationTable.getItems().stream()
+                .filter(Reservation::isSelected)
+                .toList();
+
+        if(selectedReservations.isEmpty()) {
+            showDialog("취소할 예약을 선택해주세요.");
+            return;
+        }
+
+        Optional<ButtonType> response = showDialogChoose("정말 선택하신 예약들을 취소하시겠습니까?");
+
+        if(response.isPresent() && response.get() == ButtonType.OK) {
+            //선택한 예약 내역 모두 삭제
+            for (Reservation reservation : selectedReservations) {
+                reservationRepository.deleteReservation(reservation.getReservationNum());
+                // 삭제한 예약 내역만큼 회원에게 PT 이용권 되돌려주기
+                setRemain(reservation.getMemberNum(), PT_TICKET, 1);
+            }
+            showDialogAndMovePage("예약 정보가 삭제되었습니다.", "/view/trainer/reservationInfo", event);
+        }
     }
 }
