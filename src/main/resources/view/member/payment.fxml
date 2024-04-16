@@ -54,19 +54,19 @@
                             </HBox>
 
                             <!-- Line -->
-                            <Pane styleClass="payment_FirstLine"/>
+                            <Pane styleClass="paymentGYM_FirstLine"/>
 
                             <!-- 일일권 -->
                             <Label text="일 일 권" styleClass="paymentGYM_Day_radioBtn_Title"/>
                             <HBox>
-                                <GridPane hgap="30" vgap="30">
+                                <GridPane hgap="50" vgap="50" >
                                     <RadioButton fx:id="gym1Button" text="1일" toggleGroup="$gymTicketRadio" styleClass="paymentGYM_Day_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                                     <Label text="20,000원" styleClass="paymentGYM_Day_radioBtn_Text" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                                 </GridPane>
                             </HBox>
 
                             <!-- Line -->
-                            <Pane styleClass="payment_SecondLine"/>
+                            <Pane styleClass="paymentGYM_SecondLine"/>
 
                             <!-- 월간권 -->
                             <Label text="월 간 권" styleClass="paymentGYM_Days_radioBtn_Title"/>
@@ -101,7 +101,7 @@
                             </GridPane>
 
                             <!-- Line -->
-                            <Pane styleClass="payment_ThirdLine" />
+                            <Pane styleClass="paymentGYM_ThirdLine" />
 
                         </VBox>
                     </Tab>
@@ -111,15 +111,20 @@
                         <VBox alignment="CENTER" spacing="10">
 
                             <!-- 선택한 트레이너 정보 -->
-                            <VBox>
-                                <ImageView fx:id="selectTrainerImage" fitWidth="100" preserveRatio="true"/>
+                            <VBox spacing="10" styleClass="paymentPT_ImageBox">
+                                <StackPane styleClass="paymentPT_ImageContainer" prefHeight="151.2" prefWidth="113.4">
+                                    <ImageView fx:id="selectTrainerImage" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
+                                </StackPane>
+                                <Button fx:id="updateTrainerButton" text="트레이너 변경" onAction="#selectTrainer" styleClass="paymentPT_UpdateTrainerBtn"/>
+                            </VBox>
+                            <VBox alignment="CENTER" styleClass="paymentPT_TrainerInfo">
                                 <Label fx:id="trainerNameLabel"/>
                                 <Label fx:id="trainerInfoLabel"/>
                             </VBox>
 
                             <!-- 트레이너 선택 -->
-                            <Label fx:id="firstSelectTrainerLabel" text="먼저 트레이너를 선택해 주세요."/>
-                            <Button fx:id="selectTrainerButton" text="트레이너 선택" onAction="#selectTrainer"/>
+                            <Label fx:id="firstSelectTrainerLabel" text="먼저 트레이너를 선택해 주세요." styleClass="paymentPT_FirstSelectTrainer_Text"/>
+                            <Button fx:id="selectTrainerButton" text="트레이너 선택" onAction="#selectTrainer" styleClass="paymentPT_SelectTrainerBtn"/>
 
                             <fx:define>
                                 <ToggleGroup fx:id="ptTicketRadio"/>
@@ -191,55 +196,54 @@
             </TabPane>
 
             <!-- 장바구니 -->
-            <GridPane alignment="CENTER" styleClass="payment_Cart" hgap="50" vgap="50">
+            <GridPane alignment="CENTER" styleClass="payment_Cart">
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedGymTicket" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                    <Label text="이용권"/>
-                    <Label fx:id="selectGymTypeLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectGymDayLabel"/>
+                    <Label text="이용권" styleClass="payment_Cart_GymTitle"/>
+                    <Label fx:id="selectGymTypeLabel" styleClass="payment_GymType"/>
+                    <HBox spacing="5" styleClass="payment_Cart_GymInfo">
+                        <Label fx:id="selectGymDayLabel" styleClass="payment_Cart_GymPeriod"/>
                         <Label fx:id="selectGymPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedPTTicket" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                    <Label text="PT"/>
-                    <Label fx:id="selectTrainerNameLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectPtTicketLabel"/>
+                    <Label text="PT" styleClass="payment_Cart_PTTitle"/>
+                    <Label fx:id="selectTrainerNameLabel" styleClass="payment_TrainerName"/>
+                    <HBox spacing="5" styleClass="payment_Cart_PTInfo">
+                        <Label fx:id="selectPtTicketLabel" styleClass="payment_Cart_PTPeriod"/>
                         <Label fx:id="selectPtPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedLockerTicket" GridPane.rowIndex="0" GridPane.columnIndex="2">
-                    <Label text="사물함"/>
-                    <Label fx:id="selectLockerNumLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectLockerPeriodLabel"/>
+                    <Label text="사물함" styleClass="payment_Cart_LockerTitle"/>
+                    <Label fx:id="selectLockerNumLabel" styleClass="payment_LockerNum"/>
+                    <HBox spacing="5" styleClass="payment_Cart_LockerInfo">
+                        <Label fx:id="selectLockerPeriodLabel" styleClass="payment_Cart_LockerPeriod"/>
                         <Label fx:id="selectLockerPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedClothesTicket" GridPane.rowIndex="0" GridPane.columnIndex="3">
-                    <Label text="운동복"/>
-                    <Label fx:id="selectClothesSizeLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectClothesPeriodLabel"/>
+                    <Label text="운동복" styleClass="payment_Cart_ClothesTitle"/>
+                    <Label fx:id="selectClothesSizeLabel" styleClass="payment_ClothesSize"/>
+                    <HBox spacing="5" styleClass="payment_Cart_ClothesInfo">
+                        <Label fx:id="selectClothesPeriodLabel" styleClass="payment_Cart_ClothesPeriod"/>
                         <Label fx:id="selectClothesPriceLabel"/>
                     </HBox>
                 </VBox>
             </GridPane>
 
             <!-- 총 가격 정보 -->
-            <HBox alignment="BOTTOM_RIGHT" styleClass="payment_TotalPrice">
+            <HBox alignment="BOTTOM_RIGHT" styleClass="payment_TotalPrice_Box">
                 <Label text="총"/>
-                <Label fx:id="totalPriceLabel" text=" 0" />
+                <Label fx:id="totalPriceLabel" text=" 0" styleClass="payment_TotalPrice"/>
                 <Label text="원"/>
             </HBox>
 
             <HBox alignment="CENTER" styleClass="payment_Btn">
-                <Button text="취소" onAction="#cancelPayment" styleClass="payment_CancelBtn"/>
                 <Button text="결제" onAction="#payment" styleClass="payment_purchaseBtn"/>
-
+                <Button text="취소" onAction="#cancelPayment" styleClass="payment_CancelBtn"/>
             </HBox>
         </VBox>
 </AnchorPane>

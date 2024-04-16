@@ -32,6 +32,7 @@ import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
+import static util.PageUtil.movePageTimerOff;
 
 public class MemberDetailController implements Initializable {
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
@@ -324,7 +325,7 @@ public class MemberDetailController implements Initializable {
                         }
                     }
                 }
-                showDialogAndMovePage("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
+                showDialogAndMovePageTimerOff("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
             }
         }
     }
@@ -405,7 +406,7 @@ public class MemberDetailController implements Initializable {
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
-            showDialogAndMovePage("회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageTimerOff("회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
         }
     }
 
@@ -465,14 +466,14 @@ public class MemberDetailController implements Initializable {
             }
             // 삭제한 예약 내역만큼 PT 이용권 돌려주기
             setRemain(currentMember.getNum(), PT_TICKET, count);
-            showDialogAndMovePage("예약 정보가 삭제되었습니다.", "/view/admin/memberDetail", event);
+            showDialogAndMovePageTimerOff("예약 정보가 삭제되었습니다.", "/view/admin/memberDetail", event);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePage(event, "/view/admin/helloAdminV2");
+        movePageTimerOff(event, "/view/admin/helloAdminV2");
     }
 
     /**
