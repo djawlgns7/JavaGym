@@ -1,6 +1,6 @@
 .dialog-pane {
-    -fx-background-color: rgba(151, 71, 255, 0.19); /* 배경색을 회색으로 설정 */
-    -fx-pref-height: 200;
+    -fx-background-color: rgba(151, 71, 255, 0.07);
+    -fx-pref-height: 300;
     -fx-pref-width: 400;
 }
 
