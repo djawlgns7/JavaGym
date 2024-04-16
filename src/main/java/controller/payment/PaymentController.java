@@ -335,10 +335,11 @@ public class PaymentController implements Initializable {
 
                     selectClothesPeriodLabel.setVisible(true);
                     selectClothesPriceLabel.setVisible(true);
+                    selectClothesSizeLabel.setVisible(true);
 
                     totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
-                    selectClothesSizeLabel.setText("FREE Size");
                     selectClothesPeriodLabel.setText(period + "일");
+                    selectClothesSizeLabel.setText("Free Size");
                     selectClothesPriceLabel.setText(clothesPriceText);
 
                     switch(period){
@@ -346,14 +347,16 @@ public class PaymentController implements Initializable {
                             clothes30Button.setSelected(true);
                             break;
                         case 90:
-                            clothes30Button.setSelected(true);
+                            clothes90Button.setSelected(true);
                             break;
                         case 180:
-                            clothes30Button.setSelected(true);
+                            clothes180Button.setSelected(true);
                             break;
                         case 360:
-                            clothes30Button.setSelected(true);
+                            clothes360Button.setSelected(true);
                             break;
+                        default:
+                            noSelectClothesButton.setSelected(true);
                     }
                 }
             }
@@ -570,9 +573,11 @@ public class PaymentController implements Initializable {
                 clothesPrice = 7000;
                 selectClothesPeriodLabel.setVisible(true);
                 selectClothesPriceLabel.setVisible(true);
+                selectClothesSizeLabel.setVisible(true);
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectClothesPeriodLabel.setText("30일");
+                selectClothesSizeLabel.setText("Free Size");
                 selectClothesPriceLabel.setText("7,000원");
 
                 removeItem(basket, Clothes.class);
@@ -583,9 +588,11 @@ public class PaymentController implements Initializable {
                 clothesPrice = 18000;
                 selectClothesPeriodLabel.setVisible(true);
                 selectClothesPriceLabel.setVisible(true);
+                selectClothesSizeLabel.setVisible(true);
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectClothesPeriodLabel.setText("90일");
+                selectClothesSizeLabel.setText("Free Size");
                 selectClothesPriceLabel.setText("18,000원");
 
                 removeItem(basket, Clothes.class);
@@ -595,9 +602,11 @@ public class PaymentController implements Initializable {
                 clothesPrice = 31000;
                 selectClothesPeriodLabel.setVisible(true);
                 selectClothesPriceLabel.setVisible(true);
+                selectClothesSizeLabel.setVisible(true);
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectClothesPeriodLabel.setText("180일");
+                selectClothesSizeLabel.setText("Free Size");
                 selectClothesPriceLabel.setText("31,000원");
 
                 removeItem(basket, Clothes.class);
@@ -607,9 +616,11 @@ public class PaymentController implements Initializable {
                 clothesPrice = 52000;
                 selectClothesPeriodLabel.setVisible(true);
                 selectClothesPriceLabel.setVisible(true);
+                selectClothesSizeLabel.setVisible(true);
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectClothesPeriodLabel.setText("360일");
+                selectClothesSizeLabel.setText("Free Size");
                 selectClothesPriceLabel.setText("52,000원");
 
                 removeItem(basket, Clothes.class);
@@ -620,6 +631,7 @@ public class PaymentController implements Initializable {
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectClothesPeriodLabel.setVisible(false);
                 selectClothesPriceLabel.setVisible(false);
+                selectClothesSizeLabel.setVisible(false);
                 removeItem(basket, Clothes.class);
         }
     }
