@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,7 @@ public class PaymentController implements Initializable {
     public static boolean selectTrainer = false;
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final SmsService smsService = new SmsService();
 
     public static Set<Available> basket = new HashSet<>();
 
@@ -769,5 +771,10 @@ public class PaymentController implements Initializable {
 
     public static void removeItem(Set<Available> basket, Class<?> type) {
         basket.removeIf(ticket -> type.isInstance(ticket));
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }

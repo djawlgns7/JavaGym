@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,8 @@ import static util.PageUtil.movePage;
 public class MyInformationController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final SmsService smsService = new SmsService();
+
 
     @FXML
     private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
@@ -114,7 +117,6 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
-                System.out.println(memberSchedules.get(i).getReservationTime());
                 newLabel = new Label(reservationTime);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Time");
                 newVBox.getChildren().add(newLabel);
@@ -159,5 +161,10 @@ public class MyInformationController implements Initializable {
     @FXML
     public void goBack(ActionEvent event) throws IOException {
         movePage(event, "/view/member/helloMember");
+    }
+
+    @FXML
+    public void callAdmin(){
+        smsService.callAdmin();
     }
 }
