@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Item;
+import domain.member.Member;
 import domain.member.MemberSchedule;
 import domain.reservation.ReservationInformation;
 import domain.trainer.Reservation;
@@ -50,7 +51,6 @@ public class ReservationRepository {
                 reservation.setReservationTime(rs.getInt("r_time"));
 
                 list.add(reservation);
-                System.out.println("Loaded reservation number: " + reservation.getReservationNum());
             }
             return list;
         } catch (SQLException e) {
@@ -222,7 +222,6 @@ public class ReservationRepository {
             pstmt.setDate(1, reservation.getReservationDate());
             pstmt.setInt(2, reservation.getReservationTime());
             pstmt.setInt(3, reservation.getReservationNum());
-            System.out.println(reservation.getReservationNum());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -300,6 +299,44 @@ public class ReservationRepository {
                 return count > 0;
             }
             return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    public List<Reservation> findByMemberName(String memberName) {
+        String sql = "SELECT r.r_no, m.m_no, t.t_no, m.m_name, m.m_phone, r.r_date, r.r_time " +
+                "FROM reservation r " +
+                "JOIN member m ON r.m_no = m.m_no " +
+                "JOIN trainer t ON r.t_no = t.t_no " +
+                "where m.m_name = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, memberName);
+            rs = pstmt.executeQuery();
+            List<Reservation> list = new ArrayList<>();
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+
+                reservation.setReservationNum(rs.getInt("r_no"));
+                reservation.setMemberNum(rs.getInt("m_no"));
+                reservation.setTrainerNum(rs.getInt("t_no"));
+                reservation.setMemberName(rs.getString("m_name"));
+                reservation.setMemberPhone(rs.getString("m_phone"));
+                reservation.setReservationDate(rs.getDate("r_date"));
+                reservation.setReservationTime(rs.getInt("r_time"));
+
+                list.add(reservation);
+            }
+            return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
