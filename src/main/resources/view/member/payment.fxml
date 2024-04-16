@@ -189,55 +189,54 @@
             </TabPane>
 
             <!-- 장바구니 -->
-            <GridPane alignment="CENTER" styleClass="payment_Cart" hgap="50" vgap="50">
+            <GridPane alignment="CENTER" styleClass="payment_Cart">
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedGymTicket" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                    <Label text="이용권"/>
+                    <Label text="이용권" styleClass="payment_Cart_GymTitle"/>
                     <Label fx:id="selectGymTypeLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectGymDayLabel"/>
+                    <HBox spacing="5" styleClass="payment_Cart_GymInfo">
+                        <Label fx:id="selectGymDayLabel" styleClass="payment_Cart_GymPeriod"/>
                         <Label fx:id="selectGymPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedPTTicket" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                    <Label text="PT"/>
+                    <Label text="PT" styleClass="payment_Cart_PTTitle"/>
                     <Label fx:id="selectTrainerNameLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectPtTicketLabel"/>
+                    <HBox spacing="5" styleClass="payment_Cart_PTInfo">
+                        <Label fx:id="selectPtTicketLabel" styleClass="payment_Cart_PTPeriod"/>
                         <Label fx:id="selectPtPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedLockerTicket" GridPane.rowIndex="0" GridPane.columnIndex="2">
-                    <Label text="사물함"/>
+                    <Label text="사물함" styleClass="payment_Cart_LockerTitle"/>
                     <Label fx:id="selectLockerNumLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectLockerPeriodLabel"/>
+                    <HBox spacing="5" styleClass="payment_Cart_LockerInfo">
+                        <Label fx:id="selectLockerPeriodLabel" styleClass="payment_Cart_LockerPeriod"/>
                         <Label fx:id="selectLockerPriceLabel"/>
                     </HBox>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="10" styleClass="payment_SelectedClothesTicket" GridPane.rowIndex="0" GridPane.columnIndex="3">
-                    <Label text="운동복"/>
+                    <Label text="운동복" styleClass="payment_Cart_ClothesTitle"/>
                     <Label fx:id="selectClothesSizeLabel"/>
-                    <HBox spacing="5">
-                        <Label fx:id="selectClothesPeriodLabel"/>
+                    <HBox spacing="5" styleClass="payment_Cart_ClothesInfo">
+                        <Label fx:id="selectClothesPeriodLabel" styleClass="payment_Cart_ClothesPeriod"/>
                         <Label fx:id="selectClothesPriceLabel"/>
                     </HBox>
                 </VBox>
             </GridPane>
 
             <!-- 총 가격 정보 -->
-            <HBox alignment="BOTTOM_RIGHT" styleClass="payment_TotalPrice">
+            <HBox alignment="BOTTOM_RIGHT" styleClass="payment_TotalPrice_Box">
                 <Label text="총"/>
-                <Label fx:id="totalPriceLabel" text=" 0" />
+                <Label fx:id="totalPriceLabel" text=" 0" styleClass="payment_TotalPrice"/>
                 <Label text="원"/>
             </HBox>
 
             <HBox alignment="CENTER" styleClass="payment_Btn">
-                <Button text="취소" onAction="#cancelPayment" styleClass="payment_CancelBtn"/>
                 <Button text="결제" onAction="#payment" styleClass="payment_purchaseBtn"/>
-
+                <Button text="취소" onAction="#cancelPayment" styleClass="payment_CancelBtn"/>
             </HBox>
         </VBox>
 </AnchorPane>

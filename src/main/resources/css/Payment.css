@@ -227,48 +227,44 @@ AnchorPane {
 
 
 /* Cart */
-.payment_Cart {
+.payment_SelectedGymTicket, .payment_SelectedPTTicket,
+.payment_SelectedLockerTicket, .payment_SelectedClothesTicket {
+    -fx-font-family: "Jua";
+    -fx-pref-width: 162.5;
     -fx-pref-height: 150;
     -fx-background-color: #F4F5F7;
-    -fx-border-color: black;
+    -fx-border-color: #000000;
     -fx-border-width: 1;
-    -fx-translate-y: -10;
-}
-
-.payment_SelectedGymTicket {
-    -fx-font-family: "Jua";
-    -fx-font-size: 16;
-    -fx-pref-width: 350;
+    -fx-border-style: solid;
 
 }
 
-.payment_SelectedPTTicket {
-    -fx-font-family: "Jua";
-    -fx-font-size: 16;
-    -fx-pref-width: 350;
-
+.payment_Cart_GymTitle, .payment_Cart_PTTitle,
+.payment_Cart_LockerTitle, .payment_Cart_ClothesTitle {
+    -fx-font-size: 24;
 }
 
-.payment_SelectedLockerTicket {
-    -fx-font-family: "Jua";
-    -fx-font-size: 16;
-    -fx-pref-width: 350;
-
+.payment_Cart_GymInfo, .payment_Cart_PTInfo,
+.payment_Cart_LockerInfo, .payment_Cart_ClothesInfo {
+    -fx-alignment: CENTER;
+    -fx-font-size: 18;
 }
 
-.payment_SelectedClothesTicket {
-    -fx-font-family: "Jua";
-    -fx-font-size: 16;
-    -fx-pref-width: 350;
-
+.payment_Cart_GymPeriod, .payment_Cart_PTPeriod,
+.payment_Cart_LockerPeriod, .payment_Cart_ClothesPeriod {
+    -fx-text-fill: #9747FF;
 }
 
 /* Total Price */
-.payment_TotalPrice {
+.payment_TotalPrice_Box {
     -fx-font-size: 28;
     -fx-font-family: "Jua";
     -fx-translate-x: -10;
     -fx-translate-y: 15;
+}
+
+.payment_TotalPrice {
+    -fx-text-fill: #9747FF;
 }
 
 /* Button */
@@ -279,13 +275,30 @@ AnchorPane {
 
 }
 
-.payment_CancelBtn, .payment_purchaseBtn {
+.payment_purchaseBtn {
     -fx-font-size: 18;
     -fx-pref-width: 80;
     -fx-pref-height: 40;
-    -fx-background-color: #F4B6FF;
+    -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
-    -fx-border-color: #F4B6FF;
-    -fx-border-width: 1;
     -fx-border-radius: 5;
+}
+
+.payment_CancelBtn {
+    -fx-font-size: 18;
+    -fx-pref-width: 80;
+    -fx-pref-height: 40;
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+}
+
+.payment_purchaseBtn:hover, .payment_CancelBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.payment_purchaseBtn:pressed, .payment_CancelBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
