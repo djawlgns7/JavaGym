@@ -39,7 +39,7 @@ public class SelectLockerController implements Initializable {
     @FXML
     Label selectedLockerNum, lockerAreaHeader, nextButton, previousButton;
     @FXML
-    RadioButton locker30Days, locker90Days, locker180Days, locker360Days;
+    RadioButton noSelectLockerButton, locker30Days, locker90Days, locker180Days, locker360Days;
 
     Member member;
     Trainer trainer;
@@ -57,6 +57,7 @@ public class SelectLockerController implements Initializable {
             usingLockers = purchaseRepository.findAllUsingLocker();
 
             lockerPeriodGroup = new ToggleGroup();
+            noSelectLockerButton.setToggleGroup(lockerPeriodGroup);
             locker30Days.setToggleGroup(lockerPeriodGroup);
             locker90Days.setToggleGroup(lockerPeriodGroup);
             locker180Days.setToggleGroup(lockerPeriodGroup);
@@ -189,7 +190,7 @@ public class SelectLockerController implements Initializable {
         previousButton.getStyleClass().add("unclickable");
     }
 
-    public void comfirmButtonClicked(ActionEvent event) throws IOException {
+    public void confirmButtonClicked(ActionEvent event) throws IOException {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
         if(selectedLockerNumberText.equals("")){
@@ -205,18 +206,24 @@ public class SelectLockerController implements Initializable {
             return;
         }
 
-        String selectedLockerPeriodText = selectedRadio.getText();
-        String[] lockerPeriodTexts = selectedLockerPeriodText.split("일");
-        int selectedLockerPeriod = Integer.parseInt(lockerPeriodTexts[0]);
-        String selectedLockerPrice = lockerPeriodTexts[1].replace(" ", "").replace(",", "")
-                        .replace("원", "");
-        int selectedLockerPriceNum = Integer.parseInt(selectedLockerPrice);
+        if (selectedRadio.getText().equals("선택 안 함")) {
+            removeItem(basket, Locker.class);
+            PaymentTab.getInstance().setSelectedTabIndex(2);
+            movePage(event, "/view/member/payment");
+        } else {
+            String selectedLockerPeriodText = selectedRadio.getText();
+            String[] lockerPeriodTexts = selectedLockerPeriodText.split("일");
+            int selectedLockerPeriod = Integer.parseInt(lockerPeriodTexts[0]);
+            String selectedLockerPrice = lockerPeriodTexts[1].replace(" ", "").replace(",", "")
+                    .replace("원", "");
+            int selectedLockerPriceNum = Integer.parseInt(selectedLockerPrice);
 
-        removeItem(basket, Locker.class);
-        basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
+            removeItem(basket, Locker.class);
+            basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
 
-        PaymentTab.getInstance().setSelectedTabIndex(2);
-        movePage(event, "/view/member/payment");
+            PaymentTab.getInstance().setSelectedTabIndex(2);
+            movePage(event, "/view/member/payment");
+        }
     }
 
     public void goBackButtonClicked(ActionEvent event) throws IOException {
