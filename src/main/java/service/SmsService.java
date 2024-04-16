@@ -18,7 +18,7 @@ public class SmsService {
         message.setFrom(smsConfig.getString("myPhone"));
         message.setTo("010" + phone);
         int code = getRandomPassword();
-        message.setText("[JavaGym] 인증번호를 정확히 입력해 주세요.\n" + "인증번호 : " + code);
+        message.setText("[JavaGym]\n인증번호를 정확히 입력해 주세요.\n" + "인증번호 : " + code);
 
         try {
 //            messageService.send(message); // 실행하면 돈 나감..!
@@ -29,11 +29,25 @@ public class SmsService {
         }
     }
 
-    public void sendInitPassword(String phone, int password) {
+    public void sendMemberInitPassword(String phone, int password) {
         Message message = new Message();
         message.setFrom(smsConfig.getString("myPhone"));
         message.setTo("010" + phone);
-        message.setText("[JavaGym] 키오스크에서 사용하는 비밀번호입니다. 외부에 노출되지 않게 주의하세요!\n" + "비밀번호 : " + password);
+        message.setText("[JavaGym]\n키오스크에서 사용하는 비밀번호입니다. 외부에 노출되지 않게 주의하세요!\n" + "비밀번호 : " + password);
+
+        try {
+//            messageService.send(message); // 실행하면 돈 나감..!
+            System.out.println(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendTrainerInitPassword(String phone, String password) {
+        Message message = new Message();
+        message.setFrom(smsConfig.getString("myPhone"));
+        message.setTo("010" + phone);
+        message.setText("[JavaGym]\n트레이너 페이지에서 사용하는 비밀번호입니다. 외부에 노출되지 않게 주의하세요!\n" + "비밀번호 : " + password);
 
         try {
 //            messageService.send(message); // 실행하면 돈 나감..!
