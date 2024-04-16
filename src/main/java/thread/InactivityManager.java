@@ -66,9 +66,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(50), e -> SoundUtil.play("toMainPage"));
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(50), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(60), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10000), e -> SoundUtil.play("toMainPage"));
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10000), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(10000), e -> moveToMainScreen());
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);

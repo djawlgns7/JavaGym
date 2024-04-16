@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
 
@@ -64,7 +65,7 @@ public class PaymentController implements Initializable {
     ToggleGroup ptTicketRadio;
 
     @FXML
-    VBox ptSelectBox;
+    VBox selectTrainerInfo, ptSelectBox;
 
     @FXML
     RadioButton noSelectPtButton, pt10Button, pt20Button, pt30Button;
@@ -74,6 +75,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     Label firstSelectTrainerLabel, trainerNameLabel, trainerInfoLabel;
+
+    @FXML
+    StackPane selectTrainerImageView;
 
     @FXML
     ImageView selectTrainerImage;
@@ -107,7 +111,6 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // 회원의 현재 모든 결제 정보를 얻는다.
         Integer memberNum = currentMember.getNum();
 
@@ -182,7 +185,6 @@ public class PaymentController implements Initializable {
 
                     // 기타 이용권 탭
                 } else {
-
                     lockerLabel.setVisible(true);
                     currentLockerNumLabel.setVisible(true);
                     currentLockerPeriodLabel.setVisible(true);
@@ -372,10 +374,12 @@ public class PaymentController implements Initializable {
         // 트레이너 선택 전
         if (!selectTrainer) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
+            selectTrainerImageView.setVisible(false);
+            selectTrainerInfo.setVisible(false);
             ptSelectBox.setVisible(false);
             updateTrainerButton.setVisible(false);
 
-            // 트레이너 선택 후
+        // 트레이너 선택 후
         } else {
             firstSelectTrainerLabel.setVisible(false);
             selectTrainerButton.setVisible(false);
@@ -384,8 +388,8 @@ public class PaymentController implements Initializable {
         if (currentTrainer != null) {
             ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
             selectTrainerImage.setImage(image.getImage());
-            trainerNameLabel.setText(currentTrainer.getName());
-            trainerInfoLabel.setText(currentTrainer.getHeight() + " | " + currentTrainer.getWeight() + " | " + trainerRepository.getAge(currentTrainer) + "세");
+            trainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+            trainerInfoLabel.setText(currentTrainer.getHeight() + "cm | " + currentTrainer.getWeight() + "kg | " + trainerRepository.getAge(currentTrainer) + "세");
         }
 
         // 헬스장 이용권을 선택할 때마다 가격 업데이트
