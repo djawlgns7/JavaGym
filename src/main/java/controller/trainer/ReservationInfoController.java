@@ -1,22 +1,14 @@
 package controller.trainer;
 
-import domain.Item;
-import domain.member.Member;
-import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
@@ -126,6 +118,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
+
         TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0,8}")) {
@@ -209,7 +202,6 @@ public class ReservationInfoController implements Initializable {
         ObservableList<Reservation> observableList = FXCollections.observableArrayList(reservations);
         reservationTable.setItems(observableList);
     }
-
     @FXML
     private void logout(ActionEvent event) throws IOException {
         movePage(event, "/view/member/memberLogin");

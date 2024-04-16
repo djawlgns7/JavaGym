@@ -36,17 +36,12 @@
             <Label text="예약 정보" />
             <TableView fx:id="reservationTable" prefHeight="550.0">
                 <columns>
-                    <TableColumn text="예약 번호" fx:id="reservationNumCol" />
-                    <TableColumn text="회원 번호" fx:id="memberNumCol" />
                     <TableColumn text="회원 이름" fx:id="memberNameCol" />
                     <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" />
                     <TableColumn text="예약 일자" fx:id="rDateCol" />
                     <TableColumn text="예약 시간" fx:id="rTimeCol" />
                 </columns>
             </TableView>
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Button onAction="#cancelReservation" text="예약 취소" />
-            </HBox>
         </VBox>
     </items>
 </SplitPane>
