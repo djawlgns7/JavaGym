@@ -9,7 +9,7 @@ AnchorPane {
 }
 
 .myInformation_Name_Info {
-    -fx-font-family: "Nanum Gothic";
+    -fx-font-family: "NanumGothic";
     -fx-font-size: 32;
     -fx-translate-y: -50;
 }
