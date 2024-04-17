@@ -75,7 +75,13 @@
                                         </Button>
                                         <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
                                         <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
-                                        <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
+                                        <Button onAction="#resetPageMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_refreshBtn">
+                                            <graphic>
+                                                <ImageView fitWidth="20" fitHeight="20">
+                                                    <image><Image url="/image/Refresh_Icon.png"/></image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
                                     </HBox>
 
                                     <TableView fx:id="membersTable" prefHeight="550.0" editable="true">
