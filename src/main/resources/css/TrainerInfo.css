@@ -293,32 +293,52 @@ SplitPane {
 
 .trainerInfo_numColumn, .trainerInfo_nameColumn, .trainerInfo_idColumn,
 .trainerInfo_genderColumn, .trainerInfo_birthColumn, .trainerInfo_workTimeColumn,
-.trainerInfo_phoneColumn {
+.trainerInfo_phoneColumn, .trainerInfo_chooseColumn {
     -fx-font-family: "Jua";
 }
 
+.trainerInfo_chooseColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
 .trainerInfo_numColumn {
-    -fx-pref-width: 70;
+    -fx-pref-width: 69;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .trainerInfo_nameColumn {
-    -fx-pref-width: 110;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
-    -fx-font-size: 14;
-}
-
-.trainerInfo_genderColumn, .trainerInfo_workTimeColumn {
     -fx-pref-width: 90;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.trainerInfo_idColumn, .trainerInfo_birthColumn {
+.trainerInfo_genderColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerInfo_workTimeColumn {
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerInfo_idColumn {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.trainerInfo_birthColumn {
     -fx-pref-width: 140;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;

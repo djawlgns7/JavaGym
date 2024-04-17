@@ -280,7 +280,7 @@ SplitPane {
 }
 
 .trainerDetail_CountColumn {
-    -fx-pref-width: 60;
+    -fx-pref-width: 70;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -301,7 +301,7 @@ SplitPane {
 }
 
 .trainerDetail_TimeColumn {
-    -fx-pref-width: 155;
+    -fx-pref-width: 151;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;

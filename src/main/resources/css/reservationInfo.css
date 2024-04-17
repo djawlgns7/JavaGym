@@ -33,14 +33,14 @@ Label {
     -fx-prompt-text-fill: #999999;
 }
 
-.reservationInfo_choseCol {
+.reservationInfo_chooseCol {
     -fx-pref-width: 60;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
 }
 
 .reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_phoneCol,
-.reservationInfo_rDateCol, .reservationInfo_rTimeCol {
+.reservationInfo_rDateCol, .reservationInfo_rTimeCol, .reservationInfo_chooseCol {
     -fx-font-family: "Jua";
 }
 

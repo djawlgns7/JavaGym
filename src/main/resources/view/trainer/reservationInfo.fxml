@@ -48,7 +48,7 @@
 
             <TableView fx:id="reservationTable" editable="true" prefHeight="550.0">
                 <columns>
-                    <TableColumn fx:id="selectCol" text="선택" styleClass="reservationInfo_choseCol">
+                    <TableColumn fx:id="selectCol" text="선택" styleClass="reservationInfo_chooseCol">
                         <cellValueFactory>
                             <PropertyValueFactory property="selected" />
                         </cellValueFactory>

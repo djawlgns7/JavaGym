@@ -237,26 +237,32 @@ SplitPane {
 
 .memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
 .memberInfo_emailColumn, .memberInfo_birthColumn, .memberInfo_phoneColumn,
-.memberInfo_enrollColumn {
+.memberInfo_enrollColumn, .memberInfo_chooseColumn {
     -fx-font-family: "Jua";
 }
 
+.memberInfo_chooseColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
 .memberInfo_numColumn {
-    -fx-pref-width: 80;
+    -fx-pref-width: 70;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_nameColumn {
-    -fx-pref-width: 90;
+    -fx-pref-width: 80;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_genderColumn {
-    -fx-pref-width: 70;
+    -fx-pref-width: 60;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -270,21 +276,21 @@ SplitPane {
 }
 
 .memberInfo_birthColumn {
-    -fx-pref-width: 130;
+    -fx-pref-width: 119;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_phoneColumn {
-    -fx-pref-width: 130;
+    -fx-pref-width: 140;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_enrollColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
