@@ -2,7 +2,6 @@ package controller.trainer;
 
 
 import domain.member.Member;
-import domain.member.UsingLocker;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -20,12 +19,10 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +44,10 @@ public class ReservationInfoController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
+
     @FXML
-    private TextField numField, nameField, phoneField, rtimeField, searchMemberNameField;
+    private TextField numField, nameField, phoneField, rTimeField, searchMemberNameField;
+
     @FXML
     private DatePicker rDatePicker;
 
@@ -61,10 +60,9 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol;
 
-
     @FXML
-    private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
-        if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
+    private void addReservationInfo(ActionEvent event) throws IOException {
+        if (isEmptyAnyField(numField, nameField, phoneField, rTimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
@@ -72,11 +70,11 @@ public class ReservationInfoController implements Initializable {
         Reservation reservation = new Reservation();
 
         // 예약 추가 로직 구현
-        Integer memberNum = Integer.valueOf(numField.getText().trim());
+        int memberNum = Integer.parseInt(numField.getText().trim());
         String memberName = nameField.getText().trim();
         String memberPhone = phoneField.getText().trim();
         Date rDate = Date.valueOf(rDatePicker.getValue());
-        String rTimeInput = rtimeField.getText().trim();
+        String rTimeInput = rTimeField.getText().trim();
         LocalDate localrDate = rDate.toLocalDate();
 
         if (!rTimeInput.matches("\\d+")) {
@@ -84,7 +82,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        Integer rTime = Integer.valueOf(rTimeInput);
+        int rTime = Integer.parseInt(rTimeInput);
 
         if(rTime < 8 || rTime > 19) {
             showDialogErrorMessage("invalidTime");
@@ -146,7 +144,6 @@ public class ReservationInfoController implements Initializable {
             }
             return null;
         });
-
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
