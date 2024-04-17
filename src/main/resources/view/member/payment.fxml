@@ -173,8 +173,8 @@
                             <Label fx:id="lockerNumberLabel" text="" visible="false" styleClass="paymentETC_LockerNum"/>
                             <Label fx:id="lockerPeriodLabel" text="" visible="false" styleClass="paymentETC_LockerPeriod"/>
                             <Label fx:id="lockerPriceLabel" text="" visible="false" styleClass="paymentETC_LockerPrice"/>
-                            <Button fx:id="selectLockerButton" text="사물함 선택" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
-                            <Button fx:id="changeLockerButton" text="사물함 변경" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn"/>
+                            <Button fx:id="selectLockerButton" text="사물함 선택" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn_1"/>
+                            <Button fx:id="changeLockerButton" text="사물함 변경" onAction="#selectLocker" styleClass="paymentETC_SelectLockerBtn_2"/>
                         </HBox>
 
                         <!-- Line -->
@@ -185,27 +185,37 @@
                             <ToggleGroup fx:id="clothesRadio"/>
                         </fx:define>
                         <HBox>
-                            <RadioButton fx:id="noSelectClothesButton" text="선택 안 함" toggleGroup="$clothesRadio" />
+                            <RadioButton fx:id="noSelectClothesButton" text="선택 안 함" toggleGroup="$clothesRadio" styleClass="paymentETC_NoSelectClothes"/>
                         </HBox>
-                        <HBox>
-                            <RadioButton fx:id="clothes30Button" text="30일" toggleGroup="$clothesRadio" />
-                            <Label text="7,000원"/>
-                        </HBox>
+                        <GridPane hgap="30" vgap="30" styleClass="paymentETC_GridPane">
+                            <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                <GridPane hgap="10" vgap="10">
+                                    <RadioButton fx:id="clothes30Button" text="30일" toggleGroup="$clothesRadio" styleClass="paymentETC_Days_Clothes_radioBtn_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label text="7,000원" styleClass="paymentETC_Clothes_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                </GridPane>
+                            </HBox>
 
-                        <HBox>
-                            <RadioButton fx:id="clothes90Button" text="90일" toggleGroup="$clothesRadio" />
-                            <Label text="18,000원"/>
-                        </HBox>
+                            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <GridPane hgap="10" vgap="10">
+                                    <RadioButton fx:id="clothes90Button" text="90일" toggleGroup="$clothesRadio" styleClass="paymentETC_Days_Clothes_radioBtn_2" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label text="18,000원" styleClass="paymentETC_Clothes_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                </GridPane>
+                            </HBox>
 
-                        <HBox>
-                            <RadioButton fx:id="clothes180Button" text="180일" toggleGroup="$clothesRadio" />
-                            <Label text="31,000원"/>
-                        </HBox>
+                            <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <GridPane hgap="10" vgap="10">
+                                    <RadioButton fx:id="clothes180Button" text="180일" toggleGroup="$clothesRadio" styleClass="paymentETC_Days_Clothes_radioBtn_3" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label text="31,000원" styleClass="paymentETC_Clothes_radioBtn_Text_3" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                </GridPane>
+                            </HBox>
 
-                        <HBox>
-                            <RadioButton fx:id="clothes360Button" text="360일" toggleGroup="$clothesRadio" />
-                            <Label text="52,000원"/>
-                        </HBox>
+                            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <GridPane hgap="10" vgap="10">
+                                    <RadioButton fx:id="clothes360Button" text="360일" toggleGroup="$clothesRadio" styleClass="paymentETC_Days_Clothes_radioBtn_4" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <Label text="52,000원" styleClass="paymentETC_Clothes_radioBtn_Text_4" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                </GridPane>
+                            </HBox>
+                        </GridPane>
                     </VBox>
                 </Tab>
             </tabs>
