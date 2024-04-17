@@ -33,10 +33,52 @@ Label {
     -fx-prompt-text-fill: #999999;
 }
 
+.reservationInfo_chooseCol {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
 .reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_phoneCol,
-.reservationInfo_rDateCol, .reservationInfo_rTimeCol {
+.reservationInfo_rDateCol, .reservationInfo_rTimeCol, .reservationInfo_chooseCol {
     -fx-font-family: "Jua";
 }
+
+.reservationInfo_numCol {
+    -fx-pref-width: 90;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_nameCol {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_phoneCol {
+    -fx-pref-width: 180;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rDateCol {
+    -fx-pref-width: 160;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rTimeCol {
+    -fx-pref-width: 130;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
 
 /* ============== Button ============== */
 

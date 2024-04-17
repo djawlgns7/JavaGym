@@ -56,6 +56,9 @@ public class ReservationDetailController implements Initializable {
 
         //수정 내용이 있을 경우
         Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
+        if (!response.isPresent() || response.get() != ButtonType.OK) {
+            return;
+        }
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
@@ -67,12 +70,12 @@ public class ReservationDetailController implements Initializable {
                 return;
             }
 
-            Integer rTime = Integer.valueOf(rTimeInput);
+            Integer rTime = Integer.parseInt(rTimeInput);
 
-            if(rTime < 8 || rTime > 19) {
-                showDialogErrorMessage("invalidTime");
-                return;
-            }
+                if (rTime < 8 || rTime > 19) {
+                    showDialogErrorMessage("invalidTime");
+                    return;
+                }
 
             if (!isValidTimeForTrainer(currentTrainer, rTime)) {
                 showDialogErrorMessage("wrongTimeForTrainer");
@@ -125,10 +128,13 @@ public class ReservationDetailController implements Initializable {
     }
 
     private boolean isSameReservationTime() {
-        Integer inputPTtime = Integer.valueOf(rTimeField.getText());
-
+        String inputPTtime = rTimeField.getText().trim();
+        if(!inputPTtime.matches("\\d+")) {
+            return false;
+        }
+        Integer PTTime = Integer.parseInt(inputPTtime);
         Integer currentPTtime = currentReservation.getReservationTime();
-        return inputPTtime.equals(currentPTtime);
+        return PTTime.equals(currentPTtime);
     }
 
     @Override
