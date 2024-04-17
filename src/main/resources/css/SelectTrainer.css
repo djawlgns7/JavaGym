@@ -1,0 +1,76 @@
+.selectTrainer_Title {
+    -fx-font-size: 64;
+    -fx-font-family: "Anton";
+}
+
+.selectTrainer_SubTitle {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* ComboBox */
+.selectTrainer_TimeComboBox {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-font-size: 12;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+    -fx-translate-x: 360;
+}
+
+/* ComboBox - TextField 배경색 변경 */
+.selectTrainer_TimeComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+/* ComboBox - Button 색상 변경 */
+.selectTrainer_TimeComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Button Hover 색상 변경 */
+.selectTrainer_TimeComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Arrow 색상 변경 */
+.selectTrainer_TimeComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
+}
+
+.selectTrainer_List {
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-pref-height: 400;
+    -fx-pref-width: 830;
+
+}

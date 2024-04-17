@@ -381,19 +381,120 @@ AnchorPane {
     -fx-font-family: "Jua";
     -fx-font-size: 32;
     -fx-font-weight: bold;
+    -fx-translate-x: 255;
 }
 
-.paymentETC_LockerNum, .paymentETC_LockerPeriod, .paymentETC_LockerPrice {
-    -fx-font-family: "Jua";
-    -fx-font-size: 32;
-    -fx-font-weight: bold;
-}
-
-.paymentETC_SelectLockerBtn {
+.paymentETC_SelectLockerBtn_1 {
     -fx-font-family: "Jua";
     -fx-font-size: 18;
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
+    -fx-translate-x: 350;
+}
+
+.paymentETC_LockerNum, .paymentETC_LockerPeriod, .paymentETC_LockerPrice {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-translate-x: 50;
+}
+
+.paymentETC_SelectLockerBtn_2 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-translate-x: -10;
+}
+
+.paymentETC_SelectLockerBtn_1:hover, .paymentETC_SelectLockerBtn_2:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.paymentETC_SelectLockerBtn_1:pressed, .paymentETC_SelectLockerBtn_2:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+/* Radio Button */
+.paymentETC_NoSelectClothes {
+    -fx-translate-x: 240;
+    -fx-translate-y: 30;
+
+}
+
+.paymentETC_GridPane {
+    -fx-font-family: "Jua";
+    -fx-translate-x: 80;
+    -fx-translate-y: 50;
+}
+
+.paymentETC_NoSelectClothes {
+    -fx-font-family: "Jua";
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+}
+
+.paymentETC_Days_Clothes_radioBtn_1, .paymentETC_Clothes_radioBtn_Text_1,
+.paymentETC_Days_Clothes_radioBtn_2, .paymentETC_Clothes_radioBtn_Text_2,
+.paymentETC_Days_Clothes_radioBtn_3, .paymentETC_Clothes_radioBtn_Text_3,
+.paymentETC_Days_Clothes_radioBtn_4, .paymentETC_Clothes_radioBtn_Text_4 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+}
+
+.paymentETC_Days_Clothes_radioBtn_1, .paymentETC_Days_Clothes_radioBtn_2,
+.paymentETC_Days_Clothes_radioBtn_3, .paymentETC_Days_Clothes_radioBtn_4 {
+    -fx-text-fill: #9747FF;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.paymentETC_NoSelectClothes .radio,
+.paymentETC_Days_Clothes_radioBtn_1 .radio,
+.paymentETC_Days_Clothes_radioBtn_2 .radio,
+.paymentETC_Days_Clothes_radioBtn_3 .radio,
+.paymentETC_Days_Clothes_radioBtn_4 .radio {
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.paymentETC_NoSelectClothes .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_1 .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_2 .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_3 .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_4 .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.paymentETC_NoSelectClothes:selected .radio,
+.paymentETC_Days_Clothes_radioBtn_1:selected .radio,
+.paymentETC_Days_Clothes_radioBtn_2:selected .radio,
+.paymentETC_Days_Clothes_radioBtn_3:selected .radio,
+.paymentETC_Days_Clothes_radioBtn_4:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.paymentETC_NoSelectClothes:selected .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_1:selected .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_2:selected .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_3:selected .radio:hover,
+.paymentETC_Days_Clothes_radioBtn_4:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.paymentETC_NoSelectClothes:selected .dot,
+.paymentETC_Days_Clothes_radioBtn_1:selected .dot,
+.paymentETC_Days_Clothes_radioBtn_2:selected .dot,
+.paymentETC_Days_Clothes_radioBtn_3:selected .dot,
+.paymentETC_Days_Clothes_radioBtn_4:selected .dot {
+    -fx-background-color: #FFFFFF;
 }
 
 /* Cart */

@@ -20,7 +20,7 @@ AnchorPane {
     -fx-background-color: #F4F5F7;
     -fx-border-color: black;
     -fx-border-width: 1;
-    -fx-pref-height: 100;
+    -fx-pref-height: 180;
     -fx-translate-y: -50;
 }
 
