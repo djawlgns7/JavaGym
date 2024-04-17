@@ -93,10 +93,10 @@ public class HiddenController implements Initializable {
                     timer = 0;
                 }else if (event.getCode() == KeyCode.Z) {
                     timer += 100;
-                    rotateBlock(0);
+                    //rotateBlock(0);
                 }else if (event.getCode() == KeyCode.X) {
                     timer += 100;
-                    rotateBlock(1);
+                    //rotateBlock(1);
                 }else if (event.getCode() == KeyCode.SHIFT) {
                     if(canStore) {
                         timer = 1000;
@@ -114,6 +114,7 @@ public class HiddenController implements Initializable {
             while(isplaying) {
                 if (timer == 0) {
                     if (currentBlock == null) {
+                        clearFullLines();
                         currentBlockNum = nextBlockNum;
                         setNextBlock();
                         setCurrentBlock(currentBlockNum);
@@ -148,6 +149,36 @@ public class HiddenController implements Initializable {
                     }
                     isplaying = false;
                 });
+                return;
+            }
+        }
+    }
+
+    public void clearFullLines(){
+        List<Integer> fullLines = new ArrayList<>();
+        for(int i = 0; i < 20; i++){
+            boolean isFull = true;
+            for(int j = 0; j < 10; j++){
+                if(tetrisBlocks[i][j].getStyleClass().contains("empty")){
+                    isFull = false;
+                }
+            }
+            if(isFull){
+                fullLines.add(i);
+            }
+        }
+
+        for(int i : fullLines){
+            for(int j = 0; j < 10; j++){
+                for(int k = i; k < 20; k++){
+                    Label tempLabel = tetrisBlocks[k + 1][j];
+                    String downText = tetrisBlocks[k][j].getText();
+                    String upText = tetrisBlocks[k + 1][j].getText();
+                    tetrisBlocks[k + 1][j] = tetrisBlocks[k][j];
+                    tetrisBlocks[k][j] = tempLabel;
+                    tetrisBlocks[k][j].setText(downText);
+                    tetrisBlocks[k + 1][j].setText(upText);
+                }
             }
         }
     }
@@ -162,8 +193,8 @@ public class HiddenController implements Initializable {
         setCurrentColor(-1);
         for(int i = 0; i < 4; i++){
             String[] index = currentBlock[i].getText().split(",");
-            int yIndex = Integer.parseInt(index[0]) + rightMove;
-            int xIndex = Integer.parseInt(index[1]) - downMove;
+            int yIndex = Integer.parseInt(index[0]) - downMove;
+            int xIndex = Integer.parseInt(index[1]) + rightMove;
             if(yIndex < 0 || xIndex < 0 || xIndex > 9 || !tetrisBlocks[yIndex][xIndex].getStyleClass().contains("empty")){
                 setCurrentColor(currentBlockNum);
                 if(downMove >= 1) {
@@ -186,36 +217,46 @@ public class HiddenController implements Initializable {
     }
 
     // 0: 좌회전 1: 우회전
-    public boolean rotateBlock(int direction){
-        if(currentBlock == null){
-            return false;
-        }
-
-        // 좌회전
-        if(direction == 0) {
-            switch (currentBlockNum) {
-                // iMino
-                case 0:
-
-                    break;
-                // oMino
-                case 1:
-                    if (currentBlockNum == 1) {
-                        return false;
-                    }
-                    break;
-                // else
-                default:
-                    break;
-            }
-        }else{
-
-        }
-
-
-
-        return false;
-    }
+//    public boolean rotateBlock(int direction){
+//        if(currentBlock == null){
+//            return false;
+//        }
+//
+//        // oMino
+//        if(currentBlockNum == 1){
+//            return false;
+//        }
+//
+//        Label[] nextPositions = new Label[4];
+//
+//        // iMino
+//        if(currentBlockNum == 0){
+//            if(tetrisBlocks[centerYIndex][centerXIndex + 1].getStyleClass().contains("empty")){
+//                nextPositions[0] = tetrisBlocks[centerYIndex][centerXIndex - 1];
+//                nextPositions[1] = tetrisBlocks[centerYIndex][centerXIndex];
+//                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex + 1];
+//                nextPositions[3] = tetrisBlocks[centerYIndex][centerXIndex + 2];
+//            }else{
+//                nextPositions[0] = tetrisBlocks[centerYIndex + 2][centerXIndex];
+//                nextPositions[1] = tetrisBlocks[centerYIndex + 1][centerXIndex];
+//                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex];
+//                nextPositions[3] = tetrisBlocks[centerYIndex - 1][centerXIndex];
+//            }
+//        }
+//
+//        // 좌회전
+//        if(direction == 0) {
+//
+//            }
+//        // 우회전
+//        }else{
+//
+//        }
+//
+//
+//
+//        return false;
+//    }
 
     public void storeBlock(){
         if(currentBlock == null){
