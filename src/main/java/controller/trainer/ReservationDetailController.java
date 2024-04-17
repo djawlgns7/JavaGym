@@ -43,6 +43,11 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void updateReservation(ActionEvent event) throws IOException {
+        if(isEmptyAnyField(rTimeField)) {
+            showDialogErrorMessage("emptyAnyField");
+            return;
+        }
+
         //수정 내용이 없을 경우
         if(isSameReservationTime() && isSameReservationDate()) {
             showDialogErrorMessage("isSame");
@@ -121,6 +126,7 @@ public class ReservationDetailController implements Initializable {
 
     private boolean isSameReservationTime() {
         Integer inputPTtime = Integer.valueOf(rTimeField.getText());
+
         Integer currentPTtime = currentReservation.getReservationTime();
         return inputPTtime.equals(currentPTtime);
     }
