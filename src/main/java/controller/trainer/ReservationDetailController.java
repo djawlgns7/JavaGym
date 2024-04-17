@@ -55,7 +55,19 @@ public class ReservationDetailController implements Initializable {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
             LocalDate localrDate = rDate.toLocalDate();
-            Integer rTime = Integer.valueOf(rTimeField.getText().trim());
+            String rTimeInput = rTimeField.getText().trim();
+
+            if (!rTimeInput.matches("\\d+")) {
+                showDialogErrorMessage("notTime");
+                return;
+            }
+
+            Integer rTime = Integer.valueOf(rTimeInput);
+
+            if(rTime < 8 || rTime > 19) {
+                showDialogErrorMessage("invalidTime");
+                return;
+            }
 
             if (!isValidTimeForTrainer(currentTrainer, rTime)) {
                 showDialogErrorMessage("wrongTimeForTrainer");
@@ -119,22 +131,12 @@ public class ReservationDetailController implements Initializable {
             Reservation reservation = currentReservation;
             Trainer trainer = currentTrainer;
 
-            TextFormatter<String> rTimeFormatter = new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.matches("([01]?[0-9]|2[0-3])")) {
-                    return change;
-                }
-                return null;
-            });
 
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
-            rTimeField.setText(String.format("%02d:00", reservation.getReservationTime()));
-
             memberNameLabel.setText(reservation.getMemberName());
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
-
         }
 
     }
