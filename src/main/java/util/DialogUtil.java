@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static thread.InactivityManager.registerDialog;
+import static util.AnimationUtil.*;
 import static util.PageUtil.*;
 
 public class DialogUtil {
@@ -35,6 +36,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
     }
 
@@ -55,6 +57,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
     }
 
@@ -75,6 +78,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
     }
 
@@ -95,6 +99,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
         movePage(event, viewPath);
     }
@@ -116,6 +121,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
         movePageTimerOff(event, viewPath);
     }
@@ -138,6 +144,7 @@ public class DialogUtil {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
+        applyFadeInDialog(vbox);
         dialog.showAndWait();
         moveToMainPage(event);
     }
@@ -155,6 +162,7 @@ public class DialogUtil {
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.NO);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
+        applyFadeInDialog(dialogPane);
         return dialog.showAndWait();
     }
 }
