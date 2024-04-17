@@ -3,56 +3,50 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationInfoController">
 
     <items>
-
         <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
             <Label text="예약 등록" />
 
-
             <HBox alignment="CENTER">
-                <TextField fx:id="numField" promptText="회원 번호" />
+                <TextField fx:id="numField" promptText="회원 번호" styleClass="reservationInfo_numInput"/>
             </HBox>
-
             <HBox alignment="CENTER">
-                <TextField fx:id="nameField" promptText="이름" />
+                <TextField fx:id="nameField" promptText="이름" styleClass="reservationInfo_nameInput"/>
             </HBox>
-
             <HBox alignment="CENTER">
-                <TextField fx:id="phoneField" promptText="전화번호" styleClass="phoneInput"/>
+                <TextField fx:id="phoneField" promptText="전화번호" styleClass="reservationInfo_phoneInput"/>
             </HBox>
-
             <HBox alignment="CENTER">
-                <Label>예약 일자</Label>
-                <DatePicker fx:id="rDatePicker"/>
+                <DatePicker fx:id="rDatePicker" promptText="예약 일자" styleClass="reservationInfo_DatePicker"/>
             </HBox>
-
             <HBox alignment="CENTER" spacing="10">
-                <Label>예약 시간</Label>
-                <TextField fx:id="rtimeField" />
+                <TextField fx:id="rtimeField" promptText="예약 시간" styleClass="reservationInfo_timeInput"/>
             </HBox>
 
-            <HBox alignment="CENTER" spacing="10">
-                <Button text="예약 등록" onAction="#addReservationInfo"/>
-                <Button text="회원 정보" onAction="#showUserNum" />
-                <Button text="로그아웃" onAction="#logout"/>
+            <HBox alignment="CENTER" spacing="10" >
+                <Button text="예약 등록" onAction="#addReservationInfo" styleClass="reservationInfo_Btn" />
+                <Button text="회원 정보" onAction="#showUserNum" styleClass="reservationInfo_Btn" />
+                <Button text="로그아웃" onAction="#logout" styleClass="reservationInfo_Btn" />
             </HBox>
         </VBox>
 
         <!-- 예약 목록 영역 -->
         <VBox fx:id="listArea" spacing="20" alignment="CENTER">
-            <Label text="예약 정보" />
+            <Label text="예약 정보" styleClass="rInfo"/>
 
             <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
                 <TextField fx:id="searchMemberNameField" promptText="회원 이름" onAction="#searchMember" styleClass="memberInfo_searchInput"/>
-                <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_Btn"/>
+                <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_Search_Btn"/>
             </HBox>
 
-            <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" editable="true" prefHeight="550.0">
+            <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" editable="true" prefHeight="450.0">
                 <columns>
                     <TableColumn fx:id="selectCol" text="선택">
                         <cellValueFactory>
@@ -67,7 +61,7 @@
                 </columns>
             </TableView>
             <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Button onAction="#cancelReservation" text="예약 취소" />
+                <Button onAction="#cancelReservation" text="예약 취소" styleClass="reservationInfo_Cancel_Btn"/>
             </HBox>
         </VBox>
     </items>
