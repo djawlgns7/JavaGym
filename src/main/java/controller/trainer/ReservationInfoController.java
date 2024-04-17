@@ -163,9 +163,6 @@ public class ReservationInfoController implements Initializable {
         numField.setTextFormatter(memberNumFormatter);
         phoneField.setTextFormatter(phoneFormatter);
 
-        rtimeField.setTextFormatter(rtimeFormatter);
-
-
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
