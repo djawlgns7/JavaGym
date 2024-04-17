@@ -20,6 +20,7 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
+;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,12 +34,11 @@ import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static domain.trainer.SelectedReservation.currentReservation;
+import static domain.trainer.SelectedReservation.currentReservation
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
-import static util.PageUtil.movePageTimerOff;
-import static util.PageUtil.moveToMainPage;
+import static util.PageUtil.*;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
@@ -261,7 +261,7 @@ public class ReservationInfoController implements Initializable {
 
         TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadmemberInfo(table, memberRepository);
+        loadMemberInfo(table, memberRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
