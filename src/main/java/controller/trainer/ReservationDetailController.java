@@ -1,7 +1,6 @@
 package controller.trainer;
 
 import domain.trainer.Reservation;
-import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,13 +37,13 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void updateReservation(ActionEvent event) throws IOException {
-        if(isEmptyAnyField(rTimeField)) {
+        if (isEmptyAnyField(rTimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
 
         //수정 내용이 없을 경우
-        if(isSameReservationTime() && isSameReservationDate()) {
+        if (isSameReservationTime() && isSameReservationDate()) {
             showDialogErrorMessage("isSame");
             return;
         }
@@ -54,6 +53,7 @@ public class ReservationDetailController implements Initializable {
         if (response.isEmpty() || response.get() != ButtonType.OK) {
             return;
         }
+
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
@@ -92,7 +92,6 @@ public class ReservationDetailController implements Initializable {
                 if(!isSameReservationDate() && isSameReservationTime()) {
                     currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
                     reservationRepository.updateReservation(currentReservation);
-
                 }
 
                 //PT 시간만 변경, 날짜 동일
@@ -106,8 +105,6 @@ public class ReservationDetailController implements Initializable {
                     currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
                     currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
                     reservationRepository.updateReservation(currentReservation);
-
-
                 }
 
                 showDialogAndMovePageTimerOff("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
@@ -136,8 +133,6 @@ public class ReservationDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(currentReservation != null) {
             Reservation reservation = currentReservation;
-            Trainer trainer = currentTrainer;
-
 
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
             memberNameLabel.setText(reservation.getMemberName());
