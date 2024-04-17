@@ -34,7 +34,7 @@ import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static domain.trainer.SelectedReservation.currentReservation
+import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
