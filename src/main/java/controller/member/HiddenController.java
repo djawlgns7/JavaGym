@@ -217,46 +217,67 @@ public class HiddenController implements Initializable {
     }
 
     // 0: 좌회전 1: 우회전
-//    public boolean rotateBlock(int direction){
-//        if(currentBlock == null){
-//            return false;
-//        }
-//
-//        // oMino
-//        if(currentBlockNum == 1){
-//            return false;
-//        }
-//
-//        Label[] nextPositions = new Label[4];
-//
-//        // iMino
-//        if(currentBlockNum == 0){
-//            if(tetrisBlocks[centerYIndex][centerXIndex + 1].getStyleClass().contains("empty")){
-//                nextPositions[0] = tetrisBlocks[centerYIndex][centerXIndex - 1];
-//                nextPositions[1] = tetrisBlocks[centerYIndex][centerXIndex];
-//                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex + 1];
-//                nextPositions[3] = tetrisBlocks[centerYIndex][centerXIndex + 2];
-//            }else{
-//                nextPositions[0] = tetrisBlocks[centerYIndex + 2][centerXIndex];
-//                nextPositions[1] = tetrisBlocks[centerYIndex + 1][centerXIndex];
-//                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex];
-//                nextPositions[3] = tetrisBlocks[centerYIndex - 1][centerXIndex];
-//            }
-//        }
-//
-//        // 좌회전
-//        if(direction == 0) {
-//
-//            }
-//        // 우회전
-//        }else{
-//
-//        }
-//
-//
-//
-//        return false;
-//    }
+    public boolean rotateBlock(int direction){
+        if(currentBlock == null){
+            return false;
+        }
+
+        // oMino
+        if(currentBlockNum == 1){
+            return false;
+        }
+
+        Label[] nextPositions = new Label[4];
+
+        // iMino
+        if(currentBlockNum == 0){
+            if(tetrisBlocks[centerYIndex][centerXIndex + 1].getStyleClass().contains("empty")){
+                nextPositions[0] = tetrisBlocks[centerYIndex][centerXIndex - 1];
+                nextPositions[1] = tetrisBlocks[centerYIndex][centerXIndex];
+                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex + 1];
+                nextPositions[3] = tetrisBlocks[centerYIndex][centerXIndex + 2];
+            }else{
+                nextPositions[0] = tetrisBlocks[centerYIndex + 2][centerXIndex];
+                nextPositions[1] = tetrisBlocks[centerYIndex + 1][centerXIndex];
+                nextPositions[2] = tetrisBlocks[centerYIndex][centerXIndex];
+                nextPositions[3] = tetrisBlocks[centerYIndex - 1][centerXIndex];
+            }
+        }
+
+        // zMino
+        if(currentBlockNum == 2){
+
+        }
+
+        // sMino
+        if(currentBlockNum == 3){
+
+        }
+
+        // 좌회전
+        if(direction == 0) {
+            switch(currentBlockNum){
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+            }
+        // 우회전
+        }else{
+            switch(currentBlockNum){
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+            }
+        }
+
+        return false;
+    }
 
     public void storeBlock(){
         if(currentBlock == null){
