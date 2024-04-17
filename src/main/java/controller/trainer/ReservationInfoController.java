@@ -232,7 +232,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> response = showDialogChoose("정말 선택하신 예약을 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("해당 예약을 취소하시겠습니까?");
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
             //선택한 예약 내역 모두 삭제
