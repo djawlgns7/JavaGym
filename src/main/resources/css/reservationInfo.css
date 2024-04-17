@@ -1,5 +1,12 @@
+/* @@@@정리 부탁합니다@@@ */
+
 .reservationInfo_title_1, .reservationInfo_title_2 {
     -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+Label {
+    -fx-font-size: 30;
     -fx-font-family: "Jua";
 }
 
@@ -14,6 +21,22 @@ TextField {
     -fx-border-style: solid;
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #999999;
+}
+
+DatePicker {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.reservationInfo_DatePicker {
+    -fx-background-color: #F4F5F7;
 }
 
 .reservationInfo_EntryBtn {
@@ -74,12 +97,50 @@ TextField {
 }
 
 /* ============== Button ============== */
+
 .reservationInfo_Btn {
     -fx-spacing: 50;
     -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 90;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
 }
 
-/* @@밑에서부터 필요 없는 부분 지울 것@@ */
+.reservationInfo_Search_Btn {
+    -fx-spacing: 50;
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+}
+
+.reservationInfo_Cancel_Btn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-translate-x: -20;
+    -fx-translate-y: -10;
+}
+
+.reservationInfo_Search_Btn:hover, .reservationInfo_Cancel_Btn:hover, .reservationInfo_Btn:hover {
+    -fx-background-color: #EA8ABE;
+    -fx-cursor: hand;
+}
+
+.rInfo {
+    -fx-translate-y: 10;
+}
+
 
 .addReservationBtn {
     -fx-background-color: #9747FF;
@@ -102,6 +163,7 @@ TextField {
 .addReservationBtn:hover, .goBackBtn2:hover {
     -fx-background-color: #EA8ABE;
 }
+
 
 /* ============== Table ============== */
 .nameColumn, .dateColumn, .timeColumn {
@@ -170,4 +232,3 @@ TextField {
 .table-view .column-header:descending .arrow-button .arrow {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
-

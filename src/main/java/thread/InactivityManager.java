@@ -1,6 +1,5 @@
 package thread;
 
-import domain.admin.SelectedAdmin;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
-import static domain.admin.SelectedAdmin.*;
+import static domain.admin.SelectedAdmin.currentAdmin;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 
@@ -69,7 +68,7 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> SoundUtil.play("toMainPage"));
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> setUpInactivitySound());
         KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
         KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
 
@@ -98,7 +97,7 @@ public class InactivityManager {
 
     private static void moveToMainScreen() {
 
-        if (currentTrainer != null || currentAdmin != null) {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
             return;
         }
 
@@ -139,12 +138,13 @@ public class InactivityManager {
             return;
         }
         Stage stage = (Stage) scene.getWindow();
+        SoundUtil.stop();
         stage.close();
     }
 
     public static void openTimerDialog() {
 
-        if (currentTrainer != null || currentAdmin != null) {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
             return;
         }
 
@@ -185,5 +185,13 @@ public class InactivityManager {
             closeDialogTimer = 1;
         });
         thread.start();
+    }
+
+    private static void setUpInactivitySound() {
+        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+            return;
+        }
+
+        SoundUtil.play("toMainPage");
     }
 }
