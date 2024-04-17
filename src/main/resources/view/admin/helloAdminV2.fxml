@@ -75,6 +75,7 @@
                                         </Button>
                                         <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
                                         <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
+                                        <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="membersTable" prefHeight="550.0" editable="true">
@@ -95,9 +96,8 @@
                                     </TableView>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_subBtn">
-                                        <Button text="삭제" onAction="#deleteMembers"/>
                                         <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
-                                        <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
+                                        <Button text="삭제" onAction="#deleteMembers" styleClass="memberInfo_deleteBtn"/>
                                     </HBox>
                                 </VBox>
                             </items>
@@ -182,6 +182,7 @@
                                         </Button>
                                         <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
                                         <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
+                                        <Button text="새로고침" onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="trainerTable" prefHeight="550.0" editable="true">
@@ -202,8 +203,7 @@
                                     </TableView>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_subBtn">
-                                        <Button text="삭제" onAction="#deleteTrainers"/>
-                                        <Button text="새로고침" onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn"/>
+                                        <Button text="삭제" onAction="#deleteTrainers" styleClass="trainerInfo_deleteBtn"/>
                                     </HBox>
                                 </VBox>
                             </items>
