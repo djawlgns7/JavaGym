@@ -257,7 +257,7 @@ public class ReservationInfoController implements Initializable {
 
         TableView<UsingLocker> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadmemberInfo(table, memberRepository);
+        loadMemberInfo(table, memberRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
