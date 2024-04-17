@@ -124,7 +124,7 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.signUp_addMemberBtn:hover, .signUp_CallIcon:hover {
+.signUp_addMemberBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
