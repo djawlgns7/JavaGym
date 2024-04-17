@@ -1,7 +1,6 @@
 package service;
 
 import domain.admin.Admin;
-import domain.admin.SelectedAdmin;
 import domain.member.Member;
 import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
@@ -14,7 +13,8 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
-import static domain.admin.SelectedAdmin.*;
+import static domain.admin.SelectedAdmin.currentAdmin;
+import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.showDialogErrorMessage;
 import static util.PageUtil.*;
 
@@ -45,8 +45,9 @@ public class AdminService {
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            currentAdmin = admin;
+            currentMember = null;
             movePageTimerOff(event, "/view/admin/helloAdminV2");
+            currentAdmin = new Admin();
         } else {
             showDialogErrorMessage("adminLoginFail");
         }

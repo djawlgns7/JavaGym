@@ -7,6 +7,7 @@ import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -22,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static controller.payment.PaymentController.basket;
-import static controller.payment.PaymentController.removeItem;
+import static controller.payment.PaymentController.*;
 import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.showDialog;
 import static util.MemberUtil.getTrainerNumForMember;
@@ -37,16 +37,17 @@ public class SelectLockerController implements Initializable {
     @FXML
     private HBox lockerArea;
     @FXML
-    Label selectedLockerNum, lockerAreaHeader, nextButton, previousButton;
+    Label selectedLockerNum, lockerAreaHeader;
+    @FXML
+    Button nextButton, previousButton;
     @FXML
     RadioButton noSelectLockerButton, locker30Days, locker90Days, locker180Days, locker360Days;
 
     Member member;
     Trainer trainer;
-    List<Label> lockers;
+    List<Button> lockers;
     List<UsingLocker> usingLockers;
     ToggleGroup lockerPeriodGroup;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,7 +66,7 @@ public class SelectLockerController implements Initializable {
 
             makeLockerList();
             makeLockerArea(1);
-            makeOnclickListner();
+            makeOnclickListener();
 
             makeLockerArea(1);
 
@@ -85,7 +86,7 @@ public class SelectLockerController implements Initializable {
 
             makeLockerList();
             makeLockerArea(1);
-            makeOnclickListner();
+            makeOnclickListener();
 
             makeLockerArea(1);
 
@@ -98,7 +99,7 @@ public class SelectLockerController implements Initializable {
     public void makeLockerList(){
         for(int i = 0; i < 200; i++){
             int lockerNum = lockers.size() + 1;
-            Label newLocker = new Label(String.valueOf(lockerNum));
+            Button newLocker = new Button(String.valueOf(lockerNum));
             lockers.add(newLocker);
             newLocker.getStyleClass().add("locker");
             newLocker.getStyleClass().add("unselectedLocker");
@@ -134,7 +135,7 @@ public class SelectLockerController implements Initializable {
                 }
             }else{
                 for(int j = 0; j < 10; j++) {
-                    Label newLocker = lockers.get(startNum);
+                    Button newLocker = lockers.get(startNum);
                     newRow.getChildren().add(newLocker);
                     startNum++;
                 }
@@ -143,14 +144,14 @@ public class SelectLockerController implements Initializable {
     }
 
     //락커를 선택하는 이벤트 생성
-    public void makeOnclickListner(){
+    public void makeOnclickListener(){
         for(int i = 0; i < lockers.size(); i++){
-            Label currentLocker = lockers.get(i);
-            if(currentLocker.getStyleClass().contains("unselectedLocker")){
+            Button currentLocker = lockers.get(i);
+            if(!currentLocker.getStyleClass().contains("occupiedLocker")){
                 currentLocker.setOnMouseClicked(mouseEvent -> {
                     String selectedLockerNumText = selectedLockerNum.getText();
 
-                    if(selectedLockerNumText.equals("")){
+                    if(selectedLockerNumText.isEmpty()){
                         currentLocker.getStyleClass().remove("unselectedLocker");
                         currentLocker.getStyleClass().add("selectedLocker");
                         selectedLockerNum.setText(currentLocker.getText());
@@ -193,7 +194,7 @@ public class SelectLockerController implements Initializable {
     public void confirmButtonClicked(ActionEvent event) throws IOException {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
-        if(selectedLockerNumberText.equals("")){
+        if(selectedLockerNumberText.isEmpty()){
             showDialog("락커 번호를 선택하지 않았습니다");
             return;
         }
@@ -208,6 +209,7 @@ public class SelectLockerController implements Initializable {
 
         if (selectedRadio.getText().equals("선택 안 함")) {
             removeItem(basket, Locker.class);
+            selectLocker = false;
             PaymentTab.getInstance().setSelectedTabIndex(2);
             movePage(event, "/view/member/payment");
         } else {
@@ -222,6 +224,7 @@ public class SelectLockerController implements Initializable {
             basket.add(new Locker(selectedLockerPeriod, selectedLockerNumber, selectedLockerPriceNum));
 
             PaymentTab.getInstance().setSelectedTabIndex(2);
+            selectLocker = true;
             movePage(event, "/view/member/payment");
         }
     }

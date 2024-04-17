@@ -1,6 +1,6 @@
 package controller.trainer;
 
-import domain.Item;
+
 import domain.member.Member;
 import domain.member.UsingLocker;
 import domain.trainer.*;
@@ -20,11 +20,11 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
+import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,22 +33,19 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
-import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static domain.trainer.SelectedReservation.currentReservation;
 
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
-import static util.PageUtil.movePage;
-import static util.PageUtil.movePageTimerOff;
+import static util.PageUtil.*;
 import static util.ValidateUtil.*;
 
 public class ReservationInfoController implements Initializable {
 
-    private TrainerRepository trainerRepository = new TrainerRepository();
-    private ReservationRepository reservationRepository = new ReservationRepository();
-    private MemberRepository memberRepository = new MemberRepository();
+    private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
     @FXML
     private TextField numField, nameField, phoneField, rtimeField, searchMemberNameField;
@@ -135,11 +132,13 @@ public class ReservationInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
+
         columnBindingReservation(memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol);
         selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
+
         TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0,8}")) {
@@ -215,9 +214,10 @@ public class ReservationInfoController implements Initializable {
         ObservableList<Reservation> observableList = FXCollections.observableArrayList(reservations);
         reservationTable.setItems(observableList);
     }
+
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        movePage(event, "/view/member/memberLogin");
+        moveToMainPage(event);
     }
 
     @FXML
@@ -259,9 +259,9 @@ public class ReservationInfoController implements Initializable {
         Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
-        TableView<Member> table = new TableView<>();
+        TableView<UsingLocker> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadmemberInfo(table, memberRepository);
+        loadMemberInfo(table, memberRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();

@@ -6,10 +6,10 @@ import domain.reservation.ReservationInformation;
 import domain.trainer.Trainer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,6 +19,7 @@ import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
 import util.DialogUtil;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.*;
+import static util.DialogUtil.showDialogAndMoveMainPage;
+import static util.DialogUtil.showDialogChoose;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
@@ -42,14 +45,19 @@ public class ReservationController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final SmsService smsService = new SmsService();
 
+    private boolean isFirstSelectPtTicket = false;
+    private boolean isFirstSelectReservation = false;
+
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
     @FXML
     private HBox selectedReservationList;
     @FXML
-    private Label[] days = new Label[71], timeButtons = new Label[6];
+    private Button[] days = new Button[71], timeButtons = new Button[6];
     @FXML
-    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, prevPage, nextPage, ticketSelection, selectedReaservationNum, minusBtn, plusBtn;
+    private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, ticketSelection, selectedReservationNum;
+    @FXML
+    Button prevPage, nextPage, minusBtn, plusBtn;
     @FXML
     private ImageView imageView;
 
@@ -66,6 +74,9 @@ public class ReservationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (currentMember != null) {
+
+            SoundUtil.play("selectPt");
+
             member = currentMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
@@ -110,7 +121,7 @@ public class ReservationController implements Initializable {
         for(int i = 0; i < 10; i++) {
             for(int j = 1; j <= 7; j++) {
                 int index = 7*i + j;
-                days[index] = new Label(String.valueOf(index));
+                days[index] = new Button(String.valueOf(index));
 
                 if(j == 1){
                     days[index].getStyleClass().add("sundayLabel");
@@ -128,9 +139,9 @@ public class ReservationController implements Initializable {
 
         for(int i = 0; i < 6; i++) {
             if(adder + i < 10) {
-                timeButtons[i] = new Label("0" + (adder + i) + ":00");
+                timeButtons[i] = new Button("0" + (adder + i) + ":00");
             }else{
-                timeButtons[i] = new Label((adder + i) + ":00");
+                timeButtons[i] = new Button((adder + i) + ":00");
             }
 
             timeButtons[i].setId(i + adder + "");
@@ -217,9 +228,15 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            DialogUtil.showDialog("더 이상 선택할 수 없습니다");
+                            showDialog("더 이상 선택할 수 없습니다");
                         //추가 가능한 횟수가 있을 경우
                         }else {
+
+                            if (!isFirstSelectReservation) {
+                                SoundUtil.play("cancelReservation");
+                                isFirstSelectReservation = true;
+                            }
+
                             timeButtons[finalI].getStyleClass().add("selectedTimeButton");
                             ReservationInformation newReservation = new ReservationInformation();
                             newReservation.setDDay(day);
@@ -263,6 +280,10 @@ public class ReservationController implements Initializable {
         int finalI = index;
         int finalDayIndex = dayIndex;
         days[dayIndex].setOnMouseClicked(Event ->{
+            if (getSelectedPTTicket() == 0) {
+                showDialog("먼저 사용하실 PT 이용권을 선택해 주세요.");
+                return;
+            }
             days[daySelectedIndex].getStyleClass().remove("selected");
             addButtonEvent(reservations, finalI, finalDayIndex);
             days[finalDayIndex].getStyleClass().add("selected");
@@ -275,13 +296,13 @@ public class ReservationController implements Initializable {
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
         if(getSelectedPTTicket() == 0){
-            DialogUtil.showDialog("한 개 이상의 시간대를 선택해 주세요");
+            showDialog("한 개 이상의 시간대를 선택해 주세요");
             return;
         }
 
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            DialogUtil.showDialog("선택한 예약권의 수 만큼 예약을 해주세요");
+            showDialog("선택한 예약권의 수 만큼 예약을 해주세요");
             return;
         }
 
@@ -332,6 +353,12 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void ticketPlus(){
+
+        if (!isFirstSelectPtTicket) {
+            SoundUtil.play("selectDateAndTime");
+            isFirstSelectPtTicket = true;
+        }
+
         if(getSelectedPTTicket() == 0){
             minusBtn.getStyleClass().remove("disabled");
             minusBtn.setOnMouseClicked(Event -> ticketMinus());
@@ -575,7 +602,7 @@ public class ReservationController implements Initializable {
     @FXML
     public void setSelectedReservationNum(){
         int reservationNum = selectedReservations.size();
-        selectedReaservationNum.setText("총" + reservationNum + "회");
+        selectedReservationNum.setText("총" + reservationNum + "회");
     }
 
     @FXML
