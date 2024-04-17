@@ -25,9 +25,9 @@ public class HiddenController implements Initializable {
     Label[][] tetrisBlocks = new Label[24][10];
     Label[] currentBlock = null;
     List<Integer> nextBlockOrder = new ArrayList<>();
-    int currentBlockNum = -1, nextBlockNum = -1, currentBlockDir = 0;
+    int currentBlockNum = -1, nextBlockNum = -1, storedBlockNum = -1, centerXIndex, centerYIndex;
     int timer = 0;
-    boolean isplaying = false;
+    boolean isplaying = false, canStore = true;
 
     Thread play;
 
@@ -78,25 +78,30 @@ public class HiddenController implements Initializable {
 
             Scene scene = tetrisArea.getScene();
             scene.setOnKeyPressed(event -> {
-                if (event.getCode() == KeyCode.UP) {
-
-                } else if (event.getCode() == KeyCode.DOWN) {
-
+                if (event.getCode() == KeyCode.DOWN) {
+                    timer = 1000;
+                    moveBlock(0, 1);
+                    timer = 1000;
                 } else if (event.getCode() == KeyCode.LEFT) {
-
+                    moveBlock(-1, 0);
                 } else if (event.getCode() == KeyCode.RIGHT) {
-
+                    moveBlock(1, 0);
                 }else if (event.getCode() == KeyCode.SPACE) {
                     timer = 1000;
                     while(!moveBlock(0, 1)){}
                     currentBlock = null;
                     timer = 0;
                 }else if (event.getCode() == KeyCode.Z) {
-
+                    timer += 100;
+                    rotateBlock(0);
                 }else if (event.getCode() == KeyCode.X) {
-
+                    timer += 100;
+                    rotateBlock(1);
                 }else if (event.getCode() == KeyCode.SHIFT) {
-
+                    if(canStore) {
+                        timer = 1000;
+                        storeBlock();
+                    }
                 }
             });
 
@@ -109,7 +114,6 @@ public class HiddenController implements Initializable {
             while(isplaying) {
                 if (timer == 0) {
                     if (currentBlock == null) {
-
                         currentBlockNum = nextBlockNum;
                         setNextBlock();
                         setCurrentBlock(currentBlockNum);
@@ -117,6 +121,7 @@ public class HiddenController implements Initializable {
 
                     if (moveBlock(0, 1)) {
                         currentBlock = null;
+                        canStore = true;
                     }
                 }
 
@@ -161,7 +166,9 @@ public class HiddenController implements Initializable {
             int xIndex = Integer.parseInt(index[1]) - downMove;
             if(yIndex < 0 || xIndex < 0 || xIndex > 9 || !tetrisBlocks[yIndex][xIndex].getStyleClass().contains("empty")){
                 setCurrentColor(currentBlockNum);
-                check();
+                if(downMove >= 1) {
+                    check();
+                }
                 return true;
             }
             nextPosition[i] = tetrisBlocks[yIndex][xIndex];
@@ -171,9 +178,63 @@ public class HiddenController implements Initializable {
             currentBlock[i] = nextPosition[i];
         }
 
+        centerXIndex += rightMove;
+        centerYIndex -= downMove;
         setCurrentColor(currentBlockNum);
 
         return false;
+    }
+
+    // 0: 좌회전 1: 우회전
+    public boolean rotateBlock(int direction){
+        if(currentBlock == null){
+            return false;
+        }
+
+        // 좌회전
+        if(direction == 0) {
+            switch (currentBlockNum) {
+                // iMino
+                case 0:
+
+                    break;
+                // oMino
+                case 1:
+                    if (currentBlockNum == 1) {
+                        return false;
+                    }
+                    break;
+                // else
+                default:
+                    break;
+            }
+        }else{
+
+        }
+
+
+
+        return false;
+    }
+
+    public void storeBlock(){
+        if(currentBlock == null){
+            return;
+        }
+
+        if(storedBlockNum == -1){
+            storedBlockNum = currentBlockNum;
+            currentBlockNum = nextBlockNum;
+            setNextBlock();
+        }else{
+            int tempNum = storedBlockNum;
+            storedBlockNum = currentBlockNum;
+            currentBlockNum = tempNum;
+        }
+        setCurrentColor(-1);
+        setCurrentBlock(currentBlockNum);
+        canStore = false;
+        timer = 0;
     }
 
     public void setNextBlock(){
@@ -228,6 +289,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[20][4];
                 currentBlock[2] = tetrisBlocks[20][5];
                 currentBlock[3] = tetrisBlocks[20][6];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("iMino");
@@ -239,6 +302,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[21][5];
                 currentBlock[2] = tetrisBlocks[20][4];
                 currentBlock[3] = tetrisBlocks[20][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("oMino");
@@ -250,6 +315,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[21][4];
                 currentBlock[2] = tetrisBlocks[20][4];
                 currentBlock[3] = tetrisBlocks[20][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("zMino");
@@ -261,6 +328,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[20][4];
                 currentBlock[2] = tetrisBlocks[21][4];
                 currentBlock[3] = tetrisBlocks[21][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("sMino");
@@ -272,6 +341,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[20][3];
                 currentBlock[2] = tetrisBlocks[20][4];
                 currentBlock[3] = tetrisBlocks[20][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("jMino");
@@ -283,6 +354,8 @@ public class HiddenController implements Initializable {
                 currentBlock[1] = tetrisBlocks[20][3];
                 currentBlock[2] = tetrisBlocks[20][4];
                 currentBlock[3] = tetrisBlocks[20][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("lMino");
@@ -290,10 +363,12 @@ public class HiddenController implements Initializable {
                 break;
             case 6:
                 // T-Mino
-                currentBlock[0] = tetrisBlocks[20][4];
-                currentBlock[1] = tetrisBlocks[21][3];
-                currentBlock[2] = tetrisBlocks[21][4];
-                currentBlock[3] = tetrisBlocks[21][5];
+                currentBlock[0] = tetrisBlocks[21][4];
+                currentBlock[1] = tetrisBlocks[20][3];
+                currentBlock[2] = tetrisBlocks[20][4];
+                currentBlock[3] = tetrisBlocks[20][5];
+                centerYIndex = 20;
+                centerXIndex = 4;
                 for (int i = 0; i < 4; i++) {
                     currentBlock[i].getStyleClass().remove("empty");
                     currentBlock[i].getStyleClass().add("tMino");
