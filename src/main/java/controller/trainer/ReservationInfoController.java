@@ -20,7 +20,7 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-import static domain.trainer.SelectedReservation.currentReservation;
+;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +34,7 @@ import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-
+import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
@@ -76,8 +76,20 @@ public class ReservationInfoController implements Initializable {
         String memberName = nameField.getText().trim();
         String memberPhone = phoneField.getText().trim();
         Date rDate = Date.valueOf(rDatePicker.getValue());
-        Integer rTime = Integer.valueOf(rtimeField.getText().trim());
+        String rTimeInput = rtimeField.getText().trim();
         LocalDate localrDate = rDate.toLocalDate();
+
+        if (!rTimeInput.matches("\\d+")) {
+            showDialogErrorMessage("notTime");
+            return;
+        }
+
+        Integer rTime = Integer.valueOf(rTimeInput);
+
+        if(rTime < 8 || rTime > 19) {
+            showDialogErrorMessage("invalidTime");
+            return;
+        }
 
         if (!isValidTimeForTrainer(currentTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
@@ -135,13 +147,6 @@ public class ReservationInfoController implements Initializable {
             return null;
         });
 
-        TextFormatter<String> rtimeFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if(newText.matches("([01]?[0-9]|2[0-3])")) {
-                return change;
-            }
-            return null;
-        });
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
@@ -157,7 +162,9 @@ public class ReservationInfoController implements Initializable {
 
         numField.setTextFormatter(memberNumFormatter);
         phoneField.setTextFormatter(phoneFormatter);
+
         rtimeField.setTextFormatter(rtimeFormatter);
+
 
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
@@ -254,9 +261,9 @@ public class ReservationInfoController implements Initializable {
         Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
-        TableView<UsingLocker> table = new TableView<>();
+        TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadmemberInfo(table, memberRepository);
+        loadMemberInfo(table, memberRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();

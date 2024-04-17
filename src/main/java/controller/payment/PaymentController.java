@@ -22,7 +22,7 @@ import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AnimationUtil.animateTabFade;
+import static util.AnimationUtil.animateTab;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.MemberUtil.*;
@@ -131,7 +131,7 @@ public class PaymentController implements Initializable {
 
         tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab != null && oldTab != null) {
-                animateTabFade(newTab.getContent(), oldTab.getContent());
+                animateTab(newTab.getContent(), oldTab.getContent());
             }
         });
 

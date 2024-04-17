@@ -45,7 +45,7 @@ public class MemberDetailController implements Initializable {
     private TextField nameField, phoneField, emailField, lockerNumField;
 
     @FXML
-    private Spinner gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner;
+    private Spinner<Integer> gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner;
 
     @FXML
     private DatePicker birthPicker;
@@ -515,6 +515,30 @@ public class MemberDetailController implements Initializable {
             if (getLockerNum(currentMember.getNum()).equals(0)) {
                 lockerNumField.setText("0");
             }
+
+            gymTicketSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    gymTicketSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            ptTicketSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    ptTicketSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            lockerSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    lockerSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            clothesSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    clothesSpinner.getValueFactory().setValue(0);
+                }
+            });
         }
     }
 
