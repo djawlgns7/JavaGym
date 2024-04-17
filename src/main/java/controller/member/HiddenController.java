@@ -87,7 +87,8 @@ public class HiddenController implements Initializable {
                 } else if (event.getCode() == KeyCode.RIGHT) {
 
                 }else if (event.getCode() == KeyCode.SPACE) {
-                    while(!moveDown()){}
+                    timer = 1000;
+                    while(!moveBlock(0, 1)){}
                     currentBlock = null;
                     timer = 0;
                 }else if (event.getCode() == KeyCode.Z) {
@@ -114,7 +115,7 @@ public class HiddenController implements Initializable {
                         setCurrentBlock(currentBlockNum);
                     }
 
-                    if (moveDown()) {
+                    if (moveBlock(0, 1)) {
                         currentBlock = null;
                     }
                 }
@@ -146,7 +147,7 @@ public class HiddenController implements Initializable {
         }
     }
 
-    public boolean moveDown(){
+    public boolean moveBlock(int rightMove, int downMove){
         if(currentBlock == null){
             return false;
         }
@@ -156,9 +157,9 @@ public class HiddenController implements Initializable {
         setCurrentColor(-1);
         for(int i = 0; i < 4; i++){
             String[] index = currentBlock[i].getText().split(",");
-            int yIndex = Integer.parseInt(index[0]);
-            int xIndex = Integer.parseInt(index[1]);
-            if(--yIndex < 0 || !tetrisBlocks[yIndex][xIndex].getStyleClass().contains("empty")){
+            int yIndex = Integer.parseInt(index[0]) + rightMove;
+            int xIndex = Integer.parseInt(index[1]) - downMove;
+            if(yIndex < 0 || xIndex < 0 || xIndex > 9 || !tetrisBlocks[yIndex][xIndex].getStyleClass().contains("empty")){
                 setCurrentColor(currentBlockNum);
                 check();
                 return true;
