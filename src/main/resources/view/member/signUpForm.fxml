@@ -85,7 +85,7 @@
 
         <!-- 버튼 -->
         <HBox fx:id="signupButton" alignment="CENTER" spacing="10" styleClass="signUp_Btn">
-            <Button onAction="#signUp" text="회원 등록" styleClass="signUp_addMemberBtn"/>
+            <Button onAction="#signUp" text="회원 가입" styleClass="signUp_addMemberBtn"/>
         </HBox>
 
     </VBox>
