@@ -6,12 +6,12 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="700.0" prefWidth="1050.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationInfoController">
 
     <items>
-        <VBox fx:id="detailArea" spacing="20" alignment="CENTER">
+        <VBox fx:id="detailArea" spacing="50" alignment="CENTER">
             <Label text="예약 등록" />
 
             <HBox alignment="CENTER">
@@ -30,10 +30,10 @@
                 <TextField fx:id="rtimeField" promptText="예약 시간" styleClass="reservationInfo_timeInput"/>
             </HBox>
 
-            <HBox alignment="CENTER" spacing="10" >
+            <HBox alignment="CENTER" spacing="20" >
                 <Button text="예약 등록" onAction="#addReservationInfo" styleClass="reservationInfo_Btn" />
                 <Button text="회원 정보" onAction="#showUserNum" styleClass="reservationInfo_Btn" />
-                <Button text="로그아웃" onAction="#logout" styleClass="reservationInfo_Btn" />
+                <Button text="로그아웃" onAction="#logout" styleClass="reservationInfo_logoutBtn" />
             </HBox>
         </VBox>
 
@@ -46,18 +46,18 @@
                 <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_Search_Btn"/>
             </HBox>
 
-            <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" editable="true" prefHeight="450.0">
+            <TableView fx:id="reservationTable"  editable="true" prefHeight="550.0">
                 <columns>
                     <TableColumn fx:id="selectCol" text="선택">
                         <cellValueFactory>
                             <PropertyValueFactory property="selected" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn text="회원 번호" fx:id="memberNumCol" />
-                    <TableColumn text="회원 이름" fx:id="memberNameCol"/>
-                    <TableColumn text="회원 전화번호" fx:id="memberPhoneCol"/>
-                    <TableColumn text="예약 일자" fx:id="rDateCol"/>
-                    <TableColumn text="예약 시간" fx:id="rTimeCol"/>
+                    <TableColumn text="회원 번호" fx:id="memberNumCol" styleClass="reservationInfo_numCol"/>
+                    <TableColumn text="회원 이름" fx:id="memberNameCol" styleClass="reservationInfo_nameCol"/>
+                    <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" styleClass="reservationInfo_phoneCol"/>
+                    <TableColumn text="예약 일자" fx:id="rDateCol" styleClass="reservationInfo_rDateCol"/>
+                    <TableColumn text="예약 시간" fx:id="rTimeCol" styleClass="reservationInfo_rTimeCol"/>
                 </columns>
             </TableView>
             <HBox alignment="CENTER_RIGHT" spacing="10">

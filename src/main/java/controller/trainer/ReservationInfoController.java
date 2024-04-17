@@ -157,7 +157,6 @@ public class ReservationInfoController implements Initializable {
 
         numField.setTextFormatter(memberNumFormatter);
         phoneField.setTextFormatter(phoneFormatter);
-        rDatePicker.setValue(LocalDate.now());
         rtimeField.setTextFormatter(rtimeFormatter);
 
         reservationTable.setRowFactory(tv -> {
