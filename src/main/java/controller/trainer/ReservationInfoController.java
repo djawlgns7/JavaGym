@@ -20,7 +20,7 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-import static domain.trainer.SelectedReservation.currentReservation;
+;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +34,7 @@ import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-
+import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
@@ -259,7 +259,7 @@ public class ReservationInfoController implements Initializable {
         Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
-        TableView<UsingLocker> table = new TableView<>();
+        TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
         loadMemberInfo(table, memberRepository);
 
