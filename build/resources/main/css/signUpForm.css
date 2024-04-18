@@ -69,17 +69,17 @@ AnchorPane {
 }
 
 /* ComboBox - List Cell */
-.combo-box-popup .list-cell {
+.signUp_emailComboBox .combo-box-popup .list-cell {
     -fx-background-color: white;
     -fx-text-fill: black;
 }
 
-.combo-box-popup .list-cell:filled:hover {
+.signUp_emailComboBox .combo-box-popup .list-cell:filled:hover {
     -fx-background-color: #C4A3FF;
     -fx-text-fill: white;
 }
 
-.combo-box-popup .list-cell:filled:selected {
+.signUp_emailComboBox .combo-box-popup .list-cell:filled:selected {
     -fx-background-color: #DABDFF;
     -fx-text-fill: white;
 }
@@ -150,9 +150,9 @@ AnchorPane {
 .signUp_SendBtn, .signUp_CheckBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 12;
+    -fx-font-size: 14;
     -fx-pref-width: 50;
-    -fx-pref-height: 15;
+    -fx-pref-height: 35;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
 }

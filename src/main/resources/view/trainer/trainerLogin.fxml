@@ -10,24 +10,24 @@
 
 <?import javafx.scene.image.ImageView?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/trainerLogin.css"
-            fx:controller="controller.trainer.TrainerLoginController" prefHeight="800" prefWidth="550" >
-    <VBox alignment="CENTER" prefHeight="600" prefWidth="450" spacing="20" layoutX="48" layoutY="100" styleClass="container">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/common.css"
+            fx:controller="controller.trainer.TrainerLoginController" prefHeight="1000" prefWidth="650" >
+    <VBox alignment="CENTER" prefHeight="1000" prefWidth="650" spacing="40" >
 
-        <Label text="JAVA GYM" styleClass="login_title_label" layoutX="100" layoutY="100">
-            <font>
-                <Font name="Anton-Regular"/>
-            </font>
-        </Label>
-        <ImageView fx:id="profileImage" fitHeight="200" fitWidth="200" preserveRatio="true" />
+        <Label text="JAVA GYM" styleClass="login_title_label" />
+
+        <!-- 자바짐 서브 타이틀 -->
+        <Label text="트레이너 페이지" styleClass="trainerLogin_subTitle" />
+
+        <ImageView fx:id="profileImage" fitHeight="300" fitWidth="300" preserveRatio="true" />
 
         <VBox alignment="CENTER" spacing="30">
             <HBox alignment="CENTER" spacing="40">
-                <TextField fx:id="idField" promptText="트레이너 아이디" />
+                <TextField fx:id="idField" promptText="트레이너 아이디" styleClass="trainerLogin_idInput"/>
             </HBox>
 
             <HBox alignment="CENTER" spacing="20">
-                <PasswordField fx:id="passwordField" onAction="#login" promptText="트레이너 비밀번호"/>
+                <PasswordField fx:id="passwordField" onAction="#login" promptText="트레이너 비밀번호" styleClass="trainerLogin_passwordInput" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="20" styleClass="Login_page_Btn">
