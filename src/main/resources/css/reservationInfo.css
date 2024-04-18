@@ -44,6 +44,14 @@ Label {
     -fx-border-style: solid;
 }
 
+.reservationInfo_DatePicker .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
 .reservationInfo_chooseCol {
     -fx-pref-width: 60;
     -fx-pref-height: 30;
