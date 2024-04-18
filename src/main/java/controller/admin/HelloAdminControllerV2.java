@@ -262,6 +262,7 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
+        AdminTab.getInstance().setSelectedTabIndex(0); // 추가
         currentAdmin = null;
         moveToMainPage(event);
     }
