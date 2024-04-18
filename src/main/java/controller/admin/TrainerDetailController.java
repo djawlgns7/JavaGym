@@ -14,12 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
+import org.mindrot.jbcrypt.BCrypt;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
+import service.SmsService;
 
 import java.io.*;
 import java.net.URL;
@@ -32,6 +33,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.trainer.SelectedTrainer.currentTrainer;
+import static service.SmsService.getRandomPassword;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.PageUtil.*;
@@ -68,6 +70,7 @@ public class TrainerDetailController implements Initializable {
 
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private void updateTrainer(ActionEvent event) throws IOException {
@@ -274,6 +277,21 @@ public class TrainerDetailController implements Initializable {
             imageView.setImage(new Image(defaultImagePath));
 
             updatedImagePath = getClass().getResource("/image/femaleTrainer.png").getFile();
+        }
+    }
+
+    @FXML
+    private void resetPassword() {
+        Optional<ButtonType> result = showDialogChoose("비밀번호를 초기화하시겠습니까?");
+
+        if (result.get() == ButtonType.OK) {
+            String resetPassword = currentTrainer.getId() + getRandomPassword();
+            String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
+
+            smsService.sendTrainerInitPassword("010" + currentTrainer.getPhone(), resetPassword);
+            trainerRepository.resetPassword(hashPw, currentTrainer.getNum());
+
+            showDialog("비밀번호가 초기화되었습니다.");
         }
     }
 }

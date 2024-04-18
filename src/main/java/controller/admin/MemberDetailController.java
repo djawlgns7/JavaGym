@@ -17,8 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 import repository.*;
-import util.MemberUtil;
+import service.SmsService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.Item.*;
 import static domain.member.SelectedMember.*;
+import static service.SmsService.getRandomPassword;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.MemberUtil.*;
@@ -41,6 +43,7 @@ public class MemberDetailController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
+    private final SmsService smsService = new SmsService();
 
     @FXML
     private TextField nameField, phoneField, emailField, lockerNumField;
@@ -469,6 +472,21 @@ public class MemberDetailController implements Initializable {
             // 삭제한 예약 내역만큼 PT 이용권 돌려주기
             setRemain(currentMember.getNum(), PT_TICKET, count);
             showDialogAndMovePageTimerOff("예약 정보가 삭제되었습니다.", "/view/admin/memberDetail", event);
+        }
+    }
+
+    @FXML
+    private void resetPassword() {
+        Optional<ButtonType> result = showDialogChoose("비밀번호를 초기화하시겠습니까?");
+
+        if (result.get() == ButtonType.OK) {
+            String resetPassword = String.valueOf(getRandomPassword());
+            String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
+
+            smsService.sendMemberInitPassword("010" + currentMember.getPhone(), Integer.parseInt(resetPassword));
+            memberRepository.resetPassword(hashPw, currentMember.getNum());
+
+            showDialog("비밀번호가 초기화되었습니다.");
         }
     }
 

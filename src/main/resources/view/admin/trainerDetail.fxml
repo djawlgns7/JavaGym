@@ -68,6 +68,7 @@
             </GridPane>
 
             <HBox alignment="CENTER" spacing="10" styleClass="trainerDetail_Btn">
+                <Button onAction="#resetPassword" text="비밀번호 초기화"/>
                 <Button onAction="#updateTrainer" text="트레이너 수정" styleClass="trainerDetail_updateTrainerBtn" />
                 <Button onAction="#deleteTrainer" text="트레이너 삭제" styleClass="trainerDetail_deleteTrainerBtn"/>
                 <Button onAction="#goBack" text="뒤로 가기" styleClass="trainerDetail_goBackBtn"/>
