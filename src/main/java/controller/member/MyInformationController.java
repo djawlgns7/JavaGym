@@ -59,7 +59,7 @@ public class MyInformationController implements Initializable {
         int memberNum = member.getNum();
         int trainerNum = getTrainerNumForMember(memberNum);
         List<Integer> remain = getRemainAll(memberNum);
-        List<MemberSchedule> memberSchedules = new ArrayList<>();
+        List<MemberSchedule> memberSchedules;
         LocalDate today = LocalDate.now();
         int gymTicket = remain.get(0);
         int PTTicket = remain.get(1);
