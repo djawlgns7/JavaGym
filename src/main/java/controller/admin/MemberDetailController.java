@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import repository.*;
+import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -309,7 +310,9 @@ public class MemberDetailController implements Initializable {
                     }
 
                     if (inputLockerNum == 0 && inputLockerPeriod == 0) {
-                        purchaseRepository.deleteLocker(memberNum);
+                        deleteLockerNum(memberNum);
+                        setRemain(memberNum, LOCKER, -currentLockerPeriod);
+//                        purchaseRepository.deleteLocker(memberNum);
                     } else {
                         if (isFirstPurchase(memberNum, LOCKER)) {
                             purchaseRepository.setFirstLocker(memberNum, inputLockerNum, inputLockerPeriod);
