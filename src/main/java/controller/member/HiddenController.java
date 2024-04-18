@@ -24,6 +24,7 @@ public class HiddenController implements Initializable {
 
     Label[][] tetrisBlocks = new Label[24][10];
     Label[] currentBlock = null;
+    HBox[] lines = new HBox[20];
     List<Integer> nextBlockOrder = new ArrayList<>();
     int currentBlockNum = -1, nextBlockNum = -1, storedBlockNum = -1, centerXIndex, centerYIndex;
     int timer = 0;
@@ -53,17 +54,14 @@ public class HiddenController implements Initializable {
         }
 
         for(int i = 19; i >= 0; i--){
-            HBox newLine = new HBox();
-            newLine.setSpacing(0);
-            newLine.setAlignment(Pos.CENTER);
-            tetrisArea.getChildren().add(newLine);
+            lines[i] = new HBox();
+            lines[i].setSpacing(0);
+            lines[i].setAlignment(Pos.CENTER);
+            tetrisArea.getChildren().add(lines[i]);
             for(int j = 0; j < 10; j++){
                 tetrisBlocks[i][j] = new Label(i + "," + j);
                 tetrisBlocks[i][j].getStyleClass().add("empty");
-                newLine.getChildren().add(tetrisBlocks[i][j]);
-                int finalI = i;
-                int finalJ = j;
-                tetrisBlocks[i][j].setOnMouseClicked(mouseEvent -> {System.out.println(tetrisBlocks[finalI][finalJ].getText());});
+                lines[i].getChildren().add(tetrisBlocks[i][j]);
             }
         }
     }
@@ -172,15 +170,41 @@ public class HiddenController implements Initializable {
             for(int j = 0; j < 10; j++){
                 tetrisBlocks[i][j].getStyleClass().clear();
                 tetrisBlocks[i][j].getStyleClass().add("empty");
-                for(int k = i; k < 20; k++){
-                    Label tempLabel = tetrisBlocks[k + 1][j];
-                    String downText = tetrisBlocks[k][j].getText();
-                    String upText = tetrisBlocks[k + 1][j].getText();
-                    tetrisBlocks[k + 1][j] = tetrisBlocks[k][j];
-                    tetrisBlocks[k][j] = tempLabel;
-                    tetrisBlocks[k][j].setText(downText);
-                    tetrisBlocks[k + 1][j].setText(upText);
-                }
+            }
+
+//            Platform.runLater(() -> {
+                floatLine(i);
+//            });
+        }
+
+    }
+
+    public void floatLine(int height){
+        HBox selectedLine = lines[height];
+        Platform.runLater(() -> {
+            tetrisArea.getChildren().clear();
+        });
+
+        for(int i = height; i < 19; i++){
+            lines[i] = lines[i + 1];
+        }
+
+        lines[19] = selectedLine;
+
+        for(int i = 0; i < 20; i++){
+            int finalI = i;
+            Platform.runLater(() -> {
+                tetrisArea.getChildren().add(lines[finalI]);
+            });
+        }
+
+        setBlocksText();
+    }
+
+    public void setBlocksText(){
+        for(int i = 0; i < 24; i++){
+            for(int j = 0; j < 10; j++){
+                tetrisBlocks[i][j].setText(i + "," + j);
             }
         }
     }
