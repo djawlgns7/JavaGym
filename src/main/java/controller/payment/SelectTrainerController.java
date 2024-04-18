@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
 
@@ -79,9 +80,17 @@ public class SelectTrainerController implements Initializable {
 
         for (Trainer trainer : trainers) {
             ImageView imageView = createImageViewFromBytes(trainer.getPhoto());
+            imageView.getStyleClass().add("selectTrainer_ImageView");
+
             Label nameLabel = new Label(trainer.getName());
+            nameLabel.getStyleClass().add("selectTrainer_Name");
+
             Label infoLabel = new Label(trainer.getHeight() + "cm | " + trainer.getWeight() + "kg | " + trainerRepository.getAge(trainer) + "세");
+            infoLabel.getStyleClass().add("selectTrainer_Info");
+
             Button selectButton = new Button("선택");
+            selectButton.getStyleClass().add("selectTrainer_SelectBtn");
+
             selectButton.setOnAction(event -> {
                 try {
                     selectTrainer(trainer, event);
@@ -90,8 +99,13 @@ public class SelectTrainerController implements Initializable {
                 }
             });
 
+            StackPane imageContainer = new StackPane(imageView);
+            imageContainer.getStyleClass().add("selectTrainer_ImageContainer");
             VBox detailsBox = new VBox(nameLabel, infoLabel);
-            HBox trainerBox = new HBox(10, imageView, detailsBox, selectButton);
+            detailsBox.getStyleClass().add("selectTrainer_TrainerDetailBox");
+            HBox trainerBox = new HBox(10, imageContainer, detailsBox, selectButton);
+            trainerBox.getStyleClass().add("selectTrainer_TrainerBox");
+
             trainerList.getChildren().add(trainerBox);
         }
     }

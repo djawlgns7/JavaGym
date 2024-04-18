@@ -28,6 +28,10 @@ AnchorPane {
     -fx-prompt-text-fill: #999999;
 }
 
+.signUp_phoneInput, .signUp_CertificationNumInput {
+    -fx-translate-x: 5;
+}
+
 .signUp_emailInput, .signUp_emailComboBox {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
@@ -137,8 +141,8 @@ AnchorPane {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
-    -fx-pref-width: 50;
-    -fx-pref-height: 35;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
 }
