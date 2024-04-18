@@ -578,7 +578,8 @@ public class ReservationController implements Initializable {
         selectedReservations.clear();
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
-        ticketSelection.setText(0 + "개");
+        ticketSelection.setText(1 + "개");
+        ticketMinus();
 
         for(int i = 1; i <= 70; i++){
             if(days[i].getStyleClass().contains("selected")) {
