@@ -33,6 +33,17 @@ Label {
     -fx-prompt-text-fill: #999999;
 }
 
+.reservationInfo_DatePicker .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservationInfo_DatePicker .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
 .reservationInfo_chooseCol {
     -fx-pref-width: 60;
     -fx-pref-height: 30;

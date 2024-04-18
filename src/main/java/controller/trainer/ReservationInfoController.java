@@ -2,6 +2,7 @@ package controller.trainer;
 
 
 import domain.member.Member;
+import domain.member.MemberSchedule;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -76,7 +77,13 @@ public class ReservationInfoController implements Initializable {
         Date rDate = Date.valueOf(rDatePicker.getValue());
         String rTimeInput = rTimeField.getText().trim();
         LocalDate localrDate = rDate.toLocalDate();
+        List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(memberNum);
+        int memberReservationNum = memberSchedule.size();
 
+        if (memberReservationNum >= 4) {
+            showDialogErrorMessage("maxMemberReservationNum");
+            return;
+        }
         if (!rTimeInput.matches("\\d+")) {
             showDialogErrorMessage("notTime");
             return;

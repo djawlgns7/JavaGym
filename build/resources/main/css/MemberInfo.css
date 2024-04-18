@@ -95,6 +95,10 @@ SplitPane {
     -fx-font-family: "Jua";
 }
 
+.trainerInfo_title_2 {
+    -fx-translate-y: -20;
+}
+
 /* TextField */
 .memberInfo_nameInput, .memberInfo_phoneInput, .memberInfo_emailInput, .memberInfo_birthInput {
     -fx-font-family: "NanumGothic";
@@ -237,26 +241,32 @@ SplitPane {
 
 .memberInfo_numColumn, .memberInfo_nameColumn, .memberInfo_genderColumn,
 .memberInfo_emailColumn, .memberInfo_birthColumn, .memberInfo_phoneColumn,
-.memberInfo_enrollColumn {
+.memberInfo_enrollColumn, .memberInfo_chooseColumn {
     -fx-font-family: "Jua";
 }
 
+.memberInfo_chooseColumn {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
 .memberInfo_numColumn {
-    -fx-pref-width: 80;
+    -fx-pref-width: 70;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_nameColumn {
-    -fx-pref-width: 90;
+    -fx-pref-width: 80;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_genderColumn {
-    -fx-pref-width: 70;
+    -fx-pref-width: 60;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -270,21 +280,21 @@ SplitPane {
 }
 
 .memberInfo_birthColumn {
-    -fx-pref-width: 130;
+    -fx-pref-width: 119;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_phoneColumn {
-    -fx-pref-width: 130;
+    -fx-pref-width: 140;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .memberInfo_enrollColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 120;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -339,6 +349,17 @@ SplitPane {
     -fx-padding: 10 15 0 0;
 }
 
+.memberInfo_deleteBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
 .memberInfo_lockerBtn {
     -fx-font-family: "Jua";
     -fx-background-color: #9747FF;
@@ -351,14 +372,16 @@ SplitPane {
 }
 
 .memberInfo_refreshBtn {
-    -fx-font-family: "Jua";
-    -fx-background-color: #DE14FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 16;
-    -fx-pref-width: 80;
-    -fx-pref-height: 30;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5;
+    /*-fx-font-family: "Jua";*/
+    /*-fx-background-color: #DE14FF;*/
+    /*-fx-text-fill: #FFFFFF;*/
+    /*-fx-font-size: 16;*/
+    /*-fx-pref-width: 80;*/
+    /*-fx-pref-height: 30;*/
+    /*-fx-border-color: transparent;*/
+    /*-fx-border-radius: 5;*/
+    -fx-background-color: #FFFFFF;
+
 }
 
 .memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
