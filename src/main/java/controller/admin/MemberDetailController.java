@@ -312,7 +312,6 @@ public class MemberDetailController implements Initializable {
                     if (inputLockerNum == 0 && inputLockerPeriod == 0) {
                         deleteLockerNum(memberNum);
                         setRemain(memberNum, LOCKER, -currentLockerPeriod);
-//                        purchaseRepository.deleteLocker(memberNum);
                     } else {
                         if (isFirstPurchase(memberNum, LOCKER)) {
                             purchaseRepository.setFirstLocker(memberNum, inputLockerNum, inputLockerPeriod);
