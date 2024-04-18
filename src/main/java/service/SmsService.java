@@ -71,7 +71,7 @@ public class SmsService {
 
     //관리자 호출 버튼을 누를 경우
     public void callAdmin(){
-        Optional<ButtonType> result = showDialogChoose("관리자를 부르시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("직원을 호출하시겠습니까?");
 
         if (result.get() == ButtonType.OK) {
             if (callAdminTimer <= 0) {
@@ -81,9 +81,9 @@ public class SmsService {
                 message.setTo("010" + adminPhone);
                 if (currentMember != null) {
                     String memberName = currentMember.getName();
-                    message.setText("[JavaGym] " + memberName + " 회원님이 관리자를 호출했습니다");
+                    message.setText("[JavaGym]\n" + memberName + " 회원님이 직원을 호출했습니다");
                 } else {
-                    message.setText("[JavaGym] " + "회원님이 관리자를 호출했습니다");
+                    message.setText("[JavaGym]\n" + "회원님이 직원을 호출했습니다");
                 }
 
                 try {

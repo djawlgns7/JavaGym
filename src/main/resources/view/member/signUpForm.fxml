@@ -15,7 +15,13 @@
         <!-- 로그인 버튼 -->
         <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="signUp_TopBtn">
             <!-- 관리자 호출 버튼 임시로 추가함(지훈) -->
-            <Button onAction="#callAdmin" text="관리자 호출" />
+            <Button onAction="#callAdmin" prefWidth="48" prefHeight="48" styleClass="signUp_CallIcon">
+                <graphic>
+                    <ImageView fitWidth="48" fitHeight="48">
+                        <image><Image url="/image/Bells_Icon_2.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
             <Button onAction="#goBack" prefWidth="48" prefHeight="48" styleClass="signUp_loginBtn">
                 <graphic>
                     <ImageView fitWidth="48" fitHeight="48">

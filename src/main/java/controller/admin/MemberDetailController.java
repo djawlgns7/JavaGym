@@ -45,7 +45,7 @@ public class MemberDetailController implements Initializable {
     private TextField nameField, phoneField, emailField, lockerNumField;
 
     @FXML
-    private Spinner gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner;
+    private Spinner<Integer> gymTicketSpinner, ptTicketSpinner, clothesSpinner, lockerSpinner;
 
     @FXML
     private DatePicker birthPicker;
@@ -402,7 +402,7 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = showDialogChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose(currentMember.getName() + " 회원을 삭제하시겠습니까?");
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
@@ -455,7 +455,7 @@ public class MemberDetailController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> result = showDialogChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("해당 PT 예약 정보를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
             int count = 0;
@@ -515,6 +515,30 @@ public class MemberDetailController implements Initializable {
             if (getLockerNum(currentMember.getNum()).equals(0)) {
                 lockerNumField.setText("0");
             }
+
+            gymTicketSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    gymTicketSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            ptTicketSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    ptTicketSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            lockerSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    lockerSpinner.getValueFactory().setValue(0);
+                }
+            });
+
+            clothesSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue == null) {
+                    clothesSpinner.getValueFactory().setValue(0);
+                }
+            });
         }
     }
 
