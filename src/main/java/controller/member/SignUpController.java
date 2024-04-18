@@ -33,6 +33,8 @@ public class SignUpController implements Initializable {
     private final SmsService smsService = new SmsService();
     private final CodeStore codeStore = CodeStore.getInstance();
 
+    private final ResourceBundle message = ResourceBundle.getBundle("message.basic");
+
     @FXML
     private TextField nameField, emailIdField, birthField, phoneField, codeField;
 
@@ -81,7 +83,7 @@ public class SignUpController implements Initializable {
 
         Member signUpMember = service.signUp(member);
         SoundUtil.play("welcome");
-        showDialog(signUpMember.getName() + "님. 회원가입을 환영합니다!");
+        showDialog(signUpMember.getName() + message.getString("welcomeSignUp"));
         goBack(event);
     }
 

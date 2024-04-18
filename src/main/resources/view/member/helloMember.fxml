@@ -55,7 +55,7 @@
                 <Label text="환영합니다!" styleClass="helloMember_Name_Info"/>
             </VBox>
             <VBox alignment="CENTER" spacing="20">
-                <Label text="헬스장 이용 기간" styleClass="helloMember_GYM_InfoTitle" />
+                <Label text="헬스장 이용권" styleClass="helloMember_GYM_InfoTitle" />
                 <Label fx:id="DDay" text="D-OOO" styleClass="helloMember_GYM_Info" />
             </VBox>
         </HBox>

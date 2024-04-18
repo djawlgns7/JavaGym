@@ -59,7 +59,7 @@ public class MyInformationController implements Initializable {
         int memberNum = member.getNum();
         int trainerNum = getTrainerNumForMember(memberNum);
         List<Integer> remain = getRemainAll(memberNum);
-        List<MemberSchedule> memberSchedules = new ArrayList<>();
+        List<MemberSchedule> memberSchedules;
         LocalDate today = LocalDate.now();
         int gymTicket = remain.get(0);
         int PTTicket = remain.get(1);
@@ -136,7 +136,7 @@ public class MyInformationController implements Initializable {
         PTTicketRemain.setText(PTTicket + "개");
 
         if(locker == 0){
-            lockerNo.setText("이용할 수 없습니다");
+            lockerNo.setText("현재 이용 중인 사물함 없음");
             lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
@@ -148,7 +148,7 @@ public class MyInformationController implements Initializable {
         }
 
         if(clothes == 0){
-            clothesAvailability.setText("대여할 수 없습니다");
+            clothesAvailability.setText("현재 이용 중인 운동복 없음");
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);

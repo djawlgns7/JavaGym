@@ -228,7 +228,7 @@ public class ReservationController implements Initializable {
                     }else {
                         //예약을 추가 가능한 횟수가 없을 경우
                         if(getSelectedPTTicket() <= selectedReservations.size()){
-                            showDialog("더 이상 선택할 수 없습니다");
+                            showDialogErrorMessage("maxSelect");
                         //추가 가능한 횟수가 있을 경우
                         }else {
 
@@ -281,7 +281,7 @@ public class ReservationController implements Initializable {
         int finalDayIndex = dayIndex;
         days[dayIndex].setOnMouseClicked(Event ->{
             if (getSelectedPTTicket() == 0) {
-                showDialog("먼저 사용하실 PT 이용권을 선택해 주세요.");
+                showDialogErrorMessage("noSelectPtTicket");
                 return;
             }
             days[daySelectedIndex].getStyleClass().remove("selected");
@@ -578,7 +578,8 @@ public class ReservationController implements Initializable {
         selectedReservations.clear();
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
-        ticketSelection.setText(0 + "개");
+        ticketSelection.setText(1 + "개");
+        ticketMinus();
 
         for(int i = 1; i <= 70; i++){
             if(days[i].getStyleClass().contains("selected")) {

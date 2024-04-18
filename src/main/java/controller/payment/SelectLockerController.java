@@ -2,6 +2,7 @@ package controller.payment;
 
 import domain.member.Member;
 import domain.member.UsingLocker;
+import domain.payment.Available;
 import domain.payment.Locker;
 import domain.trainer.Trainer;
 import javafx.event.ActionEvent;
@@ -13,7 +14,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
@@ -32,7 +32,6 @@ import static util.PageUtil.movePage;
 public class SelectLockerController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private HBox lockerArea;
@@ -71,27 +70,9 @@ public class SelectLockerController implements Initializable {
             makeLockerArea(1);
 
             moveToNextPage();
-            moveToPreviousPage();
-        }else{
-            member = memberRepository.findByNum(1000);
-            trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
-            lockers = new ArrayList<>();
-            usingLockers = purchaseRepository.findAllUsingLocker();
-
-            lockerPeriodGroup = new ToggleGroup();
-            locker30Days.setToggleGroup(lockerPeriodGroup);
-            locker90Days.setToggleGroup(lockerPeriodGroup);
-            locker180Days.setToggleGroup(lockerPeriodGroup);
-            locker360Days.setToggleGroup(lockerPeriodGroup);
-
-            makeLockerList();
-            makeLockerArea(1);
-            makeOnclickListener();
-
-            makeLockerArea(1);
-
-            moveToNextPage();
-            moveToPreviousPage();
+            if(Integer.parseInt(selectedLockerNum.getText()) <= 100 || selectedLockerNum.getText().isEmpty()){
+                moveToPreviousPage();
+            }
         }
     }
 
@@ -115,6 +96,43 @@ public class SelectLockerController implements Initializable {
             }else{
                 lockers.get(lockerNum).getStyleClass().remove("unselectedLocker");
                 lockers.get(lockerNum).getStyleClass().add("occupiedLocker");
+            }
+        }
+
+        // 이미 선택한 사물함이 있을 경우
+        if(!basket.isEmpty()){
+            for(Available ticket : basket){
+                if(ticket instanceof Locker){
+                    int number = ((Locker) ticket).getNum() - 1;
+                    int period = ((Locker) ticket).getPeriod();
+
+                    if(!selectedLockerNum.getText().isEmpty()){
+                        int oldNumber = Integer.parseInt(selectedLockerNum.getText()) - 1;
+                        lockers.get(oldNumber).getStyleClass().remove("selectedLocker");
+                        lockers.get(oldNumber).getStyleClass().add("unselectedLocker");
+                    }
+
+                    lockers.get(number).getStyleClass().remove("unselectedLocker");
+                    lockers.get(number).getStyleClass().add("selectedLocker");
+                    selectedLockerNum.setText(String.valueOf(number + 1));
+
+                    switch (period){
+                        case 30:
+                            locker30Days.setSelected(true);
+                            break;
+                        case 90:
+                            locker90Days.setSelected(true);
+                            break;
+                        case 180:
+                            locker180Days.setSelected(true);
+                            break;
+                        case 360:
+                            locker360Days.setSelected(true);
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
     }
