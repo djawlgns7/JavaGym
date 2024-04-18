@@ -167,6 +167,7 @@
 
 .selectLocker_NoSelectDays_radioBtn {
     -fx-translate-x: 25;
+    -fx-text-fill: transparent;
 }
 
 .selectLocker_30Days_radioBtn,
@@ -174,6 +175,7 @@
 .selectLocker_180Days_radioBtn,
 .selectLocker_360Days_radioBtn {
     -fx-translate-x: 50;
+    -fx-text-fill: transparent;
 }
 
 .selectLocker_NoSelectDays_radioBtn_Text_1,

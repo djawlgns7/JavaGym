@@ -50,7 +50,7 @@
             <GridPane hgap="40" vgap="40">
                 <!-- 선택 안 함 -->
                 <GridPane hgap="10" vgap="20" styleClass="selectLocker_radioBox_1" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                    <RadioButton fx:id="noSelectLockerButton" styleClass="selectLocker_NoSelectDays_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <RadioButton fx:id="noSelectLockerButton" styleClass="selectLocker_NoSelectDays_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0" text="선택 안 함"/>
                     <GridPane hgap="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="선택 안 함" styleClass="selectLocker_NoSelectDays_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     </GridPane>
@@ -58,7 +58,7 @@
 
                 <!-- 30 Days -->
                 <GridPane hgap="10" vgap="20" styleClass="selectLocker_radioBox_2" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                    <RadioButton fx:id="locker30Days" styleClass="selectLocker_30Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <RadioButton fx:id="locker30Days" styleClass="selectLocker_30Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0" text="30일7000원"/>
                     <GridPane hgap="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="30일" styleClass="selectLocker_30Days_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                         <Label text="7,000원" styleClass="selectLocker_30Days_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
@@ -67,7 +67,7 @@
 
                 <!-- 90 Days -->
                 <GridPane hgap="10" vgap="20" styleClass="selectLocker_radioBox_3" GridPane.rowIndex="0" GridPane.columnIndex="2">
-                    <RadioButton fx:id="locker90Days" styleClass="selectLocker_90Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <RadioButton fx:id="locker90Days" styleClass="selectLocker_90Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0" text="90일18000원"/>
                     <GridPane hgap="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="90일" styleClass="selectLocker_90Days_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                         <Label text="18,000원" styleClass="selectLocker_90Days_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
@@ -76,7 +76,7 @@
 
                 <!-- 180 Days -->
                 <GridPane hgap="10" vgap="20" styleClass="selectLocker_radioBox_4" GridPane.rowIndex="0" GridPane.columnIndex="3">
-                    <RadioButton fx:id="locker180Days" styleClass="selectLocker_180Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <RadioButton fx:id="locker180Days" styleClass="selectLocker_180Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0" text="180일31000원"/>
                     <GridPane hgap="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="180일" styleClass="selectLocker_180Days_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                         <Label text="31,000원" styleClass="selectLocker_180Days_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
@@ -85,7 +85,7 @@
 
                 <!-- 360 Days -->
                 <GridPane hgap="10" vgap="20" styleClass="selectLocker_radioBox_5" GridPane.rowIndex="0" GridPane.columnIndex="4">
-                    <RadioButton fx:id="locker360Days" styleClass="selectLocker_360Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <RadioButton fx:id="locker360Days" styleClass="selectLocker_360Days_radioBtn" GridPane.rowIndex="0" GridPane.columnIndex="0" text="360일52000원"/>
                     <GridPane hgap="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="360일" styleClass="selectLocker_360Days_radioBtn_Text_1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                         <Label text="52,000원" styleClass="selectLocker_360Days_radioBtn_Text_2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>

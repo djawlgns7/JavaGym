@@ -96,7 +96,7 @@ public class SmsService {
                 countTimer();
                 showDialog("관리자를 호출했습니다");
             } else {
-                showDialog("관리자가 오고 있습니다 잠시만 기다려 주세요~");
+                showDialog("관리자가 오고 있습니다.\n잠시만 기다려 주세요.");
             }
         }
     }
