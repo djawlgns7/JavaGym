@@ -15,7 +15,6 @@ import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import service.SmsService;
-import util.DialogUtil;
 import util.MemberUtil;
 
 import java.io.IOException;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static controller.payment.PaymentController.*;
+import static domain.Item.*;
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
@@ -44,7 +44,6 @@ public class HelloMemberController implements Initializable {
     private Label PTTicketRemain, memberName, DDay;
 
     // 이미지 추가
-
     private final MemberRepository repository = new MemberRepository();
 
     @FXML
@@ -54,15 +53,18 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void reservation(ActionEvent event) throws IOException{
-        int trainerNum = getTrainerNumForMember(currentMember.getNum());
+        Integer memberNum = currentMember.getNum();
+        int trainerNum = getTrainerNumForMember(memberNum);
+        Integer remain = getRemain(memberNum, PT_TICKET);
+
         List<MemberSchedule> memberSchedule;
-        memberSchedule = reservationRepository.findMemberSchedule(currentMember.getNum());
+        memberSchedule = reservationRepository.findMemberSchedule(memberNum);
         int memberReservationNum = memberSchedule.size();
 
-        if(trainerNum == 0){
-            DialogUtil.showDialog("배정된 트레이너가 존재하지 않습니다.");
+        if(trainerNum == 0 || remain == 0){
+            showDialogErrorMessage("noPtTicket");
         }else if(memberReservationNum >= 4){
-            DialogUtil.showDialog("최대 예약 횟수만큼 예약을 했습니다");
+            showDialogErrorMessage("maxReservation");
         }else {
             movePage(event, "/view/member/reservation");
         }
@@ -77,7 +79,7 @@ public class HelloMemberController implements Initializable {
     public void entry(ActionEvent event) throws IOException {
         // 코드 수정 (성진)
         Integer memberNum = currentMember.getNum();
-        Integer gymTicket = MemberUtil.getRemain(memberNum, Item.GYM_TICKET);
+        Integer gymTicket = MemberUtil.getRemain(memberNum, GYM_TICKET);
         Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
@@ -95,7 +97,7 @@ public class HelloMemberController implements Initializable {
             Member member = currentMember;
             List<Integer> remain = getRemainAll(member.getNum());
             int PTTicket = remain.get(1);
-            int gymTicket = getRemain(member.getNum(), Item.GYM_TICKET);
+            int gymTicket = getRemain(member.getNum(), GYM_TICKET);
 
             PTTicketRemain.setText(PTTicket + "개");
             memberName.setText(member.getName() + "님");
