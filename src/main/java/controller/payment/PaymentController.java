@@ -209,6 +209,8 @@ public class PaymentController implements Initializable {
 
                     // 기타 이용권 탭
                 } else {
+
+                    clothes30Button.toFront();
                     lockerLabel.setVisible(true);
                     currentLockerNumLabel.setVisible(true);
                     currentLockerPeriodLabel.setVisible(true);

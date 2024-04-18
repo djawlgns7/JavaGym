@@ -3,10 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<SplitPane dividerPositions="0.40" orientation="HORIZONTAL" prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.42" orientation="HORIZONTAL" prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/common.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationInfoController">
 
@@ -27,7 +25,7 @@
                 <DatePicker fx:id="rDatePicker" promptText="예약 일자" styleClass="reservationInfo_DatePicker"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
-                <TextField fx:id="rtimeField" promptText="예약 시간" styleClass="reservationInfo_timeInput"/>
+                <TextField fx:id="rTimeField" promptText="예약 시간" styleClass="reservationInfo_timeInput"/>
             </HBox>
 
             <HBox alignment="CENTER" spacing="20" >
@@ -46,9 +44,9 @@
                 <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_Search_Btn"/>
             </HBox>
 
-            <TableView fx:id="reservationTable"  editable="true" prefHeight="550.0">
+            <TableView fx:id="reservationTable" editable="true" prefHeight="550.0">
                 <columns>
-                    <TableColumn fx:id="selectCol" text="선택">
+                    <TableColumn fx:id="selectCol" text="선택" styleClass="reservationInfo_chooseCol">
                         <cellValueFactory>
                             <PropertyValueFactory property="selected" />
                         </cellValueFactory>

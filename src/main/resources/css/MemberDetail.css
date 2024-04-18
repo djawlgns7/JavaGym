@@ -263,7 +263,7 @@ SplitPane {
 }
 
 .memberDetail_ptDateColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 130;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -277,7 +277,7 @@ SplitPane {
 }
 
 .memberDetail_trainerNameColumn {
-    -fx-pref-width: 130;
+    -fx-pref-width: 132;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;

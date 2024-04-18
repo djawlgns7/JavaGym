@@ -402,7 +402,7 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = showDialogChoose("정말로 " + currentMember.getName() + " 회원을 삭제하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose(currentMember.getName() + " 회원을 삭제하시겠습니까?");
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
@@ -455,7 +455,7 @@ public class MemberDetailController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> result = showDialogChoose("정말로 " + currentMember.getName() + " 회원의 PT 예약 정보를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose("해당 PT 예약 정보를 삭제하시겠습니까?");
 
         if (result.get() == ButtonType.OK){
             int count = 0;
