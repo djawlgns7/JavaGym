@@ -14,7 +14,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
@@ -33,7 +32,6 @@ import static util.PageUtil.movePage;
 public class SelectLockerController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private HBox lockerArea;
@@ -108,7 +106,7 @@ public class SelectLockerController implements Initializable {
                     int number = ((Locker) ticket).getNum() - 1;
                     int period = ((Locker) ticket).getPeriod();
 
-                    if(!selectedLockerNum.getText().equals("")){
+                    if(!selectedLockerNum.getText().isEmpty()){
                         int oldNumber = Integer.parseInt(selectedLockerNum.getText()) - 1;
                         lockers.get(oldNumber).getStyleClass().remove("selectedLocker");
                         lockers.get(oldNumber).getStyleClass().add("unselectedLocker");
