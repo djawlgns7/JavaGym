@@ -192,7 +192,9 @@ public class MemberDetailController implements Initializable {
                     System.out.println("PT 이용권, 트레이너 모두 변경");
 
                     if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
-                        purchaseRepository.deletePtTicketAndTrainer(memberNum);
+                        setRemain(memberNum, PT_TICKET, -currentPtTicket);
+                        changeTrainerOfMember(memberNum, 0);
+                        //purchaseRepository.deletePtTicketAndTrainer(memberNum);
                     }
 
                     if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
