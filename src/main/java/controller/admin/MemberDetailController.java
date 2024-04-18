@@ -325,9 +325,9 @@ public class MemberDetailController implements Initializable {
                         }
                     }
                 }
-                showDialogAndMovePageTimerOff("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
             }
         }
+        showDialogAndMovePageTimerOff("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
     }
 
     private boolean isSameBasicInfo() {
