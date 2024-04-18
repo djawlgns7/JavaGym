@@ -6,14 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
 import repository.TrainerRepository;
 
 import java.io.IOException;
@@ -32,6 +28,9 @@ import static util.PageUtil.*;
 public class SelectTrainerController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
+
+    @FXML
+    private ScrollPane scroll;
 
     @FXML
     private VBox trainerList;
@@ -67,23 +66,32 @@ public class SelectTrainerController implements Initializable {
         loadAmTrainers(amTrainers);
         timeComboBox.getSelectionModel().select("AM");
         timeComboBox.setOnAction(e -> filterTrainers(amTrainers, pmTrainers));
+
+        // 스크롤 속도 조정을 위한 스크롤 이벤트 리스너 추가 (승빈)
+        scroll.addEventFilter(ScrollEvent.SCROLL, event -> {
+            double deltaY = event.getDeltaY() * 3; // 스크롤 속도 조정, 값이 클수록 속도가 빨라짐
+            double width = scroll.getContent().getBoundsInLocal().getWidth();
+            double value = scroll.getVvalue();
+            scroll.setVvalue(value + -deltaY / width); // 세로 스크롤일 경우
+            event.consume();
+        });
     }
 
     private void loadAmTrainers(List<Trainer> trainers) {
         trainerList.getChildren().clear(); // 기존 컨테이너의 자식을 모두 제거
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10); // 열 간격 설정
-        grid.setVgap(10); // 행 간격 설정
-
-        int row = 0;
-        int column = 0;
-
         for (Trainer trainer : trainers) {
             ImageView imageView = createImageViewFromBytes(trainer.getPhoto());
+            imageView.getStyleClass().add("selectTrainer_ImageView");
+
             Label nameLabel = new Label(trainer.getName());
+            nameLabel.getStyleClass().add("selectTrainer_Name");
+
             Label infoLabel = new Label(trainer.getHeight() + "cm | " + trainer.getWeight() + "kg | " + trainerRepository.getAge(trainer) + "세");
+            infoLabel.getStyleClass().add("selectTrainer_Info");
+
             Button selectButton = new Button("선택");
+            selectButton.getStyleClass().add("selectTrainer_SelectBtn");
             selectButton.setOnAction(event -> {
                 try {
                     selectTrainer(trainer, event);
@@ -92,36 +100,36 @@ public class SelectTrainerController implements Initializable {
                 }
             });
 
+            StackPane imageContainer = new StackPane(imageView);
+            imageContainer.getStyleClass().add("selectTrainer_ImageContainer");
+
             VBox detailsBox = new VBox(nameLabel, infoLabel);
-            HBox trainerBox = new HBox(10, imageView, detailsBox, selectButton);
+            detailsBox.getStyleClass().add("selectTrainer_TrainerDetailBox");
 
-            grid.add(trainerBox, column, row); // 그리드에 트레이너 박스 추가
+            HBox trainerBox = new HBox(10, imageContainer, detailsBox, selectButton);
+            trainerBox.getStyleClass().add("selectTrainer_TrainerBox");
 
-            column++;
-            if (column == 2) { // 열이 2개가 되면 다음 행으로 넘어감
-                column = 0;
-                row++;
-            }
+            trainerList.getChildren().add(trainerBox);
         }
-
-        trainerList.getChildren().add(grid); // GridPane을 trainerList에 추가
     }
+
+
 
     private void loadPmTrainers(List<Trainer> trainers) {
         trainerList.getChildren().clear(); // 기존 컨테이너의 자식을 모두 제거
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10); // 열 간격 설정
-        grid.setVgap(10); // 행 간격 설정
-
-        int row = 0;
-        int column = 0;
-
         for (Trainer trainer : trainers) {
             ImageView imageView = createImageViewFromBytes(trainer.getPhoto());
+            imageView.getStyleClass().add("selectTrainer_ImageView");
+
             Label nameLabel = new Label(trainer.getName());
+            nameLabel.getStyleClass().add("selectTrainer_Name");
+
             Label infoLabel = new Label(trainer.getHeight() + "cm | " + trainer.getWeight() + "kg | " + trainerRepository.getAge(trainer) + "세");
+            infoLabel.getStyleClass().add("selectTrainer_Info");
+
             Button selectButton = new Button("선택");
+            selectButton.getStyleClass().add("selectTrainer_SelectBtn");
             selectButton.setOnAction(event -> {
                 try {
                     selectTrainer(trainer, event);
@@ -130,19 +138,17 @@ public class SelectTrainerController implements Initializable {
                 }
             });
 
+            StackPane imageContainer = new StackPane(imageView);
+            imageContainer.getStyleClass().add("selectTrainer_ImageContainer");
+
             VBox detailsBox = new VBox(nameLabel, infoLabel);
-            HBox trainerBox = new HBox(10, imageView, detailsBox, selectButton);
+            detailsBox.getStyleClass().add("selectTrainer_TrainerDetailBox");
 
-            grid.add(trainerBox, column, row); // 그리드에 트레이너 박스 추가
+            HBox trainerBox = new HBox(10, imageContainer, detailsBox, selectButton);
+            trainerBox.getStyleClass().add("selectTrainer_TrainerBox");
 
-            column++;
-            if (column == 2) { // 열이 2개가 되면 다음 행으로 넘어감
-                column = 0;
-                row++;
-            }
+            trainerList.getChildren().add(trainerBox);
         }
-
-        trainerList.getChildren().add(grid); // GridPane을 trainerList에 추가
     }
 
 

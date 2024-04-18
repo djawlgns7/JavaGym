@@ -7,6 +7,7 @@ AnchorPane {
 .payment_Title {
     -fx-font-size: 64;
     -fx-font-family: "Anton";
+    -fx-translate-x: -40;
 }
 
 /* Login Member */
@@ -14,19 +15,19 @@ AnchorPane {
     -fx-font-size: 28;
     -fx-font-family: "NanumGothic";
     -fx-translate-y: -15;
-    -fx-translate-x: 50;
 }
 
-.payment_CallIcon {
+.payment_callIcon {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
     -fx-border-width: 1;
     -fx-border-style: solid;
     -fx-border-radius: 5;
-    -fx-translate-x: -440;
+    -fx-translate-x: -130;
+    -fx-translate-y: 17;
 }
 
-.payment_CallIcon:hover {
+.payment_callIcon:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
@@ -136,7 +137,7 @@ AnchorPane {
     -fx-font-size: 26;
     -fx-font-weight: bold;
     -fx-translate-x: 240;
-    -fx-translate-y: -30;
+    -fx-translate-y: -20;
 }
 
 .paymentGYM_Day_radioBtn, .paymentGYM_Day_radioBtn_Text {
@@ -244,7 +245,7 @@ AnchorPane {
 .paymentPT_FirstSelectTrainer_Text {
     -fx-font-family: "Jua";
     -fx-font-size: 32;
-    -fx-translate-y: -180;
+    -fx-translate-y: -200;
 }
 
 .paymentPT_SelectTrainerBtn {
@@ -313,9 +314,8 @@ AnchorPane {
 }
 
 .paymentPT_GridPane {
-    -fx-translate-x: 50;
     -fx-translate-x: 70;
-    -fx-translate-y: -300;
+    -fx-translate-y: -310;
 }
 
 /* Radio Button */
@@ -324,7 +324,7 @@ AnchorPane {
 .paymentPT_radioBtn_2, .paymentPT_radioBtn_Text_2,
 .paymentPT_radioBtn_3, .paymentPT_radioBtn_Text_3 {
     -fx-font-family: "Jua";
-    -fx-font-size: 32;
+    -fx-font-size: 28;
     -fx-font-weight: bold;
 }
 

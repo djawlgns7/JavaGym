@@ -7,7 +7,7 @@
     -fx-translate-y: 37;
 }
 
-.reservation_CallIcon {
+.reservation_callIcon {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -16,7 +16,7 @@
     -fx-translate-x: -440;
 }
 
-.reservation_MainIcon {
+.reservation_mainIcon {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -29,7 +29,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
 
-.reservation_title {
+.reservation_Title {
     -fx-font-size: 84;
     -fx-font-family: "Anton";
     -fx-translate-y: -50;
