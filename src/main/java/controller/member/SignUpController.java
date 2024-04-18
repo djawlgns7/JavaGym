@@ -33,7 +33,7 @@ public class SignUpController implements Initializable {
     private final SmsService smsService = new SmsService();
     private final CodeStore codeStore = CodeStore.getInstance();
 
-    private static final ResourceBundle message = ResourceBundle.getBundle("message.basic");
+    private final ResourceBundle message = ResourceBundle.getBundle("message.basic");
 
     @FXML
     private TextField nameField, emailIdField, birthField, phoneField, codeField;

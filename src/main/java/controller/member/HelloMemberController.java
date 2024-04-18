@@ -1,7 +1,6 @@
 package controller.member;
 
 import controller.payment.PaymentTab;
-import domain.Item;
 import domain.member.Member;
 import domain.member.MemberSchedule;
 import javafx.event.ActionEvent;
@@ -37,6 +36,7 @@ public class HelloMemberController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
     private final SmsService smsService = new SmsService();
+    private final ResourceBundle message = ResourceBundle.getBundle("message.basic");
 
     @FXML
     private ImageView profileImage;
@@ -85,7 +85,7 @@ public class HelloMemberController implements Initializable {
         String today = LocalDate.now().toString();
         if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
             entryLogRepository.save(memberNum);
-            showDialogAndMoveMainPage(currentMember.getName() + "님 오늘도 파이팅!", event);
+            showDialogAndMoveMainPage(currentMember.getName() + message.getString("fighting"), event);
         } else {
             showDialogBasicMessage("DeniedEntry");
         }
@@ -108,7 +108,7 @@ public class HelloMemberController implements Initializable {
                 DDay.setText("입장 가능");
             }
             else{
-                DDay.setText("입장 불가능");
+                DDay.setText("없음");
             }
         }
 
