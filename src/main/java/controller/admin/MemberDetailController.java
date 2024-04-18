@@ -1,6 +1,6 @@
 package controller.admin;
 
-import domain.*;
+import domain.Gender;
 import domain.member.EntryLog;
 import domain.member.Member;
 import domain.member.MemberSchedule;
@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import repository.*;
-import util.MemberUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +26,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import static domain.Item.*;
-import static domain.member.SelectedMember.*;
+import static domain.member.SelectedMember.currentMember;
+import static util.ControllerUtil.getSelectedGender;
+import static util.ControllerUtil.loadEntryLog;
 import static util.DialogUtil.*;
-import static util.ControllerUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 import static util.PageUtil.movePageTimerOff;
@@ -192,7 +193,9 @@ public class MemberDetailController implements Initializable {
                     System.out.println("PT 이용권, 트레이너 모두 변경");
 
                     if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
-                        purchaseRepository.deletePtTicketAndTrainer(memberNum);
+                        setRemain(memberNum, PT_TICKET, -currentPtTicket);
+                        changeTrainerOfMember(memberNum, 0);
+                        //purchaseRepository.deletePtTicketAndTrainer(memberNum);
                     }
 
                     if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
