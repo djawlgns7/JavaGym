@@ -119,7 +119,7 @@ public class SelectLockerController implements Initializable {
         }
     }
 
-    //현재 락터의 상태를 표 형식으로 출력
+    //현재 락커의 상태를 표 형식으로 출력
     public void makeLockerArea(int startNum) {
         startNum--;
 

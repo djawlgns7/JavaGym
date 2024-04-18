@@ -1,13 +1,10 @@
 package util;
 
-import com.mysql.cj.xdevapi.Table;
 import domain.member.EntryLog;
 import domain.member.Member;
-import domain.member.MemberSchedule;
 import domain.member.UsingLocker;
 import domain.trainer.Reservation;
 import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -227,7 +224,7 @@ public class ControllerUtil {
         return imageView;
     }
 
-    public static void loadmemberInfo(TableView table, MemberRepository memberRepository) {
+    public static void loadMemberInfo(TableView table, MemberRepository memberRepository) {
 
         TableColumn<Member, Number> memberNumCol = new TableColumn<>("회원 번호");
         TableColumn<Member, String> memberNameCol = new TableColumn<>("회원 이름");

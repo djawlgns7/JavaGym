@@ -1,15 +1,10 @@
 package controller.trainer;
 
 import domain.trainer.Reservation;
-import domain.trainer.Trainer;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ReservationRepository;
 
 import java.io.IOException;
@@ -40,22 +35,42 @@ public class ReservationDetailController implements Initializable {
     @FXML
     private Label memberNameLabel, memberPhoneLabel, rDateLabel, rTimeLabel;
 
-
     @FXML
     private void updateReservation(ActionEvent event) throws IOException {
+        if (isEmptyAnyField(rTimeField)) {
+            showDialogErrorMessage("emptyAnyField");
+            return;
+        }
+
         //수정 내용이 없을 경우
-        if(isSameReservationTime() && isSameReservationDate()) {
+        if (isSameReservationTime() && isSameReservationDate()) {
             showDialogErrorMessage("isSame");
             return;
         }
 
         //수정 내용이 있을 경우
         Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
+        if (response.isEmpty() || response.get() != ButtonType.OK) {
+            return;
+        }
+
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
             LocalDate localrDate = rDate.toLocalDate();
-            Integer rTime = Integer.valueOf(rTimeField.getText().trim());
+            String rTimeInput = rTimeField.getText().trim();
+
+            if (!rTimeInput.matches("\\d+")) {
+                showDialogErrorMessage("notTime");
+                return;
+            }
+
+            int rTime = Integer.parseInt(rTimeInput);
+
+                if (rTime < 8 || rTime > 19) {
+                    showDialogErrorMessage("invalidTime");
+                    return;
+                }
 
             if (!isValidTimeForTrainer(currentTrainer, rTime)) {
                 showDialogErrorMessage("wrongTimeForTrainer");
@@ -77,7 +92,6 @@ public class ReservationDetailController implements Initializable {
                 if(!isSameReservationDate() && isSameReservationTime()) {
                     currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
                     reservationRepository.updateReservation(currentReservation);
-
                 }
 
                 //PT 시간만 변경, 날짜 동일
@@ -91,8 +105,6 @@ public class ReservationDetailController implements Initializable {
                     currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
                     currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
                     reservationRepository.updateReservation(currentReservation);
-
-
                 }
 
                 showDialogAndMovePageTimerOff("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
@@ -108,45 +120,33 @@ public class ReservationDetailController implements Initializable {
     }
 
     private boolean isSameReservationTime() {
-        Integer inputPTtime = Integer.valueOf(rTimeField.getText());
-        Integer currentPTtime = currentReservation.getReservationTime();
-        return inputPTtime.equals(currentPTtime);
+        String inputPtTime = rTimeField.getText().trim();
+        if(!inputPtTime.matches("\\d+")) {
+            return false;
+        }
+        Integer PTTime = Integer.parseInt(inputPtTime);
+        Integer currentPtTime = currentReservation.getReservationTime();
+        return PTTime.equals(currentPtTime);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(currentReservation != null) {
             Reservation reservation = currentReservation;
-            Trainer trainer = currentTrainer;
-
-            TextFormatter<String> rTimeFormatter = new TextFormatter<>(change -> {
-                String newText = change.getControlNewText();
-                if (newText.matches("([01]?[0-9]|2[0-3])")) {
-                    return change;
-                }
-                return null;
-            });
 
             ptDatePicker.setValue(reservation.getReservationDate().toLocalDate());
-            rTimeField.setText(String.format("%02d:00", reservation.getReservationTime()));
-
             memberNameLabel.setText(reservation.getMemberName());
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
-
         }
 
     }
 
     @FXML
-    private void goBack(ActionEvent event) {
-        try {
-            if (currentTrainer != null && currentTrainer.getNum() != null) {
-                movePageTimerOff(event, "/view/trainer/reservationInfo");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void goBack(ActionEvent event) throws IOException {
+        if (currentTrainer != null && currentTrainer.getNum() != null) {
+            movePageTimerOff(event, "/view/trainer/reservationInfo");
         }
     }
 }

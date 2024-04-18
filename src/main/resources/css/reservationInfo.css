@@ -1,9 +1,12 @@
-.reservationInfo_title_1, .reservationInfo_title_2 {
-    -fx-font-size: 36;
+/* DatePicker 배경색 통일 시켜줘~~~~~~ */
+
+Label {
+    -fx-font-size: 32;
     -fx-font-family: "Jua";
 }
-
-TextField {
+/* TextField */
+.reservationInfo_numInput, .reservationInfo_nameInput, .reservationInfo_phoneInput,
+.reservationInfo_timeInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -16,115 +19,128 @@ TextField {
     -fx-prompt-text-fill: #999999;
 }
 
-.reservationInfo_EntryBtn {
-    -fx-background-color: #9747FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
+/* DatePicker */
+.reservationInfo_DatePicker {
+    -fx-background-color: #F4F5F7;
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
     -fx-pref-height: 50;
-    -fx-border-color: transparent;
+    -fx-font-size: 16;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
     -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
 }
 
-.reservationInfo_goBackBtn {
-    -fx-background-color: #DE14FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 18;
-    -fx-pref-width: 120;
-    -fx-pref-height: 50;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5;
+.reservationInfo_chooseCol {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
 }
-
-.reservationInfo_EntryBtn:hover, .reservationInfo_goBackBtn:hover {
-    -fx-background-color: #F4B6FF;
-    -fx-cursor: hand;
-}
-
-
-/*.nameInput, .rDateInput, .rTimeInput {*/
-/*    -fx-pref-width: 200;*/
-/*    -fx-pref-height: 40;*/
-/*}*/
 
 .reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_phoneCol,
-.reservationInfo_dayCol, .reservationInfo_timeCol {
+.reservationInfo_rDateCol, .reservationInfo_rTimeCol, .reservationInfo_chooseCol {
     -fx-font-family: "Jua";
 }
 
-.reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_timeCol {
-    -fx-pref-width: 80;
+.reservationInfo_numCol {
+    -fx-pref-width: 90;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_nameCol {
+    -fx-pref-width: 100;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
 .reservationInfo_phoneCol {
+    -fx-pref-width: 180;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rDateCol {
+    -fx-pref-width: 160;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rTimeCol {
     -fx-pref-width: 130;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
 }
 
-.reservationInfo_dayCol {
-    -fx-pref-width: 150;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
-    -fx-font-size: 14;
-}
 
 /* ============== Button ============== */
+
 .reservationInfo_Btn {
-    -fx-spacing: 50;
     -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
 }
 
-/* @@밑에서부터 필요 없는 부분 지울 것@@ */
+.reservationInfo_logoutBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 50;
+    -fx-border-color: transparent;
+}
 
-.addReservationBtn {
+.reservationInfo_Search_Btn {
+    -fx-spacing: 50;
+    -fx-font-family: "Jua";
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
-    -fx-pref-width: 120;
-    -fx-pref-height: 40;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5px;
-}
-
-.goBackBtn2 {
-    -fx-background-color: #DE14FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 14;
-    -fx-pref-width: 120;
-    -fx-pref-height: 40;
-}
-
-.addReservationBtn:hover, .goBackBtn2:hover {
-    -fx-background-color: #EA8ABE;
-}
-
-/* ============== Table ============== */
-.nameColumn, .dateColumn, .timeColumn {
-    -fx-font-family: "Jua";
-}
-
-.nameColumn {
     -fx-pref-width: 80;
     -fx-pref-height: 30;
-    -fx-alignment: CENTER;
+    -fx-border-color: transparent;
 }
 
-.dateColumn {
-    -fx-pref-width: 180;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
+.reservationInfo_Cancel_Btn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-translate-x: -20;
+    -fx-translate-y: 5;
 }
 
-.timeColumn {
-    -fx-pref-width: 150;
-    -fx-pref-height: 30;
-    -fx-alignment: CENTER;
+.reservationInfo_Btn:hover, .reservationInfo_logoutBtn:hover {
+    -fx-background-color: #EA8ABE;
+    -fx-cursor: hand;
 }
+
+.reservationInfo_Search_Btn:hover, .reservationInfo_Cancel_Btn:hover {
+    -fx-background-color: #EA8ABE;
+    -fx-cursor: hand;
+}
+
+
+
+.rInfo {
+    -fx-translate-y: 10;
+}
+
 
 /* TableView 헤더 스타일 */
 .table-view .column-header-background .label {
@@ -170,4 +186,3 @@ TextField {
 .table-view .column-header:descending .arrow-button .arrow {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
-

@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
@@ -53,12 +54,6 @@ public class SelectTrainerController implements Initializable {
         }
     }
 
-    @FXML
-    private void goBack(ActionEvent event) throws IOException {
-        PaymentTab.getInstance().setSelectedTabIndex(1);
-        movePage(event, "/view/member/payment");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Trainer> amTrainers = trainerRepository.findAllTrainer().stream()
@@ -75,7 +70,14 @@ public class SelectTrainerController implements Initializable {
     }
 
     private void loadAmTrainers(List<Trainer> trainers) {
-        trainerList.getChildren().clear();
+        trainerList.getChildren().clear(); // 기존 컨테이너의 자식을 모두 제거
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10); // 열 간격 설정
+        grid.setVgap(10); // 행 간격 설정
+
+        int row = 0;
+        int column = 0;
 
         for (Trainer trainer : trainers) {
             ImageView imageView = createImageViewFromBytes(trainer.getPhoto());
@@ -92,12 +94,28 @@ public class SelectTrainerController implements Initializable {
 
             VBox detailsBox = new VBox(nameLabel, infoLabel);
             HBox trainerBox = new HBox(10, imageView, detailsBox, selectButton);
-            trainerList.getChildren().add(trainerBox);
+
+            grid.add(trainerBox, column, row); // 그리드에 트레이너 박스 추가
+
+            column++;
+            if (column == 2) { // 열이 2개가 되면 다음 행으로 넘어감
+                column = 0;
+                row++;
+            }
         }
+
+        trainerList.getChildren().add(grid); // GridPane을 trainerList에 추가
     }
 
     private void loadPmTrainers(List<Trainer> trainers) {
-        trainerList.getChildren().clear();
+        trainerList.getChildren().clear(); // 기존 컨테이너의 자식을 모두 제거
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10); // 열 간격 설정
+        grid.setVgap(10); // 행 간격 설정
+
+        int row = 0;
+        int column = 0;
 
         for (Trainer trainer : trainers) {
             ImageView imageView = createImageViewFromBytes(trainer.getPhoto());
@@ -114,9 +132,19 @@ public class SelectTrainerController implements Initializable {
 
             VBox detailsBox = new VBox(nameLabel, infoLabel);
             HBox trainerBox = new HBox(10, imageView, detailsBox, selectButton);
-            trainerList.getChildren().add(trainerBox);
+
+            grid.add(trainerBox, column, row); // 그리드에 트레이너 박스 추가
+
+            column++;
+            if (column == 2) { // 열이 2개가 되면 다음 행으로 넘어감
+                column = 0;
+                row++;
+            }
         }
+
+        trainerList.getChildren().add(grid); // GridPane을 trainerList에 추가
     }
+
 
     @FXML
     private void filterTrainers(List<Trainer> amTrainers, List<Trainer> pmTrainers) {
@@ -126,5 +154,11 @@ public class SelectTrainerController implements Initializable {
         } else {
             loadPmTrainers(pmTrainers);
         }
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        PaymentTab.getInstance().setSelectedTabIndex(1);
+        movePage(event, "/view/member/payment");
     }
 }

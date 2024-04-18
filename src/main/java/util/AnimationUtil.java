@@ -7,35 +7,50 @@ import javafx.util.Duration;
 
 public class AnimationUtil {
 
-    public static void animateTabFade(Node newNode, Node oldNode) {
-        // 페이드 아웃
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.4), oldNode);
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-        fadeOut.setOnFinished(event -> oldNode.setVisible(false));
+    private static FadeTransition currentFadeOut = null;
+    private static FadeTransition currentFadeIn = null;
 
-        // 페이드 인
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.4), newNode);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
+    public static void animateTab(Node newNode, Node oldNode) {
+        if (currentFadeOut != null && currentFadeOut.getStatus() == Animation.Status.RUNNING) {
+            currentFadeOut.stop();
+            oldNode.setVisible(false);
+        }
+        if (currentFadeIn != null && currentFadeIn.getStatus() == Animation.Status.RUNNING) {
+            currentFadeIn.stop();
+        }
+
+        currentFadeOut = new FadeTransition(Duration.seconds(0.4), oldNode);
+        currentFadeOut.setFromValue(1.0);
+        currentFadeOut.setToValue(0.0);
+        currentFadeOut.setOnFinished(event -> oldNode.setVisible(false));
+
+        currentFadeIn = new FadeTransition(Duration.seconds(0.4), newNode);
+        currentFadeIn.setFromValue(0.0);
+        currentFadeIn.setToValue(1.0);
+        currentFadeIn.setOnFinished(event -> newNode.setVisible(true));
+
         newNode.setVisible(true);
 
-        fadeOut.play();
-        fadeIn.play();
+        currentFadeOut.play();
+        currentFadeIn.play();
     }
 
     public static void applyFadeIn(Stage stage) {
-        // 페이드 인
         Node root = stage.getScene().getRoot();
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), root);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
 
-        // 초기 투명도
         root.setOpacity(0);
         fadeIn.setOnFinished(event -> root.setOpacity(1));
     }
 
+    public static void applyFadeInDialog(Node node) {
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.3), node);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
 
+        node.getScene().getWindow().setOnShown(event -> fadeIn.play());
+    }
 }
