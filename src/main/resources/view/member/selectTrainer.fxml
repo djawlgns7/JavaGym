@@ -26,7 +26,7 @@
             </items>
         </ComboBox>
 
-        <VBox fx:id="trainerList" spacing="10" alignment="CENTER" styleClass="selectTrainer_List">
+        <VBox fx:id="trainerList" alignment="CENTER" styleClass="selectTrainer_List">
             <!-- 동적으로 트레이너 생성 -->
         </VBox>
         <Button alignment="CENTER" text="뒤로 가기" onAction="#goBack"/>
