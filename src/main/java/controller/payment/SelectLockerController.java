@@ -72,7 +72,7 @@ public class SelectLockerController implements Initializable {
             makeLockerArea(1);
 
             moveToNextPage();
-            if(Integer.parseInt(selectedLockerNum.getText()) <= 100){
+            if(Integer.parseInt(selectedLockerNum.getText()) <= 100 || selectedLockerNum.getText().isEmpty()){
                 moveToPreviousPage();
             }
         }
