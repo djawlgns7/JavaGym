@@ -7,24 +7,34 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox prefHeight="800" prefWidth="550"
-      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.payment.SelectTrainerController">
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Label text="트레이너 선택" />
-    <Button text="뒤로 가기" onAction="#goBack"/>
+<?import javafx.scene.control.ScrollPane?>
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.payment.SelectTrainerController">
+    <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="20">
+        <!-- 자바짐 타이틀 -->
+        <Label text="JAVA GYM" styleClass="selectTrainer_Title"/>
 
-    <ComboBox fx:id="timeComboBox">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="AM"/>
-                <String fx:value="PM"/>
-            </FXCollections>
-        </items>
-    </ComboBox>
+        <Label text="트레이너 선택"  styleClass="selectTrainer_SubTitle "/>
 
-    <VBox fx:id="trainerList" spacing="10" alignment="CENTER">
-        <!-- 동적으로 트레이너 생성 -->
+        <ComboBox fx:id="timeComboBox" editable="false" styleClass="selectTrainer_TimeComboBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="AM"/>
+                    <String fx:value="PM"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <VBox alignment="CENTER" spacing="30" styleClass="selectTrainer_Box">
+            <ScrollPane fx:id="scroll" styleClass="selectTrainer_Scroll">
+                <VBox fx:id="trainerList" alignment="CENTER" spacing="30" styleClass="selectTrainer_List">
+                    <!-- 동적으로 트레이너 생성 -->
+                </VBox>
+            </ScrollPane>
+            <Button alignment="CENTER" text="뒤로 가기" onAction="#goBack" styleClass="selectTrainer_goBackBtn"/>
+        </VBox>
+
     </VBox>
-
-</VBox>
+</AnchorPane>
