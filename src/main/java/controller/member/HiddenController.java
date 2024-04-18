@@ -170,6 +170,8 @@ public class HiddenController implements Initializable {
 
         for(int i : fullLines){
             for(int j = 0; j < 10; j++){
+                tetrisBlocks[i][j].getStyleClass().clear();
+                tetrisBlocks[i][j].getStyleClass().add("empty");
                 for(int k = i; k < 20; k++){
                     Label tempLabel = tetrisBlocks[k + 1][j];
                     String downText = tetrisBlocks[k][j].getText();
