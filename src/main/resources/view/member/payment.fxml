@@ -8,21 +8,24 @@
 <AnchorPane stylesheets="/css/common.css" prefHeight="1000.0" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.payment.PaymentController">
     <VBox alignment="TOP_CENTER" spacing="10.0" fillWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <!-- 자바짐 타이틀 -->
-        <Label text="JAVA GYM" styleClass="payment_Title" />
+        <HBox alignment="CENTER" spacing="20">
 
-        <!-- 회원 환영 문구 -->
-        <HBox alignment="CENTER" styleClass="payment_Member">
-            <Label fx:id="memberNameLabel" />
-            <Label text=" 회원님, 환영합니다!" />
-            <!-- 관리자 호출 버튼 임시로 추가함(지훈) -->
-            <Button onAction="#callAdmin" prefWidth="48" prefHeight="48" styleClass="payment_CallIcon">
+            <Button onAction="#callAdmin" prefWidth="48" prefHeight="48" styleClass="payment_callIcon">
                 <graphic>
                     <ImageView fitWidth="48" fitHeight="48">
                         <image><Image url="/image/Bells_Icon_2.png"/></image>
                     </ImageView>
                 </graphic>
             </Button>
+
+            <!-- 자바짐 타이틀 -->
+            <Label text="JAVA GYM" styleClass="payment_Title" />
+        </HBox>
+
+        <!-- 회원 환영 문구 -->
+        <HBox alignment="CENTER" styleClass="payment_Member">
+            <Label fx:id="memberNameLabel" />
+            <Label text=" 회원님, 환영합니다!" />
         </HBox>
 
         <!-- 회원의 현재 구매 정보 -->

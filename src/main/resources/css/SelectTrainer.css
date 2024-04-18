@@ -20,7 +20,7 @@
     -fx-border-style: solid;
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #999999;
-    -fx-translate-x: 360;
+    -fx-translate-x: 265;
 }
 
 /* ComboBox - TextField 배경색 변경 */
@@ -66,17 +66,29 @@
     -fx-text-fill: white;
 }
 
+/* Trainer List */
+.selectTrainer_Box {
+    -fx-pref-height: 600;
+    -fx-pref-width: 100;
+}
+
+.selectTrainer_Scroll {
+
+}
+
 .selectTrainer_List {
-    -fx-border-color: #000000;
-    -fx-border-width: 1;
-    -fx-border-style: solid;
-    -fx-pref-height: 400;
-    -fx-pref-width: 830;
+    -fx-padding: 10;
+    -fx-background-color: #F4F5F7;
+}
+
+.selectTrainer_TrainerBox {
+    -fx-pref-width: 600;
+    -fx-alignment: CENTER;
 }
 
 .selectTrainer_ImageContainer {
-    -fx-pref-height: 151.2;
-    -fx-pref-width: 113.4;
+    -fx-pref-height: 120;
+    -fx-pref-width: 120;
     -fx-background-color: #F4F5F7;
     -fx-border-color: #000000;
     -fx-border-width: 1;
@@ -85,7 +97,54 @@
 }
 
 .selectTrainer_imageView {
-    -fx-fit-to-height: 151.2;
-    -fx-fit-to-width: 113.4;
+    -fx-fit-to-height: 120;
+    -fx-fit-to-width: 100;
     -fx-preserve-ratio: true;
+}
+
+.selectTrainer_TrainerDetailBox {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-pref-width: 400;
+    -fx-alignment: CENTER;
+}
+
+.selectTrainer_SelectBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+}
+
+.selectTrainer_SelectBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_SelectBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_goBackBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 100;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+}
+
+.selectTrainer_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_goBackBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
