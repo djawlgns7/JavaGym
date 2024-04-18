@@ -288,7 +288,7 @@ public class TrainerDetailController implements Initializable {
             String resetPassword = currentTrainer.getId() + getRandomPassword();
             String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
 
-            smsService.sendTrainerInitPassword("010" + currentTrainer.getPhone(), resetPassword);
+            smsService.sendTrainerInitPassword(currentTrainer.getPhone(), resetPassword);
             trainerRepository.resetPassword(hashPw, currentTrainer.getNum());
 
             showDialog("비밀번호가 초기화되었습니다.");

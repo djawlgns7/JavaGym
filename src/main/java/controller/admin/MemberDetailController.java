@@ -483,7 +483,7 @@ public class MemberDetailController implements Initializable {
             String resetPassword = String.valueOf(getRandomPassword());
             String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
 
-            smsService.sendMemberInitPassword("010" + currentMember.getPhone(), Integer.parseInt(resetPassword));
+            smsService.sendMemberInitPassword(currentMember.getPhone(), Integer.parseInt(resetPassword));
             memberRepository.resetPassword(hashPw, currentMember.getNum());
 
             showDialog("비밀번호가 초기화되었습니다.");
