@@ -303,10 +303,18 @@ public class ValidateUtil {
         return !(phone.length() == 8);
     }
 
+
+    private static boolean isDuplicateDate(String date) {
+        int month = Integer.parseInt(date.substring(2, 4));
+        int day = Integer.parseInt(date.substring(4));
+
+        return(1 > month || month > 12) || (1 > day || day > 31);
+
+    }
+
     public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {
         return  num.getText().trim().isEmpty() ||
-                name.getText().trim().isEmpty() ||
-                time.getText().trim().isEmpty();
+                name.getText().trim().isEmpty();
     }
 
     //트레이너 근무 시간 검증
