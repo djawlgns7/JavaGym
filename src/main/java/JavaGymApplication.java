@@ -20,7 +20,7 @@ public class JavaGymApplication extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/NanumGothic-Bold.ttf"), 20);
 
         // 메인 화면 로드
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/hidden.fxml"));
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/member/memberLogin.fxml"));
         Scene scene = new Scene(loginRoot);
         stage.setScene(scene);
 
