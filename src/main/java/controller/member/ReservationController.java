@@ -150,7 +150,7 @@ public class ReservationController implements Initializable {
             timeArea.getChildren().add(timeButtons[i]);
         }
 
-        calendarHead.setText("~~~~~~ " + today.getMonth().getValue() + "월 ~~~~~~");
+        calendarHead.setText("*･ﾟ｡☆ " + today.getMonth().getValue() + "월 ☆｡ﾟ･*");
 
         for(int i = 1; i <= todayOfWeek; i++){
             days[dayIndex].getStyleClass().add("reservation_DisabledDay");
@@ -311,8 +311,18 @@ public class ReservationController implements Initializable {
 
         String[] splittedDateTime = firstDateTime.split("\\'");
         String[] dateNTime = splittedDateTime[1].split(" ");
-        String date = dateNTime[0].replace("/", "-");
-        date = LocalDate.now().getYear() + "-" + date;
+        String[] monthAndDay = dateNTime[0].split("/");
+        int thisYear = LocalDate.now().getYear();
+
+        if(LocalDate.now().getMonthValue() > Integer.parseInt(monthAndDay[0])){
+            thisYear++;
+        }
+
+        if(Integer.parseInt(monthAndDay[0]) < 10){
+            monthAndDay[0] = "0" + monthAndDay[0];
+        }
+
+        String date = thisYear + " - " + monthAndDay[0] + " - " + monthAndDay[1];
 
         String fromTime = dateNTime[1];
         String toTime = fromTime.substring(0, 2);
@@ -451,7 +461,7 @@ public class ReservationController implements Initializable {
         nextPageDay = nextPageDay.plusDays(35);
         int nextPageMonth = nextPageDay.getMonth().getValue();
 
-        calendarHead.setText(nextPageMonth + "월");
+        calendarHead.setText("*･ﾟ｡☆ " + nextPageMonth + "월 ☆｡ﾟ･*");
 
         nextPage.setOnMouseClicked(event->{});
         nextPage.getStyleClass().remove("clickableBtn");
@@ -474,7 +484,7 @@ public class ReservationController implements Initializable {
             }
         }
 
-        calendarHead.setText(LocalDate.now().getMonth().getValue() + "월");
+        calendarHead.setText("*･ﾟ｡☆ " + LocalDate.now().getMonth().getValue() + "월 ☆｡ﾟ･*");
 
         nextPage.setOnMouseClicked(event->{
             nextPage();
@@ -547,7 +557,7 @@ public class ReservationController implements Initializable {
             String indexDateTime = indexDate + " " + indexTime;
 
             Label newDateTime = new Label(indexDateTime);
-            newDateTime.getStyleClass().add("selectedResrevationList");
+            newDateTime.getStyleClass().add("selectedReservationList");
 
             newDateTime.setOnMouseClicked(Event -> {
                 for(int j = 0; j < selectedReservations.size(); j++){
