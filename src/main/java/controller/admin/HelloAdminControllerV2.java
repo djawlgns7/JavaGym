@@ -25,7 +25,6 @@ import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
 import service.SmsService;
-import util.DialogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,7 +92,7 @@ public class HelloAdminControllerV2 implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
-        showDialogAndMovePage("회원 등록 성공", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePageMessage("addMember", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
@@ -240,14 +239,14 @@ public class HelloAdminControllerV2 implements Initializable {
         String searchName = searchMemberNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            DialogUtil.showDialog("이름을 입력해 주세요.");
+            showDialogErrorMessage("emptyName");
             return;
         }
 
         List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
 
         if (searchedMembers.isEmpty()) {
-            DialogUtil.showDialog("해당 이름의 회원이 없습니다.");
+            showDialogErrorMessage("noFindByNameMember");
             return;
         }
         ObservableList<Member> observableList = FXCollections.observableArrayList(searchedMembers);
@@ -272,7 +271,7 @@ public class HelloAdminControllerV2 implements Initializable {
         boolean hasSelected = membersTable.getItems().stream().anyMatch(Member::isSelected);
 
         if (!hasSelected) {
-            showDialog("선택한 회원이 없습니다.");
+            showDialogErrorMessage("noSelectMember");
             return;
         }
 
@@ -280,13 +279,13 @@ public class HelloAdminControllerV2 implements Initializable {
                 .filter(Member::isSelected)
                 .toList();
 
-        Optional<ButtonType> result = showDialogChoose("정말로 선택한 회원을 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyDeleteMember");
         if (result.get() == ButtonType.OK) {
             for (Member member : members) {
                 memberRepository.deleteMember(member.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(0);
-            showDialogAndMovePageTimerOff("선택한 회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
         }
 
     }
@@ -372,7 +371,7 @@ public class HelloAdminControllerV2 implements Initializable {
         }
 
         AdminTab.getInstance().setSelectedTabIndex(1);
-        showDialogAndMovePage("트레이너 등록 성공", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePageMessage("addTrainer", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
@@ -406,14 +405,14 @@ public class HelloAdminControllerV2 implements Initializable {
         String searchName = searchTrainerNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            DialogUtil.showDialog("이름을 입력해 주세요.");
+            showDialogErrorMessage("emptyName");
             return;
         }
 
         Trainer trainer = trainerRepository.findByName(searchName);
 
         if (trainer == null) {
-            DialogUtil.showDialog("해당 이름의 트레이너가 없습니다.");
+            showDialogErrorMessage("noFindByNameTrainer");
             return;
         }
         ObservableList<Trainer> observableList = FXCollections.observableArrayList(trainer);
@@ -431,7 +430,7 @@ public class HelloAdminControllerV2 implements Initializable {
         boolean hasSelected = trainerTable.getItems().stream().anyMatch(Trainer::isSelected);
 
         if (!hasSelected) {
-            showDialog("선택한 트레이너가 없습니다.");
+            showDialogErrorMessage("noSelectTrainer");
             return;
         }
 
@@ -439,13 +438,13 @@ public class HelloAdminControllerV2 implements Initializable {
                 .filter(Trainer::isSelected)
                 .toList();
 
-        Optional<ButtonType> result = showDialogChoose("정말로 선택한 트레이너를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyDeleteTrainer");
         if (result.get() == ButtonType.OK) {
             for (Trainer trainer : trainers) {
                 trainerRepository.deleteTrainer(trainer.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(1);
-            showDialogAndMovePageTimerOff("선택한 트레이너가 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageTimerOffMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
     }
 }

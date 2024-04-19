@@ -10,6 +10,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import lombok.extern.slf4j.Slf4j;
 import repository.MemberRepository;
 import service.MemberService;
 import service.SmsService;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 import static domain.member.SelectedMember.currentMember;
 import static util.PageUtil.movePage;
 
+@Slf4j
 public class MemberLoginController implements Initializable {
 
     @FXML

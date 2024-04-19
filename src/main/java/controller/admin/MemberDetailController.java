@@ -31,7 +31,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static domain.Item.*;
-import static domain.member.SelectedMember.*;
 import static service.SmsService.getRandomPassword;
 import static domain.member.SelectedMember.currentMember;
 
@@ -49,6 +48,7 @@ public class MemberDetailController implements Initializable {
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final SmsService smsService = new SmsService();
+    private final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
 
     @FXML
     private TextField nameField, phoneField, emailField, lockerNumField;
@@ -101,7 +101,7 @@ public class MemberDetailController implements Initializable {
         }
 
         // 수정 내역이 있는 경우
-        Optional<ButtonType> response = showDialogChoose("회원 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChooseMessage("reallyUpdateMember");
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
 
@@ -202,7 +202,6 @@ public class MemberDetailController implements Initializable {
                     if (inputPtTicket == 0 && inputTrainerName.isEmpty()) {
                         setRemain(memberNum, PT_TICKET, -currentPtTicket);
                         changeTrainerOfMember(memberNum, 0);
-                        //purchaseRepository.deletePtTicketAndTrainer(memberNum);
                     }
 
                     if (trainerRepository.findByName(inputTrainerName) == null && !inputTrainerName.isEmpty()) {
@@ -339,7 +338,7 @@ public class MemberDetailController implements Initializable {
                 }
             }
         }
-        showDialogAndMovePageTimerOff("회원이 수정되었습니다.", "/view/admin/memberDetail", event);
+        showDialogAndMovePageTimerOffMessage("updateMember", "/view/admin/memberDetail", event);
     }
 
     private boolean isSameBasicInfo() {
@@ -414,11 +413,11 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = showDialogChoose(currentMember.getName() + " 회원을 삭제하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose(currentMember.getName() + " " + basicMessage.getString("reallyDeleteMember"));
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(currentMember.getNum());
-            showDialogAndMovePageTimerOff("회원이 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
         }
     }
 
@@ -452,7 +451,7 @@ public class MemberDetailController implements Initializable {
     private void cancelReservation(ActionEvent event) throws IOException {
 
         if (ptTable.getItems().isEmpty()) {
-            showDialog("PT 예약 정보가 없습니다.");
+            showDialogErrorMessage("noReservation");
             return;
         }
 
@@ -463,11 +462,11 @@ public class MemberDetailController implements Initializable {
 
         // 선택된 예약 정보가 있는지 확인
         if (selectedSchedules.isEmpty()) {
-            showDialog("취소할 예약을 선택해주세요.");
+            showDialogErrorMessage("noSelectDeleteReservation");
             return;
         }
 
-        Optional<ButtonType> result = showDialogChoose("해당 PT 예약 정보를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyDeleteReservation");
 
         if (result.get() == ButtonType.OK){
             int count = 0;
@@ -478,13 +477,13 @@ public class MemberDetailController implements Initializable {
             }
             // 삭제한 예약 내역만큼 PT 이용권 돌려주기
             setRemain(currentMember.getNum(), PT_TICKET, count);
-            showDialogAndMovePageTimerOff("예약 정보가 삭제되었습니다.", "/view/admin/memberDetail", event);
+            showDialogAndMovePageTimerOffMessage("deleteReservation", "/view/admin/memberDetail", event);
         }
     }
 
     @FXML
     private void resetPassword() {
-        Optional<ButtonType> result = showDialogChoose("비밀번호를 초기화하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyResetPassword");
 
         if (result.get() == ButtonType.OK) {
             String resetPassword = String.valueOf(getRandomPassword());
@@ -493,7 +492,7 @@ public class MemberDetailController implements Initializable {
             smsService.sendMemberInitPassword(currentMember.getPhone(), Integer.parseInt(resetPassword));
             memberRepository.resetPassword(hashPw, currentMember.getNum());
 
-            showDialog("비밀번호가 초기화되었습니다.");
+            showDialogBasicMessage("resetPassword");
         }
     }
 

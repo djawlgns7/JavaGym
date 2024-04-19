@@ -19,9 +19,6 @@
                 <TextField fx:id="nameField" promptText="이름" styleClass="reservationInfo_nameInput"/>
             </HBox>
             <HBox alignment="CENTER">
-                <TextField fx:id="phoneField" promptText="전화번호" styleClass="reservationInfo_phoneInput"/>
-            </HBox>
-            <HBox alignment="CENTER">
                 <DatePicker fx:id="rDatePicker" promptText="예약 일자" styleClass="reservationInfo_DatePicker"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
