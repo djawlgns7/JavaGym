@@ -1,0 +1,278 @@
+.selectLocker_Title {
+    -fx-font-size: 64;
+    -fx-font-family: "Anton";
+}
+
+.selectLocker_Floor {
+    -fx-font-size: 20;
+    -fx-font-family: "NanumGothic";
+    -fx-font-fill: #9747FF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-translate-x: -140;
+    -fx-translate-y: -15;
+}
+
+.selectLocker_DiffMark {
+    -fx-padding: 0 10 0 10;
+}
+.selectLocker_Mark_1,
+.selectLocker_Mark_2,
+.selectLocker_Mark_3 {
+    -fx-translate-x: -30;
+}
+
+.selectLocker_NavigationTitle_1,
+.selectLocker_NavigationTitle_2,
+.selectLocker_NavigationTitle_3 {
+    -fx-font-size: 20;
+    -fx-font-family: "Jua";
+}
+
+/* 락커 복도 */
+.lockerAreaPath {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-pref-width: 50;
+    -fx-pref-height: 30;
+}
+
+/* 락커 */
+.locker {
+    -fx-font-family: "NanumGothic";
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-text-fill: #9747FF;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+}
+
+/* 락커가 선택됐을 경우 색 */
+.selectedLocker {
+    -fx-background-color: #FDB3DB;
+    -fx-border-color: #000000;
+    -fx-text-fill: #9747FF;
+}
+
+/* 단순히 선택되지 않은 락커를 구분하기 위한 클래스. 꾸미고 싶으면 꾸미세요 */
+.unselectedLocker {
+
+}
+
+/* 다른 회원이 선택하고 있는 락커 색 */
+.occupiedLocker {
+    -fx-background-color: #9747FF;
+    -fx-border-color: #000000;
+    -fx-text-fill: #FFFFFF;
+}
+
+.unselectedLocker:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-width: 1.8;
+    -fx-cursor: hand;
+}
+
+/* 락커 선택 버튼 활성화 */
+.clickable {
+    -fx-font-family: "Anton";
+    -fx-font-size: 16;
+    -fx-text-fill: #9747FF;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+}
+
+/* 락커 선택 버튼 활성화 */
+.unclickable {
+    -fx-font-family: "Anton";
+    -fx-font-size: 16;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #9747FF;
+    -fx-background-radius: 5;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+}
+
+.clickable:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+}
+
+.clickable:pressed {
+    -fx-background-color: #E2CCFF;
+    -fx-cursor: hand;
+}
+
+.navigationSize {
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+}
+
+.selectLocker_NumBox {
+    -fx-translate-y: 10;
+}
+
+.selectLocker_NumTitle {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
+}
+
+.selectLocker_Num {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
+    -fx-text-fill: #9747FF;
+}
+
+.selectLocker_Days_radioBtn {
+    -fx-translate-y: 20;
+}
+
+.selectLocker_radioBox_1 {
+    -fx-translate-x: 25;
+}
+
+.selectLocker_radioBox_2 {
+    -fx-translate-x: 40;
+}
+
+.selectLocker_radioBox_3 {
+    -fx-translate-x: 39;
+}
+
+.selectLocker_radioBox_4 {
+    -fx-translate-x: 30;
+}
+
+.selectLocker_radioBox_5 {
+    -fx-translate-x: 15;
+}
+
+.selectLocker_NoSelectDays_radioBtn {
+    -fx-translate-x: 25;
+    -fx-text-fill: transparent;
+}
+
+.selectLocker_30Days_radioBtn,
+.selectLocker_90Days_radioBtn,
+.selectLocker_180Days_radioBtn,
+.selectLocker_360Days_radioBtn {
+    -fx-translate-x: 50;
+    -fx-text-fill: transparent;
+}
+
+.selectLocker_NoSelectDays_radioBtn_Text_1,
+.selectLocker_30Days_radioBtn_Text_1,
+.selectLocker_90Days_radioBtn_Text_1,
+.selectLocker_180Days_radioBtn_Text_1,
+.selectLocker_360Days_radioBtn_Text_1 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-text-fill: #9747FF;
+}
+
+.selectLocker_NoSelectDays_radioBtn_Text_2,
+.selectLocker_30Days_radioBtn_Text_2,
+.selectLocker_90Days_radioBtn_Text_2,
+.selectLocker_180Days_radioBtn_Text_2,
+.selectLocker_360Days_radioBtn_Text_2 {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+}
+
+/* Radio Button Non-selected 상태 색상 변경 */
+.selectLocker_NoSelectDays_radioBtn .radio,
+.selectLocker_30Days_radioBtn .radio,
+.selectLocker_90Days_radioBtn .radio,
+.selectLocker_180Days_radioBtn .radio,
+.selectLocker_360Days_radioBtn .radio {
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+    -fx-background-color: #DABDFF;
+}
+
+/* Radio Button Non-selected Hover 상태 색상 변경 */
+.selectLocker_NoSelectDays_radioBtn .radio:hover,
+.selectLocker_30Days_radioBtn .radio:hover,
+.selectLocker_90Days_radioBtn .radio:hover,
+.selectLocker_180Days_radioBtn .radio:hover,
+.selectLocker_360Days_radioBtn .radio:hover {
+    -fx-background-color: #C4A3FF;
+}
+
+/* Radio Button Selected 상태 색상 변경 */
+.selectLocker_NoSelectDays_radioBtn:selected .radio,
+.selectLocker_30Days_radioBtn:selected .radio,
+.selectLocker_90Days_radioBtn:selected .radio,
+.selectLocker_180Days_radioBtn:selected .radio,
+.selectLocker_360Days_radioBtn:selected .radio {
+    -fx-background-color: #F4B6FF;
+}
+
+/* Radio Button Selected Hover 상태 색상 변경 */
+.selectLocker_NoSelectDays_radioBtn:selected .radio:hover,
+.selectLocker_30Days_radioBtn:selected .radio:hover,
+.selectLocker_90Days_radioBtn:selected .radio:hover,
+.selectLocker_180Days_radioBtn:selected .radio:hover,
+.selectLocker_360Days_radioBtn:selected .radio:hover {
+    -fx-background-color: #E868FF;
+}
+
+/* Radio Button Dot 색상 변경 */
+.selectLocker_NoSelectDays_radioBtn:selected .dot,
+.selectLocker_30Days_radioBtn:selected .dot,
+.selectLocker_90Days_radioBtn:selected .dot,
+.selectLocker_180Days_radioBtn:selected .dot,
+.selectLocker_360Days_radioBtn:selected .dot {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Button */
+.selectLocker_Btn {
+    -fx-translate-y: 30;
+}
+
+.selectLocker_SelectBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 70;
+    -fx-pref-height: 30;
+}
+
+.selectLocker_CancelBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 70;
+    -fx-pref-height: 30;
+}
+
+.selectLocker_SelectBtn:hover, .selectLocker_CancelBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectLocker_SelectBtn:pressed, .selectLocker_CancelBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}

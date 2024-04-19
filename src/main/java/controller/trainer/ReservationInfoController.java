@@ -2,7 +2,7 @@ package controller.trainer;
 
 
 import domain.member.Member;
-import domain.member.UsingLocker;
+import domain.member.MemberSchedule;
 import domain.trainer.*;
 
 import javafx.collections.FXCollections;
@@ -20,12 +20,10 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.TrainerService;
-import static domain.trainer.SelectedReservation.currentReservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +32,7 @@ import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-
+import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.setRemain;
@@ -47,8 +45,10 @@ public class ReservationInfoController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final MemberRepository memberRepository = new MemberRepository();
     private final TrainerService service = new TrainerService(trainerRepository);
+
     @FXML
-    private TextField numField, nameField, phoneField, rtimeField, searchMemberNameField;
+    private TextField numField, nameField, phoneField, rTimeField, searchMemberNameField;
+
     @FXML
     private DatePicker rDatePicker;
 
@@ -61,10 +61,9 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private TableColumn<Reservation, String> memberNumCol, memberNameCol, memberPhoneCol, rDateCol, rTimeCol;
 
-
     @FXML
-    private void addReservationInfo(ActionEvent event) throws ParseException, IOException {
-        if (isEmptyAnyField(numField, nameField, phoneField, rtimeField)) {
+    private void addReservationInfo(ActionEvent event) throws IOException {
+        if (isEmptyAnyField(numField, nameField, phoneField, rTimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
@@ -72,12 +71,35 @@ public class ReservationInfoController implements Initializable {
         Reservation reservation = new Reservation();
 
         // 예약 추가 로직 구현
-        Integer memberNum = Integer.valueOf(numField.getText().trim());
+        int memberNum = Integer.parseInt(numField.getText().trim());
         String memberName = nameField.getText().trim();
         String memberPhone = phoneField.getText().trim();
+
+        if(!checkMember(memberNum, memberName, memberPhone)) {
+            showDialogErrorMessage("wrongMember");
+            return;
+        }
         Date rDate = Date.valueOf(rDatePicker.getValue());
-        Integer rTime = Integer.valueOf(rtimeField.getText().trim());
+        String rTimeInput = rTimeField.getText().trim();
         LocalDate localrDate = rDate.toLocalDate();
+        List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(memberNum);
+        int memberReservationNum = memberSchedule.size();
+
+        if (memberReservationNum >= 4) {
+            showDialogErrorMessage("maxReservationNum");
+            return;
+        }
+        if (!rTimeInput.matches("\\d+")) {
+            showDialogErrorMessage("notTime");
+            return;
+        }
+
+        int rTime = Integer.parseInt(rTimeInput);
+
+        if(rTime < 8 || rTime > 19) {
+            showDialogErrorMessage("invalidTime");
+            return;
+        }
 
         if (!isValidTimeForTrainer(currentTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
@@ -135,14 +157,6 @@ public class ReservationInfoController implements Initializable {
             return null;
         });
 
-        TextFormatter<String> rtimeFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if(newText.matches("([01]?[0-9]|2[0-3])")) {
-                return change;
-            }
-            return null;
-        });
-
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.
@@ -157,8 +171,6 @@ public class ReservationInfoController implements Initializable {
 
         numField.setTextFormatter(memberNumFormatter);
         phoneField.setTextFormatter(phoneFormatter);
-        rDatePicker.setValue(LocalDate.now());
-        rtimeField.setTextFormatter(rtimeFormatter);
 
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
@@ -232,7 +244,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> response = showDialogChoose("정말 선택하신 예약을 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChoose("해당 예약을 취소하시겠습니까?");
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
             //선택한 예약 내역 모두 삭제
@@ -255,9 +267,9 @@ public class ReservationInfoController implements Initializable {
         Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
-        TableView<UsingLocker> table = new TableView<>();
+        TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadmemberInfo(table, memberRepository);
+        loadMemberInfo(table, memberRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
@@ -269,5 +281,13 @@ public class ReservationInfoController implements Initializable {
         dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 
         dialog.showAndWait();
+    }
+
+    public boolean checkMember(int memberNum, String memberName, String memberPhone) {
+        Member member = memberRepository.findByNum(memberNum);
+        if(member == null) {
+            return false;
+        }
+        return member.getName().equals(memberName) && member.getPhone().equals(memberPhone);
     }
 }

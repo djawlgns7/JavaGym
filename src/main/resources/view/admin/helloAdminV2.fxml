@@ -66,20 +66,23 @@
                                     <Label text="회원 정보" styleClass="memberInfo_title_2"/>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
-                                        <Button onAction="#searchMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_SearchIcon">
+                                        <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
+                                        <Button onAction="#searchMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_SearchIcon" />
+
+                                        <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
+                                        <Button onAction="#resetPageMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_refreshBtn">
                                             <graphic>
-                                                <ImageView fitWidth="16" fitHeight="16">
-                                                    <image><Image url="/image/Search_Icon.png"/></image>
+                                                <ImageView fitWidth="20" fitHeight="20">
+                                                    <image><Image url="/image/Refresh_Icon.png"/></image>
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
-                                        <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="membersTable" prefHeight="550.0" editable="true">
                                         <columns>
-                                            <TableColumn fx:id="selectMemberCol" text="선택">
+                                            <TableColumn fx:id="selectMemberCol" text="선택" styleClass="memberInfo_chooseColumn">
                                                 <cellValueFactory>
                                                     <PropertyValueFactory property="selected" />
                                                 </cellValueFactory>
@@ -95,9 +98,7 @@
                                     </TableView>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_subBtn">
-                                        <Button text="삭제" onAction="#deleteMembers"/>
-                                        <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
-                                        <Button text="새로고침" onAction="#resetPageMember" styleClass="memberInfo_refreshBtn"/>
+                                        <Button text="삭제" onAction="#deleteMembers" styleClass="memberInfo_deleteBtn"/>
                                     </HBox>
                                 </VBox>
                             </items>
@@ -106,7 +107,7 @@
 
                     <!-- 트레이너 탭 trainerInfo.fxml -->
                     <Tab text="트레이너 관리" closable="false" styleClass="trainerInfo_Tab">
-                        <SplitPane dividerPositions="0.35" stylesheets="/css/common.css">
+                        <SplitPane dividerPositions="0.39" stylesheets="/css/common.css">
                             <items>
                                 <VBox fx:id="trainerDetailArea" spacing="30" alignment="CENTER">
                                     <Label text="트레이너 등록"  styleClass="trainerInfo_title_1"/>
@@ -173,20 +174,21 @@
                                     <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
-                                        <Button onAction="#searchTrainer" prefWidth="16" prefHeight="16" styleClass="trainerInfo_SearchIcon">
+                                        <Button onAction="#searchTrainer" prefWidth="16" prefHeight="16" styleClass="trainerInfo_SearchIcon" />
+                                        <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
+                                        <Button onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn">
                                             <graphic>
-                                                <ImageView fitWidth="16" fitHeight="16">
-                                                    <image><Image url="/image/Search_Icon.png"/></image>
+                                                <ImageView fitWidth="20" fitHeight="20">
+                                                    <image><Image url="/image/Refresh_Icon.png"/></image>
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
-                                        <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="trainerTable" prefHeight="550.0" editable="true">
                                         <columns>
-                                            <TableColumn fx:id="selectTrainerCol" text="선택">
+                                            <TableColumn fx:id="selectTrainerCol" text="선택" styleClass="trainerInfo_chooseColumn">
                                                 <cellValueFactory>
                                                     <PropertyValueFactory property="selected" />
                                                 </cellValueFactory>
@@ -202,8 +204,7 @@
                                     </TableView>
 
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_subBtn">
-                                        <Button text="삭제" onAction="#deleteTrainers"/>
-                                        <Button text="새로고침" onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn"/>
+                                        <Button text="삭제" onAction="#deleteTrainers" styleClass="trainerInfo_deleteBtn"/>
                                     </HBox>
                                 </VBox>
                             </items>

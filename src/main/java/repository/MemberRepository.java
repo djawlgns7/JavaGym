@@ -270,7 +270,6 @@ public class MemberRepository {
         }
     }
 
-
     public int getAge(Member member) {
         LocalDate today = LocalDate.now();
         String birthString = dateToString(member.getBirthDate());
@@ -329,4 +328,25 @@ public class MemberRepository {
 
         return false;
     }
+
+    public void resetPassword(String newPassword, int memberNum) {
+        String sql = "update member set m_pw = ? where m_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, memberNum);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
+    }
+
 }

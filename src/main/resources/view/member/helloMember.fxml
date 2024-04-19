@@ -14,8 +14,13 @@
         <Button fx:id="invisibleButton" managed="false" visible="true" />
         <!-- 내 정보 & 로그아웃 버튼 -->
         <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="helloMember_TopBtn">
-            <!-- 관리자 호출 버튼 임시로 추가함(지훈) -->
-            <Button onAction="#callAdmin" text="관리자 호출" />
+            <Button onAction="#callAdmin" prefWidth="48" prefHeight="48" styleClass="helloMember_CallIcon">
+                <graphic>
+                    <ImageView fitWidth="48" fitHeight="48">
+                        <image><Image url="/image/Bells_Icon_2.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
             <Button onAction="#myInfo" prefWidth="48" prefHeight="48" styleClass="helloMember_myPageIcon">
                 <graphic>
                     <ImageView fitWidth="48" fitHeight="48">
@@ -50,7 +55,7 @@
                 <Label text="환영합니다!" styleClass="helloMember_Name_Info"/>
             </VBox>
             <VBox alignment="CENTER" spacing="20">
-                <Label text="헬스장 이용 기간" styleClass="helloMember_GYM_InfoTitle" />
+                <Label text="헬스장 이용권" styleClass="helloMember_GYM_InfoTitle" />
                 <Label fx:id="DDay" text="D-OOO" styleClass="helloMember_GYM_Info" />
             </VBox>
         </HBox>

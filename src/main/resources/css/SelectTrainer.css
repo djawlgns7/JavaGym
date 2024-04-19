@@ -1,0 +1,150 @@
+.selectTrainer_Title {
+    -fx-font-size: 64;
+    -fx-font-family: "Anton";
+}
+
+.selectTrainer_SubTitle {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+}
+
+/* ComboBox */
+.selectTrainer_TimeComboBox {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-font-size: 12;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+    -fx-translate-x: 265;
+}
+
+/* ComboBox - TextField 배경색 변경 */
+.selectTrainer_TimeComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+/* ComboBox - Button 색상 변경 */
+.selectTrainer_TimeComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Button Hover 색상 변경 */
+.selectTrainer_TimeComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox - Arrow 색상 변경 */
+.selectTrainer_TimeComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
+}
+
+/* Trainer List */
+.selectTrainer_Box {
+    -fx-pref-height: 600;
+    -fx-pref-width: 100;
+}
+
+.selectTrainer_Scroll {
+
+}
+
+.selectTrainer_List {
+    -fx-padding: 10;
+    -fx-background-color: #F4F5F7;
+}
+
+.selectTrainer_TrainerBox {
+    -fx-pref-width: 600;
+    -fx-alignment: CENTER;
+}
+
+.selectTrainer_ImageContainer {
+    -fx-pref-height: 120;
+    -fx-pref-width: 120;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.selectTrainer_imageView {
+    -fx-fit-to-height: 120;
+    -fx-fit-to-width: 100;
+    -fx-preserve-ratio: true;
+}
+
+.selectTrainer_TrainerDetailBox {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+    -fx-pref-width: 400;
+    -fx-alignment: CENTER;
+}
+
+.selectTrainer_SelectBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 18;
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+}
+
+.selectTrainer_SelectBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_SelectBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_goBackBtn {
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 100;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5;
+}
+
+.selectTrainer_goBackBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.selectTrainer_goBackBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}

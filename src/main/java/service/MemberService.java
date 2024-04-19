@@ -14,6 +14,7 @@ import util.MemberUtil;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.*;
 import static util.DialogUtil.*;
@@ -25,6 +26,7 @@ public class MemberService {
     private final MemberRepository repository;
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
+    private final ResourceBundle message = ResourceBundle.getBundle("message.basic");
 
     public MemberService(MemberRepository repository) {
         this.repository = repository;
@@ -106,7 +108,7 @@ public class MemberService {
             String today = LocalDate.now().toString();
             if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
                 entryLogRepository.save(findMember.getNum());
-                showDialogAndMoveMainPage(findMember.getName() + "님 오늘도 파이팅!", event);
+                showDialogAndMoveMainPage(findMember.getName() + message.getString("fighting"), event);
             } else {
                 showDialogBasicMessage("DeniedEntry");
             }

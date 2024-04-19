@@ -22,14 +22,15 @@ import java.util.*;
 
 import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AnimationUtil.animateTabFade;
-import static util.DialogUtil.*;
+import static util.AnimationUtil.animateTab;
 import static util.ControllerUtil.createImageViewFromBytes;
+import static util.DialogUtil.showDialog;
+import static util.DialogUtil.showDialogChoose;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 import static util.PageUtil.moveToMainPage;
 import static util.PurchaseUtil.purchaseItem;
-import static util.SoundUtil.*;
+import static util.SoundUtil.play;
 
 public class PaymentController implements Initializable {
 
@@ -131,7 +132,7 @@ public class PaymentController implements Initializable {
 
         tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab != null && oldTab != null) {
-                animateTabFade(newTab.getContent(), oldTab.getContent());
+                animateTab(newTab.getContent(), oldTab.getContent());
             }
         });
 
@@ -144,6 +145,7 @@ public class PaymentController implements Initializable {
         int clothesRemain = remains.get(2);
         int lockerRemain = remains.get(3);
         int lockerNum = getLockerNum(memberNum);
+        int trainerNum = getTrainerNumForMember(memberNum);
 
         // 오늘을 기준으로 만료일을 얻는다.
         LocalDate today = LocalDate.now();
@@ -209,6 +211,8 @@ public class PaymentController implements Initializable {
 
                     // 기타 이용권 탭
                 } else {
+
+                    clothes30Button.toFront();
                     lockerLabel.setVisible(true);
                     currentLockerNumLabel.setVisible(true);
                     currentLockerPeriodLabel.setVisible(true);
@@ -395,8 +399,8 @@ public class PaymentController implements Initializable {
         clothesLabel.setVisible(false);
         currentClothesSizeLabel.setVisible(false);
 
-        // 트레이너 선택 전
-        if (!selectTrainer) {
+        // 트레이너 선택 전, 담당 트레이너가 없을 경우
+        if (!selectTrainer && trainerNum == 0) {
             firstSelectTrainerLabel.setVisible(true); // 먼저 트레이너를 선택해 주세요.
             selectTrainerImageView.setVisible(false);
             selectTrainerInfo.setVisible(false);
@@ -420,6 +424,12 @@ public class PaymentController implements Initializable {
             selectLockerButton.setVisible(false);
         }
 
+        //트레이너를 선택하지 않았고, 현재 담당 트레이너가 있을 경우
+        if(currentTrainer == null && trainerNum != 0) {
+            currentTrainer = trainerRepository.findByNum(trainerNum);
+        }
+
+        //트레이너 선택 후
         if (currentTrainer != null) {
             ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
             selectTrainerImage.setImage(image.getImage());

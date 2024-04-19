@@ -1,12 +1,13 @@
+
 .reservationDetail_title_1, .reservationDetail_title_2 {
     -fx-font-size: 36;
-    -fx-font-family: "Jua";
+    -fx-font-family: "NanumGothic";
 }
 
-TextField, .reservationDetail_date {
+TextField, .reservation_date {
     -fx-font-family: "NanumGothic";
-    -fx-pref-width: 250;
-    -fx-pref-height: 50;
+    -fx-pref-width: 200;
+    -fx-pref-height: 40;
     -fx-font-size: 16;
     -fx-background-color: #F4F5F7;
     -fx-border-color: #000000;
@@ -16,9 +17,28 @@ TextField, .reservationDetail_date {
     -fx-prompt-text-fill: #999999;
 }
 
+.reservation_date .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservation_date .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservation_date .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
 .reservationDetail_label_1, .reservationDetail_label_2 {
     -fx-font-size: 18;
-    -fx-font-family: "Jua";
+    -fx-font-family: "NanumGothic";
 }
 
 .reservationDetail_EntryBtn {
@@ -48,7 +68,7 @@ TextField, .reservationDetail_date {
 
 .reservationDetail_numCol, .reservationDetail_nameCol, .reservationDetail_phoneCol,
 .reservationDetail_dayCol, .reservationDetail_timeCol {
-    -fx-font-family: "Jua";
+    -fx-font-family: "NanumGothic";
 }
 
 .reservationDetail_numCol, .reservationDetail_nameCol, .reservationDetail_timeCol {
@@ -76,6 +96,36 @@ TextField, .reservationDetail_date {
     -fx-translate-x: -20;
 }
 
-.reservationCancel:hover {
+
+.reservationCancel:hover, .reservationDetail_Btn:hover {
     -fx-background-color: #F4B6FF;
+}
+
+.reservation_text {
+    -fx-font-size: 20px;
+    -fx-font-family: "Jua";
+}
+
+.rDetail_Btn {
+    -fx-translate-y: 10;
+}
+
+
+.reservationDetail_Btn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-font-family: "Jua";
+}
+
+.gridPane_label {
+    -fx-text-fill: #9747FF;
+}
+
+.gridPane_value, .gridPane_label {
+    -fx-font-size: 20px;
 }

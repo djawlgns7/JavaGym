@@ -1,256 +1,432 @@
-/* jihun  + mintaek */
-/* Label 스타일 */
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
 
+/* Title */
+.reservation_Title, .reservation_SubTitle {
+    -fx-translate-y: -50;
+}
+
+.reservation_Title {
+    -fx-font-size: 64;
+    -fx-font-family: "Anton";
+
+}
+
+.reservation_SubTitle {
+    -fx-font-size: 36;
+    -fx-font-family: "Jua";
+    -fx-text-fill: #9747FF;
+}
+
+/* Top Button */
 .reservation_TopBtn {
     -fx-font-family: "Jua";
     -fx-padding: 0 20 0 0;
     -fx-translate-y: 37;
 }
 
-.reservation_MainIcon {
+.reservation_callIcon {
     -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-translate-x: -200;
+
+}
+
+.reservation_mainIcon {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-translate-x: 220;
+}
+
+.reservation_mainIcon:hover, .reservation_callIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+}
+
+/* Trainer View */
+.reservation_TrainerView {
+    -fx-pref-height: 200;
+    -fx-translate-y: -70;
+}
+
+.reservation_ImageContainer {
+    -fx-background-color: #F4F5F7;
     -fx-border-color: #000000;
     -fx-border-width: 1;
     -fx-border-style: solid;
     -fx-border-radius: 5;
 }
 
-.reservation_MainIcon:hover {
+.reservation_TrainerInfo {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 20;
+}
+
+.reservation_PTTicketRemainTitle {
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 20;
+}
+
+.reservation_PTTicketRemain {
+    -fx-text-fill: #9747FF;
+}
+
+/* PT Ticket */
+.reservation_PTCountTitle {
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+    -fx-text-fill: #9747FF;
+    -fx-translate-y: -80;
+}
+
+.reservation_PTCount {
+    -fx-font-family: "Jua";
+    -fx-translate-y: -80;
+    -fx-pref-height: 30;
+}
+
+.reservation_minusBtn, .reservation_plusBtn {
+    -fx-font-size: 20;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #9747FF;
+    -fx-background-radius: 5;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-alignment: "CENTER";
+}
+
+.reservation_minusBtn:hover, .reservation_plusBtn:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+    -fx-background-color: #F4B6FF;
 }
 
-.reservation_title {
-    -fx-font-size: 84;
-    -fx-font-family: "Anton";
-    -fx-translate-y: -50;
-}
-
-
-Button {
-    -fx-pref-width: 70px;
-    -fx-pref-height: 30px;
-    -fx-font-size: 18px;
-    -fx-background-color: #9747FF;
-    -fx-text-fill: white;
-}
-
-Button:hover {
-    -fx-background-color: #EA8ABE;
-}
-
-.trainerInfoView {
-    -fx-translate-y: -50px;
-}
-
-.trainerProfile {
-    -fx-font-size: 20px;
-    -fx-padding: 20 0 0 0;
-}
-
-.title_label {
-    -fx-padding: 0 45 20 0;
-    -fx-translate-x: 10px;
-}
-
-.imageProfile {
-    -fx-padding: 0 0 0 50;
-}
-
-.count {
-    -fx-translate-y: -40px;
-}
-
-.minusBtn, .plusBtn {
-    -fx-background-color: #9747FF;
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
+.reservation_disabledMinusBtn, .reservation_disabledPlusBtn {
+    -fx-font-size: 20;
+    -fx-text-fill: #9747FF;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
     -fx-pref-width: 30;
-    -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-border-color: lightgray;
-    -fx-border-radius: 5px;
+    -fx-pref-height: 30;
+    -fx-alignment: "CENTER";
+
 }
 
-.ticketSelection{
-    -fx-border-color: black;
-    -fx-background-color: white;
+.disabledMinusBtn:hover, .disabledPlusBtn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #9747FF;
+}
+
+.reservation_PTNum {
+    -fx-font-family: "NanumGothic";
+    -fx-border-color: #000000;
+    -fx-background-color: #FFFFFF;
     -fx-pref-width: 80;
-    -fx-font-size: 18px;
+    -fx-font-size: 16;
     -fx-text-fill: #333333;
     -fx-pref-height: 200;
-    -fx-alignment: "javafx.geometry.Pos.CENTER";
+    -fx-alignment: "CENTER";
 }
 
 /* 달력 */
-#calender{
-    -fx-spacing: 0;
+.reservation_Calendar {
     -fx-pref-width: 400;
-}
-
-/* 시간 버튼들이 있는 곳 */
-#timeArea{
-    -fx-spacing: 20;
+    -fx-pref-height: 280;
+    -fx-translate-y: -100;
 }
 
 /* 달력 월 표시 */
-.calenderHead{
-    -fx-font-size: 20px;
-    -fx-text-fill: #333333;
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-translate-y: -50px;
-    -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-padding: 0 5 0 0;
+.reservation_CalendarHead {
+    -fx-font-family: "Jua";
+    -fx-font-size: 32;
+    -fx-translate-y: -80;
 }
 
-.calenderHeader{
-    -fx-spacing: 10;
-    -fx-translate-y: -60px;
+.reservation_CalendarList {
+    -fx-pref-width: 400;
+    -fx-pref-height: 400;
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 16;
+    -fx-background-color: #FFFFFF;
+    -fx-alignment: CENTER;
+    -fx-translate-y: 20;
 }
 
-/* 일요일 글자 */
-.sundayLabel{
+.reservation_DayBox {
+    -fx-pref-width: 400;
+    -fx-pref-height: 25;
+    -fx-font-family: "NanumGothic";
+    -fx-font-size: 15;
+    -fx-border-color: #000000;
+    -fx-border-width: 1 1 0.5 1;
+    -fx-border-style: solid;
+    -fx-background-color: #FFFFFF;
+    -fx-alignment: CENTER;
+}
+
+/* 일요일 */
+.reservation_Calendar_SundayLabel {
     -fx-text-fill: red;
-    -fx-font-size: 15px;
-    -fx-background-color: white;
+    -fx-font-size: 18;
+    -fx-background-color: #FFFFFF;
     -fx-pref-height: 100;
     -fx-pref-width: 100;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-border-color: lightgray;
+    -fx-border-color: #000000;
+    -fx-border-width: 0 0.5 0 0;
+    -fx-border-style: solid;
 }
 
-.dayLabel {
-    -fx-font-size: 15px;
+/* 평일 */
+.reservation_Calendar_DayLabel {
+    -fx-font-size: 18;
     -fx-text-fill: #333333;
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-pref-height: 100;
     -fx-pref-width: 100;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-border-color: lightgray;
+    -fx-border-color: #000000;
+    -fx-border-width: 0 0.5 0 0.5;
+    -fx-border-style: solid;
 }
 
-/* 토요일 글자 */
-.saturdayLabel{
+/* 토요일 */
+.reservation_Calendar_SaturdayLabel {
     -fx-text-fill: blue;
-    -fx-font-size: 15px;
-    -fx-background-color: white;
+    -fx-font-size: 18;
+    -fx-background-color: #FFFFFF;
     -fx-pref-height: 100;
     -fx-pref-width: 100;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-border-color: lightgray;
+    -fx-border-color: #000000;
+    -fx-border-width: 0 0.5 0 0.5;
+    -fx-border-style: solid;
 }
 
-.dayNum {
-    -fx-font-size: 15px;
+.reservation_Calendar_DayNum1, .reservation_Calendar_DayNum2,
+.reservation_Calendar_DayNum3, .reservation_Calendar_DayNum4 {
+    -fx-font-size: 18;
     -fx-text-fill: #333333;
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-pref-height: 50;
     -fx-pref-width: 10;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
-    -fx-border-color: lightgray;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
 }
 
-/* 지정 불가능한 날짜 */
-.disabled{
-    -fx-background-color: gray;
+.reservation_Calendar_DayNum5 {
+    -fx-font-size: 18;
     -fx-text-fill: #333333;
-    -fx-border-color: transparent;
-}
-
-/* 선택된 날짜 */
-.selected{
-    -fx-background-color: #bf9dfc;
-}
-
-/* 시간버튼 */
-.timeButton{
-    -fx-background-color: #bf9dfc;
-    -fx-pref-height: 30;
-    -fx-border-radius: 10px;
-    -fx-border-color: white;
-    -fx-border-width: 1px;
-}
-
-/* 지정 불가능한 시간버튼 */
-.disabledTimeButton{
-    -fx-background-color: gray;
-    -fx-text-fill: #333333;
-    -fx-border-color: transparent;
-}
-
-/* 선택된 시간버튼 */
-.selectedTimeButton{
-    -fx-background-color: #e24bff;
-}
-
-/* 달력 페이지 넘기는 버튼 활성화 */
-.clickable{
-    -fx-background-color: white;
-    -fx-border-color: black;
-    -fx-pref-width: 40;
-    -fx-font-size: 15px;
-    -fx-text-fill: #333333;
-    -fx-pref-height: 40;
+    -fx-background-color: #FFFFFF;
+    -fx-pref-height: 50;
+    -fx-pref-width: 10;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
+    -fx-border-color: #000000;
+    -fx-border-width: 1 1 2 1;
+    -fx-border-style: solid;
+}
+
+.reservation_Calendar_DayNum1:hover,
+.reservation_Calendar_DayNum2:hover,
+.reservation_Calendar_DayNum3:hover,
+.reservation_Calendar_DayNum4:hover,
+.reservation_Calendar_DayNum5:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-cursor: hand;
+}
+
+.reservation_Calendar_SelectedDay {
+    -fx-background-color: #BF9DFC;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.reservation_Calendar_SelectedDay:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.reservation_Calendar_ReservedDay {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.reservation_Calendar_ReservedDay:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.reservation_DisabledDay {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10;
+}
+
+/* 달력 페이지 전환 버튼 */
+.clickableBtn, .unclickableBtn {
+    -fx-translate-y: 30;
+}
+
+.clickableBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-text-fill: #000000;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-font-size: 16;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-alignment: "javafx.geometry.Pos.CENTER";
+}
+
+.clickableBtn:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
 }
 
 /* 달력 페이지 넘기는 버튼 비활성화 */
-.unclickable{
-    -fx-background-color: gray;
-    -fx-text-fill: #333333;
-    -fx-border-color: transparent;
+.unclickableBtn {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-text-fill: #000000;
     -fx-pref-width: 40;
-    -fx-font-size: 15px;
-    -fx-background-color: white;
     -fx-pref-height: 40;
+    -fx-font-size: 16;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
     -fx-alignment: "javafx.geometry.Pos.CENTER";
 }
 
-.timeStamp {
-    -fx-pref-width: 300;
-    -fx-pref-height: 100;
-    -fx-font-size: 20px;
-    -fx-border-color: transparent;
-    -fx-translate-y: -80px;
+.reservation_TimeStamp {
+    -fx-spacing: 20;
+    -fx-translate-y: -70;
 }
 
-/* 선택한 예약 목록이 있는 곳 */
-
-.selectReservation {
-    -fx-translate-y: -40px;
+/* Time Button */
+.reservation_TimeButton {
+    -fx-background-color: #BF9DFC;
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #BF9DFC;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
 }
 
-.selectBtn {
-    -fx-font-size: 20px;
+/* Selected Time Button */
+.reservation_SelectedTimeButton {
+    -fx-background-color: #E24BFF;
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #E24BFF;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
 }
 
-.rBtn {
-    -fx-font-size: 20px;
-    -fx-pref-height: 100;
-    -fx-pref-width: 100;
+.reservation_TimeButton:hover, .reservation_SelectedTimeButton:hover {
+    -fx-background-color: #E2CCFF;
+    -fx-border-color: #E2CCFF;
+    -fx-cursor: hand;
 }
 
-.resetBtn {
-    -fx-font-size: 20px;
-    -fx-pref-height: 100;
-    -fx-pref-width: 100;
+/* Disabled Time Button */
+.reservation_DisabledTimeButton {
+    -fx-background-color: #000000;
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
 }
 
-/* fxml에 없는거임 건들지 마셈 */
-.reservedDay {
-    -fx-background-color: #e24bff;
+/* Reservation List */
+.reservation_DayTimeTitle {
+    -fx-font-family: "Jua";
+    -fx-font-size: 24;
+    -fx-text-fill: #9747FF;
+    -fx-translate-y: -50;
 }
 
-/* fxml에 없는거임 건들지 마셈 */
-#selectedReservationList {
-    -fx-translate-y: -55px;
-    -fx-font-size: 25px;
-    -fx-text-fill: #bf9dfc;;
+.reservation_SelectedReservationList {
+    -fx-pref-width: 500;
+    -fx-pref-height: 120;
+    -fx-font-family: "Jua";
+    -fx-font-size: 20;
+    -fx-text-fill: #000000;
+    -fx-border-color: #9747FF;
+    -fx-border-width: 5;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-translate-y: -50;
 }
 
-.selectedReservationList {
-    -fx-pref-height: 200;
-    -fx-border-color: #bf9dfc;
-    -fx-border-radius: 5px;
-
+/* Button & Total Reservation Info */
+.reservation_BtnBox {
+    -fx-font-family: "Jua";
+    -fx-translate-y: -40;
 }
+
+.reservation_ReservationBtn {
+    -fx-font-size: 24;
+    -fx-pref-height: 50;
+    -fx-pref-width: 120;
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+}
+
+.reservation_ResetBtn {
+    -fx-font-size: 24;
+    -fx-pref-height: 50;
+    -fx-pref-width: 120;
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+}
+
+.reservation_ReservationBtn:hover, .reservation_ResetBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.reservation_TotalReservationInfo {
+    -fx-font-size: 28;
+    -fx-text-fill: #9747FF;
+}
+
+.reservation_TotalLabel, .reservation_CountLabel {
+    -fx-font-family: "Jua";
+    -fx-font-size: 28;
+}
+
