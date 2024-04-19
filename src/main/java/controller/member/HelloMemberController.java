@@ -15,6 +15,7 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import service.SmsService;
 import util.MemberUtil;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,6 +65,7 @@ public class HelloMemberController implements Initializable {
         if (trainerNum == 0 || remain == 0) {
             showDialogErrorMessage("noPtTicket");
         } else if(memberReservationNum >= 4) {
+            SoundUtil.play("maxReservation");
             showDialogErrorMessage("maxReservation");
         } else {
             movePage(event, "/view/member/reservation");
@@ -87,6 +89,7 @@ public class HelloMemberController implements Initializable {
             entryLogRepository.save(memberNum);
             showDialogAndMoveMainPage(currentMember.getName() + message.getString("fighting"), event);
         } else {
+            SoundUtil.play("rejectEntry");
             showDialogBasicMessage("DeniedEntry");
         }
     }

@@ -24,8 +24,7 @@ import static domain.member.SelectedMember.currentMember;
 import static domain.trainer.SelectedTrainer.currentTrainer;
 import static util.AnimationUtil.animateTab;
 import static util.ControllerUtil.createImageViewFromBytes;
-import static util.DialogUtil.showDialog;
-import static util.DialogUtil.showDialogChoose;
+import static util.DialogUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 import static util.PageUtil.moveToMainPage;
@@ -806,8 +805,8 @@ public class PaymentController implements Initializable {
                 }
             }
 
-            play("completePayment");
-            showDialog("결제가 완료되었습니다!\n확인을 누르시면 메인 화면으로 이동합니다.");
+            play("thanks");
+            showDialogBasicMessage("paymentComplete");
 
             selectTrainer = false;
             selectLocker = false;
