@@ -48,7 +48,10 @@ public class ReservationInfoController implements Initializable {
     private final TrainerService service = new TrainerService(trainerRepository);
 
     @FXML
-    private TextField numField, nameField, rTimeField, searchMemberNameField;
+    private TextField numField, nameField, searchMemberNameField;
+
+    @FXML
+    private ComboBox<String> rTimeComboBox;
 
     @FXML
     private DatePicker rDatePicker;
@@ -64,7 +67,7 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void addReservationInfo(ActionEvent event) throws IOException {
-        if (isEmptyAnyField(numField, nameField, rTimeField)) {
+        if (isEmptyAnyField(numField, nameField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
@@ -80,7 +83,8 @@ public class ReservationInfoController implements Initializable {
             return;
         }
         Date rDate = Date.valueOf(rDatePicker.getValue());
-        String rTimeInput = rTimeField.getText().trim();
+        String rTimeInput = rTimeComboBox.getSelectionModel().getSelectedItem();
+        Integer rTime = Integer.parseInt(rTimeInput);
         LocalDate localrDate = rDate.toLocalDate();
         List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(memberNum);
         int memberReservationNum = memberSchedule.size();
@@ -89,12 +93,6 @@ public class ReservationInfoController implements Initializable {
             showDialogErrorMessage("maxReservationNum");
             return;
         }
-        if (!rTimeInput.matches("\\d+")) {
-            showDialogErrorMessage("notTime");
-            return;
-        }
-
-        int rTime = Integer.parseInt(rTimeInput);
 
         if(rTime < 8 || rTime > 19) {
             showDialogErrorMessage("invalidTime");
@@ -147,7 +145,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
-
+        setupTimeComboBox(currentTrainer);
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.
@@ -290,5 +288,21 @@ public class ReservationInfoController implements Initializable {
             return false;
         }
         return member.getName().equals(memberName);
+    }
+
+    private void setupTimeComboBox(Trainer trainer) {
+        ObservableList<String> hours = FXCollections.observableArrayList();
+        if(trainer.getWorkingHour() == WorkingHour.AM) {
+            for(int i=8; i<14; i++) {
+                hours.add(i+":00");
+            }
+        }
+        else if(trainer.getWorkingHour() == WorkingHour.PM) {
+            for(int i=14; i<20; i++) {
+                hours.add(i+":00");
+            }
+        }
+        rTimeComboBox.setItems(hours);
+        rTimeComboBox.setValue(hours.get(0));
     }
 }
