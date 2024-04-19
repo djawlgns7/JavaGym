@@ -1,17 +1,34 @@
 package connection;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.*;
 
 import static connection.ConnectionConst.*;
 
 public class ConnectionUtils {
 
+    private static HikariDataSource dataSource;
+
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(URL);
+        config.setUsername(USERNAME);
+        config.setPassword(PASSWORD);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setMaximumPoolSize(5);
+
+        dataSource = new HikariDataSource(config);
+    }
+
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return dataSource.getConnection();
     }
 
     public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-
         if (rs != null) {
             try {
                 rs.close();
