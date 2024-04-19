@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.50" orientation="HORIZONTAL" prefHeight="400.0" prefWidth="850.0" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.50" orientation="HORIZONTAL" prefHeight="400.0" prefWidth="850.0" stylesheets="/css/reservationDetail.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationDetailController">
 
