@@ -149,7 +149,7 @@ public class MyInformationController implements Initializable {
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);
-            clothesAvailability.setText("대여 가능");
+            clothesAvailability.setText("이용 가능");
             clothesRemain.setText(expireDate + " (D - " + clothes + ")");
 
         }

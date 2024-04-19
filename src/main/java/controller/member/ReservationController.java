@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 
 import static domain.member.SelectedMember.currentMember;
 import static util.DialogUtil.*;
-import static util.DialogUtil.showDialogAndMoveMainPage;
 import static util.DialogUtil.showDialogChoose;
 import static util.MemberUtil.getRemainAll;
 import static util.MemberUtil.getTrainerNumForMember;
@@ -294,13 +293,13 @@ public class ReservationController implements Initializable {
     @FXML
     public void saveReservation(ActionEvent event) throws IOException {
         if(getSelectedPTTicket() == 0){
-            showDialog("한 개 이상의 시간대를 선택해 주세요");
+            showDialogErrorMessage("noSelectTime");
             return;
         }
 
         // 시간을 전부 선택하지 않았을 경우
         if(getSelectedPTTicket() != selectedReservations.size()){
-            showDialog("선택한 예약권의 수 만큼 예약을 해주세요");
+            showDialogErrorMessage("noSelectReservation");
             return;
         }
 
@@ -350,7 +349,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
-            showDialogAndMoveMainPage("예약이 확정되었습니다!", event);
+            showDialogAndMoveMainPageMessage("reservationComplete", event);
         }
     }
 
@@ -497,7 +496,7 @@ public class ReservationController implements Initializable {
         prevPage.getStyleClass().add("unclickableBtn");
     }
 
-    //현재 사용 하기로 선택 한 PT티켓 수를 반환한다
+    //현재 사용 하기로 선택 한 PT 티켓 수를 반환한다
     public int getSelectedPTTicket(){
         String selectedTicketNum = ticketSelection.getText();
         selectedTicketNum = selectedTicketNum.substring(0, selectedTicketNum.length() - 1);
