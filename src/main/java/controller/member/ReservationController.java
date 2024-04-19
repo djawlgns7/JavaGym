@@ -321,6 +321,10 @@ public class ReservationController implements Initializable {
             monthAndDay[0] = "0" + monthAndDay[0];
         }
 
+        if(Integer.parseInt(monthAndDay[1]) < 10){
+            monthAndDay[1] = "0" + monthAndDay[1];
+        }
+
         String date = thisYear + " - " + monthAndDay[0] + " - " + monthAndDay[1];
 
         String fromTime = dateNTime[1];
