@@ -277,7 +277,7 @@ public class ReservationInfoController implements Initializable {
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(vbox);
-        dialogPane.getStylesheets().add(getClass().getResource("/css/MemberInfo.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/css/rInfoButton.css").toExternalForm());
 
         // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
         Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
