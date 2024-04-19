@@ -61,11 +61,11 @@ public class HelloMemberController implements Initializable {
         memberSchedule = reservationRepository.findMemberSchedule(memberNum);
         int memberReservationNum = memberSchedule.size();
 
-        if(trainerNum == 0 || remain == 0){
+        if (trainerNum == 0 || remain == 0) {
             showDialogErrorMessage("noPtTicket");
-        }else if(memberReservationNum >= 4){
+        } else if(memberReservationNum >= 4) {
             showDialogErrorMessage("maxReservation");
-        }else {
+        } else {
             movePage(event, "/view/member/reservation");
         }
     }
@@ -104,10 +104,10 @@ public class HelloMemberController implements Initializable {
 
             if(gymTicket > 0) {
                 DDay.setText("D - " + gymTicket);
-            }else if(repository.hasReservationToday(member.getNum())){
+            } else if(repository.hasReservationToday(member.getNum())) {
                 DDay.setText("입장 가능");
             }
-            else{
+            else {
                 DDay.setText("없음");
             }
         }
@@ -130,7 +130,7 @@ public class HelloMemberController implements Initializable {
     }
 
     @FXML
-    public void callAdmin(){
+    public void callAdmin() {
         smsService.callAdmin();
     }
 }

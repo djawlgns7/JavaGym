@@ -17,6 +17,25 @@ TextField, .reservation_date {
     -fx-prompt-text-fill: #999999;
 }
 
+.reservation_date .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservation_date .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservation_date .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
 .reservationDetail_label_1, .reservationDetail_label_2 {
     -fx-font-size: 18;
     -fx-font-family: "NanumGothic";

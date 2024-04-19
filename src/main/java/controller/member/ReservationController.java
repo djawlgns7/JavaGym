@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
-import util.DialogUtil;
 import util.SoundUtil;
 
 import java.io.IOException;
@@ -398,12 +397,12 @@ public class ReservationController implements Initializable {
         }
 
         int index = selectedReservations.size() - 1;
-        removeselectedReservation(index);
+        removeSelectedReservation(index);
 
     }
 
     //입력한 인덱스에 해당하는 예약을 삭제 후 버튼들 색 갱신
-    public void removeselectedReservation(int index){
+    public void removeSelectedReservation(int index){
         ReservationInformation removedReservation;
         removedReservation =  selectedReservations.remove(index);
 
@@ -562,7 +561,7 @@ public class ReservationController implements Initializable {
 
                         if (result.get() == ButtonType.OK){
                             selectedReservationList.getChildren().remove(newDateTime);
-                            removeselectedReservation(j);
+                            removeSelectedReservation(j);
                         }
                     }
                 }
@@ -577,7 +576,8 @@ public class ReservationController implements Initializable {
         selectedReservations.clear();
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
-        ticketSelection.setText(0 + "개");
+        ticketSelection.setText(1 + "개");
+        ticketMinus();
 
         for(int i = 1; i <= 70; i++){
             if(days[i].getStyleClass().contains("reservation_Calendar_SelectedDay")) {
@@ -589,10 +589,20 @@ public class ReservationController implements Initializable {
             }
         }
 
-        for(int i = 0; i < timeButtons.length; i++){
-            timeButtons[i].getStyleClass().clear();
+        timeArea.getChildren().clear();
+
+        for(int i = 0; i < 6; i++) {
+            if(adder + i < 10) {
+                timeButtons[i] = new Button("0" + (adder + i) + ":00");
+            }else{
+                timeButtons[i] = new Button((adder + i) + ":00");
+            }
+
+            timeButtons[i].setId(i + adder + "");
             timeButtons[i].getStyleClass().add("reservation_TimeButton");
             timeButtons[i].getStyleClass().add("reservation_DisabledTimeButton");
+
+            timeArea.getChildren().add(timeButtons[i]);
         }
 
         setSelectedReservationNum();

@@ -95,6 +95,10 @@ SplitPane {
     -fx-font-family: "Jua";
 }
 
+.trainerInfo_title_2 {
+    -fx-translate-y: -20;
+}
+
 /* TextField */
 .memberInfo_nameInput, .memberInfo_phoneInput, .memberInfo_emailInput, .memberInfo_birthInput {
     -fx-font-family: "NanumGothic";
@@ -196,10 +200,6 @@ SplitPane {
 .memberInfo_SearchIcon {
     -fx-background-color: #FFFFFF;
     -fx-translate-x: 15;
-}
-
-.memberInfo_SearchIcon:hover {
-    -fx-cursor: hand;
 }
 
 .memberInfo_searchInput {
@@ -345,18 +345,7 @@ SplitPane {
     -fx-padding: 10 15 0 0;
 }
 
-.memberInfo_lockerBtn {
-    -fx-font-family: "Jua";
-    -fx-background-color: #9747FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 16;
-    -fx-pref-width: 80;
-    -fx-pref-height: 30;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5;
-}
-
-.memberInfo_refreshBtn {
+.memberInfo_deleteBtn {
     -fx-font-family: "Jua";
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
@@ -367,12 +356,47 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
-.memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
+.memberInfo_lockerBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 80;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-translate-x: -370;
+}
+
+.table-view .table-cell {
+    -fx-font-family: "Jua";
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.memberInfo_refreshBtn {
+    /*-fx-font-family: "Jua";*/
+    /*-fx-background-color: #DE14FF;*/
+    /*-fx-text-fill: #FFFFFF;*/
+    /*-fx-font-size: 16;*/
+    /*-fx-pref-width: 80;*/
+    /*-fx-pref-height: 30;*/
+    /*-fx-border-color: transparent;*/
+    /*-fx-border-radius: 5;*/
+    -fx-background-color: #FFFFFF;
+}
+
+.memberInfo_refreshBtn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgba(153, 153, 153, 0.46);
+}
+
+.memberInfo_lockerBtn:hover, .memberInfo_deleteBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
+.memberInfo_lockerBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }

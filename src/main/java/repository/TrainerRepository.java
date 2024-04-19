@@ -393,11 +393,23 @@ public class TrainerRepository {
             return 14;
     }
 
-    // 트레이너를 입력하면 그 트레이너의 출근 시간을 반환한다
-    public int getWorkingHourAdder(String workingHour){
-        if(workingHour.equals("AM")){
-            return 8;
-        }else
-            return 14;
+    public void resetPassword(String newPassword, int trainerNum) {
+        String sql = "update trainer set t_pw = ? where t_no = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, trainerNum);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, null);
+        }
     }
 }

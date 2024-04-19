@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import repository.ReservationRepository;
@@ -20,7 +19,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -136,7 +134,7 @@ public class MyInformationController implements Initializable {
         PTTicketRemain.setText(PTTicket + "개");
 
         if(locker == 0){
-            lockerNo.setText("이용할 수 없습니다");
+            lockerNo.setText("현재 이용 중인 사물함 없음");
             lockerRemain.setText("");
         }else{
             int lockerNum = getLockerNum(memberNum);
@@ -148,7 +146,7 @@ public class MyInformationController implements Initializable {
         }
 
         if(clothes == 0){
-            clothesAvailability.setText("대여할 수 없습니다");
+            clothesAvailability.setText("현재 이용 중인 운동복 없음");
             clothesRemain.setText("");
         }else{
             LocalDate expireDate = today.plusDays(clothes);

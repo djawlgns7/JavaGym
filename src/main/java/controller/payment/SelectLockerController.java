@@ -14,7 +14,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import repository.MemberRepository;
 import repository.PurchaseRepository;
 import repository.TrainerRepository;
 
@@ -33,7 +32,6 @@ import static util.PageUtil.movePage;
 public class SelectLockerController implements Initializable {
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final PurchaseRepository purchaseRepository = new PurchaseRepository();
-    private final MemberRepository memberRepository = new MemberRepository();
 
     @FXML
     private HBox lockerArea;
@@ -72,7 +70,7 @@ public class SelectLockerController implements Initializable {
             makeLockerArea(1);
 
             moveToNextPage();
-            if(Integer.parseInt(selectedLockerNum.getText()) <= 100){
+            if(selectedLockerNum.getText().isEmpty() || Integer.parseInt(selectedLockerNum.getText()) <= 100){
                 moveToPreviousPage();
             }
         }
@@ -88,14 +86,14 @@ public class SelectLockerController implements Initializable {
             newLocker.getStyleClass().add("unselectedLocker");
         }
 
-        for(int i = 0; i < usingLockers.size(); i++){
-            int lockerNum = usingLockers.get(i).getLockerNum() - 1;
+        for (UsingLocker usingLocker : usingLockers) {
+            int lockerNum = usingLocker.getLockerNum() - 1;
 
-            if(member.getNum() == usingLockers.get(i).getMemberNum()){
+            if (member.getNum() == usingLocker.getMemberNum()) {
                 lockers.get(lockerNum).getStyleClass().remove("unselectedLocker");
                 lockers.get(lockerNum).getStyleClass().add("selectedLocker");
-                selectedLockerNum.setText(String.valueOf(usingLockers.get(i).getLockerNum()));
-            }else{
+                selectedLockerNum.setText(String.valueOf(usingLocker.getLockerNum()));
+            } else {
                 lockers.get(lockerNum).getStyleClass().remove("unselectedLocker");
                 lockers.get(lockerNum).getStyleClass().add("occupiedLocker");
             }
@@ -108,7 +106,7 @@ public class SelectLockerController implements Initializable {
                     int number = ((Locker) ticket).getNum() - 1;
                     int period = ((Locker) ticket).getPeriod();
 
-                    if(!selectedLockerNum.getText().equals("")){
+                    if(!selectedLockerNum.getText().isEmpty()){
                         int oldNumber = Integer.parseInt(selectedLockerNum.getText()) - 1;
                         lockers.get(oldNumber).getStyleClass().remove("selectedLocker");
                         lockers.get(oldNumber).getStyleClass().add("unselectedLocker");
@@ -165,23 +163,18 @@ public class SelectLockerController implements Initializable {
 
     //락커를 선택하는 이벤트 생성
     public void makeOnclickListener(){
-        for(int i = 0; i < lockers.size(); i++){
-            Button currentLocker = lockers.get(i);
-            if(!currentLocker.getStyleClass().contains("occupiedLocker")){
+        for (Button currentLocker : lockers) {
+            if (!currentLocker.getStyleClass().contains("occupiedLocker")) {
                 currentLocker.setOnMouseClicked(mouseEvent -> {
                     String selectedLockerNumText = selectedLockerNum.getText();
 
-                    if(selectedLockerNumText.isEmpty()){
-                        currentLocker.getStyleClass().remove("unselectedLocker");
-                        currentLocker.getStyleClass().add("selectedLocker");
-                        selectedLockerNum.setText(currentLocker.getText());
-                    }else {
+                    if (!selectedLockerNumText.isEmpty()) {
                         int currentLockerNum = Integer.parseInt(selectedLockerNumText) - 1;
                         lockers.get(currentLockerNum).getStyleClass().remove("selectedLocker");
-                        currentLocker.getStyleClass().remove("unselectedLocker");
-                        currentLocker.getStyleClass().add("selectedLocker");
-                        selectedLockerNum.setText(currentLocker.getText());
                     }
+                    currentLocker.getStyleClass().remove("unselectedLocker");
+                    currentLocker.getStyleClass().add("selectedLocker");
+                    selectedLockerNum.setText(currentLocker.getText());
                 });
             }
         }

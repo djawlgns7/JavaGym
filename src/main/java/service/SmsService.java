@@ -75,10 +75,10 @@ public class SmsService {
 
         if (result.get() == ButtonType.OK) {
             if (callAdminTimer <= 0) {
-                int adminPhone = 12345678;
+                String adminPhone = smsConfig.getString("myPhone");
                 Message message = new Message();
-                message.setFrom(smsConfig.getString("myPhone"));
-                message.setTo("010" + adminPhone);
+                message.setFrom(adminPhone);
+                message.setTo(adminPhone);
                 if (currentMember != null) {
                     String memberName = currentMember.getName();
                     message.setText("[JavaGym]\n" + memberName + " 회원님이 직원을 호출했습니다");
@@ -94,9 +94,9 @@ public class SmsService {
                 }
 
                 countTimer();
-                showDialog("관리자를 호출했습니다");
+                showDialog("직원을 호출했습니다");
             } else {
-                showDialog("관리자가 오고 있습니다.\n잠시만 기다려 주세요.");
+                showDialog("직원이 오고 있습니다.\n잠시만 기다려 주세요.");
             }
         }
     }
