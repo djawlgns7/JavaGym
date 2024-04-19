@@ -12,3 +12,4 @@
 승빈
 - Input 텍스트 글꼴 변경 (완료)
 - promptText 글꼴 변경 (완료)
+- helloLogin Text 이동

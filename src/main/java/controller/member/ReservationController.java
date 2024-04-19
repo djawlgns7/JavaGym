@@ -194,10 +194,9 @@ public class ReservationController implements Initializable {
         Image trainerImage = trainerRepository.getImage(trainer.getNum());
 
         imageView.setImage(trainerImage);
-        trainerName.setText(trainer.getName() + "트레이너");
-        trainerInfo.setText(trainer.getHeight() + "cm|" + trainer.getWeight() + "kg|" + trainerAge + "살");
-        PTTicketRemain.setText("잔여 PT 이용권 개수 " + PTTicket + "개");
-
+        trainerName.setText(trainer.getName() + " 트레이너");
+        trainerInfo.setText(trainer.getHeight() + " cm | " + trainer.getWeight() + " kg | " + trainerAge + " 세");
+        PTTicketRemain.setText(PTTicket + "");
     }
 
     // 시간 버튼을 눌렀을 때 이벤트 추가
