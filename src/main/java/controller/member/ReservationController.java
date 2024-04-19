@@ -344,6 +344,7 @@ public class ReservationController implements Initializable {
         String reservationConfirmMsg = sb.toString();
 
         //예약이 가능한 경우
+        SoundUtil.play("checkReservation");
         Optional<ButtonType> result = showDialogChoose(reservationConfirmMsg);
 
         if (result.get() == ButtonType.OK){
@@ -353,6 +354,7 @@ public class ReservationController implements Initializable {
                 LocalDate reservationDate = today.plusDays(selectedReservations.get(i).getDDay());
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
+            SoundUtil.play("thanks");
             showDialogAndMoveMainPageMessage("reservationComplete", event);
         }
     }
@@ -380,7 +382,7 @@ public class ReservationController implements Initializable {
 
         if(newPTTicket == availableReservationNum){
             plusBtn.getStyleClass().add("reservation_disabledPlusBtn");
-            plusBtn.setOnMouseClicked(event -> {});
+            plusBtn.setOnMouseClicked(event -> SoundUtil.play("maxReservation"));
         }
     }
 
