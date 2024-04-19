@@ -150,7 +150,7 @@ public class ReservationController implements Initializable {
             timeArea.getChildren().add(timeButtons[i]);
         }
 
-        calendarHead.setText("~~~~~~ " + today.getMonth().getValue() + "월 ~~~~~~");
+        calendarHead.setText("*･ﾟ｡☆ " + today.getMonth().getValue() + "월 ☆｡ﾟ･*");
 
         for(int i = 1; i <= todayOfWeek; i++){
             days[dayIndex].getStyleClass().add("reservation_DisabledDay");
