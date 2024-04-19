@@ -573,6 +573,12 @@ public class ReservationController implements Initializable {
 
     //리셋 버튼을 눌렀을 때 선택한 예약들 초기화
     public void reset() {
+        // 예약 횟수가 최대치였을 경우 처리
+        if(getSelectedPTTicket() == availableReservationNum){
+            plusBtn.getStyleClass().remove("reservation_disabledPlusBtn");
+            plusBtn.setOnMouseClicked(Event -> ticketPlus());
+        }
+
         selectedReservations.clear();
         selectedReservationList.getChildren().clear();
         firstHBoxInScroll = null;
