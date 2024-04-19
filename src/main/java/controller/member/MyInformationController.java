@@ -33,7 +33,6 @@ public class MyInformationController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final SmsService smsService = new SmsService();
 
-
     @FXML
     private Label memberName, trainerName, gymTicketRemain, PTTicketRemain, lockerNo, lockerRemain,
             clothesAvailability, clothesRemain, trainerPhone;
