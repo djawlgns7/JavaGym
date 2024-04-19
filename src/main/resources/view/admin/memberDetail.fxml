@@ -63,10 +63,9 @@
             </GridPane>
 
             <HBox alignment="CENTER" spacing="10" styleClass="memberDetail_Btn">
-                <Button onAction="#resetPassword" text="비밀번호 초기화"/>
                 <Button onAction="#updateMember" text="회원 수정" styleClass="memberDetail_updateMemberBtn"/>
                 <Button onAction="#deleteMember" text="회원 삭제" styleClass="memberDetail_deleteMemberBtn"/>
-                <Button onAction="#showEntryLog" text="출입 일지" styleClass="memberDetail_entryLogBtn"/>
+                <Button onAction="#resetPassword" text="비밀번호 초기화" styleClass="memberDetail_pwResetBtn"/>
             </HBox>
             <HBox alignment="CENTER" styleClass="memberDetail_Btn">
                 <Button onAction="#goBack" text="뒤로 가기" styleClass="memberDetail_goBackBtn" />
@@ -77,6 +76,7 @@
         <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/common.css">
             <Label text="PT 예약 정보" styleClass="memberDetail_title_2" />
             <VBox spacing="10" alignment="CENTER">
+
                 <TableView fx:id="ptTable" VBox.vgrow="ALWAYS" editable="true" prefHeight="550.0">
                     <columns>
                         <TableColumn fx:id="selectCol" text="선택" styleClass="memberDetail_selectColumn">
@@ -92,7 +92,8 @@
                         <TableColumn fx:id="trainerNameCol" text="트레이너 이름" styleClass="memberDetail_trainerNameColumn"/>
                     </columns>
                 </TableView>
-                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="memberDetail_Btn2">
+                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberDetail_Btn2">
+                    <Button onAction="#showEntryLog" text="출입 일지" styleClass="memberDetail_entryLogBtn"/>
                     <Button onAction="#cancelReservation" text="예약 취소" styleClass="memberDetail_CancelBtn"/>
                 </HBox>
             </VBox>
