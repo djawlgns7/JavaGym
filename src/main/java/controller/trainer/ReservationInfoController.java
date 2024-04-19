@@ -74,6 +74,11 @@ public class ReservationInfoController implements Initializable {
         int memberNum = Integer.parseInt(numField.getText().trim());
         String memberName = nameField.getText().trim();
         String memberPhone = phoneField.getText().trim();
+
+        if(!checkMember(memberNum, memberName, memberPhone)) {
+            showDialogErrorMessage("wrongMember");
+            return;
+        }
         Date rDate = Date.valueOf(rDatePicker.getValue());
         String rTimeInput = rTimeField.getText().trim();
         LocalDate localrDate = rDate.toLocalDate();
@@ -81,7 +86,7 @@ public class ReservationInfoController implements Initializable {
         int memberReservationNum = memberSchedule.size();
 
         if (memberReservationNum >= 4) {
-            showDialogErrorMessage("maxMemberReservationNum");
+            showDialogErrorMessage("maxReservationNum");
             return;
         }
         if (!rTimeInput.matches("\\d+")) {
@@ -276,5 +281,13 @@ public class ReservationInfoController implements Initializable {
         dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 
         dialog.showAndWait();
+    }
+
+    public boolean checkMember(int memberNum, String memberName, String memberPhone) {
+        Member member = memberRepository.findByNum(memberNum);
+        if(member == null) {
+            return false;
+        }
+        return member.getName().equals(memberName) && member.getPhone().equals(memberPhone);
     }
 }
