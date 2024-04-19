@@ -35,6 +35,7 @@ import static domain.trainer.SelectedTrainer.currentTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
+import static util.MemberUtil.getTrainerNumForMember;
 import static util.MemberUtil.setRemain;
 import static util.PageUtil.*;
 import static util.ValidateUtil.*;
@@ -47,7 +48,7 @@ public class ReservationInfoController implements Initializable {
     private final TrainerService service = new TrainerService(trainerRepository);
 
     @FXML
-    private TextField numField, nameField, phoneField, rTimeField, searchMemberNameField;
+    private TextField numField, nameField, rTimeField, searchMemberNameField;
 
     @FXML
     private DatePicker rDatePicker;
@@ -63,7 +64,7 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void addReservationInfo(ActionEvent event) throws IOException {
-        if (isEmptyAnyField(numField, nameField, phoneField, rTimeField)) {
+        if (isEmptyAnyField(numField, nameField, rTimeField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
@@ -73,9 +74,8 @@ public class ReservationInfoController implements Initializable {
         // 예약 추가 로직 구현
         int memberNum = Integer.parseInt(numField.getText().trim());
         String memberName = nameField.getText().trim();
-        String memberPhone = phoneField.getText().trim();
 
-        if(!checkMember(memberNum, memberName, memberPhone)) {
+        if(!checkMember(memberNum, memberName)) {
             showDialogErrorMessage("wrongMember");
             return;
         }
@@ -126,11 +126,10 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if(addReservationValidate(memberName, memberPhone)) return;
+        if(addReservationValidate(memberName)) return;
         reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
-        reservation.setMemberPhone(memberPhone);
         reservation.setReservationDate(rDate);
         reservation.setReservationTime(rTime);
 
@@ -149,14 +148,6 @@ public class ReservationInfoController implements Initializable {
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
 
-        TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d{0,8}")) {
-                return change;
-            }
-            return null;
-        });
-
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.
@@ -170,7 +161,6 @@ public class ReservationInfoController implements Initializable {
         TextFormatter<String> memberNumFormatter = new TextFormatter<>(filter2);
 
         numField.setTextFormatter(memberNumFormatter);
-        phoneField.setTextFormatter(phoneFormatter);
 
         reservationTable.setRowFactory(tv -> {
             TableRow<Reservation> row = new TableRow<>();
@@ -269,7 +259,20 @@ public class ReservationInfoController implements Initializable {
 
         TableView<Member> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadMemberInfo(table, memberRepository);
+
+        List<Member> members = memberRepository.findAllMembers();
+        ObservableList<Member> filteredMembers = FXCollections.observableArrayList();
+
+        for (Member member : members) {
+            int trainerNum = getTrainerNumForMember(member.getNum());
+            System.out.println("MemberNum : " + member.getNum()+"- TrainerNum : " + trainerNum);
+            if(trainerNum != 0 && trainerNum == currentTrainer.getNum()) {
+                System.out.println("111 MemberNum : " + member.getNum()+"- TrainerNum : " + trainerNum);
+                filteredMembers.add(member);
+            }
+        }
+
+        loadMemberInfo(table, filteredMembers);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
@@ -283,11 +286,11 @@ public class ReservationInfoController implements Initializable {
         dialog.showAndWait();
     }
 
-    public boolean checkMember(int memberNum, String memberName, String memberPhone) {
+    public boolean checkMember(int memberNum, String memberName) {
         Member member = memberRepository.findByNum(memberNum);
         if(member == null) {
             return false;
         }
-        return member.getName().equals(memberName) && member.getPhone().equals(memberPhone);
+        return member.getName().equals(memberName);
     }
 }
