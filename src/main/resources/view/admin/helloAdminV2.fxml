@@ -117,8 +117,8 @@
                                             <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true"/>
                                         </StackPane>
                                     </HBox>
-                                    <HBox alignment="CENTER">
-                                        <Button text="사진 등록" onAction="#selectPhoto" styleClass="trainerInfo_ImageBtn"/>
+                                    <HBox fx:id="photoHBox" alignment="CENTER">
+                                        <Button fx:id="addPhotoButton" text="사진 등록" onAction="#addPhoto" styleClass="trainerInfo_ImageBtn"/>
                                     </HBox>
 
                                     <HBox alignment="CENTER">

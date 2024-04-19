@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -64,6 +65,12 @@ public class HelloAdminControllerV2 implements Initializable {
 
     @FXML
     private RadioButton memberMaleButton, memberFemaleButton;
+
+    @FXML
+    private HBox photoHBox;
+
+    @FXML
+    private Button addPhotoButton;
 
     @FXML
     private void addMember(ActionEvent event) throws ParseException, IOException {
@@ -382,8 +389,11 @@ public class HelloAdminControllerV2 implements Initializable {
         }
     }
 
+    private boolean addPhoto = false;
+
     @FXML
-    private void selectPhoto() {
+    private void addPhoto() {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
@@ -393,11 +403,30 @@ public class HelloAdminControllerV2 implements Initializable {
 
         File selectedFile = fileChooser.showOpenDialog(null);
 
-        if (selectedFile != null) {
+        if (selectedFile != null && !addPhoto) {
+            selectedImagePath = selectedFile.getAbsolutePath();
+            Image image = new Image(selectedFile.toURI().toString());
+            imageView.setImage(image);
+
+            addPhotoButton.setText("사진 변경");
+
+            Button deletePhotoButton = new Button("사진 삭제");
+            photoHBox.getChildren().add(deletePhotoButton);
+            deletePhotoButton.setOnAction(this::deletePhoto);
+            addPhoto = true;
+        } else if (selectedFile != null) {
             selectedImagePath = selectedFile.getAbsolutePath();
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
         }
+    }
+
+    private void deletePhoto(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        photoHBox.getChildren().remove(button);
+        addPhotoButton.setText("사진 등록");
+        imageView.setImage(null);
+        addPhoto = false;
     }
 
     @FXML
