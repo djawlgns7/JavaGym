@@ -589,10 +589,20 @@ public class ReservationController implements Initializable {
             }
         }
 
-        for(int i = 0; i < timeButtons.length; i++){
-            timeButtons[i].getStyleClass().clear();
+        timeArea.getChildren().clear();
+
+        for(int i = 0; i < 6; i++) {
+            if(adder + i < 10) {
+                timeButtons[i] = new Button("0" + (adder + i) + ":00");
+            }else{
+                timeButtons[i] = new Button((adder + i) + ":00");
+            }
+
+            timeButtons[i].setId(i + adder + "");
             timeButtons[i].getStyleClass().add("reservation_TimeButton");
             timeButtons[i].getStyleClass().add("reservation_DisabledTimeButton");
+
+            timeArea.getChildren().add(timeButtons[i]);
         }
 
         setSelectedReservationNum();
