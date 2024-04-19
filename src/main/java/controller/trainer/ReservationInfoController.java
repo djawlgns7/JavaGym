@@ -265,9 +265,7 @@ public class ReservationInfoController implements Initializable {
 
         for (Member member : members) {
             int trainerNum = getTrainerNumForMember(member.getNum());
-            System.out.println("MemberNum : " + member.getNum()+"- TrainerNum : " + trainerNum);
             if(trainerNum != 0 && trainerNum == currentTrainer.getNum()) {
-                System.out.println("111 MemberNum : " + member.getNum()+"- TrainerNum : " + trainerNum);
                 filteredMembers.add(member);
             }
         }
