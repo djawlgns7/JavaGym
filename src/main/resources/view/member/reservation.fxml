@@ -34,14 +34,14 @@
         <!-- 트레이너 정보 -->
         <Label text="트레이너 상세 정보" styleClass="reservation_SubTitle"/>
 
-        <HBox fx:id="trainerView" alignment="CENTER" styleClass="reservation_TrainerView" spacing="15">
+        <GridPane fx:id="trainerView" alignment="CENTER" styleClass="reservation_TrainerView" hgap="10" vgap="0">
             <Region HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER" spacing="10">
+            <HBox alignment="CENTER" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="0">
                 <StackPane styleClass="reservation_ImageContainer" prefHeight="151.2" prefWidth="113.4">
                     <ImageView fx:id="imageView" fitHeight="151.2" fitWidth="113.4" pickOnBounds="true" preserveRatio="true" />
                 </StackPane>
             </HBox>
-            <VBox styleClass="reservation_TrainerInfo" alignment="CENTER" spacing="10">
+            <VBox styleClass="reservation_TrainerInfo" alignment="CENTER" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="1">
                 <Label fx:id="trainerName" text="노승빈 트레이너" />
                 <Label fx:id="trainerInfo" text="181cm | 82kg | 26세" />
                 <HBox alignment="CENTER">
@@ -51,59 +51,63 @@
                 </HBox>
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
-        </HBox>
+        </GridPane>
 
         <!-- PT 예약 개수 -->
+        <Label text="사용할 PT 이용권 개수" styleClass="reservation_PTCountTitle"/>
         <HBox alignment="CENTER" spacing="10" styleClass="reservation_PTCount">
-            <Button fx:id="minusBtn" styleClass="reservation_minusBtn">-</Button>
+            <Button fx:id="minusBtn" text="-" styleClass="reservation_minusBtn"/>
             <Label fx:id="ticketSelection" text="0개" styleClass="reservation_PTNum" />
-            <Button fx:id="plusBtn" styleClass="reservation_plusBtn" onMouseClicked="#ticketPlus">+</Button>
+            <Button fx:id="plusBtn" text="+" styleClass="reservation_plusBtn" onMouseClicked="#ticketPlus"/>
         </HBox>
-
-        <!-- 달력 숫자 표시 -->
-        <Label fx:id="calendarHead" styleClass="calendarHead" />
 
         <!-- 달력 -->
-        <HBox alignment="CENTER" styleClass="calendarHeader" >
-            <Button fx:id="prevPage" text="←" styleClass="unclickable" />
-            <VBox fx:id="calendar" prefWidth="400" prefHeight="500">
-                <HBox styleClass="" alignment="CENTER" prefWidth="400" prefHeight="25">
-                    <Label styleClass="sundayLabel">일</Label>
-                    <Label styleClass="dayLabel">월</Label>
-                    <Label styleClass="dayLabel">화</Label>
-                    <Label styleClass="dayLabel">수</Label>
-                    <Label styleClass="dayLabel">목</Label>
-                    <Label styleClass="dayLabel">금</Label>
-                    <Label styleClass="saturdayLabel">토</Label>
+        <Label fx:id="calendarHead" alignment="CENTER" styleClass="reservation_CalendarHead" />
+        <HBox alignment="CENTER" styleClass="reservation_Calendar" spacing="20" >
+            <Button fx:id="prevPage" text="←" styleClass="unclickableBtn" />
+            <VBox fx:id="calendar" styleClass="reservation_CalendarList" spacing="-1">
+                <HBox styleClass="reservation_DayBox" alignment="CENTER">
+                    <Label text="일" styleClass="reservation_Calendar_SundayLabel"/>
+                    <Label text="월" styleClass="reservation_Calendar_DayLabel"/>
+                    <Label text="화" styleClass="reservation_Calendar_DayLabel"/>
+                    <Label text="수" styleClass="reservation_Calendar_DayLabel"/>
+                    <Label text="목" styleClass="reservation_Calendar_DayLabel"/>
+                    <Label text="금" styleClass="reservation_Calendar_DayLabel"/>
+                    <Label text="토" styleClass="reservation_Calendar_SaturdayLabel"/>
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week1" prefWidth="400" prefHeight="50">
+                <HBox styleClass="reservation_Calendar_DayNum1" alignment="CENTER" fx:id="week1" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week2" prefWidth="400" prefHeight="50">
+                <HBox styleClass="reservation_Calendar_DayNum2" alignment="CENTER" fx:id="week2" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week3" prefWidth="400" prefHeight="50">
+                <HBox styleClass="reservation_Calendar_DayNum3" alignment="CENTER" fx:id="week3" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week4" prefWidth="400" prefHeight="50">
+                <HBox styleClass="reservation_Calendar_DayNum4" alignment="CENTER" fx:id="week4" prefWidth="400" prefHeight="50">
                 </HBox>
-                <HBox styleClass="dayNum" alignment="CENTER" fx:id="week5" prefWidth="400" prefHeight="50">
+                <HBox styleClass="reservation_Calendar_DayNum5" alignment="CENTER" fx:id="week5" prefWidth="400" prefHeight="50">
                 </HBox>
             </VBox>
-            <Button fx:id="nextPage" text="→" styleClass="clickable" onMouseClicked="#nextPage"/>
+            <Button fx:id="nextPage" text="→" styleClass="clickableBtn" onMouseClicked="#nextPage"/>
         </HBox>
 
+        <!-- 예약 시간 버튼 & 선택한 날짜 및 시간 -->
         <VBox alignment="CENTER">
-            <HBox alignment="TOP_CENTER" fx:id="timeArea" styleClass="timeStamp" />
+            <HBox alignment="TOP_CENTER" fx:id="timeArea" styleClass="reservation_TimeStamp" />
+            <Label text="선택한 날짜 및 시간" alignment="CENTER" styleClass="reservation_DayTimeTitle"/>
             <HBox alignment="CENTER" spacing="20">
-                <HBox alignment="CENTER" prefWidth="500" spacing="20" fx:id="selectedReservationList" styleClass="selectedReservationList"/>
+                <HBox alignment="CENTER" spacing="20" fx:id="selectedReservationList" styleClass="reservation_SelectedReservationList"/>
             </HBox>
         </VBox>
 
-        <VBox styleClass="selectReservation" prefWidth="50" prefHeight="200">
-            <HBox styleClass="selectBtn" alignment="CENTER" spacing="50">
-                <Button text="예약" onAction="#saveReservation" styleClass="rBtn"/>
-                <Label fx:id="selectedReservationNum" text="총 0회"/>
-                <Button text="초기화" onAction="#reset" styleClass="resetBtn"/>
+
+        <HBox styleClass="reservation_BtnBox" alignment="CENTER" spacing="50">
+            <Button text="예약" onAction="#saveReservation" styleClass="reservation_ReservationBtn"/>
+            <HBox alignment="CENTER">
+                <Label text="총 " styleClass="reservation_TotalLabel"/>
+                <Label fx:id="selectedReservationNum" text="0" styleClass="reservation_TotalReservationInfo"/>
+                <Label text="회" styleClass="reservation_CountLabel"/>
             </HBox>
-        </VBox>
+            <Button text="초기화" onAction="#reset" styleClass="reservation_ResetBtn"/>
+        </HBox>
     </VBox>
 
 </AnchorPane>
