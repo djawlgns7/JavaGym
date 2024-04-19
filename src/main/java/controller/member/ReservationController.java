@@ -548,7 +548,7 @@ public class ReservationController implements Initializable {
             String indexDateTime = indexDate + " " + indexTime;
 
             Label newDateTime = new Label(indexDateTime);
-            newDateTime.getStyleClass().add("selectedResrevationList");
+            newDateTime.getStyleClass().add("selectedReservationList");
 
             newDateTime.setOnMouseClicked(Event -> {
                 for(int j = 0; j < selectedReservations.size(); j++){

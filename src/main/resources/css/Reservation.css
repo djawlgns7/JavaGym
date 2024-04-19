@@ -381,16 +381,29 @@ AnchorPane {
 }
 
 .reservation_SelectedReservationList {
-    -fx-pref-width: 500;
+    -fx-pref-width: 600;
     -fx-pref-height: 120;
     -fx-font-family: "Jua";
     -fx-font-size: 20;
     -fx-text-fill: #000000;
-    -fx-border-color: #9747FF;
-    -fx-border-width: 5;
+    -fx-translate-y: -50;
+}
+
+.selectedReservationList {
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
     -fx-border-style: solid;
     -fx-border-radius: 5;
-    -fx-translate-y: -50;
+    -fx-background-color: #FFFFFF;
+    -fx-pref-width: 123;
+    -fx-pref-height: 60;
+    -fx-padding: 5;
+    -fx-alignment: CENTER;
+}
+
+.selectedReservationList:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
 }
 
 /* Button & Total Reservation Info */
