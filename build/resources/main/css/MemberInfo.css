@@ -202,10 +202,6 @@ SplitPane {
     -fx-translate-x: 15;
 }
 
-.memberInfo_SearchIcon:hover {
-    -fx-cursor: hand;
-}
-
 .memberInfo_searchInput {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 150;
@@ -366,9 +362,16 @@ SplitPane {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16;
     -fx-pref-width: 80;
-    -fx-pref-height: 30;
+    -fx-pref-height: 40;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
+    -fx-translate-x: -370;
+}
+
+.table-view .table-cell {
+    -fx-font-family: "Jua";
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
 }
 
 .memberInfo_refreshBtn {
@@ -381,15 +384,19 @@ SplitPane {
     /*-fx-border-color: transparent;*/
     /*-fx-border-radius: 5;*/
     -fx-background-color: #FFFFFF;
-
 }
 
-.memberInfo_lockerBtn:hover, .memberInfo_refreshBtn:hover {
+.memberInfo_refreshBtn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgba(153, 153, 153, 0.46);
+}
+
+.memberInfo_lockerBtn:hover, .memberInfo_deleteBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.memberInfo_lockerBtn:pressed, .memberInfo_refreshBtn:pressed {
+.memberInfo_lockerBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
