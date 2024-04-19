@@ -10,7 +10,7 @@
 
 <?import javafx.scene.image.ImageView?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/trainerLogin.css"
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/common.css"
             fx:controller="controller.trainer.TrainerLoginController" prefHeight="1000" prefWidth="650" >
     <VBox alignment="CENTER" prefHeight="1000" prefWidth="650" spacing="40" >
 

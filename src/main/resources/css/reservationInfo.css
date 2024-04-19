@@ -1,9 +1,15 @@
 /* DatePicker 배경색 통일 시켜줘~~~~~~ */
 
-Label {
+.reservationInfo_entry {
     -fx-font-size: 32;
     -fx-font-family: "Jua";
 }
+
+.reservationInfo_info {
+    -fx-font-size: 32;
+    -fx-font-family: "Jua";
+}
+
 /* TextField */
 .reservationInfo_numInput, .reservationInfo_nameInput, .reservationInfo_phoneInput,
 .reservationInfo_timeInput {
@@ -98,6 +104,22 @@ Label {
     -fx-font-size: 14;
 }
 
+.reservationInfo_searchBox {
+
+}
+
+.reservationInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-prompt-text-fill: #999999;
+}
+
 
 /* ============== Button ============== */
 
@@ -107,7 +129,7 @@ Label {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 15;
     -fx-pref-width: 100;
-    -fx-pref-height: 50;
+    -fx-pref-height: 40;
     -fx-border-color: transparent;
 }
 
@@ -117,7 +139,7 @@ Label {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 15;
     -fx-pref-width: 100;
-    -fx-pref-height: 50;
+    -fx-pref-height: 40;
     -fx-border-color: transparent;
 }
 
@@ -130,6 +152,7 @@ Label {
     -fx-pref-width: 80;
     -fx-pref-height: 30;
     -fx-border-color: transparent;
+    -fx-translate-x: -10;
 }
 
 .reservationInfo_Cancel_Btn {
@@ -154,7 +177,9 @@ Label {
     -fx-cursor: hand;
 }
 
+.table-view {
 
+}
 
 .rInfo {
     -fx-translate-y: 10;
