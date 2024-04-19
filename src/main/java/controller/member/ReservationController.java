@@ -150,7 +150,7 @@ public class ReservationController implements Initializable {
             timeArea.getChildren().add(timeButtons[i]);
         }
 
-        calendarHead.setText("~~~~~~ " + today.getMonth().getValue() + "월 ~~~~~~");
+        calendarHead.setText("*･ﾟ｡☆ " + today.getMonth().getValue() + "월 ☆｡ﾟ･*");
 
         for(int i = 1; i <= todayOfWeek; i++){
             days[dayIndex].getStyleClass().add("reservation_DisabledDay");
@@ -547,7 +547,7 @@ public class ReservationController implements Initializable {
             String indexDateTime = indexDate + " " + indexTime;
 
             Label newDateTime = new Label(indexDateTime);
-            newDateTime.getStyleClass().add("selectedResrevationList");
+            newDateTime.getStyleClass().add("selectedReservationList");
 
             newDateTime.setOnMouseClicked(Event -> {
                 for(int j = 0; j < selectedReservations.size(); j++){
