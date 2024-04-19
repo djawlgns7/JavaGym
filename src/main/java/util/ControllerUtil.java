@@ -224,7 +224,7 @@ public class ControllerUtil {
         return imageView;
     }
 
-    public static void loadMemberInfo(TableView table, MemberRepository memberRepository) {
+    public static void loadMemberInfo(TableView table, ObservableList<Member> members) {
 
         TableColumn<Member, Number> memberNumCol = new TableColumn<>("회원 번호");
         TableColumn<Member, String> memberNameCol = new TableColumn<>("회원 이름");
@@ -238,9 +238,9 @@ public class ControllerUtil {
         memberNameCol.setPrefWidth(90);
         memberPhoneCol.setPrefWidth(90);
 
+        table.getColumns().clear();
         table.getColumns().addAll(memberNumCol, memberNameCol, memberPhoneCol);
 
-        List<Member> members = memberRepository.findAllMembers();
-        table.setItems(FXCollections.observableArrayList(members));
+        table.setItems(members);
     }
 }

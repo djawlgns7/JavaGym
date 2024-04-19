@@ -235,16 +235,11 @@ public class ValidateUtil {
         return false;
     }
 
-    public static boolean addReservationValidate(String name, String phone) {
+    public static boolean addReservationValidate(String name) {
         if (name.length() > 10) {
             showDialogErrorMessage("tooLongName");
             return true;
         }
-
-        if (isWrongLengthPhone(phone)) {
-            showDialogErrorMessage("duplicatePhone");
-        }
-
         return false;
     }
 
@@ -300,10 +295,9 @@ public class ValidateUtil {
 
     }
 
-    public static boolean isEmptyAnyField(TextField num, TextField name, TextField phone, TextField time) {
+    public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {
         return  num.getText().trim().isEmpty() ||
                 name.getText().trim().isEmpty() ||
-                phone.getText().trim().isEmpty() ||
                 time.getText().trim().isEmpty();
     }
 

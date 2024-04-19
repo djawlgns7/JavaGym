@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.JavaGym.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.JavaGym.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.JavaGym.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.JavaGym.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.iml" filepath="$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IntelliJ.JavaGym.test.iml" />

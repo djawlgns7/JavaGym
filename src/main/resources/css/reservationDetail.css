@@ -1,10 +1,10 @@
 
 .reservationDetail_title_1, .reservationDetail_title_2 {
-    -fx-font-size: 36;
-    -fx-font-family: "NanumGothic";
+    -fx-font-size: 32;
+    -fx-font-family: "Jua";
 }
 
-TextField, .reservation_date {
+.reservation_date {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
     -fx-pref-height: 40;
@@ -124,8 +124,10 @@ TextField, .reservation_date {
 
 .gridPane_label {
     -fx-text-fill: #9747FF;
+    -fx-font-family: "Jua";
 }
 
 .gridPane_value, .gridPane_label {
     -fx-font-size: 20px;
+    -fx-font-family: "Jua";
 }

@@ -142,6 +142,17 @@ SplitPane {
     -fx-font-family: "Jua";
     -fx-spacing: 20;
     -fx-translate-y: 20;
+    -fx-translate-x: 5;
+}
+
+.trainerDetail_pwResetBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
 }
 
 .trainerDetail_updateTrainerBtn, .trainerDetail_deleteTrainerBtn {
@@ -165,13 +176,13 @@ SplitPane {
 }
 
 .trainerDetail_updateImageBtn:hover, .trainerDetail_resetImageBtn:hover, .trainerDetail_updateTrainerBtn:hover,
-.trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover {
+.trainerDetail_deleteTrainerBtn:hover, .trainerDetail_goBackBtn:hover, .trainerDetail_pwResetBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
 .trainerDetail_updateImageBtn:pressed, .trainerDetail_resetImageBtn:pressed, .trainerDetail_updateTrainerBtn:pressed,
-.trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed {
+.trainerDetail_deleteTrainerBtn:pressed, .trainerDetail_goBackBtn:pressed, .trainerDetail_pwResetBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }

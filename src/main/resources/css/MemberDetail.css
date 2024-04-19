@@ -158,10 +158,20 @@ SplitPane {
     -fx-padding: 10 20 0 0;
 }
 
-.memberDetail_updateMemberBtn, .memberDetail_deleteMemberBtn, .memberDetail_entryLogBtn {
+.memberDetail_updateMemberBtn, .memberDetail_deleteMemberBtn, .memberDetail_entryLogBtn, .memberDetail_pwResetBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.memberDetail_pwResetBtn {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13;
     -fx-pref-width: 100;
     -fx-pref-height: 40;
     -fx-border-color: transparent;
@@ -179,13 +189,13 @@ SplitPane {
 }
 
 .memberDetail_updateMemberBtn:hover, .memberDetail_deleteMemberBtn:hover,
-.memberDetail_entryLogBtn:hover, .memberDetail_goBackBtn:hover, .memberDetail_CancelBtn:hover {
+.memberDetail_entryLogBtn:hover, .memberDetail_goBackBtn:hover, .memberDetail_CancelBtn:hover, .memberDetail_pwResetBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
 .memberDetail_updateMemberBtn:pressed, .memberDetail_deleteMemberBtn:pressed,
-.memberDetail_entryLogBtn:pressed, .memberDetail_goBackBtn:pressed, .memberDetail_CancelBtn:pressed {
+.memberDetail_entryLogBtn:pressed, .memberDetail_goBackBtn:pressed, .memberDetail_CancelBtn:pressed, .memberDetail_pwResetBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
