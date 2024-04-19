@@ -191,7 +191,7 @@ public class HiddenController implements Initializable {
 
         lines[19] = selectedLine;
 
-        for(int i = 0; i < 20; i++){
+        for(int i = 19; i >= 0; i--){
             int finalI = i;
             Platform.runLater(() -> {
                 tetrisArea.getChildren().add(lines[finalI]);
