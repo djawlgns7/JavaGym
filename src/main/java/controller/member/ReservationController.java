@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
-import util.DialogUtil;
 import util.SoundUtil;
 
 import java.io.IOException;
@@ -399,12 +398,12 @@ public class ReservationController implements Initializable {
         }
 
         int index = selectedReservations.size() - 1;
-        removeselectedReservation(index);
+        removeSelectedReservation(index);
 
     }
 
     //입력한 인덱스에 해당하는 예약을 삭제 후 버튼들 색 갱신
-    public void removeselectedReservation(int index){
+    public void removeSelectedReservation(int index){
         ReservationInformation removedReservation;
         removedReservation =  selectedReservations.remove(index);
 
@@ -563,7 +562,7 @@ public class ReservationController implements Initializable {
 
                         if (result.get() == ButtonType.OK){
                             selectedReservationList.getChildren().remove(newDateTime);
-                            removeselectedReservation(j);
+                            removeSelectedReservation(j);
                         }
                     }
                 }
