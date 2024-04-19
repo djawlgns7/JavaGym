@@ -71,6 +71,7 @@ public class TrainerDetailController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
     private final TrainerRepository trainerRepository = new TrainerRepository();
     private final SmsService smsService = new SmsService();
+    private final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
 
     @FXML
     private void updateTrainer(ActionEvent event) throws IOException {
@@ -89,7 +90,7 @@ public class TrainerDetailController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> result = showDialogChoose("트레이너 정보를 수정하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyUpdateTrainer");
         if (result.get() == ButtonType.OK) {
 
             if (updateTrainerValidate(name, phone, id, height, weight)) return;
@@ -109,7 +110,7 @@ public class TrainerDetailController implements Initializable {
             currentTrainer.setWeight(weight);
 
             trainerRepository.updateTrainer(currentTrainer);
-            showDialogAndMovePage("트레이너가 수정되었습니다.", "/view/admin/trainerDetail", event);
+            showDialogAndMovePageMessage("updateTrainer", "/view/admin/trainerDetail", event);
         }
     }
 
@@ -133,13 +134,13 @@ public class TrainerDetailController implements Initializable {
 
     @FXML
     private void deleteTrainer(ActionEvent event) throws IOException {
-        Optional<ButtonType> result = showDialogChoose("정말로 " + currentTrainer.getName() + " 트레이너를 삭제하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose(currentTrainer.getName() + " " + basicMessage.getString("reallyDeleteTrainer"));
 
         if (result.get() == ButtonType.OK){
             trainerRepository.deleteTrainer(currentTrainer.getNum());
 
             AdminTab.getInstance().setSelectedTabIndex(1);
-            showDialogAndMovePage("트레이너가 삭제되었습니다.", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePageMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
     }
 
@@ -282,7 +283,7 @@ public class TrainerDetailController implements Initializable {
 
     @FXML
     private void resetPassword() {
-        Optional<ButtonType> result = showDialogChoose("비밀번호를 초기화하시겠습니까?");
+        Optional<ButtonType> result = showDialogChooseMessage("reallyResetPassword");
 
         if (result.get() == ButtonType.OK) {
             String resetPassword = currentTrainer.getId() + getRandomPassword();
@@ -291,7 +292,7 @@ public class TrainerDetailController implements Initializable {
             smsService.sendTrainerInitPassword(currentTrainer.getPhone(), resetPassword);
             trainerRepository.resetPassword(hashPw, currentTrainer.getNum());
 
-            showDialog("비밀번호가 초기화되었습니다.");
+            showDialogBasicMessage("resetPassword");
         }
     }
 }
