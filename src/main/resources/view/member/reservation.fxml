@@ -32,8 +32,7 @@
         <Label text="JAVA GYM" styleClass="reservation_Title"/>
 
         <!-- 트레이너 정보 -->
-        <Label text="트레이너 상세 정보" styleClass="reservation_SubTitle"/>
-
+        <Label text="담당 트레이너" styleClass="reservation_SubTitle"/>
         <GridPane fx:id="trainerView" alignment="CENTER" styleClass="reservation_TrainerView" hgap="10" vgap="0">
             <Region HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="0">
