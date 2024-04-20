@@ -359,7 +359,8 @@ public class DialogUtil {
 
 
     // 결제 선택 메시지
-    public static Optional<ButtonType> showPaymentConfirmMessage(String gym, String PT, String locker, String clothes, String totalPrice) {
+    public static Optional<ButtonType> showPaymentConfirmMessage(String gym, String gymPrice, String PT, String PTPrice, String lockerNumber, String lockerPeriod,
+                                                                 String lockerPrice, String clothes, String clothesPrice, String totalPrice) {
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);
         dialog.setTitle(basicMessage.getString("alert"));
@@ -378,7 +379,7 @@ public class DialogUtil {
         label = new Label("");
         vbox.getChildren().add(label);
 
-        HBox hbox = new HBox();
+        HBox hbox;
 
         // 이용권
         if(!gym.equals("")) {
@@ -389,6 +390,11 @@ public class DialogUtil {
             label = new Label("이용권 ");
             hbox.getChildren().add(label);
             label = new Label(gym);
+            label.getStyleClass().add("payment_gymTicket");
+            hbox.getChildren().add(label);
+            label = new Label("일 ");
+            hbox.getChildren().add(label);
+            label = new Label(gymPrice);
             label.getStyleClass().add("payment_gymTicket");
             hbox.getChildren().add(label);
             label = new Label("원");
@@ -406,19 +412,32 @@ public class DialogUtil {
             label = new Label(PT);
             label.getStyleClass().add("payment_PTTicket");
             hbox.getChildren().add(label);
+            label = new Label("회 ");
+            hbox.getChildren().add(label);
+            label = new Label(PTPrice);
+            label.getStyleClass().add("payment_PTTicket");
+            hbox.getChildren().add(label);
             label = new Label("원");
             hbox.getChildren().add(label);
         }
 
         // 사물함
-        if(!locker.equals("")) {
+        if(!lockerNumber.equals("")) {
             hbox = new HBox();
             hbox.setAlignment(Pos.CENTER);
             vbox.getChildren().add(hbox);
 
-            label = new Label("사물함 ");
+            label = new Label("사물함 No.");
             hbox.getChildren().add(label);
-            label = new Label(locker);
+            label = new Label(lockerNumber + " ");
+            label.getStyleClass().add("payment_Locker");
+            hbox.getChildren().add(label);
+            label = new Label(lockerPeriod);
+            label.getStyleClass().add("payment_Locker");
+            hbox.getChildren().add(label);
+            label = new Label("일 ");
+            hbox.getChildren().add(label);
+            label = new Label(lockerPrice);
             label.getStyleClass().add("payment_Locker");
             hbox.getChildren().add(label);
             label = new Label("원");
@@ -434,6 +453,11 @@ public class DialogUtil {
             label = new Label("운동복 ");
             hbox.getChildren().add(label);
             label = new Label(clothes);
+            label.getStyleClass().add("payment_Clothes");
+            hbox.getChildren().add(label);
+            label = new Label("일 ");
+            hbox.getChildren().add(label);
+            label = new Label(clothesPrice);
             label.getStyleClass().add("payment_Clothes");
             hbox.getChildren().add(label);
             label = new Label("원");
