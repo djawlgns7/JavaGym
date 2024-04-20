@@ -132,7 +132,7 @@ public class ReservationDetailController implements Initializable {
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
-            setupTimeComboBox(currentTrainer);
+            setupTimeComboBox(loginTrainer);
         }
 
     }

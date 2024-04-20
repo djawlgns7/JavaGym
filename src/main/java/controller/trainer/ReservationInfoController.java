@@ -32,7 +32,6 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
-import static domain.trainer.SelectedTrainer.currentTrainer;
 import static domain.trainer.SelectedTrainer.loginTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
@@ -147,7 +146,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = loginTrainer;
-        setupTimeComboBox(currentTrainer);
+        setupTimeComboBox(loginTrainer);
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
