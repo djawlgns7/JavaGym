@@ -101,7 +101,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (!isValidTimeForTrainer(loginTrainer, rTime)) {
+        if (!isValidTimeForTrainer(currentTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
             return;
         }
@@ -111,7 +111,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (isReservationExist(loginTrainer.getNum(), localrDate, rTime)) {
+        if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
             showDialogErrorMessage("reservationHasExist");
             return;
         }
@@ -147,7 +147,17 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = currentTrainer;
-        setupTimeComboBox(currentTrainer);
+
+        rDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                onDateChanged();
+            }
+        });
+
+        if(loginTrainer != null && rDatePicker.getValue() != null) {
+            onDateChanged();
+        }
+
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
             // 숫자만 허용합니다.

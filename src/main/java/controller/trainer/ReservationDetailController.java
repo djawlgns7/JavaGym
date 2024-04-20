@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
@@ -132,7 +133,16 @@ public class ReservationDetailController implements Initializable {
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
-            setupTimeComboBox(loginTrainer);
+
+            ptDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    onDateChanged();
+                }
+            });
+
+            if(currentTrainer != null && ptDatePicker.getValue() != null) {
+                onDateChanged();
+            }
         }
 
     }
@@ -144,7 +154,7 @@ public class ReservationDetailController implements Initializable {
         }
     }
 
-    private void setupTimeComboBox(Trainer trainer) {
+    private void setupTimeComboBox(WorkingHour workingHour, List<Integer> reservedHours) {
         ObservableList<String> hours = FXCollections.observableArrayList();
         if(trainer.getWorkingHour() == WorkingHour.AM) {
             for(int i=8; i<14; i++) {
@@ -157,6 +167,18 @@ public class ReservationDetailController implements Initializable {
             }
         }
         rTimeComboBox.setItems(hours);
-        rTimeComboBox.setValue(hours.get(0));
+        if (!hours.isEmpty()) {
+            rTimeComboBox.setValue(hours.get(0));
+        }
+    }
+
+    @FXML
+    private void onDateChanged() {
+        LocalDate selectedDate = ptDatePicker.getValue();
+        if (selectedDate != null) {
+            Date sqlDate = Date.valueOf(selectedDate);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(currentTrainer.getNum(), sqlDate);
+            setupTimeComboBox(currentTrainer.getWorkingHour(), reservationHour);
+        }
     }
 }
