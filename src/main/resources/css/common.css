@@ -2,10 +2,11 @@
 @import url(/css/MemberLogin.css);
 @import url(/css/MemberHello.css);
 @import url(/css/SignUpForm.css);
-@import url(/css/myInformation.css);
-/*@import url(/css/reservationInfo.css);*/
-/*@import url(/css/reservationDetail.css);*/
-@import url(/css/trainerLogin.css);
+@import url(/css/MyInformation.css);
+@import url(/css/TrainerLogin.css);
+/*@import url(/css/ReservationInfo.css);*/
+/*@import url(/css/ReservationDetail.css);*/
+
 
 @import url(/css/Reservation.css);
 

@@ -3,7 +3,7 @@ AnchorPane {
     -fx-background-color: #FFFFFF;
 }
 
-.login_title_label {
+.trainerLogin_Title {
     -fx-font-size: 86;
     -fx-font-family: "Anton";
 }
@@ -26,12 +26,12 @@ AnchorPane {
     -fx-prompt-text-fill: #999999;
 }
 
-.Login_page_Btn {
+.trainerLogin_Btn {
     -fx-font-family: "Jua";
     -fx-spacing: 50;
 }
 
-.goBackBtn1 {
+.trainerLogin_goBackBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -39,7 +39,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.loginBtn {
+.trainer_LoginBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
@@ -47,7 +47,7 @@ AnchorPane {
     -fx-pref-height: 50;
 }
 
-.goBackBtn1:hover, .loginBtn:hover {
+.trainer_LoginBtn:hover, .trainerLogin_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }

@@ -268,9 +268,7 @@ public class DialogUtil {
 
 
         dialogPane.getButtonTypes().clear();
-        Button yesButton = (Button) dialogPane.lookupButton(ButtonType.YES);
-        Button noButton = (Button) dialogPane.lookupButton(ButtonType.NO);
-        dialogPane.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.NO);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);
@@ -292,10 +290,7 @@ public class DialogUtil {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(new Label(basicMessage.getString(messageCode)));
 
-        dialogPane.getButtonTypes().clear();
-        Button yesButton = (Button) dialogPane.lookupButton(ButtonType.YES);
-        Button noButton = (Button) dialogPane.lookupButton(ButtonType.NO);
-        dialogPane.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.NO);
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);

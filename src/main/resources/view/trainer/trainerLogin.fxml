@@ -14,7 +14,7 @@
             fx:controller="controller.trainer.TrainerLoginController" prefHeight="1000" prefWidth="650" >
     <VBox alignment="CENTER" prefHeight="1000" prefWidth="650" spacing="40" >
 
-        <Label text="JAVA GYM" styleClass="login_title_label" />
+        <Label text="JAVA GYM" styleClass="trainerLogin_Title" />
 
         <!-- 자바짐 서브 타이틀 -->
         <Label text="트레이너 페이지" styleClass="trainerLogin_subTitle" />
@@ -30,9 +30,9 @@
                 <PasswordField fx:id="passwordField" onAction="#login" promptText="트레이너 비밀번호" styleClass="trainerLogin_passwordInput" />
             </HBox>
 
-            <HBox alignment="CENTER" spacing="20" styleClass="Login_page_Btn">
-                <Button text="로그인" onAction="#login" styleClass="loginBtn"/>
-                <Button text="뒤로 가기" onAction="#goBack" styleClass="goBackBtn1"/>
+            <HBox alignment="CENTER" spacing="20" styleClass="trainerLogin_Btn">
+                <Button text="로그인" onAction="#login" styleClass="trainer_LoginBtn"/>
+                <Button text="뒤로 가기" onAction="#goBack" styleClass="trainerLogin_goBackBtn"/>
             </HBox>
         </VBox>
     </VBox>
