@@ -100,6 +100,7 @@ public class HelloAdminControllerV2 implements Initializable {
         member.setPhone(phone);
 
         service.addMember(member);
+        AdminTab.getInstance().setSelectedTabIndex(0);
         showDialogAndMovePageMessage("addMember", "/view/admin/helloAdminV2", event);
     }
 
