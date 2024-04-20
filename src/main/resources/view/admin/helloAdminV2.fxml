@@ -176,10 +176,7 @@
                                     <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
                                     <!-- Refresh Button -->
                                     <HBox alignment="CENTER_RIGHT" styleClass="trainerInfo_refreshBox">
-                                        <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_AMPMBtn">
-                                            <Button text="AM" onAction="#showAmTrainer" styleClass="trainerInfo_AMBtn"/>
-                                            <Button text="PM" onAction="#showPmTrainer" styleClass="trainerInfo_PMBtn"/>
-                                        </HBox>
+
                                         <Button onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn">
                                             <graphic>
                                                 <ImageView fitWidth="20" fitHeight="20">
@@ -190,7 +187,10 @@
                                     </HBox>
                                     <!-- Search Box -->
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
-
+                                        <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_AMPMBtn">
+                                            <Button text="AM" onAction="#showAmTrainer" styleClass="trainerInfo_AMBtn"/>
+                                            <Button text="PM" onAction="#showPmTrainer" styleClass="trainerInfo_PMBtn"/>
+                                        </HBox>
                                         <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="&#128269; 트레이너 이름" styleClass="trainerInfo_searchInput"/>
                                         <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
                                     </HBox>

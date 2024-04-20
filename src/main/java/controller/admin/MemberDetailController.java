@@ -337,8 +337,8 @@ public class MemberDetailController implements Initializable {
                     }
                 }
             }
+            showDialogAndMovePageTimerOffMessage("updateMember", "/view/admin/memberDetail", event);
         }
-        showDialogAndMovePageTimerOffMessage("updateMember", "/view/admin/memberDetail", event);
     }
 
     private boolean isSameBasicInfo() {
