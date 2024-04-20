@@ -701,26 +701,31 @@ public class PaymentController implements Initializable {
         }
 
         String totalPriceText;
+        String gymText = "";
+        String PTText = "";
+        String locketText = "";
+        String clothesText = "";
 
         play("checkPayment");
 
         totalPrice = gymPrice + ptPrice + lockerPrice + clothesPrice;
         if(totalPrice >= 1000000){
-            totalPriceText = "\n총 " + (totalPrice / 1000000) + "," + (totalPrice % 1000000 / 1000) + ",000원";
+            totalPriceText = (totalPrice / 1000000) + "," + (totalPrice % 1000000 / 1000) + ",000";
         }else{
-            totalPriceText = "\n총 " +  (totalPrice / 1000) + ",000원";
+            totalPriceText = (totalPrice / 1000) + ",000";
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("결제를 정상 진행하시겠습니까?\n\n");
 
         for(Available ticket : basket){
             if(ticket instanceof GymTicket){
                 int period = ((GymTicket)ticket).getPeriod();
                 int price = ((GymTicket)ticket).getPrice();
-                String priceText = price / 1000 + ",000원";
+                String priceText = price / 1000 + ",000";
 
-                sb.append("이용권 ").append(period).append("일 ").append(priceText).append("\n");
+                sb.append(period).append("일 ").append(priceText);
+                gymText = sb.toString();
+                sb = new StringBuilder();
             }
         }
 
@@ -731,12 +736,14 @@ public class PaymentController implements Initializable {
                 String priceText;
 
                 if(price >= 1000000) {
-                    priceText = (price / 1000000) + "," + (price % 1000000 / 1000) + ",000원";
+                    priceText = (price / 1000000) + "," + (price % 1000000 / 1000) + ",000";
                 }else{
-                    priceText = price / 1000 + ",000원";
+                    priceText = price / 1000 + ",000";
                 }
 
-                sb.append("PT ").append(time).append("회 ").append(priceText).append("\n");
+                sb.append(time).append("회 ").append(priceText);
+                PTText = sb.toString();
+                sb = new StringBuilder();
             }
         }
 
@@ -745,9 +752,11 @@ public class PaymentController implements Initializable {
                 int period = ((Locker)ticket).getPeriod();
                 int number = ((Locker)ticket).getNum();
                 int price = ((Locker)ticket).getPrice();
-                String priceText = price / 1000 + ",000원";
+                String priceText = price / 1000 + ",000";
 
-                sb.append("사물함 No.").append(number).append(" ").append(period).append("일 ").append(priceText).append("\n");
+                sb.append("No.").append(number).append(" ").append(period).append("일 ").append(priceText);
+                locketText = sb.toString();
+                sb = new StringBuilder();
             }
         }
 
@@ -755,15 +764,18 @@ public class PaymentController implements Initializable {
             if(ticket instanceof Clothes){
                 int period = ((Clothes)ticket).getPeriod();
                 int price = ((Clothes)ticket).getPrice();
-                String priceText = price / 1000 + ",000원";
+                String priceText = price / 1000 + ",000";
 
-                sb.append("운동복 ").append(period).append("일 ").append(priceText).append("\n");
+                sb.append(period).append("일 ").append(priceText);
+                clothesText = sb.toString();
+                sb = new StringBuilder();
             }
         }
 
         sb.append(totalPriceText);
 
-        Optional<ButtonType> result = showDialogChoose(sb.toString());
+//        Optional<ButtonType> result = showDialogChoose(sb.toString());
+        Optional<ButtonType> result = showPaymentConfirmMessage(gymText, PTText, locketText, clothesText, totalPriceText);
 
         if(result.get() == ButtonType.OK){
             int memberNum = currentMember.getNum();
