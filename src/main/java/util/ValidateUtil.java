@@ -2,9 +2,7 @@ package util;
 
 import domain.Item;
 import domain.member.Member;
-import domain.trainer.Reservation;
 import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
 import domain.trainer.WorkingHour;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -14,11 +12,13 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
@@ -276,23 +276,31 @@ public class ValidateUtil {
     }
 
     public static boolean isWrongBirth(String birth) {
-        int month = Integer.parseInt(birth.substring(2, 4));
-        int day = Integer.parseInt(birth.substring(4));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd")
+                .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalDate birthDate = LocalDate.parse(birth, formatter);
 
-        return (1 > month || month > 12) || (1 > day || day > 31);
+
+            // 미래 날짜 검증
+            if (birthDate.isAfter(LocalDate.now())) {
+                return true; // 미래 날짜면 잘못된 것으로 처리
+            }
+
+            // 월과 일의 범위를 검증
+            if (birthDate.get(ChronoField.MONTH_OF_YEAR) < 1 || birthDate.get(ChronoField.MONTH_OF_YEAR) > 12 ||
+                    birthDate.get(ChronoField.DAY_OF_MONTH) < 1 || birthDate.get(ChronoField.DAY_OF_MONTH) > 31) {
+                return true;
+            }
+
+            return false;
+        } catch (DateTimeParseException e) {
+            return true;
+        }
     }
 
     public static boolean isWrongLengthPhone(String phone) {
         return !(phone.length() == 8);
-    }
-
-
-    private static boolean isDuplicateDate(String date) {
-        int month = Integer.parseInt(date.substring(2, 4));
-        int day = Integer.parseInt(date.substring(4));
-
-        return(1 > month || month > 12) || (1 > day || day > 31);
-
     }
 
     public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {

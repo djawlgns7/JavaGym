@@ -10,6 +10,7 @@ import repository.EntryLogRepository;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import util.MemberUtil;
+import util.SoundUtil;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -110,6 +111,7 @@ public class MemberService {
                 entryLogRepository.save(findMember.getNum());
                 showDialogAndMoveMainPage(findMember.getName() + message.getString("fighting"), event);
             } else {
+                SoundUtil.play("rejectEntry");
                 showDialogBasicMessage("DeniedEntry");
             }
         } else {
