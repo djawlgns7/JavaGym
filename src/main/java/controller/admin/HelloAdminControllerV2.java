@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import static converter.StringToDateConverter.stringToDate;
 import static domain.admin.SelectedAdmin.loginAdmin;
@@ -486,5 +487,25 @@ public class HelloAdminControllerV2 implements Initializable {
             AdminTab.getInstance().setSelectedTabIndex(1);
             showDialogAndMovePageTimerOffMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
+    }
+
+    @FXML
+    private void showAmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.AM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
+    }
+
+    @FXML
+    private void showPmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.PM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
     }
 }

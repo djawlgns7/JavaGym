@@ -17,7 +17,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.geometry.Insets?>
 <BorderPane prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/Common.css"
             xmlns:fx="http://javafx.com/fxml" fx:controller="controller.admin.HelloAdminControllerV2">
     <center>
@@ -187,6 +186,8 @@
                                     </HBox>
                                     <!-- Search Box -->
                                     <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
+                                        <Button text="AM" onAction="#showAmTrainer" styleClass="trainerInfo_searchBtn"/>
+                                        <Button text="PM" onAction="#showPmTrainer" styleClass="trainerInfo_searchBtn"/>
                                         <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="&#128269; 트레이너 이름" styleClass="trainerInfo_searchInput"/>
                                         <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
                                     </HBox>
