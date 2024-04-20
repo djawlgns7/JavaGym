@@ -1,6 +1,7 @@
 package controller.trainer;
 
 
+import controller.admin.AdminTab;
 import domain.member.Member;
 import domain.member.MemberSchedule;
 import domain.trainer.*;
@@ -211,6 +212,12 @@ public class ReservationInfoController implements Initializable {
         List<Reservation> reservations = reservationRepository.findByMemberName(searchName);
         ObservableList<Reservation> observableList = FXCollections.observableArrayList(reservations);
         reservationTable.setItems(observableList);
+    }
+
+    @FXML
+    private void resetPageReservedMember(ActionEvent event) throws IOException {
+        AdminTab.getInstance().setSelectedTabIndex(0);
+        movePageTimerOff(event, "/view/trainer/reservationInfo");
     }
 
     @FXML

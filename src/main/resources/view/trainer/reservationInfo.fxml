@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <SplitPane dividerPositions="0.42" orientation="HORIZONTAL" prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/ReservationInfo.css"
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="controller.trainer.ReservationInfoController">
@@ -33,15 +35,26 @@
         </VBox>
 
         <!-- 예약 목록 영역 -->
-        <VBox fx:id="listArea" spacing="20" alignment="CENTER">
+        <VBox fx:id="listArea" spacing="10" alignment="CENTER">
             <Label text="예약 정보" styleClass="reservationInfo_Title"/>
+
+            <!-- Refresh Button -->
+            <HBox alignment="CENTER_RIGHT" styleClass="reservationInfo_refreshBox">
+                <Button onAction="#resetPageReservedMember" prefWidth="16" prefHeight="16" styleClass="reservationInfo_refreshBtn">
+                    <graphic>
+                        <ImageView fitWidth="20" fitHeight="20">
+                            <image><Image url="/image/Refresh_Icon.png"/></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="reservationInfo_searchBox">
                 <TextField fx:id="searchMemberNameField" promptText="회원 이름" onAction="#searchMember" styleClass="reservationInfo_searchInput"/>
                 <Button text="검색" onAction="#searchMember" styleClass="reservationInfo_SearchBtn"/>
             </HBox>
 
-            <TableView fx:id="reservationTable" editable="true" prefHeight="550.0">
+            <TableView fx:id="reservationTable" prefHeight="550.0" editable="true">
                 <columns>
                     <TableColumn fx:id="selectCol" text="선택" styleClass="reservationInfo_chooseCol">
                         <cellValueFactory>

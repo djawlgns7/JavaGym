@@ -106,7 +106,7 @@ SplitPane {
 .memberDetail_lockerSpinner .decrement-arrow-button:hover {
     -fx-cursor: hand;
     -fx-background-color: #C4A3FF;
-    -fx-border-color: white;
+    -fx-border-color: #FFFFFF;
     -fx-border-width: 1;
     -fx-border-style: solid;
 }

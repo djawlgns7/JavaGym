@@ -1,10 +1,13 @@
+SplitPane {
+    -fx-background-color: #FFFFFF;
+}
 
 .reservationDetail_Title_1, .reservationDetail_Title_2 {
     -fx-font-size: 32;
     -fx-font-family: "Jua";
 }
 
-.reservationDetail_date {
+.reservationDetail_DatePicker {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
     -fx-pref-height: 40;
@@ -17,18 +20,19 @@
     -fx-prompt-text-fill: #999999;
 }
 
-.reservationDetail_date .text-field {
+.reservationDetail_DatePicker .text-field {
     -fx-background-color: #F4F5F7;
 }
 
-.reservationDetail_date .arrow-button {
+
+.reservationDetail_DatePicker .arrow-button {
     -fx-background-color: #DABDFF;
     -fx-border-color: white;
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
 
-.reservationDetail_date .arrow-button:hover {
+.reservationDetail_DatePicker .arrow-button:hover {
     -fx-cursor: hand;
     -fx-background-color: #C4A3FF;
     -fx-border-color: white;
@@ -36,14 +40,19 @@
     -fx-border-style: solid;
 }
 
+.reservationDetail_DatePicker .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
 .reservationDetail_label_1, .reservationDetail_label_2 {
     -fx-font-size: 18;
     -fx-font-family: "NanumGothic";
 }
 
-.reservationDetail_EntryBtn {
+.reservationDetail_UpdateBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Jua";
     -fx-font-size: 15;
     -fx-pref-width: 100;
     -fx-pref-height: 40;
@@ -54,6 +63,7 @@
 .reservationDetail_goBackBtn {
     -fx-background-color: #DE14FF;
     -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Jua";
     -fx-font-size: 15;
     -fx-pref-width: 100;
     -fx-pref-height: 40;
@@ -61,7 +71,7 @@
     -fx-border-radius: 5;
 }
 
-.reservationDetail_EntryBtn:hover, .reservationDetail_goBackBtn:hover {
+.reservationDetail_UpdateBtn:hover, .reservationDetail_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
@@ -85,17 +95,6 @@
     -fx-font-size: 14;
 }
 
-.reservationCancel {
-    -fx-background-color: #9747FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 15;
-    -fx-pref-width: 100;
-    -fx-pref-height: 40;
-    -fx-border-color: transparent;
-    -fx-border-radius: 5;
-    -fx-translate-x: -20;
-}
-
 .reservationDetail_UpdateBtn, .reservationDetail_goBackBtnBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
@@ -107,7 +106,7 @@
     -fx-font-family: "Jua";
 }
 
-.reservationCancel:hover, .reservationDetail_UpdateBtn:hover, .reservationDetail_goBackBtnBtn:hover {
+.reservationDetail_UpdateBtn:hover, .reservationDetail_goBackBtnBtn:hover {
     -fx-background-color: #F4B6FF;
 }
 
@@ -128,4 +127,11 @@
 .gridPane_value, .gridPane_label {
     -fx-font-size: 20px;
     -fx-font-family: "Jua";
+}
+
+/* SplitPane */
+.split-pane-divider {
+    -fx-background-color: #C4A3FF; /* 분할선의 색상 변경 */
+    -fx-border-color: transparent; /* 분할선의 테두리 색상 변경 */
+    -fx-padding: 0.5; /* 분할선의 너비 변경 */
 }
