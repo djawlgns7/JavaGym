@@ -22,7 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 
@@ -39,8 +39,8 @@ public class MyInformationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (currentMember != null) {
-            Member member = currentMember;
+        if (loginMember != null) {
+            Member member = loginMember;
 
             try {
                 setMyInfo(member);

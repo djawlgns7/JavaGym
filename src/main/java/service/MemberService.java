@@ -65,7 +65,7 @@ public class MemberService {
         Member findMember = repository.findByPhone(phone);
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
-            currentMember = findMember;
+            loginMember = findMember;
             movePage(event, "/view/member/helloMember");
         } else {
             showDialogErrorMessage("wrongPw");

@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static controller.payment.PaymentController.*;
-import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.PageUtil.*;
@@ -44,12 +43,12 @@ public class SelectTrainerController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             selectTrainer = true;
-            currentTrainer = trainer;
+            selectedTrainer = trainer;
             PaymentTab.getInstance().setSelectedTabIndex(1);
             movePage(event, "/view/member/payment");
         } else {
             selectTrainer = false;
-            currentTrainer = null;
+            selectedTrainer = null;
         }
     }
 
@@ -74,6 +73,13 @@ public class SelectTrainerController implements Initializable {
             double value = scroll.getVvalue();
             scroll.setVvalue(value + -deltaY / width); // 세로 스크롤일 경우
             event.consume();
+        });
+
+        // 오전, 오후를 선택할 때마다 스크롤을 맨 위로 이동 (성진)
+        timeComboBox.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
+                scroll.setVvalue(0.0);
+            }
         });
     }
 

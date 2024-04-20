@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 
 import static domain.Item.*;
 import static service.SmsService.getRandomPassword;
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 
 import static util.ControllerUtil.getSelectedGender;
 import static util.ControllerUtil.loadEntryLog;
@@ -105,7 +105,7 @@ public class MemberDetailController implements Initializable {
         if (response.get() == ButtonType.OK) {
             System.out.println("수정 내역이 있음");
 
-            Integer memberNum = currentMember.getNum();
+            Integer memberNum = loginMember.getNum();
             int currentGymTicket = getRemain(memberNum, GYM_TICKET);
             int currentPtTicket = getRemain(memberNum, PT_TICKET);
             int currentClothedPeriod = getRemain(memberNum, CLOTHES);
@@ -114,13 +114,13 @@ public class MemberDetailController implements Initializable {
             // 기본 정보 업데이트
             if (!isSameBasicInfo()) {
                 System.out.println("기본 정보 업데이트");
-                currentMember.setName(nameField.getText().trim());
-                currentMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
-                currentMember.setEmail(emailField.getText().trim());
-                currentMember.setPhone(phoneField.getText().trim());
-                currentMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
+                loginMember.setName(nameField.getText().trim());
+                loginMember.setGender(Gender.valueOf(getSelectedGender(maleButton, femaleButton)));
+                loginMember.setEmail(emailField.getText().trim());
+                loginMember.setPhone(phoneField.getText().trim());
+                loginMember.setBirthDate(Date.valueOf(birthPicker.getValue()));
 
-                memberRepository.updateMember(currentMember);
+                memberRepository.updateMember(loginMember);
             }
 
             // 헬스장 이용권 업데이트 (updateGymTicket)
@@ -348,7 +348,7 @@ public class MemberDetailController implements Initializable {
         String email = emailField.getText().trim();
         Date birth = Date.valueOf(birthPicker.getValue());
 
-        return currentMember.getName().equals(name) && currentMember.getPhone().equals(phone) && currentMember.getGender().equals(gender) && currentMember.getEmail().equals(email) && currentMember.getBirthDate().equals(birth);
+        return loginMember.getName().equals(name) && loginMember.getPhone().equals(phone) && loginMember.getGender().equals(gender) && loginMember.getEmail().equals(email) && loginMember.getBirthDate().equals(birth);
     }
 
     private boolean isSameAdditionalInfo() {
@@ -357,18 +357,18 @@ public class MemberDetailController implements Initializable {
 
     private boolean isSameGymTicket() {
         Integer inputGymTicket = Integer.valueOf(gymTicketSpinner.getValue().toString());
-        Integer currentGymTicket = getRemain(currentMember.getNum(), GYM_TICKET);
+        Integer currentGymTicket = getRemain(loginMember.getNum(), GYM_TICKET);
         return inputGymTicket.equals(currentGymTicket);
     }
 
     private boolean isSamePtTicket() {
         Integer inputPtTicket = Integer.valueOf(ptTicketSpinner.getValue().toString());
-        Integer currentPtTicket = getRemain(currentMember.getNum(), PT_TICKET);
+        Integer currentPtTicket = getRemain(loginMember.getNum(), PT_TICKET);
         return inputPtTicket.equals(currentPtTicket);
     }
 
     private boolean isSameTrainer() {
-        Integer currentTrainerNum = getTrainerNumForMember(currentMember.getNum());
+        Integer currentTrainerNum = getTrainerNumForMember(loginMember.getNum());
 
         if (trainerRepository.findByNum(currentTrainerNum) != null && trainerComboBox.getValue().isEmpty()) {
             return false;
@@ -393,18 +393,18 @@ public class MemberDetailController implements Initializable {
 
     private boolean isSameClothesPeriod() {
         Integer inputClothesPeriod = Integer.valueOf(clothesSpinner.getValue().toString());
-        Integer currentClothesPeriod = getRemain(currentMember.getNum(), CLOTHES);
+        Integer currentClothesPeriod = getRemain(loginMember.getNum(), CLOTHES);
         return inputClothesPeriod.equals(currentClothesPeriod);
     }
 
     private boolean isSameLockerNum() {
         Integer inputLockerNum = Integer.valueOf(lockerNumField.getText());
-        Integer currentLockerNum = getLockerNum(currentMember.getNum());
+        Integer currentLockerNum = getLockerNum(loginMember.getNum());
         return inputLockerNum.equals(currentLockerNum);
     }
 
     private boolean isSameLockerPeriod() {
-        Integer currentLockerPeriod = getRemain(currentMember.getNum(), LOCKER);
+        Integer currentLockerPeriod = getRemain(loginMember.getNum(), LOCKER);
         Integer inputLockerPeriod = Integer.valueOf(lockerSpinner.getValue().toString());
         return inputLockerPeriod.equals(currentLockerPeriod);
     }
@@ -413,10 +413,10 @@ public class MemberDetailController implements Initializable {
 
     @FXML
     private void deleteMember(ActionEvent event) throws IOException {
-        Optional<ButtonType> response = showDialogChoose(currentMember.getName() + " " + basicMessage.getString("reallyDeleteMember"));
+        Optional<ButtonType> response = showDialogChoose(loginMember.getName() + " " + basicMessage.getString("reallyDeleteMember"));
 
         if (response.get() == ButtonType.OK){
-            memberRepository.deleteMember(currentMember.getNum());
+            memberRepository.deleteMember(loginMember.getNum());
             showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
         }
     }
@@ -424,7 +424,7 @@ public class MemberDetailController implements Initializable {
     @FXML
     private void showEntryLog() {
         Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle(currentMember.getName() + "님 출입 일지");
+        dialog.setTitle(loginMember.getName() + "님 출입 일지");
 
         ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
@@ -433,7 +433,7 @@ public class MemberDetailController implements Initializable {
 
         TableView<EntryLog> table = new TableView<>();
         table.getStyleClass().add("tableView");
-        loadEntryLog(currentMember.getNum(), table, entryLogRepository);
+        loadEntryLog(loginMember.getNum(), table, entryLogRepository);
 
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
@@ -476,7 +476,7 @@ public class MemberDetailController implements Initializable {
                 count++;
             }
             // 삭제한 예약 내역만큼 PT 이용권 돌려주기
-            setRemain(currentMember.getNum(), PT_TICKET, count);
+            setRemain(loginMember.getNum(), PT_TICKET, count);
             showDialogAndMovePageTimerOffMessage("deleteReservation", "/view/admin/memberDetail", event);
         }
     }
@@ -489,8 +489,8 @@ public class MemberDetailController implements Initializable {
             String resetPassword = String.valueOf(getRandomPassword());
             String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
 
-            smsService.sendMemberInitPassword(currentMember.getPhone(), Integer.parseInt(resetPassword));
-            memberRepository.resetPassword(hashPw, currentMember.getNum());
+            smsService.sendMemberInitPassword(loginMember.getPhone(), Integer.parseInt(resetPassword));
+            memberRepository.resetPassword(hashPw, loginMember.getNum());
 
             showDialogBasicMessage("resetPassword");
         }
@@ -507,8 +507,8 @@ public class MemberDetailController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (currentMember != null) {
-            Member member = currentMember;
+        if (loginMember != null) {
+            Member member = loginMember;
             Integer memberNum = member.getNum();
 
             // 회원의 일반 정보와 부가 정보 설정
@@ -538,7 +538,7 @@ public class MemberDetailController implements Initializable {
             phoneField.setTextFormatter(phoneFormatter);
             lockerNumField.setTextFormatter(lockerFormatter);
 
-            if (getLockerNum(currentMember.getNum()).equals(0)) {
+            if (getLockerNum(loginMember.getNum()).equals(0)) {
                 lockerNumField.setText("0");
             }
 
@@ -610,7 +610,7 @@ public class MemberDetailController implements Initializable {
         trainerComboBox.setItems(trainerNames);
 
         // 회원의 현재 트레이너를 콤보 박스의 기본값으로 설정
-        Integer trainerNum = getTrainerNumForMember(currentMember.getNum());
+        Integer trainerNum = getTrainerNumForMember(loginMember.getNum());
         if (trainerNum != 0) {
             trainerComboBox.getSelectionModel().select(trainerRepository.findByNum(trainerNum).getName());
         } else {
@@ -630,7 +630,7 @@ public class MemberDetailController implements Initializable {
     }
 
     private void loadMemberSchedule() {
-        List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(currentMember.getNum());
+        List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(loginMember.getNum());
         ObservableList<MemberSchedule> schedules = FXCollections.observableArrayList();
         schedules.addAll(memberSchedule);
 

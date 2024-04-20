@@ -9,7 +9,7 @@ import repository.CodeStore;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.DialogUtil.showDialog;
 import static util.DialogUtil.showDialogChoose;
 
@@ -79,8 +79,8 @@ public class SmsService {
                 Message message = new Message();
                 message.setFrom(adminPhone);
                 message.setTo(adminPhone);
-                if (currentMember != null) {
-                    String memberName = currentMember.getName();
+                if (loginMember != null) {
+                    String memberName = loginMember.getName();
                     message.setText("[JavaGym]\n" + memberName + " 회원님이 직원을 호출했습니다");
                 } else {
                     message.setText("[JavaGym]\n" + "회원님이 직원을 호출했습니다");

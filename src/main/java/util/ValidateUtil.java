@@ -202,22 +202,22 @@ public class ValidateUtil {
             return true;
         }
 
-        if (isDuplicateName(name) && !currentTrainer.getName().equals(name)) {
+        if (isDuplicateName(name) && !loginTrainer.getName().equals(name)) {
             showDialogErrorMessage("duplicateName");
             return true;
         }
 
-        if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !currentTrainer.getPhone().equals(phone) && !currentTrainer.getId().equals(id)) {
+        if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !loginTrainer.getPhone().equals(phone) && !loginTrainer.getId().equals(id)) {
             showDialogErrorMessage("duplicateIdAndPhone");
             return true;
         }
 
-        if (isDuplicateTrainerId(id) && !currentTrainer.getId().equals(id)) {
+        if (isDuplicateTrainerId(id) && !loginTrainer.getId().equals(id)) {
             showDialogErrorMessage("duplicateId");
             return true;
         }
 
-        if (isDuplicatePhone(phone) && !currentTrainer.getPhone().equals(phone)) {
+        if (isDuplicatePhone(phone) && !loginTrainer.getPhone().equals(phone)) {
             showDialogErrorMessage("duplicatePhone");
             return true;
         }
@@ -352,6 +352,6 @@ public class ValidateUtil {
 
     public static boolean isNotYourMember(int memberNum) {
         int trainerNum = getTrainerNumForMember(memberNum);
-        return trainerNum != currentTrainer.getNum();
+        return trainerNum != loginTrainer.getNum();
     }
 }
