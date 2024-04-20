@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.DialogUtil.*;
 import static util.DialogUtil.showDialogChoose;
 import static util.MemberUtil.getRemainAll;
@@ -71,11 +71,11 @@ public class ReservationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (currentMember != null) {
+        if (loginMember != null) {
 
             SoundUtil.play("selectPt");
 
-            member = currentMember;
+            member = loginMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             adder = trainerRepository.getWorkingHourAdder(trainer);
             reservations = getTrainerSchedule(trainer, 60);
@@ -325,7 +325,7 @@ public class ReservationController implements Initializable {
             monthAndDay[1] = "0" + monthAndDay[1];
         }
 
-        String date = thisYear + " - " + monthAndDay[0] + " - " + monthAndDay[1];
+        String date = thisYear + "/" + monthAndDay[0] + "/" + monthAndDay[1];
 
         String fromTime = dateNTime[1];
         String toTime = fromTime.substring(0, 2);
@@ -338,14 +338,12 @@ public class ReservationController implements Initializable {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("예약을 확정하시겠습니까?\n").append("\n담당 트레이너 - ").append(trainerName).append(" 트레이너")
-                .append("\n일시 - ").append(date).append(" ").append(fromTime).append(" ~ ").append(toTime)
-                .append(" 외 ").append(reservationNum).append("건");
-        String reservationConfirmMsg = sb.toString();
+        sb.append(date).append(" ").append(fromTime).append(" ~ ").append(toTime);
+        String dateMessage = sb.toString();
 
         //예약이 가능한 경우
         SoundUtil.play("checkReservation");
-        Optional<ButtonType> result = showDialogChoose(reservationConfirmMsg);
+        Optional<ButtonType> result = showReservationConfirmMessage(trainerName, dateMessage, reservationNum);
 
         if (result.get() == ButtonType.OK){
             LocalDate today = LocalDate.now();

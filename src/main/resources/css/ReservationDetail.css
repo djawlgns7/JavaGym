@@ -1,10 +1,10 @@
 
-.reservationDetail_title_1, .reservationDetail_title_2 {
+.reservationDetail_Title_1, .reservationDetail_Title_2 {
     -fx-font-size: 32;
     -fx-font-family: "Jua";
 }
 
-.reservation_date {
+.reservationDetail_date {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
     -fx-pref-height: 40;
@@ -17,18 +17,18 @@
     -fx-prompt-text-fill: #999999;
 }
 
-.reservation_date .text-field {
+.reservationDetail_date .text-field {
     -fx-background-color: #F4F5F7;
 }
 
-.reservation_date .arrow-button {
+.reservationDetail_date .arrow-button {
     -fx-background-color: #DABDFF;
     -fx-border-color: white;
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
 
-.reservation_date .arrow-button:hover {
+.reservationDetail_date .arrow-button:hover {
     -fx-cursor: hand;
     -fx-background-color: #C4A3FF;
     -fx-border-color: white;
@@ -96,22 +96,7 @@
     -fx-translate-x: -20;
 }
 
-
-.reservationCancel:hover, .reservationDetail_Btn:hover {
-    -fx-background-color: #F4B6FF;
-}
-
-.reservation_text {
-    -fx-font-size: 20px;
-    -fx-font-family: "Jua";
-}
-
-.rDetail_Btn {
-    -fx-translate-y: 10;
-}
-
-
-.reservationDetail_Btn {
+.reservationDetail_UpdateBtn, .reservationDetail_goBackBtnBtn {
     -fx-background-color: #9747FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 15;
@@ -120,6 +105,19 @@
     -fx-border-color: transparent;
     -fx-border-radius: 5;
     -fx-font-family: "Jua";
+}
+
+.reservationCancel:hover, .reservationDetail_UpdateBtn:hover, .reservationDetail_goBackBtnBtn:hover {
+    -fx-background-color: #F4B6FF;
+}
+
+.reservationDetail_text {
+    -fx-font-size: 20px;
+    -fx-font-family: "Jua";
+}
+
+.rDetail_Btn {
+    -fx-translate-y: 10;
 }
 
 .gridPane_label {

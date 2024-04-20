@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
@@ -101,7 +101,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+        if (!isValidTimeForTrainer(loginTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
             return;
         }
@@ -111,7 +111,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+        if (isReservationExist(loginTrainer.getNum(), localrDate, rTime)) {
             showDialogErrorMessage("reservationHasExist");
             return;
         }
@@ -127,7 +127,7 @@ public class ReservationInfoController implements Initializable {
         }
 
         if(addReservationValidate(memberName)) return;
-        reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
+        reservation.setTrainerNum(SelectedTrainer.loginTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
         reservation.setReservationDate(rDate);
@@ -146,7 +146,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
-        trainer = currentTrainer;
+        trainer = loginTrainer;
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
@@ -187,7 +187,7 @@ public class ReservationInfoController implements Initializable {
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
         if(reservation != null && event.getClickCount() == 2) {
             currentReservation = reservation;
-            currentTrainer = trainer;
+            loginTrainer = trainer;
             movePageTimerOff(event, "/view/trainer/reservationDetail");
         }
     }
@@ -265,7 +265,7 @@ public class ReservationInfoController implements Initializable {
 
         for (Member member : members) {
             int trainerNum = getTrainerNumForMember(member.getNum());
-            if(trainerNum != 0 && trainerNum == currentTrainer.getNum()) {
+            if(trainerNum != 0 && trainerNum == loginTrainer.getNum()) {
                 filteredMembers.add(member);
             }
         }
@@ -275,7 +275,7 @@ public class ReservationInfoController implements Initializable {
         VBox vbox = new VBox(table);
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(vbox);
-        dialogPane.getStylesheets().add(getClass().getResource("/css/rInfoButton.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/css/ReservedMemberInfo.css").toExternalForm());
 
         // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
         Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();

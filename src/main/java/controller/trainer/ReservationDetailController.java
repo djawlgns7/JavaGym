@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static util.DialogUtil.*;
 import static util.DialogUtil.showDialogChoose;
 import static util.ControllerUtil.formatPhone;
@@ -72,7 +72,7 @@ public class ReservationDetailController implements Initializable {
                     return;
                 }
 
-            if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+            if (!isValidTimeForTrainer(loginTrainer, rTime)) {
                 showDialogErrorMessage("wrongTimeForTrainer");
                 return;
             }
@@ -82,7 +82,7 @@ public class ReservationDetailController implements Initializable {
                 return;
             }
 
-            if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+            if (isReservationExist(loginTrainer.getNum(), localrDate, rTime)) {
                 showDialogErrorMessage("reservationHasExist");
                 return;
             }
@@ -145,7 +145,7 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        if (currentTrainer != null && currentTrainer.getNum() != null) {
+        if (loginTrainer != null && loginTrainer.getNum() != null) {
             movePageTimerOff(event, "/view/trainer/reservationInfo");
         }
     }

@@ -12,7 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css"
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/Common.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.member.MemberLoginController">
 
     <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="40.0" styleClass="memberLogin_VBox">

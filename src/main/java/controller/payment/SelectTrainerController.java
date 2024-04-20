@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static controller.payment.PaymentController.*;
-import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.PageUtil.*;
@@ -44,12 +43,12 @@ public class SelectTrainerController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             selectTrainer = true;
-            currentTrainer = trainer;
+            selectedTrainer = trainer;
             PaymentTab.getInstance().setSelectedTabIndex(1);
             movePage(event, "/view/member/payment");
         } else {
             selectTrainer = false;
-            currentTrainer = null;
+            selectedTrainer = null;
         }
     }
 

@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
-import static domain.admin.SelectedAdmin.currentAdmin;
-import static domain.member.SelectedMember.currentMember;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.admin.SelectedAdmin.loginAdmin;
+import static domain.member.SelectedMember.loginMember;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 
 public class InactivityManager {
     private static Stage mainStage;
@@ -98,7 +98,7 @@ public class InactivityManager {
 
     private static void moveToMainScreen() {
 
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 
@@ -106,8 +106,8 @@ public class InactivityManager {
             try {
                 clearBasket();
                 closeAllDialogs();
-                currentMember = null;
-                currentTrainer = null;
+                loginMember = null;
+                loginTrainer = null;
 
                 inactivityTimer.stop();
                 timerScene = null;
@@ -145,7 +145,7 @@ public class InactivityManager {
 
     public static void openTimerDialog() {
 
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 
@@ -189,7 +189,7 @@ public class InactivityManager {
     }
 
     private static void setUpInactivitySound() {
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 

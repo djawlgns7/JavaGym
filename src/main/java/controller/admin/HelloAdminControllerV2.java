@@ -35,12 +35,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import static converter.StringToDateConverter.stringToDate;
-import static domain.admin.SelectedAdmin.currentAdmin;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.admin.SelectedAdmin.loginAdmin;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static service.SmsService.getRandomPassword;
-import static util.AnimationUtil.animateTab;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -106,7 +106,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void memberDetail(Member member, MouseEvent event) throws IOException {
         if (member != null && event.getClickCount() == 2) {
-            SelectedMember.currentMember = member;
+            SelectedMember.loginMember = member;
             movePage(event, "/view/admin/memberDetail");
         }
     }
@@ -209,9 +209,20 @@ public class HelloAdminControllerV2 implements Initializable {
         int tabIndex = AdminTab.getInstance().getSelectedTabIndex();
         tabPane.getSelectionModel().select(tabIndex);
 
+        // 페이지나 탭이 로드되면 실행되는 초기화 메소드 내에서 선택된 탭의 스타일을 적용
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            selectedTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+        }
+
         tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-            if (newTab != null && oldTab != null) {
-                animateTab(newTab.getContent(), oldTab.getContent());
+            // 선택되지 않은 탭의 스타일을 초기화
+            if (oldTab != null) {
+                oldTab.setStyle(""); // 혹은 선택되지 않은 탭의 기본 스타일을 설정
+            }
+            // 새로 선택된 탭에 대한 스타일 적용
+            if (newTab != null) {
+                newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
             }
         });
     } // initialize 끝
@@ -270,7 +281,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void logout(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0); // 추가
-        currentAdmin = null;
+        loginAdmin = null;
         moveToMainPage(event);
     }
 
@@ -385,7 +396,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void trainerDetail(Trainer trainer, MouseEvent event) throws IOException {
         if (trainer != null && event.getClickCount() == 2) {
-            currentTrainer = trainerRepository.findByNum(trainer.getNum());
+            loginTrainer = trainerRepository.findByNum(trainer.getNum());
             movePage(event, "/view/admin/trainerDetail");
         }
     }
@@ -476,5 +487,25 @@ public class HelloAdminControllerV2 implements Initializable {
             AdminTab.getInstance().setSelectedTabIndex(1);
             showDialogAndMovePageTimerOffMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
+    }
+
+    @FXML
+    private void showAmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.AM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
+    }
+
+    @FXML
+    private void showPmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.PM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
     }
 }
