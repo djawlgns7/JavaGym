@@ -9,7 +9,7 @@ SplitPane {
 
 /* TextField */
 .reservationInfo_numInput, .reservationInfo_nameInput, .reservationInfo_phoneInput,
-.reservationInfo_timeInput {
+.reservationInfo_timeComboBox {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 250;
     -fx-pref-height: 50;
@@ -57,6 +57,46 @@ SplitPane {
     -fx-border-color: white;
     -fx-border-width: 1;
     -fx-border-style: solid;
+}
+
+/* ComboBox */
+.reservationInfo_timeComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservationInfo_timeComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationInfo_timeComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationInfo_timeComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.reservationInfo_timeComboBox .combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.reservationInfo_timeComboBox .combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.reservationInfo_timeComboBox .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
 }
 
 /* Button */
@@ -291,10 +331,19 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #DABDFF;
+    -fx-table-cell-border-color: transparent;
+}
+
 .table-view .placeholder {
     -fx-font-size: 20;
     -fx-font-family: "Jua";
     -fx-text-fill: #000000;
+}
+
+.table-row-cell:selected .check-box > .box {
+    -fx-background-color: #FFFFFF;
 }
 
 .check-box:selected .mark {

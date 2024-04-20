@@ -7,7 +7,8 @@ SplitPane {
     -fx-font-family: "Jua";
 }
 
-.reservationDetail_DatePicker {
+/* DatePicker */
+.reservationDetail_DatePicker, .reservationDetail_timeComboBox {
     -fx-font-family: "NanumGothic";
     -fx-pref-width: 200;
     -fx-pref-height: 40;
@@ -42,6 +43,46 @@ SplitPane {
 
 .reservationDetail_DatePicker .arrow {
     -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox */
+.reservationDetail_timeComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservationDetail_timeComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationDetail_timeComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationDetail_timeComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.reservationDetail_timeComboBox .combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.reservationDetail_timeComboBox .combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.reservationDetail_timeComboBox .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
 }
 
 .reservationDetail_label_1, .reservationDetail_label_2 {

@@ -296,6 +296,11 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg"));
+        dialogStage.getIcons().add(icon);
+
         return dialog.showAndWait();
     }
 

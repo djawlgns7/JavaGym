@@ -308,10 +308,9 @@ public class ValidateUtil {
         return !(phone.length() == 8);
     }
 
-    public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {
+    public static boolean isEmptyAnyField(TextField num, TextField name) {
         return  num.getText().trim().isEmpty() ||
-                name.getText().trim().isEmpty() ||
-                time.getText().trim().isEmpty();
+                name.getText().trim().isEmpty();
     }
 
     //트레이너 근무 시간 검증

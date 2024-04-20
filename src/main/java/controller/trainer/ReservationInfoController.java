@@ -187,7 +187,7 @@ public class ReservationInfoController implements Initializable {
         if(reservation != null && event.getClickCount() == 2) {
             currentReservation = reservation;
             currentTrainer = trainer;
-            movePageTimerOff(event, "/view/trainer/reservationDetail");
+            movePageTimerOff(event, "/view/trainer/ReservationDetail");
         }
     }
 

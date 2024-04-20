@@ -60,10 +60,10 @@ public class ReservationDetailController implements Initializable {
             String rTimeInput = rTimeComboBox.getSelectionModel().getSelectedItem();
             int rTime = Integer.parseInt(rTimeInput.split(":")[0]);
 
-                if (rTime < 8 || rTime > 19) {
-                    showDialogErrorMessage("invalidTime");
-                    return;
-                }
+            if (rTime < 8 || rTime > 19) {
+                showDialogErrorMessage("invalidTime");
+                return;
+            }
 
             if (!isValidTimeForTrainer(currentTrainer, rTime)) {
                 showDialogErrorMessage("wrongTimeForTrainer");
