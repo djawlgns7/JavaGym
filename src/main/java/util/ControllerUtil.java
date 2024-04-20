@@ -100,7 +100,6 @@ public class ControllerUtil {
     }
     public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
         int trainerNum = currentTrainer.getNum();
-        Trainer trainer = currentTrainer;
         List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
         reservationTable.setItems(FXCollections.observableArrayList(reservations));
 
