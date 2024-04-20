@@ -703,8 +703,10 @@ public class PaymentController implements Initializable {
         String totalPriceText;
         String gymText = "";
         String PTText = "";
-        String locketText = "";
+        String lockerNumberText = "";
+        String lockerPeriodText = "";
         String clothesText = "";
+        String gymPriceText = "", PTPriceText = "", lockerPriceText = "", clothesPriceText = "";
 
         play("checkPayment");
 
@@ -721,11 +723,9 @@ public class PaymentController implements Initializable {
             if(ticket instanceof GymTicket){
                 int period = ((GymTicket)ticket).getPeriod();
                 int price = ((GymTicket)ticket).getPrice();
-                String priceText = price / 1000 + ",000";
+                gymPriceText = price / 1000 + ",000";
 
-                sb.append(period).append("일 ").append(priceText);
-                gymText = sb.toString();
-                sb = new StringBuilder();
+                gymText = period + "";
             }
         }
 
@@ -733,17 +733,14 @@ public class PaymentController implements Initializable {
             if(ticket instanceof PtTicket){
                 int time = ((PtTicket)ticket).getTime();
                 int price = ((PtTicket)ticket).getPrice();
-                String priceText;
 
                 if(price >= 1000000) {
-                    priceText = (price / 1000000) + "," + (price % 1000000 / 1000) + ",000";
+                    PTPriceText = (price / 1000000) + "," + (price % 1000000 / 1000) + ",000";
                 }else{
-                    priceText = price / 1000 + ",000";
+                    PTPriceText = price / 1000 + ",000";
                 }
 
-                sb.append(time).append("회 ").append(priceText);
-                PTText = sb.toString();
-                sb = new StringBuilder();
+                PTText = time + "";
             }
         }
 
@@ -752,11 +749,11 @@ public class PaymentController implements Initializable {
                 int period = ((Locker)ticket).getPeriod();
                 int number = ((Locker)ticket).getNum();
                 int price = ((Locker)ticket).getPrice();
-                String priceText = price / 1000 + ",000";
+                lockerPriceText = price / 1000 + ",000";
 
-                sb.append("No.").append(number).append(" ").append(period).append("일 ").append(priceText);
-                locketText = sb.toString();
-                sb = new StringBuilder();
+                lockerNumberText = number + "";
+                lockerPeriodText = period + "";
+
             }
         }
 
@@ -764,18 +761,16 @@ public class PaymentController implements Initializable {
             if(ticket instanceof Clothes){
                 int period = ((Clothes)ticket).getPeriod();
                 int price = ((Clothes)ticket).getPrice();
-                String priceText = price / 1000 + ",000";
+                clothesPriceText = price / 1000 + ",000";
 
-                sb.append(period).append("일 ").append(priceText);
-                clothesText = sb.toString();
-                sb = new StringBuilder();
+                clothesText = period + "";
             }
         }
 
         sb.append(totalPriceText);
 
-//        Optional<ButtonType> result = showDialogChoose(sb.toString());
-        Optional<ButtonType> result = showPaymentConfirmMessage(gymText, PTText, locketText, clothesText, totalPriceText);
+        Optional<ButtonType> result = showPaymentConfirmMessage(gymText, gymPriceText, PTText, PTPriceText, lockerNumberText, lockerPeriodText, lockerPriceText,
+                clothesText, clothesPriceText, totalPriceText);
 
         if(result.get() == ButtonType.OK){
             int memberNum = currentMember.getNum();

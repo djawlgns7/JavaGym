@@ -26,3 +26,11 @@
     -fx-background-color: #EA8ABE;
     -fx-cursor: hand;
 }
+
+.reservation_trainerName, .reservation_reservationDateTime, .reservation_reservationCount {
+    -fx-text-fill: #9747FF;
+}
+
+.payment_gymTicket, .payment_PTTicket, .payment_Locker, .payment_Clothes, .payment_TotalPrice {
+    -fx-text-fill: #9747FF;
+}
