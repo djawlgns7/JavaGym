@@ -68,9 +68,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> setUpInactivitySound());
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(10000), e -> setUpInactivitySound());
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10000), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(10000), e -> moveToMainScreen());
 
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);

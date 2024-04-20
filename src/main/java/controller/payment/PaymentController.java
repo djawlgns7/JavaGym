@@ -130,12 +130,6 @@ public class PaymentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-            if (newTab != null && oldTab != null) {
-                animateTab(newTab.getContent(), oldTab.getContent());
-            }
-        });
-
         // 회원의 현재 모든 결제 정보를 얻는다.
         Integer memberNum = currentMember.getNum();
 
@@ -160,7 +154,7 @@ public class PaymentController implements Initializable {
         if (gymTicketRemain == 0) {
             itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
         } else {
-            itemValueLabel.setText(gymExpireDate + " (D-" + gymTicketRemain + ")");
+            itemValueLabel.setText(gymExpireDate + " (D - " + gymTicketRemain + ")");
         }
 
         // 상품 탭을 이동할 때마다 해당 상품에 대한 회원의 구매 정보 생성
@@ -178,7 +172,7 @@ public class PaymentController implements Initializable {
                     if (gymTicketRemain == 0) {
                         itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
                     } else {
-                        itemValueLabel.setText(gymExpireDate + " (D-" + gymTicketRemain + ")");
+                        itemValueLabel.setText(gymExpireDate + " (D - " + gymTicketRemain + ")");
                     }
 
                     lockerLabel.setVisible(false);
@@ -195,10 +189,12 @@ public class PaymentController implements Initializable {
                     itemValueLabel.setVisible(true);
                     itemTypeLabel.setText("PT 이용 가능 횟수");
 
+
+
                     if (ptTicketRemain == 0) {
                         itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
                     } else {
-                        itemValueLabel.setText(ptTicketRemain + "개");
+                        itemValueLabel.setText(ptTicketRemain + " 개");
                     }
 
                     lockerLabel.setVisible(false);
@@ -225,14 +221,14 @@ public class PaymentController implements Initializable {
                         currentLockerNumLabel.setVisible(false);
                     } else {
                         currentLockerNumLabel.setText(lockerNum + "번");
-                        currentLockerPeriodLabel.setText(lockerExpireDate + " (D-" + lockerRemain + ")");
+                        currentLockerPeriodLabel.setText(lockerExpireDate + " (D - " + lockerRemain + ")");
                     }
 
                     if (clothesRemain == 0) {
                         currentClothesPeriodLabel.setText("현재 이용 중인 운동복이 없습니다.");
                         currentClothesSizeLabel.setVisible(false);
                     } else {
-                        currentClothesPeriodLabel.setText(clothesExpireDate + " (D-" + clothesRemain + ")");
+                        currentClothesPeriodLabel.setText(clothesExpireDate + " (D - " + clothesRemain + ")");
                     }
                     itemTypeLabel.setVisible(false);
                     itemValueLabel.setVisible(false);
@@ -460,6 +456,23 @@ public class PaymentController implements Initializable {
 
         int tabIndex = PaymentTab.getInstance().getSelectedTabIndex();
         tab.getSelectionModel().select(tabIndex);
+
+        // 페이지나 탭이 로드되면 실행되는 초기화 메소드 내에서 선택된 탭의 스타일을 적용
+        Tab selectedTab = tab.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            selectedTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+        }
+
+        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            // 선택되지 않은 탭의 스타일을 초기화
+            if (oldTab != null) {
+                oldTab.setStyle(""); // 혹은 선택되지 않은 탭의 기본 스타일을 설정
+            }
+            // 새로 선택된 탭에 대한 스타일 적용
+            if (newTab != null) {
+                newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+            }
+        });
     } // initialize() 끝
 
     private void updateGymPrice(RadioButton selectedButton) {

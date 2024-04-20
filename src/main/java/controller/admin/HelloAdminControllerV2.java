@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -208,9 +209,20 @@ public class HelloAdminControllerV2 implements Initializable {
         int tabIndex = AdminTab.getInstance().getSelectedTabIndex();
         tabPane.getSelectionModel().select(tabIndex);
 
+        // 페이지나 탭이 로드되면 실행되는 초기화 메소드 내에서 선택된 탭의 스타일을 적용
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            selectedTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+        }
+
         tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-            if (newTab != null && oldTab != null) {
-                animateTab(newTab.getContent(), oldTab.getContent());
+            // 선택되지 않은 탭의 스타일을 초기화
+            if (oldTab != null) {
+                oldTab.setStyle(""); // 혹은 선택되지 않은 탭의 기본 스타일을 설정
+            }
+            // 새로 선택된 탭에 대한 스타일 적용
+            if (newTab != null) {
+                newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
             }
         });
     } // initialize 끝

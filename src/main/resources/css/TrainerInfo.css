@@ -65,6 +65,14 @@ SplitPane {
     -fx-background-color: #C4A3FF;
 }
 
+.scroll-bar:vertical {
+    -fx-pref-width: 7px;
+}
+
+.scrol-bar:horizontal {
+    -fx-pref-width: 7px;
+}
+
 .scroll-bar .thumb {
     -fx-background-color: #DABDFF;
     -fx-background-insets: 2, 2, 2;
@@ -362,7 +370,7 @@ SplitPane {
 }
 
 .trainerInfo_phoneColumn {
-    -fx-pref-width: 160;
+    -fx-pref-width: 150;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -413,8 +421,16 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.check-box:selected .mark {
+    -fx-background-color: #9747FF;
+}
+
 .trainerInfo_subBtn {
     -fx-padding: 10 15 0 0;
+}
+
+.trainerInfo_refreshBox {
+    -fx-padding: 0 25 5 0;
 }
 
 .trainerInfo_refreshBtn {
@@ -427,9 +443,13 @@ SplitPane {
      /*-fx-border-color: transparent;*/
      /*-fx-border-radius: 5;*/
     -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
 }
 
 .trainerInfo_refreshBtn:hover {
     -fx-cursor: hand;
-    -fx-background-color: rgba(153, 153, 153, 0.46);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
 }

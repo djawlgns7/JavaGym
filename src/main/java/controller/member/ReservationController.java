@@ -11,10 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
@@ -325,7 +328,7 @@ public class ReservationController implements Initializable {
             monthAndDay[1] = "0" + monthAndDay[1];
         }
 
-        String date = thisYear + " - " + monthAndDay[0] + " - " + monthAndDay[1];
+        String date = thisYear + "/" + monthAndDay[0] + "/" + monthAndDay[1];
 
         String fromTime = dateNTime[1];
         String toTime = fromTime.substring(0, 2);
@@ -338,8 +341,8 @@ public class ReservationController implements Initializable {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("예약을 확정하시겠습니까?\n").append("\n담당 트레이너 - ").append(trainerName).append(" 트레이너")
-                .append("\n일시 - ").append(date).append(" ").append(fromTime).append(" ~ ").append(toTime)
+        sb.append("예약을 확정하시겠습니까?\n").append("\n담당 트레이너 : ").append(trainerName).append(" 트레이너")
+                .append("\n일시 : ").append(date).append(" ").append(fromTime).append(" ~ ").append(toTime)
                 .append(" 외 ").append(reservationNum).append("건");
         String reservationConfirmMsg = sb.toString();
 

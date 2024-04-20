@@ -34,7 +34,7 @@ AnchorPane {
 }
 
 .helloMember_GYM_InfoTitle, .helloMember_GYM_Info {
-    -fx-translate-x: 130;
+    -fx-translate-x: 145;
 }
 
 /* Button */
@@ -88,10 +88,12 @@ AnchorPane {
 
 .helloMember_reservationBtn:hover, .helloMember_purchaseBtn:hover, .helloMember_entryBtn:hover {
     -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
 
 .helloMember_reservationBtn:pressed, .helloMember_purchaseBtn:pressed, .helloMember_entryBtn:pressed {
     -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
 }
 
 
