@@ -29,7 +29,7 @@
 
             <HBox alignment="CENTER" spacing="20">
                 <Button text="예약 등록" onAction="#addReservationInfo" styleClass="reservationInfo_ReservationBtn" />
-                <Button text="회원 정보" onAction="#showUserNum" styleClass="reservationInfo_MemberInfoBtn" />
+                <Button text="회원 정보" onAction="#showMemberInfo" styleClass="reservationInfo_MemberInfoBtn" />
                 <Button text="로그아웃" onAction="#logout" styleClass="reservationInfo_LogoutBtn" />
             </HBox>
         </VBox>

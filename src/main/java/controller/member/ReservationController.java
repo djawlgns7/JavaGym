@@ -48,25 +48,35 @@ public class ReservationController implements Initializable {
 
     @FXML
     private HBox week1, week2, week3, week4, week5, timeArea;
+
     @FXML
     private HBox selectedReservationList;
+
     @FXML
     private Button[] days = new Button[71], timeButtons = new Button[6];
+
     @FXML
     private Label calendarHead, trainerName, trainerInfo, PTTicketRemain, ticketSelection, selectedReservationNum;
+
     @FXML
     Button prevPage, nextPage, minusBtn, plusBtn;
+
     @FXML
     private ImageView imageView;
 
     List<Boolean>[] reservations;
     List<ReservationInformation> selectedReservations;
+
     HBox[] weeks;
     HBox firstHBoxInScroll;
+
     Member member;
     Trainer trainer;
+
     int daySelectedIndex = 1;
+
     LocalDate selectedDate, startDay;
+
     int adder, availableReservationNum;
 
     @Override
