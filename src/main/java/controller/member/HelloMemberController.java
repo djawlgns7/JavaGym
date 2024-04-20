@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static controller.payment.PaymentController.*;
 import static domain.Item.*;
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
@@ -54,7 +54,7 @@ public class HelloMemberController implements Initializable {
 
     @FXML
     private void reservation(ActionEvent event) throws IOException{
-        Integer memberNum = currentMember.getNum();
+        Integer memberNum = loginMember.getNum();
         int trainerNum = getTrainerNumForMember(memberNum);
         Integer remain = getRemain(memberNum, PT_TICKET);
 
@@ -81,14 +81,14 @@ public class HelloMemberController implements Initializable {
     @FXML
     public void entry(ActionEvent event) throws IOException {
         // 코드 수정 (성진)
-        Integer memberNum = currentMember.getNum();
+        Integer memberNum = loginMember.getNum();
         Integer gymTicket = MemberUtil.getRemain(memberNum, GYM_TICKET);
         Date reservation = reservationRepository.getTodayReservationDate(memberNum);
 
         String today = LocalDate.now().toString();
         if (gymTicket >= 1 || (reservation != null && reservation.toString().equals(today))) {
             entryLogRepository.save(memberNum);
-            showDialogAndMoveMainPage(currentMember.getName() + message.getString("fighting"), event);
+            showDialogAndMoveMainPage(loginMember.getName() + message.getString("fighting"), event);
         } else {
             SoundUtil.play("rejectEntry");
             showDialogBasicMessage("DeniedEntry");
@@ -97,8 +97,8 @@ public class HelloMemberController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(currentMember != null) {
-            Member member = currentMember;
+        if(loginMember != null) {
+            Member member = loginMember;
             List<Integer> remain = getRemainAll(member.getNum());
             int PTTicket = remain.get(1);
             int gymTicket = getRemain(member.getNum(), GYM_TICKET);
@@ -127,7 +127,7 @@ public class HelloMemberController implements Initializable {
     private void moveToPaymentPage(ActionEvent event) throws IOException {
         selectTrainer = false;
         selectLocker = false;
-        currentTrainer = null;
+        loginTrainer = null;
 
         PaymentTab.getInstance().setSelectedTabIndex(0);
         movePage(event, "/view/member/payment");
