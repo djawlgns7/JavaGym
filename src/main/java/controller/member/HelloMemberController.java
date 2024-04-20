@@ -63,6 +63,7 @@ public class HelloMemberController implements Initializable {
         int memberReservationNum = memberSchedule.size();
 
         if (trainerNum == 0 || remain == 0) {
+            SoundUtil.play("noPtTicket");
             showDialogErrorMessage("noPtTicket");
         } else if(memberReservationNum >= 4) {
             SoundUtil.play("maxReservation");
