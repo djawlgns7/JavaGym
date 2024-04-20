@@ -312,7 +312,7 @@ public class ValidateUtil {
 
     }
 
-    public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {
+    public static boolean isEmptyAnyField(TextField num, TextField name) {
         return  num.getText().trim().isEmpty() ||
                 name.getText().trim().isEmpty();
     }

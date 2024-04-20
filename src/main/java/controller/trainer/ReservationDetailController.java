@@ -1,6 +1,10 @@
 package controller.trainer;
 
 import domain.trainer.Reservation;
+import domain.trainer.Trainer;
+import domain.trainer.WorkingHour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +31,7 @@ public class ReservationDetailController implements Initializable {
     private final ReservationRepository reservationRepository = new ReservationRepository();
 
     @FXML
-    private TextField rTimeField;
+    private ComboBox<String> rTimeComboBox;
 
     @FXML
     private DatePicker ptDatePicker;
@@ -37,11 +41,6 @@ public class ReservationDetailController implements Initializable {
 
     @FXML
     private void updateReservation(ActionEvent event) throws IOException {
-        if (isEmptyAnyField(rTimeField)) {
-            showDialogErrorMessage("emptyAnyField");
-            return;
-        }
-
         //수정 내용이 없을 경우
         if (isSameReservationTime() && isSameReservationDate()) {
             showDialogErrorMessage("isSame");
@@ -58,14 +57,8 @@ public class ReservationDetailController implements Initializable {
             System.out.println("수정 내역이 있음");
             Date rDate = Date.valueOf(ptDatePicker.getValue());
             LocalDate localrDate = rDate.toLocalDate();
-            String rTimeInput = rTimeField.getText().trim();
-
-            if (!rTimeInput.matches("\\d+")) {
-                showDialogErrorMessage("notTime");
-                return;
-            }
-
-            int rTime = Integer.parseInt(rTimeInput);
+            String rTimeInput = rTimeComboBox.getSelectionModel().getSelectedItem();
+            int rTime = Integer.parseInt(rTimeInput.split(":")[0]);
 
                 if (rTime < 8 || rTime > 19) {
                     showDialogErrorMessage("invalidTime");
@@ -96,14 +89,14 @@ public class ReservationDetailController implements Initializable {
 
                 //PT 시간만 변경, 날짜 동일
                 if(isSameReservationDate() && !isSameReservationTime()) {
-                    currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
+                    currentReservation.setReservationTime(Integer.parseInt(rTimeComboBox.getSelectionModel().getSelectedItem().split(":")[0]));
                     reservationRepository.updateReservation(currentReservation);
                 }
 
                 //PT 날짜, 시간 모두 변경
                 if(!isSameReservationDate() && !isSameReservationTime()) {
                     currentReservation.setReservationDate(Date.valueOf(ptDatePicker.getValue()));
-                    currentReservation.setReservationTime(Integer.parseInt(rTimeField.getText().trim()));
+                    currentReservation.setReservationTime(Integer.parseInt(rTimeComboBox.getSelectionModel().getSelectedItem().split(":")[0]));
                     reservationRepository.updateReservation(currentReservation);
                 }
 
@@ -120,7 +113,7 @@ public class ReservationDetailController implements Initializable {
     }
 
     private boolean isSameReservationTime() {
-        String inputPtTime = rTimeField.getText().trim();
+        String inputPtTime = rTimeComboBox.getSelectionModel().getSelectedItem().split(":")[0];
         if(!inputPtTime.matches("\\d+")) {
             return false;
         }
@@ -139,6 +132,7 @@ public class ReservationDetailController implements Initializable {
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
+            setupTimeComboBox(currentTrainer);
         }
 
     }
@@ -148,5 +142,21 @@ public class ReservationDetailController implements Initializable {
         if (currentTrainer != null && currentTrainer.getNum() != null) {
             movePageTimerOff(event, "/view/trainer/reservationInfo");
         }
+    }
+
+    private void setupTimeComboBox(Trainer trainer) {
+        ObservableList<String> hours = FXCollections.observableArrayList();
+        if(trainer.getWorkingHour() == WorkingHour.AM) {
+            for(int i=8; i<14; i++) {
+                hours.add(i+":00");
+            }
+        }
+        else if(trainer.getWorkingHour() == WorkingHour.PM) {
+            for(int i=14; i<20; i++) {
+                hours.add(i+":00");
+            }
+        }
+        rTimeComboBox.setItems(hours);
+        rTimeComboBox.setValue(hours.get(0));
     }
 }

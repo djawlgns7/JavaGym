@@ -84,7 +84,7 @@ public class ReservationInfoController implements Initializable {
         }
         Date rDate = Date.valueOf(rDatePicker.getValue());
         String rTimeInput = rTimeComboBox.getSelectionModel().getSelectedItem();
-        Integer rTime = Integer.parseInt(rTimeInput);
+        Integer rTime = Integer.parseInt(rTimeInput.split(":")[0]);
         LocalDate localrDate = rDate.toLocalDate();
         List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(memberNum);
         int memberReservationNum = memberSchedule.size();
@@ -304,5 +304,13 @@ public class ReservationInfoController implements Initializable {
         }
         rTimeComboBox.setItems(hours);
         rTimeComboBox.setValue(hours.get(0));
+    }
+
+    @FXML
+    private void onDateChange() {
+        LocalDate selectedDate = rDatePicker.getValue();
+        if(selectedDate != null) {
+            setupTimeComboBox(selectedDate);
+        }
     }
 }
