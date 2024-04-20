@@ -327,7 +327,7 @@ public class DialogUtil {
         label = new Label("담당 트레이너: ");
         hbox.getChildren().add(label);
         label = new Label(trainerName);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+        label.getStyleClass().add("reservation_trainerName");
         hbox.getChildren().add(label);
         label = new Label(" 트레이너");
         hbox.getChildren().add(label);
@@ -339,12 +339,12 @@ public class DialogUtil {
         label = new Label("일시: ");
         hbox.getChildren().add(label);
         label = new Label(reservationTime);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+        label.getStyleClass().add("reservation_reservationDateTime");
         hbox.getChildren().add(label);
         label = new Label(" 외 ");
         hbox.getChildren().add(label);
         label = new Label(reservationNum + "");
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+        label.getStyleClass().add("reservation_reservationCount");
         hbox.getChildren().add(label);
         label = new Label("건");
         hbox.getChildren().add(label);
@@ -389,7 +389,7 @@ public class DialogUtil {
             label = new Label("이용권 ");
             hbox.getChildren().add(label);
             label = new Label(gym);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+            label.getStyleClass().add("payment_gymTicket");
             hbox.getChildren().add(label);
             label = new Label("원");
             hbox.getChildren().add(label);
@@ -404,7 +404,7 @@ public class DialogUtil {
             label = new Label("PT ");
             hbox.getChildren().add(label);
             label = new Label(PT);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+            label.getStyleClass().add("payment_PTTicket");
             hbox.getChildren().add(label);
             label = new Label("원");
             hbox.getChildren().add(label);
@@ -419,7 +419,7 @@ public class DialogUtil {
             label = new Label("사물함 ");
             hbox.getChildren().add(label);
             label = new Label(locker);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+            label.getStyleClass().add("payment_Locker");
             hbox.getChildren().add(label);
             label = new Label("원");
             hbox.getChildren().add(label);
@@ -434,7 +434,7 @@ public class DialogUtil {
             label = new Label("운동복 ");
             hbox.getChildren().add(label);
             label = new Label(clothes);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+            label.getStyleClass().add("payment_Clothes");
             hbox.getChildren().add(label);
             label = new Label("원");
             hbox.getChildren().add(label);
@@ -451,7 +451,7 @@ public class DialogUtil {
         label = new Label("총 ");
         hbox.getChildren().add(label);
         label = new Label(totalPrice);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+        label.getStyleClass().add("payment_TotalPrice");
         hbox.getChildren().add(label);
         label = new Label("원");
         hbox.getChildren().add(label);

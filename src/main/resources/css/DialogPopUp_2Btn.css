@@ -1,6 +1,6 @@
 .dialog-pane {
     -fx-background-color: rgba(151, 71, 255, 0.07);
-    -fx-pref-height: 300;
+    -fx-pref-height: 400;
     -fx-pref-width: 400;
 }
 
@@ -11,6 +11,13 @@
     -fx-alignment: CENTER;
 }
 
+.reservation_trainerName, .reservation_reservationDateTime, .reservation_reservationCount {
+    -fx-text-fill: #9747FF;
+}
+
+.payment_gymTicket, .payment_PTTicket, .payment_Locker, .payment_Clothes, .payment_TotalPrice {
+    -fx-text-fill: #9747FF;
+}
 
 .button {
     -fx-background-color: #9747FF;

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.control.ScrollPane?>
-<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/Common.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.payment.SelectTrainerController">
     <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="650.0" spacing="20">
         <!-- 자바짐 타이틀 -->

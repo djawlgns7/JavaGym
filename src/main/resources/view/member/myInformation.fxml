@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/common.css"
+<AnchorPane prefHeight="1000.0" prefWidth="650.0" stylesheets="/css/Common.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.member.MyInformationController">
 
