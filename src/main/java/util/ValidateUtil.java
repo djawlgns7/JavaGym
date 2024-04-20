@@ -14,11 +14,10 @@ import repository.TrainerRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
+import java.time.format.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
@@ -276,25 +275,31 @@ public class ValidateUtil {
     }
 
     public static boolean isWrongBirth(String birth) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd")
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2, 1900)
+                .appendPattern("MMdd")
+                .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT);
+
         try {
-            LocalDate birthDate = LocalDate.parse(birth, formatter);
-
-
-            // 미래 날짜 검증
-            if (birthDate.isAfter(LocalDate.now())) {
-                return true; // 미래 날짜면 잘못된 것으로 처리
+            TemporalAccessor parsedDate = formatter.parse(birth);
+            if (!parsedDate.isSupported(ChronoField.YEAR_OF_ERA) ||
+                    !parsedDate.isSupported(ChronoField.MONTH_OF_YEAR) ||
+                    !parsedDate.isSupported(ChronoField.DAY_OF_MONTH)) {
+                return true;
             }
 
-            // 월과 일의 범위를 검증
-            if (birthDate.get(ChronoField.MONTH_OF_YEAR) < 1 || birthDate.get(ChronoField.MONTH_OF_YEAR) > 12 ||
-                    birthDate.get(ChronoField.DAY_OF_MONTH) < 1 || birthDate.get(ChronoField.DAY_OF_MONTH) > 31) {
+            LocalDate birthDate = LocalDate.of(
+                    parsedDate.get(ChronoField.YEAR_OF_ERA),
+                    parsedDate.get(ChronoField.MONTH_OF_YEAR),
+                    parsedDate.get(ChronoField.DAY_OF_MONTH));
+
+            if (birthDate.isAfter(LocalDate.now())) {
                 return true;
             }
 
             return false;
-        } catch (DateTimeParseException e) {
+        } catch (Exception e) {
             return true;
         }
     }
@@ -342,7 +347,6 @@ public class ValidateUtil {
 
     //PT 이용권 검증
     public static boolean isValidPtTicket(int memberNum) {
-        Member member = memberRepository.findByNum(memberNum);
         int remainPT = getRemain(memberNum, Item.PT_TICKET);
         return remainPT != 0;
     }
