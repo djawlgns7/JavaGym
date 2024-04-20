@@ -344,4 +344,27 @@ public class ReservationRepository {
         }
     }
 
+    public List<Integer> findReservationHours(int trainerNum, Date date) {
+        String sql = "SELECT r_time FROM reservation WHERE t_no = ? AND r_date = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            List<Integer> list = new ArrayList<>();
+            pstmt.setInt(1, trainerNum);
+            pstmt.setDate(2, (java.sql.Date) date);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt("r_time"));
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
 }

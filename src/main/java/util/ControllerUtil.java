@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static domain.trainer.SelectedTrainer.loginTrainer;
+import static domain.trainer.SelectedTrainer.currentTrainer;
 
 
 public class ControllerUtil {
@@ -99,8 +99,7 @@ public class ControllerUtil {
         membersTable.setItems(FXCollections.observableArrayList(members));
     }
     public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
-        int trainerNum = loginTrainer.getNum();
-        Trainer trainer = loginTrainer;
+        int trainerNum = currentTrainer.getNum();
         List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
         reservationTable.setItems(FXCollections.observableArrayList(reservations));
 
