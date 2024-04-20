@@ -253,6 +253,52 @@ SplitPane {
 }
 
 /* Table */
+.trainerInfo_AMPMBtn {
+    -fx-padding: 0 0 5 25;
+    -fx-translate-x: -370;
+}
+
+.trainerInfo_AMBtn, .trainerInfo_PMBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-pref-width: 50;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_AMBtn:hover, .trainerInfo_PMBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.trainerInfo_refreshBox {
+    -fx-padding: 0 25 5 0;
+}
+
+.trainerInfo_refreshBtn {
+    /*-fx-font-family: "Jua";*/
+    /*-fx-background-color: #DE14FF;*/
+    /*-fx-text-fill: #FFFFFF;*/
+    /*-fx-font-size: 16;*/
+    /*-fx-pref-width: 80;*/
+    /*-fx-pref-height: 30;*/
+    /*-fx-border-color: transparent;*/
+    /*-fx-border-radius: 5;*/
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.trainerInfo_refreshBtn:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
+}
+
 .trainerInfo_searchBox {
     -fx-padding: 0 15 10 0;
 }
@@ -421,41 +467,25 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #DABDFF;
+    -fx-table-cell-border-color: transparent;
+}
+
 .table-view .placeholder {
     -fx-font-size: 20;
     -fx-font-family: "Jua";
     -fx-text-fill: #000000;
 }
 
+.table-row-cell:selected .check-box > .box {
+    -fx-background-color: #FFFFFF;
+}
+
 .check-box:selected .mark {
     -fx-background-color: #9747FF;
 }
-
 .trainerInfo_subBtn {
     -fx-padding: 10 15 0 0;
 }
 
-.trainerInfo_refreshBox {
-    -fx-padding: 0 25 5 0;
-}
-
-.trainerInfo_refreshBtn {
-     /*-fx-font-family: "Jua";*/
-     /*-fx-background-color: #DE14FF;*/
-     /*-fx-text-fill: #FFFFFF;*/
-     /*-fx-font-size: 16;*/
-     /*-fx-pref-width: 80;*/
-     /*-fx-pref-height: 30;*/
-     /*-fx-border-color: transparent;*/
-     /*-fx-border-radius: 5;*/
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #000000;
-    -fx-border-width: 1;
-    -fx-border-style: solid;
-    -fx-border-radius: 5;
-}
-
-.trainerInfo_refreshBtn:hover {
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
-}

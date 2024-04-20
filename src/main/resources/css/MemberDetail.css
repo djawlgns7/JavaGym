@@ -106,7 +106,7 @@ SplitPane {
 .memberDetail_lockerSpinner .decrement-arrow-button:hover {
     -fx-cursor: hand;
     -fx-background-color: #C4A3FF;
-    -fx-border-color: white;
+    -fx-border-color: #FFFFFF;
     -fx-border-width: 1;
     -fx-border-style: solid;
 }
@@ -338,10 +338,19 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #DABDFF;
+    -fx-table-cell-border-color: transparent;
+}
+
 .table-view .placeholder {
     -fx-font-size: 20;
     -fx-font-family: "Jua";
     -fx-text-fill: #000000;
+}
+
+.table-row-cell:selected .check-box > .box {
+    -fx-background-color: #FFFFFF;
 }
 
 .check-box:selected .mark {
