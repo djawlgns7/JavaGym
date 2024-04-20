@@ -306,11 +306,4 @@ public class ReservationInfoController implements Initializable {
         rTimeComboBox.setValue(hours.get(0));
     }
 
-    @FXML
-    private void onDateChange() {
-        LocalDate selectedDate = rDatePicker.getValue();
-        if(selectedDate != null) {
-            setupTimeComboBox(selectedDate);
-        }
-    }
 }
