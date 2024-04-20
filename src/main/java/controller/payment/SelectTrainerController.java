@@ -75,6 +75,13 @@ public class SelectTrainerController implements Initializable {
             scroll.setVvalue(value + -deltaY / width); // 세로 스크롤일 경우
             event.consume();
         });
+
+        // 오전, 오후를 선택할 때마다 스크롤을 맨 위로 이동 (성진)
+        timeComboBox.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
+                scroll.setVvalue(0.0);
+            }
+        });
     }
 
     private void loadAmTrainers(List<Trainer> trainers) {
