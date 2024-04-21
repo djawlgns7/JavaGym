@@ -147,7 +147,16 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
         trainer = loginTrainer;
-        setupTimeComboBox(loginTrainer);
+
+        rDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                onDateChanged();
+            }
+        });
+
+        if(loginTrainer != null && rDatePicker.getValue() != null) {
+            onDateChanged();
+        }
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
@@ -318,20 +327,30 @@ public class ReservationInfoController implements Initializable {
         return member.getName().equals(memberName);
     }
 
-    private void setupTimeComboBox(Trainer trainer) {
+    private void setupTimeComboBox(WorkingHour workingHour, List<Integer> reservedHours) {
         ObservableList<String> hours = FXCollections.observableArrayList();
-        if(trainer.getWorkingHour() == WorkingHour.AM) {
-            for(int i=8; i<14; i++) {
-                hours.add(i+":00");
-            }
-        }
-        else if(trainer.getWorkingHour() == WorkingHour.PM) {
-            for(int i=14; i<20; i++) {
-                hours.add(i+":00");
+        int startHour = (workingHour == WorkingHour.AM) ? 8 : 14;
+        int endHour = (workingHour == WorkingHour.AM) ? 13 : 19;
+
+        for (int hour = startHour; hour <= endHour; hour++) {
+            if (!reservedHours.contains(hour)) {
+                hours.add(String.format("%02d:00", hour));
             }
         }
         rTimeComboBox.setItems(hours);
-        rTimeComboBox.setValue(hours.get(0));
+        if (!hours.isEmpty()) {
+            rTimeComboBox.setValue(hours.get(0));
+        }
+    }
+
+    @FXML
+    private void onDateChanged() {
+        LocalDate selectedDate = rDatePicker.getValue();
+        if (selectedDate != null) {
+            Date sqlDate = Date.valueOf(selectedDate);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(loginTrainer.getNum(), sqlDate);
+            setupTimeComboBox(loginTrainer.getWorkingHour(), reservationHour);
+        }
     }
 
 }
