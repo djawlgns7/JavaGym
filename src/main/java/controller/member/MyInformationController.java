@@ -22,7 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
 
@@ -39,8 +39,8 @@ public class MyInformationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (currentMember != null) {
-            Member member = currentMember;
+        if (loginMember != null) {
+            Member member = loginMember;
 
             try {
                 setMyInfo(member);
@@ -110,7 +110,8 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Num");
                 newVBox.getChildren().add(newLabel);
 
-                newLabel = new Label(memberSchedules.get(i).getReservationDate().toString());
+                String reservationDate = memberSchedules.get(i).getReservationDate().toString().replace("-", "/");
+                newLabel = new Label(reservationDate);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
@@ -127,7 +128,8 @@ public class MyInformationController implements Initializable {
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
             long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
-            gymTicketRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
+            String expireDateText = expireDate.toString().replace("-", "/");
+            gymTicketRemain.setText(expireDateText + " (D - " + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -140,8 +142,9 @@ public class MyInformationController implements Initializable {
 
             LocalDate expireDate = today.plusDays(locker);
             lockerNo.setText("No." + lockerNum);
+            String expireDateText = expireDate.toString().replace("-", "/");
 
-            lockerRemain.setText(expireDate + " (D - " + locker + ")");
+            lockerRemain.setText(expireDateText + " (D - " + locker + ")");
         }
 
         if(clothes == 0){
@@ -150,7 +153,9 @@ public class MyInformationController implements Initializable {
         }else{
             LocalDate expireDate = today.plusDays(clothes);
             clothesAvailability.setText("이용 가능");
-            clothesRemain.setText(expireDate + " (D - " + clothes + ")");
+            String expireDateText = expireDate.toString().replace("-", "/");
+
+            clothesRemain.setText(expireDateText + " (D - " + clothes + ")");
 
         }
     }

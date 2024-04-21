@@ -82,9 +82,9 @@ public class SignUpController implements Initializable {
         member.setPhone(phone);
 
         Member signUpMember = service.signUp(member);
+
         SoundUtil.play("welcome");
-        showDialog(signUpMember.getName() + message.getString("welcomeSignUp"));
-        goBack(event);
+        showDialogAndMoveMainPage(signUpMember.getName() + message.getString("welcomeSignUp"), event);
     }
 
     @FXML
@@ -94,6 +94,8 @@ public class SignUpController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        SoundUtil.play("signUpInfo");
 
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             stylePassword(passwordField, passwordConfirmField);

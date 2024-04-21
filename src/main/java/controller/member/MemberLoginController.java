@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.PageUtil.movePage;
 
 @Slf4j
@@ -45,19 +45,19 @@ public class MemberLoginController implements Initializable {
 
     @FXML
     private void showSignUp(ActionEvent event) throws IOException {
-        currentMember = new Member();
+        loginMember = new Member();
         movePage(event, "/view/member/signUpForm");
     }
 
     @FXML
     public void showAdminLogin(ActionEvent event) throws IOException {
-        currentMember = new Member();
+        loginMember = new Member();
         movePage(event, "/view/admin/adminLogin");
     }
 
     @FXML
     public void showTrainerLogin(ActionEvent event) throws IOException {
-        currentMember = new Member();
+        loginMember = new Member();
         movePage(event, "/view/trainer/trainerLogin");
     }
 

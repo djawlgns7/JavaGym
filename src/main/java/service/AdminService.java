@@ -13,8 +13,8 @@ import repository.TrainerRepository;
 
 import java.io.IOException;
 
-import static domain.admin.SelectedAdmin.currentAdmin;
-import static domain.member.SelectedMember.currentMember;
+import static domain.admin.SelectedAdmin.loginAdmin;
+import static domain.member.SelectedMember.loginMember;
 import static util.DialogUtil.showDialogErrorMessage;
 import static util.PageUtil.*;
 
@@ -32,6 +32,11 @@ public class AdminService {
         String id = idField.getText().trim();
         String password = passwordField.getText().trim();
 
+        if (id.isEmpty() && password.isEmpty()) {
+            showDialogErrorMessage("emptyIdAndPassword");
+            return;
+        }
+
         if (id.isEmpty()) {
             showDialogErrorMessage("emptyId");
             return;
@@ -45,11 +50,11 @@ public class AdminService {
         Admin admin = adminRepository.findById(id);
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
-            currentMember = null;
-            movePageTimerOff(event, "/view/admin/helloAdminV2");
-            currentAdmin = new Admin();
+            loginMember = null;
+            movePage(event, "/view/admin/helloAdminV2");
+            loginAdmin = new Admin();
         } else {
-            showDialogErrorMessage("adminLoginFail");
+            showDialogErrorMessage("loginFail");
         }
     }
 

@@ -1,6 +1,7 @@
 package controller.trainer;
 
 
+import controller.admin.AdminTab;
 import domain.member.Member;
 import domain.member.MemberSchedule;
 import domain.trainer.*;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import repository.MemberRepository;
 import repository.ReservationRepository;
@@ -31,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import static domain.Item.PT_TICKET;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static domain.trainer.SelectedReservation.currentReservation;
 import static util.ControllerUtil.*;
 import static util.DialogUtil.*;
@@ -48,7 +50,10 @@ public class ReservationInfoController implements Initializable {
     private final TrainerService service = new TrainerService(trainerRepository);
 
     @FXML
-    private TextField numField, nameField, rTimeField, searchMemberNameField;
+    private TextField numField, nameField, searchMemberNameField;
+
+    @FXML
+    private ComboBox<String> rTimeComboBox;
 
     @FXML
     private DatePicker rDatePicker;
@@ -64,7 +69,7 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void addReservationInfo(ActionEvent event) throws IOException {
-        if (isEmptyAnyField(numField, nameField, rTimeField)) {
+        if (isEmptyAnyField(numField, nameField)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
@@ -80,7 +85,8 @@ public class ReservationInfoController implements Initializable {
             return;
         }
         Date rDate = Date.valueOf(rDatePicker.getValue());
-        String rTimeInput = rTimeField.getText().trim();
+        String rTimeInput = rTimeComboBox.getSelectionModel().getSelectedItem();
+        Integer rTime = Integer.parseInt(rTimeInput.split(":")[0]);
         LocalDate localrDate = rDate.toLocalDate();
         List<MemberSchedule> memberSchedule = reservationRepository.findMemberSchedule(memberNum);
         int memberReservationNum = memberSchedule.size();
@@ -89,19 +95,13 @@ public class ReservationInfoController implements Initializable {
             showDialogErrorMessage("maxReservationNum");
             return;
         }
-        if (!rTimeInput.matches("\\d+")) {
-            showDialogErrorMessage("notTime");
-            return;
-        }
-
-        int rTime = Integer.parseInt(rTimeInput);
 
         if(rTime < 8 || rTime > 19) {
             showDialogErrorMessage("invalidTime");
             return;
         }
 
-        if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+        if (!isValidTimeForTrainer(loginTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
             return;
         }
@@ -111,7 +111,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+        if (isReservationExist(loginTrainer.getNum(), localrDate, rTime)) {
             showDialogErrorMessage("reservationHasExist");
             return;
         }
@@ -127,7 +127,7 @@ public class ReservationInfoController implements Initializable {
         }
 
         if(addReservationValidate(memberName)) return;
-        reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
+        reservation.setTrainerNum(SelectedTrainer.loginTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
         reservation.setReservationDate(rDate);
@@ -135,7 +135,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showDialogAndMovePageTimerOff("예약 등록 성공", "/view/trainer/reservationInfo", event);
+        showDialogAndMovePage("addReservation", "/view/trainer/reservationInfo", event);
 
     }
 
@@ -146,7 +146,17 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
-        trainer = currentTrainer;
+        trainer = loginTrainer;
+
+        rDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                onDateChanged();
+            }
+        });
+
+        if(loginTrainer != null && rDatePicker.getValue() != null) {
+            onDateChanged();
+        }
 
         UnaryOperator<TextFormatter.Change> filter2 = change -> {
             String newText = change.getControlNewText();
@@ -186,9 +196,13 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
         if(reservation != null && event.getClickCount() == 2) {
+            if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+                memberInfoDialog.close();
+            }
+
             currentReservation = reservation;
-            currentTrainer = trainer;
-            movePageTimerOff(event, "/view/trainer/reservationDetail");
+            loginTrainer = trainer;
+            movePage(event, "/view/trainer/ReservationDetail");
         }
     }
 
@@ -197,14 +211,14 @@ public class ReservationInfoController implements Initializable {
         String searchName = searchMemberNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            showDialog("이름을 입력해 주세요.");
+            showDialogErrorMessage("emptyName");
             return;
         }
 
         List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
 
         if(searchedMembers.isEmpty()) {
-            showDialog("해당 이름의 회원이 없습니다.");
+            showDialogErrorMessage("noFindByNameMember");
             return;
         }
 
@@ -214,14 +228,24 @@ public class ReservationInfoController implements Initializable {
     }
 
     @FXML
+    private void resetPageReservedMember(ActionEvent event) throws IOException {
+        AdminTab.getInstance().setSelectedTabIndex(0);
+        movePage(event, "/view/trainer/reservationInfo");
+    }
+
+    @FXML
     private void logout(ActionEvent event) throws IOException {
+        if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+            memberInfoDialog.close();
+        }
+
         moveToMainPage(event);
     }
 
     @FXML
     public void cancelReservation(ActionEvent event) throws IOException {
-        if(reservationTable.getItems().isEmpty()) {
-            showDialog("예약 정보가 없습니다.");
+        if (reservationTable.getItems().isEmpty()) {
+            showDialogErrorMessage("noReservation");
             return;
         }
 
@@ -230,11 +254,11 @@ public class ReservationInfoController implements Initializable {
                 .toList();
 
         if(selectedReservations.isEmpty()) {
-            showDialog("취소할 예약을 선택해주세요.");
+            showDialogErrorMessage("noSelectDeleteReservation");
             return;
         }
 
-        Optional<ButtonType> response = showDialogChoose("해당 예약을 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChooseMessage("reallyDeleteReservation");
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
             //선택한 예약 내역 모두 삭제
@@ -243,18 +267,27 @@ public class ReservationInfoController implements Initializable {
                 // 삭제한 예약 내역만큼 회원에게 PT 이용권 되돌려주기
                 setRemain(reservation.getMemberNum(), PT_TICKET, 1);
             }
-            showDialogAndMovePage("예약 정보가 삭제되었습니다.", "/view/trainer/reservationInfo", event);
+            showDialogAndMovePage("deleteReservation", "/view/trainer/reservationInfo", event);
         }
     }
 
+    private static Dialog<Void> memberInfoDialog;
+
+    // 메서드명 변경 (성진)
     @FXML
-    public void showUserNum() {
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("회원 정보");
+    public void showMemberInfo() {
+
+        // 다이얼로그가 이미 열려 있으면 추가적으로 열지 않음
+        if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+            return;
+        }
+
+        memberInfoDialog = new Dialog<>();;
+        memberInfoDialog.setTitle("회원 정보");
 
         ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
-        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        memberInfoDialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) memberInfoDialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
         TableView<Member> table = new TableView<>();
@@ -265,7 +298,7 @@ public class ReservationInfoController implements Initializable {
 
         for (Member member : members) {
             int trainerNum = getTrainerNumForMember(member.getNum());
-            if(trainerNum != 0 && trainerNum == currentTrainer.getNum()) {
+            if(trainerNum != 0 && trainerNum == loginTrainer.getNum()) {
                 filteredMembers.add(member);
             }
         }
@@ -273,15 +306,17 @@ public class ReservationInfoController implements Initializable {
         loadMemberInfo(table, filteredMembers);
 
         VBox vbox = new VBox(table);
-        DialogPane dialogPane = dialog.getDialogPane();
+        DialogPane dialogPane = memberInfoDialog.getDialogPane();
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/ReservedMemberInfo.css").toExternalForm());
 
         // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Stage dialogStage = (Stage) memberInfoDialog.getDialogPane().getScene().getWindow();
         dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 
-        dialog.showAndWait();
+        // 회원 정보를 확인하며 예약을 등록할 수 있도록 수정 (성진)
+        dialogStage.initModality(Modality.NONE);
+        memberInfoDialog.show();
     }
 
     public boolean checkMember(int memberNum, String memberName) {
@@ -291,4 +326,31 @@ public class ReservationInfoController implements Initializable {
         }
         return member.getName().equals(memberName);
     }
+
+    private void setupTimeComboBox(WorkingHour workingHour, List<Integer> reservedHours) {
+        ObservableList<String> hours = FXCollections.observableArrayList();
+        int startHour = (workingHour == WorkingHour.AM) ? 8 : 14;
+        int endHour = (workingHour == WorkingHour.AM) ? 13 : 19;
+
+        for (int hour = startHour; hour <= endHour; hour++) {
+            if (!reservedHours.contains(hour)) {
+                hours.add(String.format("%02d:00", hour));
+            }
+        }
+        rTimeComboBox.setItems(hours);
+        if (!hours.isEmpty()) {
+            rTimeComboBox.setValue(hours.get(0));
+        }
+    }
+
+    @FXML
+    private void onDateChanged() {
+        LocalDate selectedDate = rDatePicker.getValue();
+        if (selectedDate != null) {
+            Date sqlDate = Date.valueOf(selectedDate);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(loginTrainer.getNum(), sqlDate);
+            setupTimeComboBox(loginTrainer.getWorkingHour(), reservationHour);
+        }
+    }
+
 }

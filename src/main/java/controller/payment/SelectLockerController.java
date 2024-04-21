@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static controller.payment.PaymentController.*;
-import static domain.member.SelectedMember.currentMember;
-import static util.DialogUtil.showDialog;
+import static domain.member.SelectedMember.loginMember;
+import static util.DialogUtil.showDialogErrorMessage;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
 
@@ -50,8 +50,8 @@ public class SelectLockerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (currentMember != null) {
-            member = currentMember;
+        if (loginMember != null) {
+            member = loginMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             lockers = new ArrayList<>();
             usingLockers = purchaseRepository.findAllUsingLocker();
@@ -208,7 +208,7 @@ public class SelectLockerController implements Initializable {
         String selectedLockerNumberText = selectedLockerNum.getText();
 
         if(selectedLockerNumberText.isEmpty()){
-            showDialog("락커 번호를 선택하지 않았습니다");
+            showDialogErrorMessage("noSelectLocker");
             return;
         }
 
@@ -216,7 +216,7 @@ public class SelectLockerController implements Initializable {
         RadioButton selectedRadio = (RadioButton)lockerPeriodGroup.getSelectedToggle();
 
         if(selectedRadio == null){
-            showDialog("기간을 선택하지 않았습니다");
+            showDialogErrorMessage("noSelectPeriod");
             return;
         }
 

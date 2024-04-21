@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -36,12 +35,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import static converter.StringToDateConverter.stringToDate;
-import static domain.admin.SelectedAdmin.currentAdmin;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.admin.SelectedAdmin.loginAdmin;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static service.SmsService.getRandomPassword;
-import static util.AnimationUtil.animateTab;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
 import static util.ControllerUtil.loadLockerInfo;
@@ -101,13 +100,13 @@ public class HelloAdminControllerV2 implements Initializable {
 
         service.addMember(member);
         AdminTab.getInstance().setSelectedTabIndex(0);
-        showDialogAndMovePageMessage("addMember", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePage("addMember", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
     private void memberDetail(Member member, MouseEvent event) throws IOException {
         if (member != null && event.getClickCount() == 2) {
-            SelectedMember.currentMember = member;
+            SelectedMember.loginMember = member;
             movePage(event, "/view/admin/memberDetail");
         }
     }
@@ -276,13 +275,13 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageMember(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePageTimerOff(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0); // 추가
-        currentAdmin = null;
+        loginAdmin = null;
         moveToMainPage(event);
     }
 
@@ -305,7 +304,7 @@ public class HelloAdminControllerV2 implements Initializable {
                 memberRepository.deleteMember(member.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(0);
-            showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteMember", "/view/admin/helloAdminV2", event);
         }
 
     }
@@ -391,13 +390,13 @@ public class HelloAdminControllerV2 implements Initializable {
         }
 
         AdminTab.getInstance().setSelectedTabIndex(1);
-        showDialogAndMovePageMessage("addTrainer", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePage("addTrainer", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
     private void trainerDetail(Trainer trainer, MouseEvent event) throws IOException {
         if (trainer != null && event.getClickCount() == 2) {
-            currentTrainer = trainerRepository.findByNum(trainer.getNum());
+            loginTrainer = trainerRepository.findByNum(trainer.getNum());
             movePage(event, "/view/admin/trainerDetail");
         }
     }
@@ -464,7 +463,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageTrainer(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
-        movePageTimerOff(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
@@ -486,7 +485,27 @@ public class HelloAdminControllerV2 implements Initializable {
                 trainerRepository.deleteTrainer(trainer.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(1);
-            showDialogAndMovePageTimerOffMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
+    }
+
+    @FXML
+    private void showAmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.AM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
+    }
+
+    @FXML
+    private void showPmTrainer() {
+        List<Trainer> listTrainers = trainerRepository.findAllTrainer().stream()
+                .filter(trainer -> WorkingHour.PM.equals(trainer.getWorkingHour()))
+                .collect(Collectors.toList());
+
+        ObservableList<Trainer> observableTrainerData = FXCollections.observableArrayList(listTrainers);
+        trainerTable.setItems(observableTrainerData);
     }
 }
