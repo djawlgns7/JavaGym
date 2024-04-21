@@ -140,7 +140,7 @@ public class ReservationDetailController implements Initializable {
                 }
             });
 
-            if(currentTrainer != null && ptDatePicker.getValue() != null) {
+            if(loginTrainer != null && ptDatePicker.getValue() != null) {
                 onDateChanged();
             }
         }
@@ -175,8 +175,8 @@ public class ReservationDetailController implements Initializable {
         LocalDate selectedDate = ptDatePicker.getValue();
         if (selectedDate != null) {
             Date sqlDate = Date.valueOf(selectedDate);
-            List<Integer> reservationHour = reservationRepository.findReservationHours(currentTrainer.getNum(), sqlDate);
-            setupTimeComboBox(currentTrainer.getWorkingHour(), reservationHour);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(loginTrainer.getNum(), sqlDate);
+            setupTimeComboBox(loginTrainer.getWorkingHour(), reservationHour);
         }
     }
 }

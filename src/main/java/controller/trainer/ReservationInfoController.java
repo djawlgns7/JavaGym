@@ -101,7 +101,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (!isValidTimeForTrainer(currentTrainer, rTime)) {
+        if (!isValidTimeForTrainer(loginTrainer, rTime)) {
             showDialogErrorMessage("wrongTimeForTrainer");
             return;
         }
@@ -111,7 +111,7 @@ public class ReservationInfoController implements Initializable {
             return;
         }
 
-        if (isReservationExist(currentTrainer.getNum(), localrDate, rTime)) {
+        if (isReservationExist(loginTrainer.getNum(), localrDate, rTime)) {
             showDialogErrorMessage("reservationHasExist");
             return;
         }
@@ -127,7 +127,7 @@ public class ReservationInfoController implements Initializable {
         }
 
         if(addReservationValidate(memberName)) return;
-        reservation.setTrainerNum(SelectedTrainer.currentTrainer.getNum());
+        reservation.setTrainerNum(SelectedTrainer.loginTrainer.getNum());
         reservation.setMemberNum(memberNum);
         reservation.setMemberName(memberName);
         reservation.setReservationDate(rDate);
@@ -146,7 +146,7 @@ public class ReservationInfoController implements Initializable {
         selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
         selectCol.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
         loadReservationData(reservationTable, reservationRepository);
-        trainer = currentTrainer;
+        trainer = loginTrainer;
 
         rDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
@@ -348,8 +348,8 @@ public class ReservationInfoController implements Initializable {
         LocalDate selectedDate = rDatePicker.getValue();
         if (selectedDate != null) {
             Date sqlDate = Date.valueOf(selectedDate);
-            List<Integer> reservationHour = reservationRepository.findReservationHours(currentTrainer.getNum(), sqlDate);
-            setupTimeComboBox(currentTrainer.getWorkingHour(), reservationHour);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(loginTrainer.getNum(), sqlDate);
+            setupTimeComboBox(loginTrainer.getWorkingHour(), reservationHour);
         }
     }
 
