@@ -303,7 +303,7 @@ public class ReservationInfoController implements Initializable {
     private void setupTimeComboBox(WorkingHour workingHour, List<Integer> reservedHours) {
         ObservableList<String> hours = FXCollections.observableArrayList();
         int startHour = (workingHour == WorkingHour.AM) ? 8 : 14;
-        int endHour = (workingHour == WorkingHour.AM) ? 12 : 19;
+        int endHour = (workingHour == WorkingHour.AM) ? 13 : 19;
 
         for (int hour = startHour; hour <= endHour; hour++) {
             if (!reservedHours.contains(hour)) {
