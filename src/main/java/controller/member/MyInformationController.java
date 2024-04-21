@@ -110,7 +110,8 @@ public class MyInformationController implements Initializable {
                 newLabel.getStyleClass().add("myInformation_PTReservation_Num");
                 newVBox.getChildren().add(newLabel);
 
-                newLabel = new Label(memberSchedules.get(i).getReservationDate().toString());
+                String reservationDate = memberSchedules.get(i).getReservationDate().toString().replace("-", "/");
+                newLabel = new Label(reservationDate);
                 newLabel.getStyleClass().add("myInformation_PTReservation_Date");
                 newVBox.getChildren().add(newLabel);
 
