@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:controller="controller.dialog.TimerDialogController" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/DialogPopUp.css"
+<AnchorPane fx:controller="controller.dialog.TimerDialogController" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/TimerDialog.css"
             prefHeight="100" prefWidth="300" fx:id="root">
-    <VBox alignment="CENTER" prefHeight="200" prefWidth="400" spacing="20">
-        <Label text="아무런 움직임이 없다면 자동 로그아웃 됩니다!"/>
-        <Label fx:id="timer"/>
+    <VBox alignment="CENTER" prefHeight="200" prefWidth="400" spacing="20" styleClass="timerDialog_Box">
+        <Label text="아무런 움직임이 없다면 자동 로그아웃 됩니다!" styleClass="timerDialog_Title"/>
+        <Label fx:id="timer" styleClass="timerDialog_Timer"/>
     </VBox>
 </AnchorPane>

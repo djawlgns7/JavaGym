@@ -1,0 +1,19 @@
+AnchorPane {
+    -fx-background-color: rgba(151, 71, 255, 0.07);
+    -fx-pref-height: 400;
+    -fx-pref-width: 400;
+}
+
+.timerDialog_Box {
+    -fx-translate-y: 100;
+}
+
+.timerDialog_Title {
+    -fx-font-size: 22;
+    -fx-font-family: "Jua";
+}
+
+.timerDialog_Timer {
+    -fx-font-size: 22;
+    -fx-font-family: "Jua";
+}
