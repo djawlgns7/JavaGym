@@ -136,6 +136,18 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
+.trainerInfo_ImageDeleteBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-pref-width: 70;
+    -fx-pref-height: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-translate-y: -0.5;
+}
+
 .trainerInfo_Btn {
     -fx-spacing: 50;
     -fx-font-family: "Jua";
