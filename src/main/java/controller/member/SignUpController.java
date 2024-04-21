@@ -95,6 +95,8 @@ public class SignUpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        SoundUtil.play("signUpInfo");
+
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             stylePassword(passwordField, passwordConfirmField);
         });
