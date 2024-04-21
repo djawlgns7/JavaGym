@@ -176,7 +176,10 @@
                                     <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
                                     <!-- Refresh Button -->
                                     <HBox alignment="CENTER_RIGHT" styleClass="trainerInfo_refreshBox">
-
+                                        <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_AMPMBtn">
+                                            <Button text="AM" onAction="#showAmTrainer" styleClass="trainerInfo_AMBtn"/>
+                                            <Button text="PM" onAction="#showPmTrainer" styleClass="trainerInfo_PMBtn"/>
+                                        </HBox>
                                         <Button onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn">
                                             <graphic>
                                                 <ImageView fitWidth="20" fitHeight="20">
