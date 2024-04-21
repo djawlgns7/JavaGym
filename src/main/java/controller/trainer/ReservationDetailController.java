@@ -1,7 +1,6 @@
 package controller.trainer;
 
 import domain.trainer.Reservation;
-import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +21,6 @@ import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
 import static domain.trainer.SelectedTrainer.loginTrainer;
 import static util.DialogUtil.*;
-import static util.DialogUtil.showDialogChoose;
 import static util.ControllerUtil.formatPhone;
 import static util.PageUtil.*;
 import static util.ValidateUtil.*;
@@ -49,7 +47,7 @@ public class ReservationDetailController implements Initializable {
         }
 
         //수정 내용이 있을 경우
-        Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChooseMessage("reallyUpdateReservation");
         if (response.isEmpty() || response.get() != ButtonType.OK) {
             return;
         }
@@ -101,7 +99,7 @@ public class ReservationDetailController implements Initializable {
                     reservationRepository.updateReservation(currentReservation);
                 }
 
-                showDialogAndMovePageTimerOff("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
+                showDialogAndMovePage("updateReservation", "/view/trainer/reservationDetail", event);
             }
         }
     }
@@ -150,7 +148,7 @@ public class ReservationDetailController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         if (loginTrainer != null && loginTrainer.getNum() != null) {
-            movePageTimerOff(event, "/view/trainer/reservationInfo");
+            movePage(event, "/view/trainer/reservationInfo");
         }
     }
 

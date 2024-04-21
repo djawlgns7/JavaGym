@@ -45,7 +45,7 @@ public class TrainerService {
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             loginTrainer = findTrainer;
 
-            movePageTimerOff(event, "/view/trainer/reservationInfo" );
+            movePage(event, "/view/trainer/reservationInfo" );
         } else {
             showDialogErrorMessage("loginFail");
         }

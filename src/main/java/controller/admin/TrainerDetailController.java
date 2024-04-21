@@ -17,12 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
-import util.DialogUtil;
 
 import java.io.*;
 import java.net.URL;
@@ -112,7 +110,7 @@ public class TrainerDetailController implements Initializable {
             loginTrainer.setWeight(weight);
 
             trainerRepository.updateTrainer(loginTrainer);
-            showDialogAndMovePageMessage("updateTrainer", "/view/admin/trainerDetail", event);
+            showDialogAndMovePage("updateTrainer", "/view/admin/trainerDetail", event);
         }
     }
 
@@ -143,7 +141,7 @@ public class TrainerDetailController implements Initializable {
 
             AdminTab.getInstance().setSelectedTabIndex(1);
             
-            showDialogAndMovePageMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
     }
 

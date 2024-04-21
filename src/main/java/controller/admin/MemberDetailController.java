@@ -39,7 +39,6 @@ import static util.ControllerUtil.loadEntryLog;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
-import static util.PageUtil.movePageTimerOff;
 
 public class MemberDetailController implements Initializable {
     private final EntryLogRepository entryLogRepository = new EntryLogRepository();
@@ -337,7 +336,7 @@ public class MemberDetailController implements Initializable {
                     }
                 }
             }
-            showDialogAndMovePageTimerOffMessage("updateMember", "/view/admin/memberDetail", event);
+            showDialogAndMovePage("updateMember", "/view/admin/memberDetail", event);
         }
     }
 
@@ -417,7 +416,7 @@ public class MemberDetailController implements Initializable {
 
         if (response.get() == ButtonType.OK){
             memberRepository.deleteMember(loginMember.getNum());
-            showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteMember", "/view/admin/helloAdminV2", event);
         }
     }
 
@@ -477,7 +476,7 @@ public class MemberDetailController implements Initializable {
             }
             // 삭제한 예약 내역만큼 PT 이용권 돌려주기
             setRemain(loginMember.getNum(), PT_TICKET, count);
-            showDialogAndMovePageTimerOffMessage("deleteReservation", "/view/admin/memberDetail", event);
+            showDialogAndMovePage("deleteReservation", "/view/admin/memberDetail", event);
         }
     }
 
@@ -499,7 +498,7 @@ public class MemberDetailController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePageTimerOff(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     /**

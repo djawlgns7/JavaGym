@@ -46,7 +46,7 @@ public class AdminService {
 
         if (admin != null && BCrypt.checkpw(password, admin.getPassword())) {
             loginMember = null;
-            movePageTimerOff(event, "/view/admin/helloAdminV2");
+            movePage(event, "/view/admin/helloAdminV2");
             loginAdmin = new Admin();
         } else {
             showDialogErrorMessage("loginFail");

@@ -26,7 +26,6 @@ import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
 import service.SmsService;
-import util.DialogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,7 +100,7 @@ public class HelloAdminControllerV2 implements Initializable {
 
         service.addMember(member);
         AdminTab.getInstance().setSelectedTabIndex(0);
-        showDialogAndMovePageMessage("addMember", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePage("addMember", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
@@ -276,7 +275,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageMember(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePageTimerOff(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
@@ -305,7 +304,7 @@ public class HelloAdminControllerV2 implements Initializable {
                 memberRepository.deleteMember(member.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(0);
-            showDialogAndMovePageTimerOffMessage("deleteMember", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteMember", "/view/admin/helloAdminV2", event);
         }
 
     }
@@ -391,7 +390,7 @@ public class HelloAdminControllerV2 implements Initializable {
         }
 
         AdminTab.getInstance().setSelectedTabIndex(1);
-        showDialogAndMovePageMessage("addTrainer", "/view/admin/helloAdminV2", event);
+        showDialogAndMovePage("addTrainer", "/view/admin/helloAdminV2", event);
     }
 
     @FXML
@@ -464,7 +463,7 @@ public class HelloAdminControllerV2 implements Initializable {
     @FXML
     private void resetPageTrainer(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(1);
-        movePageTimerOff(event, "/view/admin/helloAdminV2");
+        movePage(event, "/view/admin/helloAdminV2");
     }
 
     @FXML
@@ -486,7 +485,7 @@ public class HelloAdminControllerV2 implements Initializable {
                 trainerRepository.deleteTrainer(trainer.getNum());
             }
             AdminTab.getInstance().setSelectedTabIndex(1);
-            showDialogAndMovePageTimerOffMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
+            showDialogAndMovePage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
     }
 
