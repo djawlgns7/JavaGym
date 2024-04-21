@@ -69,7 +69,7 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void addReservationInfo(ActionEvent event) throws IOException {
-        if (isEmptyAnyField(numField, nameField)) {
+        if (isEmptyAnyField(numField, nameField, rDatePicker, rTimeComboBox)) {
             showDialogErrorMessage("emptyAnyField");
             return;
         }
