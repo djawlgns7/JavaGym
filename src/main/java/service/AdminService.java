@@ -49,7 +49,7 @@ public class AdminService {
             movePageTimerOff(event, "/view/admin/helloAdminV2");
             loginAdmin = new Admin();
         } else {
-            showDialogErrorMessage("adminLoginFail");
+            showDialogErrorMessage("loginFail");
         }
     }
 
