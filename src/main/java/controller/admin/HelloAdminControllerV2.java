@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +27,7 @@ import repository.PurchaseRepository;
 import repository.TrainerRepository;
 import service.AdminService;
 import service.SmsService;
+import util.AnimationUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -225,6 +227,18 @@ public class HelloAdminControllerV2 implements Initializable {
                 newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
             }
         });
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null && oldTab != null) {
+                Node newContent = newTab.getContent();
+                Node oldContent = oldTab.getContent();
+
+                if (newContent != null && oldContent != null) {
+                    AnimationUtil.animateTab(newContent, oldContent);
+                }
+            }
+        });
+
     } // initialize 끝
 
     @FXML

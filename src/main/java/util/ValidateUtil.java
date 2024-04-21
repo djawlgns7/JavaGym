@@ -4,10 +4,7 @@ import domain.Item;
 import domain.member.Member;
 import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
@@ -308,9 +305,11 @@ public class ValidateUtil {
         return !(phone.length() == 8);
     }
 
-    public static boolean isEmptyAnyField(TextField num, TextField name) {
+    public static boolean isEmptyAnyField(TextField num, TextField name, DatePicker date, ComboBox time) {
         return  num.getText().trim().isEmpty() ||
-                name.getText().trim().isEmpty();
+                name.getText().trim().isEmpty() ||
+                date.getValue() == null ||
+                time.getValue() == null;
     }
 
     //트레이너 근무 시간 검증
