@@ -259,7 +259,7 @@ public class DialogUtil {
 
     // 결제 선택 메시지
     public static Optional<ButtonType> showPaymentConfirmMessage(String gym, String gymPrice, String PT, String PTPrice, String lockerNumber, String lockerPeriod,
-                                                                  String lockerPrice, String clothes, String clothesPrice, String totalPrice) {
+                                                                 String lockerPrice, String clothes, String clothesPrice, String totalPrice) {
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);
         dialog.setTitle(basicMessage.getString("alert"));

@@ -437,7 +437,7 @@ public class HelloAdminControllerV2 implements Initializable {
             addPhotoButton.setText("사진 변경");
 
             Button deletePhotoButton = new Button("사진 삭제");
-            deletePhotoButton.getStyleClass().add("trainerInfo_ImageBtn");
+            deletePhotoButton.getStyleClass().add("trainerInfo_ImageDeleteBtn");
             photoHBox.getChildren().add(deletePhotoButton);
             deletePhotoButton.setOnAction(this::deletePhoto);
             addPhoto = true;
