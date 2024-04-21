@@ -1,7 +1,6 @@
 package controller.trainer;
 
 import domain.trainer.Reservation;
-import domain.trainer.Trainer;
 import domain.trainer.WorkingHour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +15,12 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static domain.trainer.SelectedReservation.*;
 import static domain.trainer.SelectedTrainer.loginTrainer;
 import static util.DialogUtil.*;
-import static util.DialogUtil.showDialogChoose;
 import static util.ControllerUtil.formatPhone;
 import static util.PageUtil.*;
 import static util.ValidateUtil.*;
@@ -48,7 +47,7 @@ public class ReservationDetailController implements Initializable {
         }
 
         //수정 내용이 있을 경우
-        Optional<ButtonType> response = showDialogChoose("예약 정보를 수정하시겠습니까?");
+        Optional<ButtonType> response = showDialogChooseMessage("reallyUpdateReservation");
         if (response.isEmpty() || response.get() != ButtonType.OK) {
             return;
         }
@@ -100,7 +99,7 @@ public class ReservationDetailController implements Initializable {
                     reservationRepository.updateReservation(currentReservation);
                 }
 
-                showDialogAndMovePageTimerOff("예약 정보가 수정되었습니다.", "/view/trainer/reservationDetail", event);
+                showDialogAndMovePage("updateReservation", "/view/trainer/reservationDetail", event);
             }
         }
     }
@@ -132,7 +131,16 @@ public class ReservationDetailController implements Initializable {
             memberPhoneLabel.setText(formatPhone(reservation.getMemberPhone()));
             rDateLabel.setText(new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReservationDate()));
             rTimeLabel.setText(String.format("%02d:00", reservation.getReservationTime()));
-            setupTimeComboBox(loginTrainer);
+
+            ptDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    onDateChanged();
+                }
+            });
+
+            if(loginTrainer != null && ptDatePicker.getValue() != null) {
+                onDateChanged();
+            }
         }
 
     }
@@ -140,23 +148,33 @@ public class ReservationDetailController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         if (loginTrainer != null && loginTrainer.getNum() != null) {
-            movePageTimerOff(event, "/view/trainer/reservationInfo");
+            movePage(event, "/view/trainer/reservationInfo");
         }
     }
 
-    private void setupTimeComboBox(Trainer trainer) {
+    private void setupTimeComboBox(WorkingHour workingHour, List<Integer> reservedHours) {
         ObservableList<String> hours = FXCollections.observableArrayList();
-        if(trainer.getWorkingHour() == WorkingHour.AM) {
-            for(int i=8; i<14; i++) {
-                hours.add(i+":00");
-            }
-        }
-        else if(trainer.getWorkingHour() == WorkingHour.PM) {
-            for(int i=14; i<20; i++) {
-                hours.add(i+":00");
+        int startHour = (workingHour == WorkingHour.AM) ? 8 : 14;
+        int endHour = (workingHour == WorkingHour.AM) ? 13 : 19;
+
+        for (int hour = startHour; hour <= endHour; hour++) {
+            if (!reservedHours.contains(hour)) {
+                hours.add(String.format("%02d:00", hour));
             }
         }
         rTimeComboBox.setItems(hours);
-        rTimeComboBox.setValue(hours.get(0));
+        if (!hours.isEmpty()) {
+            rTimeComboBox.setValue(hours.get(0));
+        }
+    }
+
+    @FXML
+    private void onDateChanged() {
+        LocalDate selectedDate = ptDatePicker.getValue();
+        if (selectedDate != null) {
+            Date sqlDate = Date.valueOf(selectedDate);
+            List<Integer> reservationHour = reservationRepository.findReservationHours(loginTrainer.getNum(), sqlDate);
+            setupTimeComboBox(loginTrainer.getWorkingHour(), reservationHour);
+        }
     }
 }

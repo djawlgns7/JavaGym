@@ -7,7 +7,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -25,32 +24,6 @@ public class DialogUtil {
 
     private static final ResourceBundle errorMessage = ResourceBundle.getBundle("message.error");
     private static final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
-
-    public static void showDialog(String message) {
-        Dialog<String> dialog = new Dialog<>();
-        registerDialog(dialog);
-        dialog.setTitle(basicMessage.getString("alert"));
-
-        Label label = new Label(message);
-        label.getStyleClass().add("BasicLabel");
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(label);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
-
-        dialog.getDialogPane().setContent(vbox);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
-
-        applyFadeInDialog(vbox);
-
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        Image icon = new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg"));
-        dialogStage.getIcons().add(icon);
-
-        dialog.showAndWait();
-    }
 
     public static void showDialogErrorMessage(String messageCode) {
         Dialog<String> dialog = new Dialog<>();
@@ -102,33 +75,7 @@ public class DialogUtil {
         dialog.showAndWait();
     }
 
-    public static void showDialogAndMovePage(String message, String viewPath, ActionEvent event) throws IOException {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        registerDialog(dialog);
-        dialog.setTitle(basicMessage.getString("alert"));
-
-        Label label = new Label(message);
-        label.getStyleClass().add("BasicLabel");
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(label);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
-
-        dialog.getDialogPane().setContent(vbox);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
-
-        applyFadeInDialog(vbox);
-
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
-        dialog.showAndWait();
-        movePage(event, viewPath);
-    }
-
-    public static void showDialogAndMovePageMessage(String messageCode, String viewPath, ActionEvent event) throws IOException {
+    public static void showDialogAndMovePage(String messageCode, String viewPath, ActionEvent event) throws IOException {
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);
         dialog.setTitle(basicMessage.getString("alert"));
@@ -152,58 +99,6 @@ public class DialogUtil {
 
         dialog.showAndWait();
         movePage(event, viewPath);
-    }
-
-    public static void showDialogAndMovePageTimerOff(String message, String viewPath, ActionEvent event) throws IOException {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        registerDialog(dialog);
-        dialog.setTitle(basicMessage.getString("alert"));
-
-        Label label = new Label(message);
-        label.getStyleClass().add("BasicLabel");
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(label);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
-
-        dialog.getDialogPane().setContent(vbox);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
-
-        applyFadeInDialog(vbox);
-
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
-        dialog.showAndWait();
-        movePageTimerOff(event, viewPath);
-    }
-
-    public static void showDialogAndMovePageTimerOffMessage(String messageCode, String viewPath, ActionEvent event) throws IOException {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        registerDialog(dialog);
-        dialog.setTitle(basicMessage.getString("alert"));
-
-        Label label = new Label(basicMessage.getString(messageCode));
-        label.getStyleClass().add("BasicLabel");
-
-        VBox vbox = new VBox();
-        vbox.getChildren().add(label);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
-
-        dialog.getDialogPane().setContent(vbox);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
-
-        applyFadeInDialog(vbox);
-
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
-
-        dialog.showAndWait();
-        movePageTimerOff(event, viewPath);
     }
 
     public static void showDialogAndMoveMainPage(String message, ActionEvent event) throws IOException {
@@ -304,7 +199,6 @@ public class DialogUtil {
         return dialog.showAndWait();
     }
 
-
     // 예약 확정 선택 메시지
     public static Optional<ButtonType> showReservationConfirmMessage(String trainerName, String reservationTime, int reservationNum) {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -319,7 +213,7 @@ public class DialogUtil {
         vbox.setSpacing(10);
         dialogPane.setContent(vbox);
 
-        Label label = new Label("예약을 확정하시겠습니까?");
+        Label label = new Label(basicMessage.getString("confirmReservation"));
         vbox.getChildren().add(label);
 
         label = new Label("");
@@ -378,7 +272,7 @@ public class DialogUtil {
         vbox.setSpacing(10);
         dialogPane.setContent(vbox);
 
-        Label label = new Label("결제를 정상 진행하시겠습니까?");
+        Label label = new Label(basicMessage.getString("confirmPayment"));
         vbox.getChildren().add(label);
 
         label = new Label("");

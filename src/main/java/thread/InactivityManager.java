@@ -12,6 +12,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -68,9 +69,9 @@ public class InactivityManager {
             timerScene = null;
         }
 
-        KeyFrame alertFrame = new KeyFrame(Duration.seconds(5), e -> setUpInactivitySound());
-        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(5), e -> openTimerDialog());
-        KeyFrame endFrame = new KeyFrame(Duration.seconds(10), e -> moveToMainScreen());
+        KeyFrame alertFrame = new KeyFrame(Duration.seconds(50000), e -> setUpInactivitySound());
+        KeyFrame DialogFrame = new KeyFrame(Duration.seconds(50000), e -> openTimerDialog());
+        KeyFrame endFrame = new KeyFrame(Duration.seconds(100000), e -> moveToMainScreen());
 
 
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
@@ -80,6 +81,7 @@ public class InactivityManager {
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> resetInactivityTimer());
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> resetInactivityTimer());
         scene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> resetInactivityTimer());
+        scene.addEventFilter(ScrollEvent.SCROLL, e -> resetInactivityTimer()); // 마우스 스크롤 이벤트 추가 (성진)
 
         inactivityTimer.play();
     }

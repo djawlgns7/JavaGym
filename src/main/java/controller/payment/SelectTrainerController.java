@@ -27,6 +27,7 @@ import static util.PageUtil.*;
 public class SelectTrainerController implements Initializable {
 
     private final TrainerRepository trainerRepository = new TrainerRepository();
+    private final ResourceBundle basicMessage = ResourceBundle.getBundle("message.basic");
 
     @FXML
     private ScrollPane scroll;
@@ -39,7 +40,7 @@ public class SelectTrainerController implements Initializable {
 
     @FXML
     private void selectTrainer(Trainer trainer, Event event) throws IOException {
-        Optional<ButtonType> result = showDialogChoose(trainer.getName() + " 트레이너를 선택하시겠습니까?");
+        Optional<ButtonType> result = showDialogChoose(trainer.getName() + " " + basicMessage.getString("selectTrainer"));
 
         if (result.get() == ButtonType.OK) {
             selectTrainer = true;

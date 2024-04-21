@@ -29,7 +29,7 @@
 
             <HBox alignment="CENTER" spacing="20">
                 <Button text="예약 등록" onAction="#addReservationInfo" styleClass="reservationInfo_ReservationBtn" />
-                <Button text="회원 정보" onAction="#showUserNum" styleClass="reservationInfo_MemberInfoBtn" />
+                <Button text="회원 정보" onAction="#showMemberInfo" styleClass="reservationInfo_MemberInfoBtn" />
                 <Button text="로그아웃" onAction="#logout" styleClass="reservationInfo_LogoutBtn" />
             </HBox>
         </VBox>
@@ -61,9 +61,9 @@
                             <PropertyValueFactory property="selected" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn text="회원 번호" fx:id="memberNumCol" styleClass="reservationInfo_numCol"/>
-                    <TableColumn text="회원 이름" fx:id="memberNameCol" styleClass="reservationInfo_nameCol"/>
-                    <TableColumn text="회원 전화번호" fx:id="memberPhoneCol" styleClass="reservationInfo_phoneCol"/>
+                    <TableColumn text="번호" fx:id="memberNumCol" styleClass="reservationInfo_numCol"/>
+                    <TableColumn text="이름" fx:id="memberNameCol" styleClass="reservationInfo_nameCol"/>
+                    <TableColumn text="전화번호" fx:id="memberPhoneCol" styleClass="reservationInfo_phoneCol"/>
                     <TableColumn text="예약 일자" fx:id="rDateCol" styleClass="reservationInfo_rDateCol"/>
                     <TableColumn text="예약 시간" fx:id="rTimeCol" styleClass="reservationInfo_rTimeCol"/>
                 </columns>

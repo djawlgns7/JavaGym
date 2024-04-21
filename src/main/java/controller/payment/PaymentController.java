@@ -26,7 +26,6 @@ import static util.ControllerUtil.createImageViewFromBytes;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
-import static util.PageUtil.moveToMainPage;
 import static util.PurchaseUtil.purchaseItem;
 import static util.SoundUtil.play;
 
@@ -144,8 +143,11 @@ public class PaymentController implements Initializable {
         // 오늘을 기준으로 만료일을 얻는다.
         LocalDate today = LocalDate.now();
         LocalDate gymExpireDate = today.plusDays(gymTicketRemain);
+        String gymExpireDateText = gymExpireDate.toString().replace("-", "/");
         LocalDate lockerExpireDate = today.plusDays(lockerRemain);
+        String lockerExpireDateText = lockerExpireDate.toString().replace("-", "/");
         LocalDate clothesExpireDate = today.plusDays(clothesRemain);
+        String clothesExpireDateText = clothesExpireDate.toString().replace("-", "/");
 
         memberNameLabel.setText(loginMember.getName());
 
@@ -154,7 +156,7 @@ public class PaymentController implements Initializable {
         if (gymTicketRemain == 0) {
             itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
         } else {
-            itemValueLabel.setText(gymExpireDate + " (D - " + gymTicketRemain + ")");
+            itemValueLabel.setText(gymExpireDateText + " (D-" + gymTicketRemain + ")");
         }
 
         // 상품 탭을 이동할 때마다 해당 상품에 대한 회원의 구매 정보 생성
@@ -172,7 +174,7 @@ public class PaymentController implements Initializable {
                     if (gymTicketRemain == 0) {
                         itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
                     } else {
-                        itemValueLabel.setText(gymExpireDate + " (D - " + gymTicketRemain + ")");
+                        itemValueLabel.setText(gymExpireDateText + " (D-" + gymTicketRemain + ")");
                     }
 
                     lockerLabel.setVisible(false);
@@ -219,14 +221,14 @@ public class PaymentController implements Initializable {
                         currentLockerNumLabel.setVisible(false);
                     } else {
                         currentLockerNumLabel.setText(lockerNum + "번");
-                        currentLockerPeriodLabel.setText(lockerExpireDate + " (D - " + lockerRemain + ")");
+                        currentLockerPeriodLabel.setText(lockerExpireDateText + " (D-" + lockerRemain + ")");
                     }
 
                     if (clothesRemain == 0) {
                         currentClothesPeriodLabel.setText("현재 이용 중인 운동복이 없습니다.");
                         currentClothesSizeLabel.setVisible(false);
                     } else {
-                        currentClothesPeriodLabel.setText(clothesExpireDate + " (D - " + clothesRemain + ")");
+                        currentClothesPeriodLabel.setText(clothesExpireDateText + " (D-" + clothesRemain + ")");
                     }
                     itemTypeLabel.setVisible(false);
                     itemValueLabel.setVisible(false);
@@ -711,8 +713,8 @@ public class PaymentController implements Initializable {
 
     @FXML
     private void payment(ActionEvent event) throws IOException {
-        if(basket.isEmpty()){
-            showDialog("물품을 하나 이상 선택해 주세요");
+        if (basket.isEmpty()) {
+            showDialogErrorMessage("noSelectItem"); // 성진 수정
             return;
         }
 
@@ -828,15 +830,14 @@ public class PaymentController implements Initializable {
                 }
             }
 
-            play("thanks");
-            showDialogBasicMessage("paymentComplete");
 
             selectTrainer = false;
             selectLocker = false;
             selectedTrainer = null;
             basket.clear();
 
-            moveToMainPage(event);
+            play("thanks");
+            showDialogAndMoveMainPageMessage("paymentComplete", event);
         }
     }
 

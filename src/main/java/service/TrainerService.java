@@ -27,6 +27,11 @@ public class TrainerService {
         String id = idField.getText().trim();
         String password = passwordField.getText().trim();
 
+        if (id.isEmpty() && password.isEmpty()) {
+            showDialogErrorMessage("emptyIdAndPassword");
+            return;
+        }
+
         if(id.isEmpty()) {
             showDialogErrorMessage("emptyId");
             return;
@@ -39,15 +44,15 @@ public class TrainerService {
 
         Trainer findTrainer = trainerRepository.findById(id);
         if (findTrainer == null) {
-            showDialogErrorMessage("notFound");
+            showDialogErrorMessage("loginFail");
             return;
         }
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
             loginTrainer = findTrainer;
 
-            movePageTimerOff(event, "/view/trainer/reservationInfo" );
+            movePage(event, "/view/trainer/reservationInfo" );
         } else {
-            showDialogErrorMessage("wrongPw");
+            showDialogErrorMessage("loginFail");
         }
     }
 
