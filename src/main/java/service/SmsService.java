@@ -27,14 +27,13 @@ public class SmsService {
         message.setText("[JavaGym]\n인증번호를 정확히 입력해 주세요.\n" + "인증번호 : " + code);
 
         try {
-//            messageService.send(message); // 실행하면 돈 나감..!
+//            messageService.send(message);
             System.out.println(code);
             store.storeCode(phone, code);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public void sendMemberInitPassword(String phone, int password) {
         Message message = new Message();
@@ -43,7 +42,7 @@ public class SmsService {
         message.setText("[JavaGym]\n키오스크에서 사용하는 비밀번호입니다. 외부에 노출되지 않게 주의하세요!\n" + "비밀번호 : " + password);
 
         try {
-//            messageService.send(message); // 실행하면 돈 나감..!
+//            messageService.send(message);
             System.out.println(password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +56,7 @@ public class SmsService {
         message.setText("[JavaGym]\n트레이너 페이지에서 사용하는 비밀번호입니다. 외부에 노출되지 않게 주의하세요!\n" + "비밀번호 : " + password);
 
         try {
-//            messageService.send(message); // 실행하면 돈 나감..!
+//            messageService.send(message);
             System.out.println(password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +90,7 @@ public class SmsService {
                 }
 
                 try {
-//            messageService.send(message); // 실행하면 돈 나감..!
+//                    messageService.send(message);
                     System.out.println(message.getText());
                 } catch (Exception e) {
                     e.printStackTrace();

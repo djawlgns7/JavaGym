@@ -1,7 +1,6 @@
 package repository;
 
 import domain.Item;
-import domain.member.Member;
 import domain.member.MemberSchedule;
 import domain.reservation.ReservationInformation;
 import domain.trainer.Reservation;
@@ -27,7 +26,8 @@ public class ReservationRepository {
                 "FROM reservation r " +
                 "JOIN member m ON r.m_no = m.m_no " +
                 "JOIN trainer t ON r.t_no = t.t_no " +
-                "WHERE r.t_no = ?";
+                "WHERE r.t_no = ? " +
+                "ORDER BY r.m_no ASC, r.r_date ASC, r.r_time ASC";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
