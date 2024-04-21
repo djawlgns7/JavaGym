@@ -73,7 +73,6 @@ public class InactivityManager {
         KeyFrame DialogFrame = new KeyFrame(Duration.seconds(10), e -> openTimerDialog());
         KeyFrame endFrame = new KeyFrame(Duration.seconds(20), e -> moveToMainScreen());
 
-
         inactivityTimer = new Timeline(alertFrame, endFrame, DialogFrame);
         inactivityTimer.setCycleCount(Timeline.INDEFINITE);
 
