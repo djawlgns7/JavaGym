@@ -363,7 +363,7 @@ public class ReservationController implements Initializable {
                 reservationRepository.saveReservation(member.getNum(), trainer.getNum(), reservationDate, reservationTime);
             }
             SoundUtil.play("thanks");
-            showDialogAndMoveMainPageMessage("reservationComplete", event);
+            showDialogAndMoveMainPage("reservationComplete", event);
         }
     }
 

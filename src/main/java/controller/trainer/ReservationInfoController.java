@@ -135,7 +135,7 @@ public class ReservationInfoController implements Initializable {
 
         //예약 저장
         service.addReservation(reservation);
-        showDialogAndMovePageTimerOff("예약 등록 성공", "/view/trainer/reservationInfo", event);
+        showDialogAndMovePage("addReservation", "/view/trainer/reservationInfo", event);
 
     }
 
@@ -202,7 +202,7 @@ public class ReservationInfoController implements Initializable {
 
             currentReservation = reservation;
             loginTrainer = trainer;
-            movePageTimerOff(event, "/view/trainer/ReservationDetail");
+            movePage(event, "/view/trainer/ReservationDetail");
         }
     }
 
@@ -211,14 +211,14 @@ public class ReservationInfoController implements Initializable {
         String searchName = searchMemberNameField.getText().trim();
 
         if (searchName.isEmpty()) {
-            showDialog("이름을 입력해 주세요.");
+            showDialogErrorMessage("emptyName");
             return;
         }
 
         List<Member> searchedMembers = memberRepository.searchMembersByName(searchName);
 
         if(searchedMembers.isEmpty()) {
-            showDialog("해당 이름의 회원이 없습니다.");
+            showDialogErrorMessage("noFindByNameMember");
             return;
         }
 
@@ -230,7 +230,7 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private void resetPageReservedMember(ActionEvent event) throws IOException {
         AdminTab.getInstance().setSelectedTabIndex(0);
-        movePageTimerOff(event, "/view/trainer/reservationInfo");
+        movePage(event, "/view/trainer/reservationInfo");
     }
 
     @FXML
@@ -244,8 +244,8 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     public void cancelReservation(ActionEvent event) throws IOException {
-        if(reservationTable.getItems().isEmpty()) {
-            showDialog("예약 정보가 없습니다.");
+        if (reservationTable.getItems().isEmpty()) {
+            showDialogErrorMessage("noReservation");
             return;
         }
 
@@ -254,11 +254,11 @@ public class ReservationInfoController implements Initializable {
                 .toList();
 
         if(selectedReservations.isEmpty()) {
-            showDialog("취소할 예약을 선택해주세요.");
+            showDialogErrorMessage("noSelectDeleteReservation");
             return;
         }
 
-        Optional<ButtonType> response = showDialogChoose("해당 예약을 취소하시겠습니까?");
+        Optional<ButtonType> response = showDialogChooseMessage("reallyDeleteReservation");
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
             //선택한 예약 내역 모두 삭제
@@ -267,7 +267,7 @@ public class ReservationInfoController implements Initializable {
                 // 삭제한 예약 내역만큼 회원에게 PT 이용권 되돌려주기
                 setRemain(reservation.getMemberNum(), PT_TICKET, 1);
             }
-            showDialogAndMovePage("예약 정보가 삭제되었습니다.", "/view/trainer/reservationInfo", event);
+            showDialogAndMovePage("deleteReservation", "/view/trainer/reservationInfo", event);
         }
     }
 

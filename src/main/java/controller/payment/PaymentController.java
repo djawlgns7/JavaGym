@@ -26,7 +26,6 @@ import static util.ControllerUtil.createImageViewFromBytes;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
 import static util.PageUtil.movePage;
-import static util.PageUtil.moveToMainPage;
 import static util.PurchaseUtil.purchaseItem;
 import static util.SoundUtil.play;
 
@@ -828,15 +827,14 @@ public class PaymentController implements Initializable {
                 }
             }
 
-            play("thanks");
-            showDialogBasicMessage("paymentComplete");
 
             selectTrainer = false;
             selectLocker = false;
             selectedTrainer = null;
             basket.clear();
 
-            moveToMainPage(event);
+            play("thanks");
+            showDialogAndMoveMainPage("paymentComplete", event);
         }
     }
 
