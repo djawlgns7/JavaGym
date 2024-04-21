@@ -42,8 +42,13 @@ public class MemberService {
         String phone = phoneField.getText().trim();
         String password = passwordField.getText().trim();
 
+        if (phone.isEmpty() && password.isEmpty()) {
+            showDialogErrorMessage("emptyIdAndPassword");
+            return;
+        }
+
         if (phone.isEmpty()) {
-            showDialogErrorMessage("emptyPhone");
+            showDialogErrorMessage("emptyId");
             return;
         }
 
@@ -76,8 +81,13 @@ public class MemberService {
         String phone = phoneField.getText().trim();
         String password = passwordField.getText().trim();
 
+        if (phone.isEmpty() && password.isEmpty()) {
+            showDialogErrorMessage("emptyIdAndPassword");
+            return;
+        }
+
         if (phone.isEmpty()) {
-            showDialogErrorMessage("emptyPhone");
+            showDialogErrorMessage("emptyId");
             return;
         }
 

@@ -32,6 +32,11 @@ public class AdminService {
         String id = idField.getText().trim();
         String password = passwordField.getText().trim();
 
+        if (id.isEmpty() && password.isEmpty()) {
+            showDialogErrorMessage("emptyIdAndPassword");
+            return;
+        }
+
         if (id.isEmpty()) {
             showDialogErrorMessage("emptyId");
             return;
