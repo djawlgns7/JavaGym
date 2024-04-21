@@ -834,7 +834,7 @@ public class PaymentController implements Initializable {
             basket.clear();
 
             play("thanks");
-            showDialogAndMoveMainPage("paymentComplete", event);
+            showDialogAndMoveMainPageMessage("paymentComplete", event);
         }
     }
 

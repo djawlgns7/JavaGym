@@ -128,6 +128,33 @@ public class DialogUtil {
         moveToMainPage(event);
     }
 
+    public static void showDialogAndMoveMainPageMessage(String messageCode, ActionEvent event) throws IOException {
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        registerDialog(dialog);
+        dialog.setTitle(basicMessage.getString("alert"));
+
+        Label label = new Label(basicMessage.getString(messageCode));
+        label.getStyleClass().add("BasicLabel");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().add(label);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        dialog.getDialogPane().setContent(vbox);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
+
+        applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
+        dialog.showAndWait();
+        moveToMainPage(event);
+    }
+
     public static Optional<ButtonType> showDialogChoose(String message) {
         Dialog<ButtonType> dialog = new Dialog<>();
         registerDialog(dialog);
