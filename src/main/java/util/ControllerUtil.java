@@ -225,9 +225,9 @@ public class ControllerUtil {
 
     public static void loadMemberInfo(TableView table, ObservableList<Member> members) {
 
-        TableColumn<Member, Number> memberNumCol = new TableColumn<>("회원 번호");
-        TableColumn<Member, String> memberNameCol = new TableColumn<>("회원 이름");
-        TableColumn<Member, String> memberPhoneCol = new TableColumn<>("핸드폰 번호");
+        TableColumn<Member, Number> memberNumCol = new TableColumn<>("번호");
+        TableColumn<Member, String> memberNameCol = new TableColumn<>("이름");
+        TableColumn<Member, String> memberPhoneCol = new TableColumn<>("전화번호");
 
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("num"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
