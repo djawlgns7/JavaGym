@@ -127,7 +127,8 @@ public class MyInformationController implements Initializable {
         }else {
             LocalDate expireDate = today.plusDays(gymTicket);
             long daysUntilExpire = ChronoUnit.DAYS.between(today, expireDate);
-            gymTicketRemain.setText(expireDate + " (D - " + daysUntilExpire + ")");
+            String expireDateText = expireDate.toString().replace("-", "/");
+            gymTicketRemain.setText(expireDateText + " (D - " + daysUntilExpire + ")");
         }
 
         PTTicketRemain.setText(PTTicket + "개");
@@ -140,8 +141,9 @@ public class MyInformationController implements Initializable {
 
             LocalDate expireDate = today.plusDays(locker);
             lockerNo.setText("No." + lockerNum);
+            String expireDateText = expireDate.toString().replace("-", "/");
 
-            lockerRemain.setText(expireDate + " (D - " + locker + ")");
+            lockerRemain.setText(expireDateText + " (D - " + locker + ")");
         }
 
         if(clothes == 0){
@@ -150,7 +152,9 @@ public class MyInformationController implements Initializable {
         }else{
             LocalDate expireDate = today.plusDays(clothes);
             clothesAvailability.setText("이용 가능");
-            clothesRemain.setText(expireDate + " (D - " + clothes + ")");
+            String expireDateText = expireDate.toString().replace("-", "/");
+
+            clothesRemain.setText(expireDateText + " (D - " + clothes + ")");
 
         }
     }
