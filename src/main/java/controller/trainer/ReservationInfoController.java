@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import repository.MemberRepository;
 import repository.ReservationRepository;
@@ -186,6 +187,10 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private void reservationDetail(Reservation reservation, MouseEvent event) throws IOException {
         if(reservation != null && event.getClickCount() == 2) {
+            if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+                memberInfoDialog.close();
+            }
+
             currentReservation = reservation;
             loginTrainer = trainer;
             movePageTimerOff(event, "/view/trainer/ReservationDetail");
@@ -221,6 +226,10 @@ public class ReservationInfoController implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
+        if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+            memberInfoDialog.close();
+        }
+
         moveToMainPage(event);
     }
 
@@ -253,14 +262,23 @@ public class ReservationInfoController implements Initializable {
         }
     }
 
+    private static Dialog<Void> memberInfoDialog;
+
+    // 메서드명 변경 (성진)
     @FXML
-    public void showUserNum() {
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("회원 정보");
+    public void showMemberInfo() {
+
+        // 다이얼로그가 이미 열려 있으면 추가적으로 열지 않음
+        if (memberInfoDialog != null && memberInfoDialog.isShowing()) {
+            return;
+        }
+
+        memberInfoDialog = new Dialog<>();;
+        memberInfoDialog.setTitle("회원 정보");
 
         ButtonType closeButtonType = new ButtonType("닫기", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
-        Button closeButton = (Button) dialog.getDialogPane().lookupButton(closeButtonType);
+        memberInfoDialog.getDialogPane().getButtonTypes().addAll(closeButtonType);
+        Button closeButton = (Button) memberInfoDialog.getDialogPane().lookupButton(closeButtonType);
         closeButton.getStyleClass().add("closeBtn");
 
         TableView<Member> table = new TableView<>();
@@ -279,15 +297,17 @@ public class ReservationInfoController implements Initializable {
         loadMemberInfo(table, filteredMembers);
 
         VBox vbox = new VBox(table);
-        DialogPane dialogPane = dialog.getDialogPane();
+        DialogPane dialogPane = memberInfoDialog.getDialogPane();
         dialogPane.setContent(vbox);
         dialogPane.getStylesheets().add(getClass().getResource("/css/ReservedMemberInfo.css").toExternalForm());
 
         // Dialog의 Stage에 접근하여 아이콘 설정 (승빈)
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Stage dialogStage = (Stage) memberInfoDialog.getDialogPane().getScene().getWindow();
         dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/image/JavaGym_Logo.jpeg")));
 
-        dialog.showAndWait();
+        // 회원 정보를 확인하며 예약을 등록할 수 있도록 수정 (성진)
+        dialogStage.initModality(Modality.NONE);
+        memberInfoDialog.show();
     }
 
     public boolean checkMember(int memberNum, String memberName) {
