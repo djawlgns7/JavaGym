@@ -254,8 +254,8 @@ SplitPane {
 
 /* Table */
 .trainerInfo_AMPMBtn {
-    -fx-padding: 0 25 5 0;
-    -fx-translate-x: -195;
+    -fx-padding: 0 0 5 25;
+    -fx-translate-x: -370;
 }
 
 .trainerInfo_AMBtn, .trainerInfo_PMBtn {
