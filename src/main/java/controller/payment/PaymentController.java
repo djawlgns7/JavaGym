@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import repository.TrainerRepository;
 import service.SmsService;
+import util.AnimationUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -420,11 +421,6 @@ public class PaymentController implements Initializable {
             selectLockerButton.setVisible(false);
         }
 
-        //트레이너를 선택하지 않았고, 현재 담당 트레이너가 있을 경우
-//        if(currentTrainer == null && trainerNum != 0) {
-//            currentTrainer = trainerRepository.findByNum(trainerNum);
-//        }
-
         if (!selectTrainer && trainerNum != 0) {
             selectedTrainer = trainerRepository.findByNum(trainerNum);
         }
@@ -477,6 +473,18 @@ public class PaymentController implements Initializable {
                 newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
             }
         });
+
+        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null && oldTab != null) {
+                Node newContent = newTab.getContent();
+                Node oldContent = oldTab.getContent();
+
+                if (newContent != null && oldContent != null) {
+                    AnimationUtil.animateTab(newContent, oldContent);
+                }
+            }
+        });
+
     } // initialize() 끝
 
     private void updateGymPrice(RadioButton selectedButton) {
