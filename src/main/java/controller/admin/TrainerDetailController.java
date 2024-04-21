@@ -17,10 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 import service.SmsService;
+import util.DialogUtil;
 
 import java.io.*;
 import java.net.URL;
@@ -32,7 +34,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static service.SmsService.getRandomPassword;
 import static util.DialogUtil.*;
 import static util.ControllerUtil.*;
@@ -97,29 +99,29 @@ public class TrainerDetailController implements Initializable {
 
             if (!isSamePhoto()) {
                 File photoFile = new File(updatedImagePath);
-                trainerRepository.savePhoto(currentTrainer.getNum(), photoFile);
+                trainerRepository.savePhoto(loginTrainer.getNum(), photoFile);
             }
 
-            currentTrainer.setId(id);
-            currentTrainer.setName(name);
-            currentTrainer.setGender(gender);
-            currentTrainer.setPhone(phone);
-            currentTrainer.setBirthDate(birth);
-            currentTrainer.setWorkingHour(workingHour);
-            currentTrainer.setHeight(height);
-            currentTrainer.setWeight(weight);
+            loginTrainer.setId(id);
+            loginTrainer.setName(name);
+            loginTrainer.setGender(gender);
+            loginTrainer.setPhone(phone);
+            loginTrainer.setBirthDate(birth);
+            loginTrainer.setWorkingHour(workingHour);
+            loginTrainer.setHeight(height);
+            loginTrainer.setWeight(weight);
 
-            trainerRepository.updateTrainer(currentTrainer);
+            trainerRepository.updateTrainer(loginTrainer);
             showDialogAndMovePageMessage("updateTrainer", "/view/admin/trainerDetail", event);
         }
     }
 
     private boolean isSame(String id, String name, Gender gender, String phone, Date birth, WorkingHour workingHour, Double height, Double weight) {
-        return currentTrainer.getId().equals(id) && currentTrainer.getName().equals(name) && currentTrainer.getGender().equals(gender) && currentTrainer.getPhone().equals(phone) && currentTrainer.getBirthDate().equals(birth) && currentTrainer.getWorkingHour().equals(workingHour) && currentTrainer.getHeight().equals(height) && currentTrainer.getWeight().equals(weight);
+        return loginTrainer.getId().equals(id) && loginTrainer.getName().equals(name) && loginTrainer.getGender().equals(gender) && loginTrainer.getPhone().equals(phone) && loginTrainer.getBirthDate().equals(birth) && loginTrainer.getWorkingHour().equals(workingHour) && loginTrainer.getHeight().equals(height) && loginTrainer.getWeight().equals(weight);
     }
 
     private boolean isSamePhoto() {
-        byte[] currentTrainerPhoto = currentTrainer.getPhoto();
+        byte[] currentTrainerPhoto = loginTrainer.getPhoto();
 
         if (currentTrainerPhoto != null && updatedImagePath != null) {
             return false;
@@ -134,12 +136,13 @@ public class TrainerDetailController implements Initializable {
 
     @FXML
     private void deleteTrainer(ActionEvent event) throws IOException {
-        Optional<ButtonType> result = showDialogChoose(currentTrainer.getName() + " " + basicMessage.getString("reallyDeleteTrainer"));
+        Optional<ButtonType> result = showDialogChoose(loginTrainer.getName() + " " + basicMessage.getString("reallyDeleteTrainer"));
 
         if (result.get() == ButtonType.OK){
-            trainerRepository.deleteTrainer(currentTrainer.getNum());
+            trainerRepository.deleteTrainer(loginTrainer.getNum());
 
             AdminTab.getInstance().setSelectedTabIndex(1);
+            
             showDialogAndMovePageMessage("deleteTrainer", "/view/admin/helloAdminV2", event);
         }
     }
@@ -152,8 +155,8 @@ public class TrainerDetailController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (currentTrainer != null) {
-            setTrainerInfo(currentTrainer, birthPicker);
+        if (loginTrainer != null) {
+            setTrainerInfo(loginTrainer, birthPicker);
             columnBinding();
             loadTrainerSchedule();
 
@@ -237,7 +240,7 @@ public class TrainerDetailController implements Initializable {
     }
 
     private void loadTrainerSchedule() {
-        List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(currentTrainer.getNum());
+        List<TrainerSchedule> schedule = reservationRepository.findTrainerSchedule(loginTrainer.getNum());
         ObservableList<TrainerSchedule> schedules = FXCollections.observableArrayList();
 
         for (TrainerSchedule trainerSchedule : schedule) {
@@ -286,11 +289,11 @@ public class TrainerDetailController implements Initializable {
         Optional<ButtonType> result = showDialogChooseMessage("reallyResetPassword");
 
         if (result.get() == ButtonType.OK) {
-            String resetPassword = currentTrainer.getId() + getRandomPassword();
+            String resetPassword = loginTrainer.getId() + getRandomPassword();
             String hashPw = BCrypt.hashpw(resetPassword, BCrypt.gensalt());
 
-            smsService.sendTrainerInitPassword(currentTrainer.getPhone(), resetPassword);
-            trainerRepository.resetPassword(hashPw, currentTrainer.getNum());
+            smsService.sendTrainerInitPassword(loginTrainer.getPhone(), resetPassword);
+            trainerRepository.resetPassword(hashPw, loginTrainer.getNum());
 
             showDialogBasicMessage("resetPassword");
         }

@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter @Setter
 public class SelectedTrainer {
-    public static Trainer currentTrainer;
+    public static Trainer loginTrainer;
 
-    public static void setCurrentTrainer(Trainer currentTrainer) {
-        SelectedTrainer.currentTrainer = currentTrainer;
+    public static void setLoginTrainer(Trainer loginTrainer) {
+        SelectedTrainer.loginTrainer = loginTrainer;
     }
 
 }

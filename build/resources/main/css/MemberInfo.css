@@ -68,6 +68,14 @@ SplitPane {
     -fx-background-color: #C4A3FF;
 }
 
+.scroll-bar:vertical {
+    -fx-pref-width: 7px;
+}
+
+.scrol-bar:horizontal {
+    -fx-pref-width: 7px;
+}
+
 .scroll-bar .thumb {
     -fx-background-color: #DABDFF;
     -fx-background-insets: 2, 2, 2;
@@ -165,6 +173,8 @@ SplitPane {
 /* Radio Button Non-selected 상태 색상 변경 */
 .memberInfo_sex_radioBtn_1 .radio,
 .memberInfo_sex_radioBtn_2 .radio {
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
     -fx-background-color: #DABDFF;
 }
 
@@ -193,13 +203,8 @@ SplitPane {
 }
 
 /* Table */
-.memberInfo_searchBox {
+.memberInfo_LockerSearchBox {
     -fx-padding: 0 15 10 0;
-}
-
-.memberInfo_SearchIcon {
-    -fx-background-color: #FFFFFF;
-    -fx-translate-x: 15;
 }
 
 .memberInfo_searchInput {
@@ -210,7 +215,7 @@ SplitPane {
     -fx-background-color: #F4F5F7;
     -fx-border-color: #000000;
     -fx-border-width: 1;
-    -fx-border-radius: 5;
+    -fx-border-radius: 6;
     -fx-prompt-text-fill: #999999;
 }
 
@@ -283,7 +288,7 @@ SplitPane {
 }
 
 .memberInfo_phoneColumn {
-    -fx-pref-width: 140;
+    -fx-pref-width: 130;
     -fx-pref-height: 30;
     -fx-alignment: CENTER;
     -fx-font-size: 14;
@@ -341,6 +346,25 @@ SplitPane {
     -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
 }
 
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #DABDFF;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .placeholder {
+    -fx-font-size: 20;
+    -fx-font-family: "Jua";
+    -fx-text-fill: #000000;
+}
+
+.table-row-cell:selected .check-box > .box {
+    -fx-background-color: #FFFFFF;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #9747FF;
+}
+
 .memberInfo_subBtn {
     -fx-padding: 10 15 0 0;
 }
@@ -362,16 +386,20 @@ SplitPane {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16;
     -fx-pref-width: 80;
-    -fx-pref-height: 40;
+    -fx-pref-height: 30;
     -fx-border-color: transparent;
     -fx-border-radius: 5;
-    -fx-translate-x: -370;
+    -fx-translate-x: -460;
 }
 
 .table-view .table-cell {
     -fx-font-family: "Jua";
     -fx-alignment: CENTER;
     -fx-font-size: 14;
+}
+
+.memberInfo_refreshBox {
+    -fx-padding: 0 25 5 0;
 }
 
 .memberInfo_refreshBtn {
@@ -384,11 +412,15 @@ SplitPane {
     /*-fx-border-color: transparent;*/
     /*-fx-border-radius: 5;*/
     -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
 }
 
 .memberInfo_refreshBtn:hover {
     -fx-cursor: hand;
-    -fx-background-color: rgba(153, 153, 153, 0.46);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
 }
 
 .memberInfo_lockerBtn:hover, .memberInfo_deleteBtn:hover {

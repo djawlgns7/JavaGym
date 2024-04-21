@@ -2,6 +2,7 @@ package controller.payment;
 
 import domain.Item;
 import domain.payment.*;
+import domain.trainer.Trainer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,9 +21,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
-import static domain.member.SelectedMember.currentMember;
-import static domain.trainer.SelectedTrainer.currentTrainer;
-import static util.AnimationUtil.animateTab;
+import static domain.member.SelectedMember.loginMember;
 import static util.ControllerUtil.createImageViewFromBytes;
 import static util.DialogUtil.*;
 import static util.MemberUtil.*;
@@ -126,17 +125,13 @@ public class PaymentController implements Initializable {
 
     int gymPrice, ptPrice, lockerPrice, clothesPrice, totalPrice = 0;
 
+    public static Trainer selectedTrainer = null;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-            if (newTab != null && oldTab != null) {
-                animateTab(newTab.getContent(), oldTab.getContent());
-            }
-        });
-
         // 회원의 현재 모든 결제 정보를 얻는다.
-        Integer memberNum = currentMember.getNum();
+        Integer memberNum = loginMember.getNum();
 
         List<Integer> remains = getRemainAll(memberNum);
         int gymTicketRemain = remains.get(0);
@@ -155,7 +150,7 @@ public class PaymentController implements Initializable {
         LocalDate clothesExpireDate = today.plusDays(clothesRemain);
         String clothesExpireDateText = clothesExpireDate.toString().replace("-", "/");
 
-        memberNameLabel.setText(currentMember.getName());
+        memberNameLabel.setText(loginMember.getName());
 
         // 처음에 보여지는 헬스장 이용권 탭 설정
         itemTypeLabel.setText("헬스장 이용 가능 기간");
@@ -200,7 +195,7 @@ public class PaymentController implements Initializable {
                     if (ptTicketRemain == 0) {
                         itemValueLabel.setText("현재 이용 중인 이용권이 없습니다.");
                     } else {
-                        itemValueLabel.setText(ptTicketRemain + "개");
+                        itemValueLabel.setText(ptTicketRemain + " 개");
                     }
 
                     lockerLabel.setVisible(false);
@@ -311,7 +306,7 @@ public class PaymentController implements Initializable {
 
                             totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                             selectPtTicketLabel.setText("10회");
-                            selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                            selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
                             selectPtPriceLabel.setText("700,000원");
                             break;
                         case 20:
@@ -320,7 +315,7 @@ public class PaymentController implements Initializable {
 
                             totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                             selectPtTicketLabel.setText("20회");
-                            selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                            selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
                             selectPtPriceLabel.setText("1,300,000원");
                             break;
                         case 30:
@@ -329,7 +324,7 @@ public class PaymentController implements Initializable {
 
                             totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                             selectPtTicketLabel.setText("30회");
-                            selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                            selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
                             selectPtPriceLabel.setText("1,800,000원");
                             break;
                     }
@@ -427,16 +422,20 @@ public class PaymentController implements Initializable {
         }
 
         //트레이너를 선택하지 않았고, 현재 담당 트레이너가 있을 경우
-        if(currentTrainer == null && trainerNum != 0) {
-            currentTrainer = trainerRepository.findByNum(trainerNum);
+//        if(currentTrainer == null && trainerNum != 0) {
+//            currentTrainer = trainerRepository.findByNum(trainerNum);
+//        }
+
+        if (!selectTrainer && trainerNum != 0) {
+            selectedTrainer = trainerRepository.findByNum(trainerNum);
         }
 
-        //트레이너 선택 후
-        if (currentTrainer != null) {
-            ImageView image = createImageViewFromBytes(currentTrainer.getPhoto());
+        // 트레이너 선택 후
+        if (selectedTrainer != null) {
+            ImageView image = createImageViewFromBytes(selectedTrainer.getPhoto());
             selectTrainerImage.setImage(image.getImage());
-            trainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
-            trainerInfoLabel.setText(currentTrainer.getHeight() + "cm | " + currentTrainer.getWeight() + "kg | " + trainerRepository.getAge(currentTrainer) + "세");
+            trainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
+            trainerInfoLabel.setText(selectedTrainer.getHeight() + "cm | " + selectedTrainer.getWeight() + "kg | " + trainerRepository.getAge(selectedTrainer) + "세");
         }
 
         // 헬스장 이용권을 선택할 때마다 가격 업데이트
@@ -462,6 +461,23 @@ public class PaymentController implements Initializable {
 
         int tabIndex = PaymentTab.getInstance().getSelectedTabIndex();
         tab.getSelectionModel().select(tabIndex);
+
+        // 페이지나 탭이 로드되면 실행되는 초기화 메소드 내에서 선택된 탭의 스타일을 적용
+        Tab selectedTab = tab.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            selectedTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+        }
+
+        tab.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            // 선택되지 않은 탭의 스타일을 초기화
+            if (oldTab != null) {
+                oldTab.setStyle(""); // 혹은 선택되지 않은 탭의 기본 스타일을 설정
+            }
+            // 새로 선택된 탭에 대한 스타일 적용
+            if (newTab != null) {
+                newTab.setStyle("-fx-background-color: #9747FF;"); // 선택된 탭의 색상
+            }
+        });
     } // initialize() 끝
 
     private void updateGymPrice(RadioButton selectedButton) {
@@ -565,7 +581,7 @@ public class PaymentController implements Initializable {
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
                 selectTrainerNameLabel.setVisible(true);
-                selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectPtTicketLabel.setText("10회");
@@ -579,7 +595,7 @@ public class PaymentController implements Initializable {
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
                 selectTrainerNameLabel.setVisible(true);
-                selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectPtTicketLabel.setText("20회");
@@ -593,7 +609,7 @@ public class PaymentController implements Initializable {
                 selectPtTicketLabel.setVisible(true);
                 selectPtPriceLabel.setVisible(true);
                 selectTrainerNameLabel.setVisible(true);
-                selectTrainerNameLabel.setText(currentTrainer.getName() + " 트레이너");
+                selectTrainerNameLabel.setText(selectedTrainer.getName() + " 트레이너");
 
                 totalPriceLabel.setText(" " + String.format("%,d", gymPrice + ptPrice + lockerPrice + clothesPrice));
                 selectPtTicketLabel.setText("30회");
@@ -691,15 +707,15 @@ public class PaymentController implements Initializable {
     @FXML
     private void cancelPayment(ActionEvent event) throws IOException {
         selectTrainer = false;
-        currentTrainer = null;
+        selectedTrainer = null;
         basket.clear();
         movePage(event, "/view/member/helloMember");
     }
 
     @FXML
     private void payment(ActionEvent event) throws IOException {
-        if(basket.isEmpty()){
-            showDialog("물품을 하나 이상 선택해 주세요");
+        if (basket.isEmpty()) {
+            showDialogErrorMessage("noSelectItem"); // 성진 수정
             return;
         }
 
@@ -776,11 +792,11 @@ public class PaymentController implements Initializable {
                 clothesText, clothesPriceText, totalPriceText);
 
         if(result.get() == ButtonType.OK){
-            int memberNum = currentMember.getNum();
+            int memberNum = loginMember.getNum();
 
             for(Available ticket : basket){
                 if(ticket instanceof PtTicket){
-                    int trainerNum = currentTrainer.getNum();
+                    int trainerNum = selectedTrainer.getNum();
                     int quantity = ((PtTicket)ticket).getTime();
 
                     purchaseItem(memberNum, Item.PT_TICKET, quantity);
@@ -820,7 +836,7 @@ public class PaymentController implements Initializable {
 
             selectTrainer = false;
             selectLocker = false;
-            currentTrainer = null;
+            selectedTrainer = null;
             basket.clear();
 
             moveToMainPage(event);

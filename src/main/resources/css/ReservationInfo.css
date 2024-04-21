@@ -1,0 +1,351 @@
+SplitPane {
+    -fx-background-color: #FFFFFF;
+}
+
+.reservationInfo_Title {
+    -fx-font-size: 32;
+    -fx-font-family: "Jua";
+}
+
+/* TextField */
+.reservationInfo_numInput, .reservationInfo_nameInput, .reservationInfo_phoneInput,
+.reservationInfo_timeComboBox {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+/* DatePicker */
+.reservationInfo_DatePicker {
+    -fx-background-color: #F4F5F7;
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 250;
+    -fx-pref-height: 50;
+    -fx-font-size: 16;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #999999;
+}
+
+.reservationInfo_DatePicker .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservationInfo_DatePicker .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+.reservationInfo_DatePicker .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationInfo_DatePicker .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+/* ComboBox */
+.reservationInfo_timeComboBox .text-field {
+    -fx-background-color: #F4F5F7;
+}
+
+.reservationInfo_timeComboBox .arrow-button {
+    -fx-background-color: #DABDFF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationInfo_timeComboBox .arrow-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C4A3FF;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.reservationInfo_timeComboBox .arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ComboBox - List Cell */
+.reservationInfo_timeComboBox .combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.reservationInfo_timeComboBox .combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #C4A3FF;
+    -fx-text-fill: white;
+}
+
+.reservationInfo_timeComboBox .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #DABDFF;
+    -fx-text-fill: white;
+}
+
+/* Button */
+.reservationInfo_ReservationBtn, .reservationInfo_MemberInfoBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+}
+
+.reservationInfo_LogoutBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-border-color: transparent;
+}
+
+.reservationInfo_ReservationBtn:hover, .reservationInfo_MemberInfoBtn:hover, .reservationInfo_LogoutBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+/* Search & Refresh */
+.reservationInfo_refreshBox {
+    -fx-padding: 0 25 5 0;
+}
+
+.reservationInfo_refreshBtn {
+    /*-fx-font-family: "Jua";*/
+    /*-fx-background-color: #DE14FF;*/
+    /*-fx-text-fill: #FFFFFF;*/
+    /*-fx-font-size: 16;*/
+    /*-fx-pref-width: 80;*/
+    /*-fx-pref-height: 30;*/
+    /*-fx-border-color: transparent;*/
+    /*-fx-border-radius: 5;*/
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 5;
+}
+
+.reservationInfo_refreshBtn:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 3, 0, 0, 0);
+}
+
+.reservationInfo_searchBox {
+    -fx-padding: 0 15 10 0;
+ }
+
+.reservationInfo_searchInput {
+    -fx-font-family: "NanumGothic";
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 14;
+    -fx-background-color: #F4F5F7;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-prompt-text-fill: #999999;
+}
+.reservationInfo_SearchBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #9747FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+}
+
+.reservationInfo_CancelBtn {
+    -fx-font-family: "Jua";
+    -fx-background-color: #DE14FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-translate-x: -10;
+}
+
+.reservationInfo_SearchBtn:hover, .reservationInfo_CancelBtn:hover {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+.reservationInfo_SearchBtn:pressed, .reservationInfo_CancelBtn:pressed {
+    -fx-background-color: #F4B6FF;
+    -fx-cursor: hand;
+}
+
+/* Table */
+/* SplitPane */
+.split-pane-divider {
+    -fx-background-color: #C4A3FF; /* 분할선의 색상 변경 */
+    -fx-border-color: transparent; /* 분할선의 테두리 색상 변경 */
+    -fx-padding: 0.5; /* 분할선의 너비 변경 */
+}
+
+/* Scroll Bar */
+.scroll-bar {
+    -fx-background-color: #C4A3FF;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 7px;
+}
+
+.scrol-bar:horizontal {
+    -fx-pref-width: 7px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #DABDFF;
+    -fx-background-insets: 2, 2, 2;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #C4A3FF;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #DABDFF;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+.reservationInfo_chooseCol {
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+}
+
+.reservationInfo_numCol, .reservationInfo_nameCol, .reservationInfo_phoneCol,
+.reservationInfo_rDateCol, .reservationInfo_rTimeCol, .reservationInfo_chooseCol {
+    -fx-font-family: "Jua";
+}
+
+.reservationInfo_numCol {
+    -fx-pref-width: 90;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_nameCol {
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_phoneCol {
+    -fx-pref-width: 180;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rDateCol {
+    -fx-pref-width: 160;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+.reservationInfo_rTimeCol {
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+    -fx-alignment: CENTER;
+    -fx-font-size: 14;
+}
+
+/* TableView 헤더 스타일 */
+.table-view .column-header-background .label {
+    -fx-background-color: #9747FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 헤더 배경색 변경 */
+.table-view .column-header {
+    -fx-background-color: #9747FF;
+}
+
+/* 헤더의 테두리 변경 */
+.table-view .column-header, .table-view .filler {
+    -fx-border-color: transparent transparent #9747FF transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* 컬럼 헤더들 사이의 경계선 추가 */
+.table-view .column-header {
+    -fx-border-color: transparent transparent #FFFFFF #FFFFFF; /* 아래쪽과 오른쪽 경계선 색상 설정 */
+    -fx-border-width: 0 0 2 1; /* 아래쪽 경계선 두께 2, 오른쪽 경계선 두께 1 */
+}
+
+/* 화살표 버튼 배경색 변경 */
+.table-view .column-header .arrow-button {
+    -fx-background-color: #9747FF; /* 화살표 버튼 배경색도 헤더 배경색과 동일하게 설정 */
+}
+
+/* 정렬 화살표 스타일 */
+.table-view .column-header .arrow {
+    -fx-background-color: #ffffff; /* 화살표 색상 변경 */
+}
+
+/* 오름차순 화살표 스타일 */
+.table-view .column-header .arrow-button .arrow {
+    -fx-shape: "M0,0 L1,0 L0.5,1 Z"; /* 오름차순 화살표 모양 */
+}
+
+/* 내림차순 화살표 스타일 */
+.table-view .column-header:descending .arrow-button .arrow {
+    -fx-shape: "M0,1 L1,1 L0.5,0 Z"; /* 내림차순 화살표 모양 */
+}
+
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: #DABDFF;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .placeholder {
+    -fx-font-size: 20;
+    -fx-font-family: "Jua";
+    -fx-text-fill: #000000;
+}
+
+.table-row-cell:selected .check-box > .box {
+    -fx-background-color: #FFFFFF;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #9747FF;
+}

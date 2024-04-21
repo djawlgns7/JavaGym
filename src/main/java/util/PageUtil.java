@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-import static domain.member.SelectedMember.currentMember;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.member.SelectedMember.loginMember;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 import static thread.InactivityManager.*;
 import static util.AnimationUtil.applyFadeIn;
 
@@ -70,8 +70,8 @@ public class PageUtil {
             inactivityTimer.stop();
         }
 
-        currentMember = null;
-        currentTrainer = null;
+        loginMember = null;
+        loginTrainer = null;
 
         URL url = ControllerUtil.class.getResource("/view/member/memberLogin.fxml");
         Parent newRoot = FXMLLoader.load(url);

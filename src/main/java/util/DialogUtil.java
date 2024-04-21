@@ -7,8 +7,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -29,7 +32,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(message);
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -41,6 +44,11 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg"));
+        dialogStage.getIcons().add(icon);
+
         dialog.showAndWait();
     }
 
@@ -50,7 +58,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(errorMessage.getString(messageCode));
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -62,6 +70,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
     }
 
@@ -71,7 +83,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(basicMessage.getString(messageCode));
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -83,6 +95,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
     }
 
@@ -92,7 +108,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(message);
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -104,6 +120,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         movePage(event, viewPath);
     }
@@ -114,7 +134,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(basicMessage.getString(messageCode));
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -126,6 +146,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         movePage(event, viewPath);
     }
@@ -136,7 +160,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(message);
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -148,6 +172,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         movePageTimerOff(event, viewPath);
     }
@@ -158,7 +186,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(basicMessage.getString(messageCode));
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -170,6 +198,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         movePageTimerOff(event, viewPath);
     }
@@ -181,7 +213,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(message);
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -193,6 +225,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         moveToMainPage(event);
     }
@@ -204,7 +240,7 @@ public class DialogUtil {
         dialog.setTitle(basicMessage.getString("alert"));
 
         Label label = new Label(basicMessage.getString(messageCode));
-        label.getStyleClass().add("label");
+        label.getStyleClass().add("BasicLabel");
 
         VBox vbox = new VBox();
         vbox.getChildren().add(label);
@@ -216,6 +252,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp.css").toExternalForm());
 
         applyFadeInDialog(vbox);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         dialog.showAndWait();
         moveToMainPage(event);
     }
@@ -234,6 +274,11 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg"));
+        dialogStage.getIcons().add(icon);
+
         return dialog.showAndWait();
     }
 
@@ -251,6 +296,11 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg"));
+        dialogStage.getIcons().add(icon);
+
         return dialog.showAndWait();
     }
 
@@ -430,7 +480,7 @@ public class DialogUtil {
         label = new Label("총 ");
         hbox.getChildren().add(label);
         label = new Label(totalPrice);
-//        label.getStyleClass().add("여기다가 클래스 이름 추가하세요");
+        label.getStyleClass().add("payment_TotalPrice");
         hbox.getChildren().add(label);
         label = new Label("원");
         hbox.getChildren().add(label);
@@ -439,6 +489,10 @@ public class DialogUtil {
         dialog.getDialogPane().getStylesheets().add(DialogUtil.class.getResource("/css/DialogPopUp_2Btn.css").toExternalForm());
 
         applyFadeInDialog(dialogPane);
+
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image(DialogUtil.class.getResourceAsStream("/image/JavaGym_Logo.jpeg")));
+
         return dialog.showAndWait();
     }
 }

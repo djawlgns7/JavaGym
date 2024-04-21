@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 
 
 public class ControllerUtil {
@@ -99,8 +99,7 @@ public class ControllerUtil {
         membersTable.setItems(FXCollections.observableArrayList(members));
     }
     public static void loadReservationData(TableView<Reservation> reservationTable, ReservationRepository reservationRepository) {
-        int trainerNum = currentTrainer.getNum();
-        Trainer trainer = currentTrainer;
+        int trainerNum = loginTrainer.getNum();
         List<Reservation> reservations = reservationRepository.findReservation(trainerNum);
         reservationTable.setItems(FXCollections.observableArrayList(reservations));
 
@@ -226,17 +225,20 @@ public class ControllerUtil {
 
     public static void loadMemberInfo(TableView table, ObservableList<Member> members) {
 
-        TableColumn<Member, Number> memberNumCol = new TableColumn<>("회원 번호");
-        TableColumn<Member, String> memberNameCol = new TableColumn<>("회원 이름");
-        TableColumn<Member, Number> memberPhoneCol = new TableColumn<>("핸드폰 번호");
+        TableColumn<Member, Number> memberNumCol = new TableColumn<>("번호");
+        TableColumn<Member, String> memberNameCol = new TableColumn<>("이름");
+        TableColumn<Member, String> memberPhoneCol = new TableColumn<>("전화번호");
 
         memberNumCol.setCellValueFactory(new PropertyValueFactory<>("num"));
         memberNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        memberPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-
+        memberPhoneCol.setCellValueFactory(cellData -> {
+            String rawPhoneNumber = cellData.getValue().getPhone();
+            String formattedPhoneNumber = formatPhone(rawPhoneNumber);
+            return new SimpleStringProperty(formattedPhoneNumber);
+        });
         memberNumCol.setPrefWidth(90);
         memberNameCol.setPrefWidth(90);
-        memberPhoneCol.setPrefWidth(90);
+        memberPhoneCol.setPrefWidth(150);
 
         table.getColumns().clear();
         table.getColumns().addAll(memberNumCol, memberNameCol, memberPhoneCol);

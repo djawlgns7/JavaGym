@@ -9,7 +9,7 @@ import repository.CodeStore;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.DialogUtil.showDialog;
 import static util.DialogUtil.showDialogChoose;
 
@@ -71,6 +71,11 @@ public class SmsService {
 
     //관리자 호출 버튼을 누를 경우
     public void callAdmin(){
+        if (callAdminTimer > 0) {
+            showDialog("직원이 오고 있습니다.\n잠시만 기다려 주세요.");
+            return;
+        }
+
         Optional<ButtonType> result = showDialogChoose("직원을 호출하시겠습니까?");
 
         if (result.get() == ButtonType.OK) {
@@ -79,8 +84,8 @@ public class SmsService {
                 Message message = new Message();
                 message.setFrom(adminPhone);
                 message.setTo(adminPhone);
-                if (currentMember != null) {
-                    String memberName = currentMember.getName();
+                if (loginMember != null) {
+                    String memberName = loginMember.getName();
                     message.setText("[JavaGym]\n" + memberName + " 회원님이 직원을 호출했습니다");
                 } else {
                     message.setText("[JavaGym]\n" + "회원님이 직원을 호출했습니다");
@@ -95,8 +100,6 @@ public class SmsService {
 
                 countTimer();
                 showDialog("직원을 호출했습니다");
-            } else {
-                showDialog("직원이 오고 있습니다.\n잠시만 기다려 주세요.");
             }
         }
     }

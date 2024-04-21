@@ -17,7 +17,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<BorderPane prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/common.css"
+<BorderPane prefHeight="1000.0" prefWidth="1250.0" stylesheets="/css/Common.css"
             xmlns:fx="http://javafx.com/fxml" fx:controller="controller.admin.HelloAdminControllerV2">
     <center>
         <StackPane>
@@ -62,15 +62,10 @@
                                 </VBox>
 
                                 <!-- 회원 목록 영역 -->
-                                <VBox fx:id="memberListArea" spacing="10" alignment="CENTER" stylesheets="/css/common.css">
+                                <VBox fx:id="memberListArea" spacing="10" alignment="CENTER">
                                     <Label text="회원 정보" styleClass="memberInfo_title_2"/>
-
-                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_searchBox">
-                                        <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
-                                        <Button onAction="#searchMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_SearchIcon" />
-
-                                        <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="회원 이름" styleClass="memberInfo_searchInput"/>
-                                        <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
+                                    <!-- Refresh Button -->
+                                    <HBox alignment="CENTER_RIGHT" styleClass="memberInfo_refreshBox">
                                         <Button onAction="#resetPageMember" prefWidth="16" prefHeight="16" styleClass="memberInfo_refreshBtn">
                                             <graphic>
                                                 <ImageView fitWidth="20" fitHeight="20">
@@ -78,6 +73,13 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
+                                    </HBox>
+                                    <!-- Locker & Search Box -->
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="memberInfo_LockerSearchBox">
+                                        <Button text="사물함" onAction="#showUsingLocker" styleClass="memberInfo_lockerBtn"/>
+
+                                        <TextField fx:id="searchMemberNameField" onAction="#searchMember" promptText="&#128269; 회원 이름" styleClass="memberInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchMember" styleClass="memberInfo_searchBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="membersTable" prefHeight="550.0" editable="true">
@@ -107,7 +109,7 @@
 
                     <!-- 트레이너 탭 trainerInfo.fxml -->
                     <Tab text="트레이너 관리" closable="false" styleClass="trainerInfo_Tab">
-                        <SplitPane dividerPositions="0.39" stylesheets="/css/common.css">
+                        <SplitPane dividerPositions="0.39" stylesheets="/css/Common.css">
                             <items>
                                 <VBox fx:id="trainerDetailArea" spacing="30" alignment="CENTER">
                                     <Label text="트레이너 등록"  styleClass="trainerInfo_title_1"/>
@@ -172,11 +174,9 @@
                                 <!-- 트레이너 목록 영역 -->
                                 <VBox fx:id="trainerListArea" spacing="10" alignment="CENTER">
                                     <Label text="트레이너 정보" styleClass="trainerInfo_title_2"/>
+                                    <!-- Refresh Button -->
+                                    <HBox alignment="CENTER_RIGHT" styleClass="trainerInfo_refreshBox">
 
-                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
-                                        <Button onAction="#searchTrainer" prefWidth="16" prefHeight="16" styleClass="trainerInfo_SearchIcon" />
-                                        <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="트레이너 이름" styleClass="trainerInfo_searchInput"/>
-                                        <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
                                         <Button onAction="#resetPageTrainer" styleClass="trainerInfo_refreshBtn">
                                             <graphic>
                                                 <ImageView fitWidth="20" fitHeight="20">
@@ -184,6 +184,15 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
+                                    </HBox>
+                                    <!-- Search Box -->
+                                    <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="trainerInfo_searchBox">
+                                        <HBox alignment="CENTER" spacing="20" styleClass="trainerInfo_AMPMBtn">
+                                            <Button text="AM" onAction="#showAmTrainer" styleClass="trainerInfo_AMBtn"/>
+                                            <Button text="PM" onAction="#showPmTrainer" styleClass="trainerInfo_PMBtn"/>
+                                        </HBox>
+                                        <TextField fx:id="searchTrainerNameField" onAction="#searchTrainer" promptText="&#128269; 트레이너 이름" styleClass="trainerInfo_searchInput"/>
+                                        <Button text="검색" onAction="#searchTrainer" styleClass="trainerInfo_searchBtn"/>
                                     </HBox>
 
                                     <TableView fx:id="trainerTable" prefHeight="550.0" editable="true">

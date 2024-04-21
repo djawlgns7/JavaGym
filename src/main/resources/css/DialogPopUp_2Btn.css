@@ -1,30 +1,14 @@
 .dialog-pane {
     -fx-background-color: rgba(151, 71, 255, 0.07);
-    -fx-pref-height: 300;
+    -fx-pref-height: 400;
     -fx-pref-width: 400;
 }
 
 .label {
-    -fx-font-size: 18px; /* 라벨의 폰트 크기를 18px로 설정 */
-    -fx-text-fill: #333333; /* 텍스트 색상을 어두운 회색으로 설정 */
+    -fx-font-size: 18;
+    -fx-text-fill: #000000;
     -fx-font-family: "Jua";
     -fx-alignment: CENTER;
-}
-
-.button {
-    -fx-background-color: #9747FF; /* 배경색을 보라색으로 설정 */
-    -fx-text-fill: #FFFFFF; /* 텍스트 색상을 하얀색으로 설정 */
-    -fx-padding: 10px 20px; /* 내부 여백 설정 */
-    -fx-min-width: 90px; /* 최소 너비 설정 */
-    -fx-max-width: 150px; /* 최대 너비 설정 */
-    -fx-translate-x: -97; /* 4/5 --- 8 9 10 11 12 13 */
-    -fx-translate-y: -15;
-    -fx-font-family: "Jua";
-}
-
-.button:hover {
-    -fx-background-color: #EA8ABE;
-    -fx-cursor: hand;
 }
 
 .reservation_trainerName, .reservation_reservationDateTime, .reservation_reservationCount {
@@ -33,4 +17,21 @@
 
 .payment_gymTicket, .payment_PTTicket, .payment_Locker, .payment_Clothes, .payment_TotalPrice {
     -fx-text-fill: #9747FF;
+}
+
+.button {
+    -fx-background-color: #9747FF;
+    -fx-font-family: "Jua";
+    -fx-font-size: 16;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 20;
+    -fx-min-width: 90;
+    -fx-max-width: 150;
+    -fx-translate-x: -97;
+    -fx-translate-y: -15;
+}
+
+.button:hover {
+    -fx-background-color: #EA8ABE;
+    -fx-cursor: hand;
 }

@@ -58,20 +58,17 @@ public class MemberService {
         }
 
         if (repository.findByPhone(phone) == null) {
-            showDialogErrorMessage("unregistered");
+            showDialogErrorMessage("loginFail");
             return;
         }
 
         Member findMember = repository.findByPhone(phone);
 
         if (BCrypt.checkpw(password, findMember.getPassword())) {
-            currentMember = findMember;
+            loginMember = findMember;
             movePage(event, "/view/member/helloMember");
         } else {
-            showDialogErrorMessage("wrongPw");
-
-            // 비밀번호 잘못 입력 시 비밀번호 필드 초기화!
-            passwordField.setText("");
+            showDialogErrorMessage("loginFail");
         }
     }
 
@@ -95,7 +92,7 @@ public class MemberService {
         }
 
         if (repository.findByPhone(phone) == null) {
-            showDialogErrorMessage("unregistered");
+            showDialogErrorMessage("loginFail");
             return;
         }
 
@@ -115,7 +112,7 @@ public class MemberService {
                 showDialogBasicMessage("DeniedEntry");
             }
         } else {
-            showDialogErrorMessage("wrongPw");
+            showDialogErrorMessage("loginFail");
             passwordField.setText("");
         }
     }

@@ -6,7 +6,7 @@
 <AnchorPane fx:controller="controller.dialog.TimerDialogController" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/DialogPopUp.css"
             prefHeight="100" prefWidth="300" fx:id="root">
     <VBox alignment="CENTER" prefHeight="200" prefWidth="400" spacing="20">
-        <Label >아무런 움직임이 없다면 자동 로그아웃 됩니다!</Label>
-        <Label fx:id="timer"></Label>
+        <Label text="아무런 움직임이 없다면 자동 로그아웃 됩니다!"/>
+        <Label fx:id="timer"/>
     </VBox>
 </AnchorPane>

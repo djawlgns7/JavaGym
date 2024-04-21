@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.*?>
-<SplitPane dividerPositions="0.41" prefHeight="1000.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/common.css"
+<SplitPane dividerPositions="0.41" prefHeight="1000.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" stylesheets="/css/Common.css"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.MemberDetailController">
     <items>
         <!-- 회원 상세 정보 영역 -->
@@ -73,7 +73,7 @@
         </VBox>
 
         <!-- PT 예약 정보 영역 -->
-        <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/common.css">
+        <VBox fx:id="listArea" spacing="40" alignment="CENTER" stylesheets="/css/Common.css">
             <Label text="PT 예약 정보" styleClass="memberDetail_title_2" />
             <VBox spacing="10" alignment="CENTER">
 

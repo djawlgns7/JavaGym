@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static controller.payment.PaymentController.*;
-import static domain.member.SelectedMember.currentMember;
+import static domain.member.SelectedMember.loginMember;
 import static util.DialogUtil.showDialog;
 import static util.MemberUtil.getTrainerNumForMember;
 import static util.PageUtil.movePage;
@@ -50,8 +50,8 @@ public class SelectLockerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (currentMember != null) {
-            member = currentMember;
+        if (loginMember != null) {
+            member = loginMember;
             trainer = trainerRepository.findByNum(getTrainerNumForMember(member.getNum()));
             lockers = new ArrayList<>();
             usingLockers = purchaseRepository.findAllUsingLocker();

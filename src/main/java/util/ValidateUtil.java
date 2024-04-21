@@ -2,9 +2,7 @@ package util;
 
 import domain.Item;
 import domain.member.Member;
-import domain.trainer.Reservation;
 import domain.trainer.Trainer;
-import domain.trainer.TrainerSchedule;
 import domain.trainer.WorkingHour;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -14,11 +12,12 @@ import repository.MemberRepository;
 import repository.ReservationRepository;
 import repository.TrainerRepository;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.*;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.time.temporal.TemporalAccessor;
 
 import static domain.trainer.SelectedTrainer.*;
 import static util.DialogUtil.*;
@@ -203,22 +202,22 @@ public class ValidateUtil {
             return true;
         }
 
-        if (isDuplicateName(name) && !currentTrainer.getName().equals(name)) {
+        if (isDuplicateName(name) && !loginTrainer.getName().equals(name)) {
             showDialogErrorMessage("duplicateName");
             return true;
         }
 
-        if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !currentTrainer.getPhone().equals(phone) && !currentTrainer.getId().equals(id)) {
+        if (isDuplicatePhone(phone) && isDuplicateTrainerId(id) && !loginTrainer.getPhone().equals(phone) && !loginTrainer.getId().equals(id)) {
             showDialogErrorMessage("duplicateIdAndPhone");
             return true;
         }
 
-        if (isDuplicateTrainerId(id) && !currentTrainer.getId().equals(id)) {
+        if (isDuplicateTrainerId(id) && !loginTrainer.getId().equals(id)) {
             showDialogErrorMessage("duplicateId");
             return true;
         }
 
-        if (isDuplicatePhone(phone) && !currentTrainer.getPhone().equals(phone)) {
+        if (isDuplicatePhone(phone) && !loginTrainer.getPhone().equals(phone)) {
             showDialogErrorMessage("duplicatePhone");
             return true;
         }
@@ -276,29 +275,42 @@ public class ValidateUtil {
     }
 
     public static boolean isWrongBirth(String birth) {
-        int month = Integer.parseInt(birth.substring(2, 4));
-        int day = Integer.parseInt(birth.substring(4));
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2, 1900)
+                .appendPattern("MMdd")
+                .toFormatter()
+                .withResolverStyle(ResolverStyle.STRICT);
 
-        return (1 > month || month > 12) || (1 > day || day > 31);
+        try {
+            TemporalAccessor parsedDate = formatter.parse(birth);
+            if (!parsedDate.isSupported(ChronoField.YEAR_OF_ERA) ||
+                    !parsedDate.isSupported(ChronoField.MONTH_OF_YEAR) ||
+                    !parsedDate.isSupported(ChronoField.DAY_OF_MONTH)) {
+                return true;
+            }
+
+            LocalDate birthDate = LocalDate.of(
+                    parsedDate.get(ChronoField.YEAR_OF_ERA),
+                    parsedDate.get(ChronoField.MONTH_OF_YEAR),
+                    parsedDate.get(ChronoField.DAY_OF_MONTH));
+
+            if (birthDate.isAfter(LocalDate.now())) {
+                return true;
+            }
+
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     public static boolean isWrongLengthPhone(String phone) {
         return !(phone.length() == 8);
     }
 
-
-    private static boolean isDuplicateDate(String date) {
-        int month = Integer.parseInt(date.substring(2, 4));
-        int day = Integer.parseInt(date.substring(4));
-
-        return(1 > month || month > 12) || (1 > day || day > 31);
-
-    }
-
-    public static boolean isEmptyAnyField(TextField num, TextField name, TextField time) {
+    public static boolean isEmptyAnyField(TextField num, TextField name) {
         return  num.getText().trim().isEmpty() ||
-                name.getText().trim().isEmpty() ||
-                time.getText().trim().isEmpty();
+                name.getText().trim().isEmpty();
     }
 
     //트레이너 근무 시간 검증
@@ -334,13 +346,12 @@ public class ValidateUtil {
 
     //PT 이용권 검증
     public static boolean isValidPtTicket(int memberNum) {
-        Member member = memberRepository.findByNum(memberNum);
         int remainPT = getRemain(memberNum, Item.PT_TICKET);
         return remainPT != 0;
     }
 
     public static boolean isNotYourMember(int memberNum) {
         int trainerNum = getTrainerNumForMember(memberNum);
-        return trainerNum != currentTrainer.getNum();
+        return trainerNum != loginTrainer.getNum();
     }
 }

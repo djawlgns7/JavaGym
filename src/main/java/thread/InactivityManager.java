@@ -12,6 +12,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -24,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controller.payment.PaymentController.basket;
-import static domain.admin.SelectedAdmin.currentAdmin;
-import static domain.member.SelectedMember.currentMember;
-import static domain.trainer.SelectedTrainer.currentTrainer;
+import static domain.admin.SelectedAdmin.loginAdmin;
+import static domain.member.SelectedMember.loginMember;
+import static domain.trainer.SelectedTrainer.loginTrainer;
 
 public class InactivityManager {
     private static Stage mainStage;
@@ -80,6 +81,7 @@ public class InactivityManager {
         scene.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> resetInactivityTimer());
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> resetInactivityTimer());
         scene.addEventFilter(InputMethodEvent.INPUT_METHOD_TEXT_CHANGED, e -> resetInactivityTimer());
+        scene.addEventFilter(ScrollEvent.SCROLL, e -> resetInactivityTimer()); // 마우스 스크롤 이벤트 추가 (성진)
 
         inactivityTimer.play();
     }
@@ -98,7 +100,7 @@ public class InactivityManager {
 
     private static void moveToMainScreen() {
 
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 
@@ -106,8 +108,8 @@ public class InactivityManager {
             try {
                 clearBasket();
                 closeAllDialogs();
-                currentMember = null;
-                currentTrainer = null;
+                loginMember = null;
+                loginTrainer = null;
 
                 inactivityTimer.stop();
                 timerScene = null;
@@ -145,7 +147,7 @@ public class InactivityManager {
 
     public static void openTimerDialog() {
 
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 
@@ -189,7 +191,7 @@ public class InactivityManager {
     }
 
     private static void setUpInactivitySound() {
-        if (currentAdmin != null || currentTrainer != null || currentMember == null) {
+        if (loginAdmin != null || loginTrainer != null || loginMember == null) {
             return;
         }
 
