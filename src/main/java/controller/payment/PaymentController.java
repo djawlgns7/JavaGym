@@ -711,8 +711,8 @@ public class PaymentController implements Initializable {
 
     @FXML
     private void payment(ActionEvent event) throws IOException {
-        if(basket.isEmpty()){
-            showDialog("물품을 하나 이상 선택해 주세요");
+        if (basket.isEmpty()) {
+            showDialogErrorMessage("noSelectItem"); // 성진 수정
             return;
         }
 

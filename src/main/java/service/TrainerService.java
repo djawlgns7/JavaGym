@@ -39,7 +39,7 @@ public class TrainerService {
 
         Trainer findTrainer = trainerRepository.findById(id);
         if (findTrainer == null) {
-            showDialogErrorMessage("notFound");
+            showDialogErrorMessage("wrongIdOrPassword");
             return;
         }
         if (findTrainer != null && BCrypt.checkpw(password, findTrainer.getPassword())) {
@@ -47,7 +47,7 @@ public class TrainerService {
 
             movePageTimerOff(event, "/view/trainer/reservationInfo" );
         } else {
-            showDialogErrorMessage("wrongPw");
+            showDialogErrorMessage("wrongIdOrPassword");
         }
     }
 
