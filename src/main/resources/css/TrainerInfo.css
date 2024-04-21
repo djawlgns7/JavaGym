@@ -173,12 +173,12 @@ SplitPane {
     -fx-border-radius: 5;
 }
 
-.trainerInfo_ImageBtn:hover, .trainerInfo_addTrainerBtn:hover, .trainerInfo_goBackBtn:hover {
+.trainerInfo_ImageBtn:hover, .trainerInfo_ImageDeleteBtn:hover, .trainerInfo_addTrainerBtn:hover, .trainerInfo_goBackBtn:hover {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
 
-.trainerInfo_ImageBtn:pressed, .trainerInfo_addTrainerBtn:pressed, .trainerInfo_goBackBtn:pressed {
+.trainerInfo_ImageBtn:pressed, .trainerInfo_ImageDeleteBtn:pressed, .trainerInfo_addTrainerBtn:pressed, .trainerInfo_goBackBtn:pressed {
     -fx-background-color: #F4B6FF;
     -fx-cursor: hand;
 }
