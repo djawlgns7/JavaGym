@@ -63,12 +63,3 @@
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC.svg?&style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?&style=for-the-badge&logo=Android%20Studio&logoColor=white)
 
-
-
-### 사용한 개발 툴 아이콘들
-
-
-![Git 아이콘](https://example.com/git-icon.png)
-![VSCode 아이콘](https://example.com/vscode-icon.png)
-![GitHub 아이콘](https://example.com/github-icon.png)
-![MySQL 아이콘](https://example.com/mysql-icon.png)
