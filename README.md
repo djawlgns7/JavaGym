@@ -3,8 +3,8 @@
 ## ConnectionConst.java 파일을 자신의 MySQL에 맞게 수정
 
 <details>
-  <summary>## 데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</summary>
-    ### 테이블 생성문문
+  <summary><h2>데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</h2></summary>
+    <h3>테이블 생성문</h3>
     ```sql
     -- 회원 테이블
     CREATE TABLE member(
@@ -85,7 +85,7 @@
     );
     ```
     
-    ### insert문
+    <h3>insert문</h3>
     ```sql
     -- admin 데이터
     INSERT INTO admin VALUES
