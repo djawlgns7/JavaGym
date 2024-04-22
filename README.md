@@ -119,6 +119,189 @@
     ('locker', 360, 52000); -- 락커 360일 대여
     </code></pre>
   </details>
+  <details>
+    <summary><h3>저장 프로시저와 이벤트 스케쥴러</h3></summary>
+    <pre><code class="language-sql">
+    -- 1. 이용권의 남은 횟수 반환. 없을 경우 null 반환
+    delimiter //
+    create procedure getProductRemain(in v_m_no int, in v_i_type enum('gym_ticket', 'PT_ticket', 'clothes', 'locker'), out v_remain int)
+    begin
+    	set @remain = (
+    	select p_remain from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = v_i_type
+        order by p_datetime desc limit 1
+        );
+        
+        select @remain into v_remain;
+        
+    end //
+    delimiter ;
+    
+    -- 2. 사용하고 있는 락커 번호 반환. 없을 경우 null 반환
+    delimiter //
+    create procedure getLockerNum(in v_m_no int, out v_p_locker_no int)
+    begin
+    	set @locker_no = (
+    	select p_locker_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = 'locker'
+        order by p_datetime desc limit 1
+        );
+        
+        select @locker_no into v_p_locker_no;
+        
+    end //
+    delimiter ;
+    
+    -- 3. 락커 번호 배정
+    delimiter //
+    create procedure setLockerNum(in v_m_no int, in v_p_locker_no int)
+    begin
+    	set @v_p_no = (
+        select p_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = 'locker'
+    	order by p_datetime desc limit 1
+        );
+    
+    	update purchase
+        set p_locker_no = v_p_locker_no
+        where p_no = @v_p_no;
+    end //
+    delimiter ;
+    
+    -- 4. 상품 구매 시 구매 정보와 남은 이용 횟수/기간 업데이트
+    delimiter //
+    create procedure purchaseItem(in v_i_no int, in v_m_no int)
+    begin
+    	set @type = (select i_type from item where i_no = v_i_no);
+        set @name = (select i_detail from item where i_no = v_i_no);
+        call getProductRemain(v_m_no, @type, @remain);
+        set @remain = if(@remain is null, 0, @remain);
+    
+    	insert into purchase(i_no, m_no, p_remain)
+        values(
+        v_i_no, v_m_no,
+        (@remain + @name)
+        );
+    end //
+    delimiter ;
+    
+    -- 5. 회원의 번호를 입력하면 담당 트레이너의 번호를 반환하는 프로시저 없으면 null
+    -- (4/5 추가)
+    delimiter //
+    create procedure getTrainerNo(in v_m_no int, out v_t_no int)
+    begin
+    	set @trainer_no = (
+    	select t_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = 'PT_ticket'
+        order by p_datetime desc limit 1
+        );
+        
+        select @trainer_no into v_t_no;
+    end //
+    delimiter ;
+    
+    -- 6. 회원의 번호와 트레이너 번호를 입력하면 회원의 담당 트레이너를 배정/바꿔줌
+    -- 트레이너 번호를 0으로 지정하면 담당 트레이너를 지워줌
+    -- (4/18 추가)
+    delimiter //
+    create procedure setTrainerNo(in v_m_no int, in v_t_no int)
+    begin
+    	set @v_p_no = (
+        select p_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = 'PT_ticket'
+    	order by p_datetime desc limit 1
+        );
+    
+    	set v_t_no = IF(v_t_no = 0, null, v_t_no);
+    
+    	update purchase
+        set t_no = v_t_no
+        where p_no = @v_p_no;
+    end //
+    delimiter ;
+    
+    -- 7. 이용권 남은 횟수 변경(증가/감소)/if 남은 횟수가 0보다 적어질 경우 0으로 만듦.
+    delimiter //
+    create procedure setRemain(in v_m_no int, in v_i_type enum('gym_ticket', 'PT_ticket', 'clothes', 'locker'), in v_set_num int)
+    begin
+        set @v_p_no = (
+        select p_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = v_i_type
+    		order by p_datetime desc limit 1
+        );
+        
+    	update purchase
+    	set p_remain = p_remain + v_set_num
+        where p_no = @v_p_no;
+        
+        call getProductRemain(v_m_no, v_i_type, @remain);
+        
+        if @remain <= 0 then
+    		update purchase
+    		set p_remain = 0
+    		where p_no = @v_p_no;
+    	end if;
+    end //
+    delimiter ;
+    
+    -- 8. 회원 번호와 아이템 유형을 넣으면 해당 아이템 유형을 구매한 이력이 없으면 true(1) 반환해주는 프로시저
+    DELIMITER //
+    CREATE PROCEDURE isFirstPurchase(IN v_m_no INT, IN v_i_type ENUM('gym_ticket', 'PT_ticket', 'clothes', 'locker'), OUT v_result BOOLEAN)
+    BEGIN
+        DECLARE purchase_count INT;
+    
+        SELECT COUNT(*) INTO purchase_count
+        FROM item
+        JOIN purchase USING(i_no)
+        WHERE m_no = v_m_no AND i_type = v_i_type;
+    
+        IF purchase_count = 0 THEN
+            SET v_result = TRUE;
+        ELSE
+            SET v_result = FALSE;
+        END IF;
+    END //
+    DELIMITER ;
+    
+    -- 9. 회원이 가지고 있는 락커 번호 삭제
+    delimiter //
+    create procedure deleteLockerNum(in v_m_no int)
+    begin
+    	set @v_p_no = (
+        select p_no from item join purchase using(i_no)
+        where m_no = v_m_no and i_type = 'locker'
+    	order by p_datetime desc limit 1
+        );
+    
+    	update purchase
+        set p_locker_no = null
+        where p_no = @v_p_no;
+    end //
+    delimiter ;
+    
+    -- 이벤트 스케쥴러 사용 허용 설정
+    SHOW VARIABLES LIKE 'event%';
+    SET GLOBAL event_scheduler = ON;
+    
+    -- 하루마다 회원의 모든 이용권 삭제
+    CREATE EVENT itemUpdate
+    ON SCHEDULE EVERY 1 DAY
+    COMMENT '이용권 하루치 삭제'
+    DO
+    UPDATE purchase
+    SET p_remain = p_remain - 1
+    where i_no > 3 and p_remain > 0;
+    
+    -- 사물함 이용 기간이 0이 된 회원의 사물함 배정 해제
+    CREATE EVENT lockerUpdate
+    ON SCHEDULE EVERY 1 DAY
+    COMMENT '사물함 이용 기간이 끝난 회원의 사물함 배정 해제'
+    DO
+    UPDATE purchase
+    set p_locker_no = null
+    where 13 <= i_no and i_no <= 16 and p_remain = 0;
+    </code></pre>
+  </details>
 </details>
 
 ## JavaGym
