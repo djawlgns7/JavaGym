@@ -85,7 +85,7 @@
     );
     ```
     
-    <h3>insert문</h3>
+    ### insert문
     ```sql
     -- admin 데이터
     INSERT INTO admin VALUES
