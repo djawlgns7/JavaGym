@@ -5,7 +5,7 @@
 <details>
   <summary><h2>데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</h2></summary>
   <h3>테이블 생성문</h3>
-  ```sql
+  <pre><code class="language-sql">
   -- 회원 테이블
   CREATE TABLE member(
   m_no INT(4) PRIMARY KEY AUTO_INCREMENT,
@@ -83,9 +83,11 @@
   CONSTRAINT FOREIGN KEY(m_no) REFERENCES member(m_no) ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY(t_no) REFERENCES trainer(t_no) ON DELETE CASCADE
   );
-  ```
+  </code></pre>
+
   <h3>insert문</h3>
-  ```sql
+
+  <pre><code class="language-sql">
   -- admin 데이터
   INSERT INTO admin VALUES
   ('admin', '$2a$10$BtWNTnqX3dEI7jPSoBJyEOFSZRJ4kAhdCFOFB32uKfM0j.y/2HuQ6');
@@ -114,7 +116,7 @@
   ('locker', 90, 18000),   -- 락커 90일 대여
   ('locker', 180, 31000), -- 락커 180일 대여
   ('locker', 360, 52000); -- 락커 360일 대여
-  ```
+  </code></pre>
 </details>
 
 ## JavaGym
