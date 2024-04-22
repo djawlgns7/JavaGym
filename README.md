@@ -4,7 +4,8 @@
 
 <details>
   <summary><h2>데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</h2></summary>
-    <h3>테이블 생성문</h3>
+  <details>
+    <summary><h3>테이블 생성문</h3></summary>
     ```sql
     -- 회원 테이블
     CREATE TABLE member(
@@ -84,8 +85,9 @@
     CONSTRAINT FOREIGN KEY(t_no) REFERENCES trainer(t_no) ON DELETE CASCADE
     );
     ```
-    
-    ### insert문
+  </details>
+  <details>
+    <summary><h3>insert문</h3></summary>
     ```sql
     -- admin 데이터
     INSERT INTO admin VALUES
@@ -116,6 +118,7 @@
     ('locker', 180, 31000), -- 락커 180일 대여
     ('locker', 360, 52000); -- 락커 360일 대여
     ```
+  </details>
 </details>
 
 ## JavaGym
