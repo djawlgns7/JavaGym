@@ -83,9 +83,9 @@
   CONSTRAINT FOREIGN KEY(m_no) REFERENCES member(m_no) ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY(t_no) REFERENCES trainer(t_no) ON DELETE CASCADE
   );
-  ```
+  
   <h3>insert문</h3>
-  ```sql
+  
   -- admin 데이터
   INSERT INTO admin VALUES
   ('admin', '$2a$10$BtWNTnqX3dEI7jPSoBJyEOFSZRJ4kAhdCFOFB32uKfM0j.y/2HuQ6');
