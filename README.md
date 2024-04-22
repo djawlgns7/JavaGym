@@ -70,7 +70,7 @@ i_detail INT(3),
 i_price INT(7) NOT NULL
 );
 
--- 구매 기록 테이블 (4/5 수정)
+-- 구매 기록 테이블
 CREATE TABLE purchase(
 p_no INT(8) PRIMARY KEY AUTO_INCREMENT,
 i_no INT(3) NOT NULL,
