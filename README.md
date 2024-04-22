@@ -86,7 +86,6 @@
     );
     </code></pre>
   </details>
-
   <details>
     <summary><h3>insert문</h3></summary>
     <pre><code class="language-sql">
