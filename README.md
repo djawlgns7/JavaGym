@@ -1,3 +1,15 @@
+<!-- 로고 -->
+<h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
+<a name="logo" href="https://www.aregtech.com"><img align="center" src="https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/areg-sdk-1280x360px-logo.png" alt="AREG SDK Home" style="width:100%;height:100%"/></a>
+  <br /><br /><strong>AREG SDK</strong>
+</h1>
+
+## 소개[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#introduction)
+
+**JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다. **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.
+**트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.
+**관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+
 # 실행하기 위해 필요한 사항들
 
 ## ConnectionConst.java 파일을 자신의 MySQL에 맞게 수정
