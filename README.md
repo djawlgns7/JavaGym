@@ -44,10 +44,9 @@
 
 ## 실행하기 위해 필요한 사항들
 
-### 1. ConnectionConst.java 파일을 자신의 MySQL에 맞게 수정
-
+### 1. 데이터베이스 생성 및 데이터 추가
 <details>
-  <summary><h2>데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</h2></summary>
+  <summary><h3>데이터베이스에 추가해야 하는 값들</h3></summary>
   
   <details>
     <summary><h3>테이블 생성문</h3></summary>
@@ -351,6 +350,10 @@
     </code></pre>
   </details>
 </details>
+
+### 2. Edit configurations에서 VM옵션 추가(--module-path C:/java_libraries/javafx-sdk-17.0.10/lib --add-modules=javafx.controls,javafx.fxml,javafx.media)
+### 3. ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정
+
 
 
 
