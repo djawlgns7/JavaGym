@@ -1,8 +1,12 @@
 <!-- 로고 -->
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
 <a name="logo" href="https://www.aregtech.com"><img align="center" src="https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/areg-sdk-1280x360px-logo.png" alt="AREG SDK Home" style="width:100%;height:100%"/></a>
-  <br /><br /><strong>AREG SDK</strong>
+  <br /><br /><strong>JavaGym</strong>
 </h1>
+
+## 목차[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#table-of-contents)
+- [소개](#introduction)
+- [사용 기술 및 툴 소개](#skillsAndTools)
 
 ## 소개[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#introduction)
 
@@ -11,9 +15,36 @@
 **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
 **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
 
-# 실행하기 위해 필요한 사항들
+## 사용 기술 및 툴 소개[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#skillsAndTools)
 
-## ConnectionConst.java 파일을 자신의 MySQL에 맞게 수정
+### Front
+![JavaFX](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)
+![Scenebuilder](https://img.shields.io/badge/SceneBuiler-F0AD4E.svg?&style=for-the-badge&logo=scenebuilder&logoColor=white)
+
+### Back
+![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
+![Lombok](https://img.shields.io/badge/Lombok-DA2128.svg?&style=for-the-badge&logo=lombok&logoColor=white)
+![coolSMS](https://img.shields.io/badge/coolSMS-34DA50.svg?&style=for-the-badge&logo=imessage&logoColor=white)
+![jbcrypt](https://img.shields.io/badge/jbcrypt-FE5F50.svg?&style=for-the-badge&logo=letsencrypt&logoColor=white)
+
+
+### DB
+![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?&style=for-the-badge&logo=MySQL&logoColor=white)
+![HikariCP](https://img.shields.io/badge/HikariCP-FFFFFF.svg?&style=for-the-badge&logo=Java&logoColor=black)
+
+### Tools
+![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?&style=for-the-badge&logo=Gradle&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032.svg?&style=for-the-badge&logo=Git&logoColor=white)
+![Github](https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white)
+![discord](https://img.shields.io/badge/Discord-5865F2.svg?&style=for-the-badge&logo=discord&logoColor=white)
+![intellijidea](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?&style=for-the-badge&logo=intellijidea&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E.svg?&style=for-the-badge&logo=Figma&logoColor=white)
+![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)
+
+## 실행하기 위해 필요한 사항들
+
+### 1. ConnectionConst.java 파일을 자신의 MySQL에 맞게 수정
 
 <details>
   <summary><h2>데이터베이스에 해당 테이블을 생성하고, 해당 값들을 삽입할 것</h2></summary>
@@ -320,34 +351,6 @@
     </code></pre>
   </details>
 </details>
-
-## JavaGym
-### Platforms & Languages
-
-### Front
-![JavaFX](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)
-![Scenebuilder](https://img.shields.io/badge/SceneBuiler-F0AD4E.svg?&style=for-the-badge&logo=scenebuilder&logoColor=white)
-
-### Back
-![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
-![Lombok](https://img.shields.io/badge/Lombok-DA2128.svg?&style=for-the-badge&logo=lombok&logoColor=white)
-![coolSMS](https://img.shields.io/badge/coolSMS-34DA50.svg?&style=for-the-badge&logo=imessage&logoColor=white)
-![jbcrypt](https://img.shields.io/badge/jbcrypt-FE5F50.svg?&style=for-the-badge&logo=letsencrypt&logoColor=white)
-
-
-### DB
-![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?&style=for-the-badge&logo=MySQL&logoColor=white)
-![HikariCP](https://img.shields.io/badge/HikariCP-FFFFFF.svg?&style=for-the-badge&logo=Java&logoColor=black)
-
-### Tools
-![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?&style=for-the-badge&logo=Gradle&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032.svg?&style=for-the-badge&logo=Git&logoColor=white)
-![Github](https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white)
-![discord](https://img.shields.io/badge/Discord-5865F2.svg?&style=for-the-badge&logo=discord&logoColor=white)
-![intellijidea](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?&style=for-the-badge&logo=intellijidea&logoColor=white)
-![Figma](https://img.shields.io/badge/Figma-F24E1E.svg?&style=for-the-badge&logo=Figma&logoColor=white)
-![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)
 
 
 
