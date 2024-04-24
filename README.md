@@ -11,7 +11,7 @@
 - 발표 자료  
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
     <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
-  </a>&nbsp
+  </a>     
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
     <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
   </a>
