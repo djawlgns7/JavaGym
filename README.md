@@ -4,12 +4,13 @@
 </h1>
 
 <p align="center">
-  <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스</i>
+  <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스크</i>
 </p>
 
 ## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
-- [시연 영상](#💪시연 영상)
+- [시연 영상](#시연-영상)
+- [발표 자료 및 사용 기술 설명](#발표-자료-및-사용-기술-설명)
 - [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
 - [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
 
@@ -22,7 +23,7 @@
 ## 💪시연 영상
 - 추후 유튜브 링크 추가 예정
 
-## 💪발표 자료 및 사용 기술 설명
+## 💪[발표 자료 및 사용 기술 설명](#목차)
 - 발표 자료  
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
     <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
