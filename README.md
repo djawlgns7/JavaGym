@@ -7,9 +7,20 @@
   <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스</i>
 </p>
 
-## 💪발표 자료
+## 💪발표 자료 및 사용 기술 목록
+- 발표 자료
+  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
+    <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 30px;">
+  </a>
+  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
+    <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 30px;">
+  </a>
   ![PDF](https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white)
   ![PPT](https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white)
+- 사용 기술 목록
+  <a href="">
+    <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 30px;">
+  </a>
   ![WORD](https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white)
   
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
