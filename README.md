@@ -356,7 +356,7 @@
   <summary><h3>VM옵션 추가 방법</h3></summary>
   
   <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/image/edit_configurations.png" style="width:70%;height:70%"/>
-  <h3>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h3>
+  <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
 </details>
 
 ### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정
