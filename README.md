@@ -11,8 +11,9 @@
 - [소개](#소개)
 - [시연 영상](#시연-영상)
 - [발표 자료 및 사용 기술 설명](#발표-자료-및-사용-기술-설명)
-- [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
+- [개발 환경](#개발-환경)
 - [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
+- [팀원 소개](#팀원-소개개)
 
 ## 💪소개
 - **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
@@ -36,7 +37,7 @@
     <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 20px;">
   </a>
 
-## 💪사용 기술 및 툴 소개
+## 💪개발 환경
 
 ### Front
 ![JavaFX-17](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
@@ -65,9 +66,10 @@
 
 ## 💪실행하기 위해 필요한 사항들
 
-### 1. 자바fx 및 jdk를 다운
+### 1. 다음 사항들을 만족하는 지 확인해주세요
 - <a href="https://gluonhq.com/products/javafx/">JavaFX SDK-17</a> 다운
 - <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">JDK-17</a> 다운 및 환경변수 설정하기
+- <a href="https://coolsms.co.kr/">coolSMS</a> api키가 필요합니다. api를 사용하지 못하는 사람들을 위해 콘솔 창으로 문자의 내용을 출력하는 코드가 추가되어 있습니다.
 - 본 프로젝트는 <a href="https://www.jetbrains.com/ko-kr/idea/download/?section=windows">Intellij IDEA</a>에서 실행하는 것을 권장합니다
 
 ### 2. 데이터베이스 생성 및 데이터 추가
@@ -387,7 +389,32 @@
 
 ### 4. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
 
-## 💪Contributors
+## 💪팀원 소개
+### 엄지훈
+- 회원 전용 기능 개발
+- 스토어드 프로시저 및 이벤트 스케쥴러 개발
+
+### 정성진
+- 관리자 전용 기능 개발
+- 기본 시스템 구축
+- 장바구니 기능 개발
+- 문자 전송 기능 개발
+- 그 외 다수
+
+### 김태웅
+- 트레이너 전용 기능 개발
+
+### 노승빈
+- UI/UX 디자인
+- 전체적인 디자인 통일
+
+### 오민택
+- UI/UX 디자인
+- 전체적인 디자인 통일
+
+### 예세림
+- UI/UX 디자인 초안 개발 참여
+- 데이터베이스 구축
 
 
 
