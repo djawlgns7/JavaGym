@@ -1,29 +1,37 @@
 <!-- 로고 -->
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
-<img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/image/logo_without_background.png" style="width:70%;height:70%"/>
+<img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
-## 목차[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#table-of-contents)
+## 💪발표 자료
+- [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
+- [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
+- [사용한 기술 상세](링크 추가 예정)  
+
+## 💪시연 영상
+- 추후 유튜브 링크 추가 예정  
+
+## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
 - [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
-- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
+- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)  
 
-## 소개[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)]
+## 💪소개
 
-**JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
-**회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
-**트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
-**관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+- **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
+- **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
+- **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
+- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.  
 
-## 사용 기술 및 툴 소개[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)]
+## 💪사용 기술 및 툴 소개
 
 ### Front
-![JavaFX](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
+![JavaFX-17](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)
 ![Scenebuilder](https://img.shields.io/badge/SceneBuiler-F0AD4E.svg?&style=for-the-badge&logo=scenebuilder&logoColor=white)
 
 ### Back
-![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
+![Java-17](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
 ![Lombok](https://img.shields.io/badge/Lombok-DA2128.svg?&style=for-the-badge&logo=lombok&logoColor=white)
 ![coolSMS](https://img.shields.io/badge/coolSMS-34DA50.svg?&style=for-the-badge&logo=imessage&logoColor=white)
 ![jbcrypt](https://img.shields.io/badge/jbcrypt-FE5F50.svg?&style=for-the-badge&logo=letsencrypt&logoColor=white)
@@ -40,9 +48,9 @@
 ![discord](https://img.shields.io/badge/Discord-5865F2.svg?&style=for-the-badge&logo=discord&logoColor=white)
 ![intellijidea](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?&style=for-the-badge&logo=intellijidea&logoColor=white)
 ![Figma](https://img.shields.io/badge/Figma-F24E1E.svg?&style=for-the-badge&logo=Figma&logoColor=white)
-![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)
+![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)  
 
-## 실행하기 위해 필요한 사항들
+## 💪실행하기 위해 필요한 사항들
 
 ### 1. 데이터베이스 생성 및 데이터 추가
 <details>
@@ -351,16 +359,20 @@
   </details>
 </details>
 
-### 2. Edit configurations에서 VM옵션 추가(--module-path C:/java_libraries/javafx-sdk-17.0.10/lib --add-modules=javafx.controls,javafx.fxml,javafx.media)
-### 3. ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정
+### 2. Edit configurations에서 VM옵션 추가
+<details>
+  <summary><h3>VM옵션 추가 방법</h3></summary>
+  
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/edit_configurations.png" style="width:70%;height:70%"/>
+  <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
+</details>
+
+### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
 
 
 
 
-
-
-
-
+<!--
 # 💪Skills
 ### Platforms & Languages
 ![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
@@ -389,4 +401,4 @@
 ![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC.svg?&style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?&style=for-the-badge&logo=Android%20Studio&logoColor=white)
-
+-->
