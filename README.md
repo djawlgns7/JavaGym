@@ -3,11 +3,11 @@
 <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
-## 발표 자료
+## 💪발표 자료
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
 - [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
 
-## 목차![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)
+## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
 - [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
 - [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
