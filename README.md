@@ -6,6 +6,10 @@
 ## 💪발표 자료
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
 - [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
+- [사용한 기술 상세](링크 추가 예정)
+
+## 💪시연 영상
+- 추후 유튜브 링크 추가 예정
 
 ## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
@@ -14,12 +18,12 @@
 
 ## 💪소개
 
-**JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
-**회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
-**트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
-**관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+- **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
+- **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
+- **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
+- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
 
-## 💪사용 기술 및 툴 소개![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)
+## 💪사용 기술 및 툴 소개
 
 ### Front
 ![JavaFX-17](https://img.shields.io/badge/JavaFX-FFA500.svg?&style=for-the-badge&logo=Java&logoColor=white)
