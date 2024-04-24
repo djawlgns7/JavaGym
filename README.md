@@ -6,22 +6,22 @@
 ## 💪발표 자료
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
 - [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
-- [사용한 기술 상세](링크 추가 예정)
+- [사용한 기술 상세](링크 추가 예정)  
 
 ## 💪시연 영상
-- 추후 유튜브 링크 추가 예정
+- 추후 유튜브 링크 추가 예정  
 
 ## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
 - [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
-- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
+- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)  
 
 ## 💪소개
 
 - **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
 - **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
 - **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
-- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.  
 
 ## 💪사용 기술 및 툴 소개
 
@@ -48,7 +48,7 @@
 ![discord](https://img.shields.io/badge/Discord-5865F2.svg?&style=for-the-badge&logo=discord&logoColor=white)
 ![intellijidea](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?&style=for-the-badge&logo=intellijidea&logoColor=white)
 ![Figma](https://img.shields.io/badge/Figma-F24E1E.svg?&style=for-the-badge&logo=Figma&logoColor=white)
-![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)
+![kakaotalk](https://img.shields.io/badge/KakaoTalk-F7E600.svg?&style=for-the-badge&logo=kakaotalk&logoColor=black)  
 
 ## 💪실행하기 위해 필요한 사항들
 
@@ -367,7 +367,7 @@
   <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
 </details>
 
-### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정
+### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
 
 
 
