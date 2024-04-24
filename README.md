@@ -75,7 +75,7 @@
   <summary><h3>데이터베이스에 추가해야 하는 값들</h3></summary>
   
   <details>
-    <summary><h3>테이블 생성문</h3></summary>
+    <summary><h4>I. 테이블 생성문</h4></summary>
     
     <pre><code class="language-sql">
     -- 회원 테이블
@@ -158,7 +158,7 @@
     </code></pre>
   </details>
   <details>
-    <summary><h3>insert문</h3></summary>
+    <summary><h4>II. insert문</h4></summary>
     
     <pre><code class="language-sql">
     -- admin 데이터
@@ -192,7 +192,7 @@
     </code></pre>
   </details>
   <details>
-    <summary><h3>저장 프로시저와 이벤트 스케쥴러</h3></summary>
+    <summary><h4>III. 저장 프로시저와 이벤트 스케쥴러</h4></summary>
     
     <pre><code class="language-sql">
     -- 1. 이용권의 남은 횟수 반환. 없을 경우 null 반환
