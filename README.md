@@ -3,7 +3,13 @@
 <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
+<p align="center">
+  <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스</i>
+</p>
+
 ## 💪발표 자료
+  ![PDF](https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white)
+  
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
 - [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
 - [사용한 기술 상세](링크 추가 예정)  
