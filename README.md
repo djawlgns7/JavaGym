@@ -65,9 +65,9 @@
 ## 💪실행하기 위해 필요한 사항들
 
 ### 1. 자바fx 및 jdk를 다운
-- <a href="https://gluonhq.com/products/javafx/">JavaFX sdk-17</a> 다운
+- <a href="https://gluonhq.com/products/javafx/">JavaFX SDK-17</a> 다운
 - <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">JDK-17</a> 다운 및 환경변수 설정하기
-- 본 프로젝트는 intellij에서 실행하는 것을 권장합니다
+- 본 프로젝트는 <a href="https://www.jetbrains.com/ko-kr/idea/download/?section=windows">Intellij IDEA</a>에서 실행하는 것을 권장합니다
 
 ### 2. 데이터베이스 생성 및 데이터 추가
 <details>
