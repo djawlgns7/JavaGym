@@ -64,7 +64,12 @@
 
 ## 💪실행하기 위해 필요한 사항들
 
-### 1. 데이터베이스 생성 및 데이터 추가
+### 1. 자바fx 및 jdk를 다운
+- <a href="https://gluonhq.com/products/javafx/">JavaFX sdk-17</a> 다운
+- <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">JDK-17</a> 다운 및 환경변수 설정하기
+- 본 프로젝트는 intellij에서 실행하는 것을 권장합니다
+
+### 2. 데이터베이스 생성 및 데이터 추가
 <details>
   <summary><h3>데이터베이스에 추가해야 하는 값들</h3></summary>
   
@@ -371,7 +376,7 @@
   </details>
 </details>
 
-### 2. Edit configurations에서 VM옵션 추가
+### 3. Edit configurations에서 VM옵션 추가
 <details>
   <summary><h3>VM옵션 추가 방법</h3></summary>
   
@@ -379,7 +384,7 @@
   <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
 </details>
 
-### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
+### 4. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
 
 
 
