@@ -3,25 +3,38 @@
 <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
-## 💪발표 자료
-- [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
-- [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
-- [사용한 기술 상세](링크 추가 예정)  
-
-## 💪시연 영상
-- 추후 유튜브 링크 추가 예정  
+<p align="center">
+  <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스크</i>
+</p>
 
 ## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
 - [소개](#소개)
+- [시연 영상](#시연-영상)
+- [발표 자료 및 사용 기술 설명](#발표-자료-및-사용-기술-설명)
 - [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
-- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)  
+- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
 
 ## 💪소개
-
 - **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
 - **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
 - **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
-- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.  
+- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+
+## 💪시연 영상
+- 추후 유튜브 링크 추가 예정
+
+## 💪발표 자료 및 사용 기술 설명
+- 발표 자료  
+  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
+    <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
+  </a>     
+  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
+    <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
+  </a>
+- 사용 기술 설명  
+  <a href="">
+    <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 20px;">
+  </a>
 
 ## 💪사용 기술 및 툴 소개
 
@@ -52,12 +65,17 @@
 
 ## 💪실행하기 위해 필요한 사항들
 
-### 1. 데이터베이스 생성 및 데이터 추가
+### 1. 자바fx 및 jdk를 다운
+- <a href="https://gluonhq.com/products/javafx/">JavaFX SDK-17</a> 다운
+- <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">JDK-17</a> 다운 및 환경변수 설정하기
+- 본 프로젝트는 <a href="https://www.jetbrains.com/ko-kr/idea/download/?section=windows">Intellij IDEA</a>에서 실행하는 것을 권장합니다
+
+### 2. 데이터베이스 생성 및 데이터 추가
 <details>
   <summary><h3>데이터베이스에 추가해야 하는 값들</h3></summary>
   
   <details>
-    <summary><h3>테이블 생성문</h3></summary>
+    <summary><h4>I. 테이블 생성문</h4></summary>
     
     <pre><code class="language-sql">
     -- 회원 테이블
@@ -140,7 +158,7 @@
     </code></pre>
   </details>
   <details>
-    <summary><h3>insert문</h3></summary>
+    <summary><h4>II. insert문</h4></summary>
     
     <pre><code class="language-sql">
     -- admin 데이터
@@ -174,7 +192,7 @@
     </code></pre>
   </details>
   <details>
-    <summary><h3>저장 프로시저와 이벤트 스케쥴러</h3></summary>
+    <summary><h4>III. 저장 프로시저와 이벤트 스케쥴러</h4></summary>
     
     <pre><code class="language-sql">
     -- 1. 이용권의 남은 횟수 반환. 없을 경우 null 반환
@@ -359,7 +377,7 @@
   </details>
 </details>
 
-### 2. Edit configurations에서 VM옵션 추가
+### 3. Edit configurations에서 VM옵션 추가
 <details>
   <summary><h3>VM옵션 추가 방법</h3></summary>
   
@@ -367,8 +385,9 @@
   <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
 </details>
 
-### 3. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
+### 4. main/java/connection/ConnectionConst.java 파일을 자신의 데이터베이스에 맞게 수정  
 
+## 💪Contributors
 
 
 
