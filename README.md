@@ -5,7 +5,7 @@
 
 ## 발표 자료
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
-- [발표 자료(PDF)]("https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf")
+- [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
 
 ## 목차![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)
 - [소개](#소개)
