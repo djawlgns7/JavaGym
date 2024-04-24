@@ -1,6 +1,6 @@
 <!-- 로고 -->
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
-<img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/image/logo_without_background.png" style="width:70%;height:70%"/>
+<img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
 ## 목차![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)
@@ -355,7 +355,7 @@
 <details>
   <summary><h3>VM옵션 추가 방법</h3></summary>
   
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/image/edit_configurations.png" style="width:70%;height:70%"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/edit_configurations.png" style="width:70%;height:70%"/>
   <h4>(--module-path '자신의 javafx의 lib파일이 깔려있는 경로를 지정' --add-modules=javafx.controls,javafx.fxml,javafx.media)</h4>
 </details>
 
