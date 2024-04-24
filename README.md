@@ -23,7 +23,7 @@
 ## 💪시연 영상
 - 추후 유튜브 링크 추가 예정
 
-## 💪[발표 자료 및 사용 기술 설명](#목차)
+## <a style="color: black;" href="#목차">💪발표 자료 및 사용 기술 설명</a>
 - 발표 자료  
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
     <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
