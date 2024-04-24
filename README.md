@@ -7,7 +7,22 @@
   <i align="center">헬스장을 이용하는 모든 사용자들을 위한 키오스</i>
 </p>
 
-## 💪발표 자료 및 사용 기술 목록
+## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
+- [소개](#소개)
+- [시연 영상](#💪시연 영상)
+- [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
+- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
+
+## 💪소개
+- **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
+- **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
+- **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
+- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.
+
+## 💪시연 영상
+- 추후 유튜브 링크 추가 예정
+
+## 💪발표 자료 및 사용 기술 설명
 - 발표 자료  
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
     <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
@@ -15,25 +30,10 @@
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
     <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
   </a>
-- 사용 기술 목록  
+- 사용 기술 설명
   <a href="">
     <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 20px;">
   </a>
-
-## 💪시연 영상
-- 추후 유튜브 링크 추가 예정  
-
-## ![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)목차
-- [소개](#소개)
-- [사용 기술 및 툴 소개](#사용-기술-및-툴-소개)
-- [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)  
-
-## 💪소개
-
-- **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
-- **회원**들은 로그인만 하면 헬스장 입장, 헬스장의 상품 구매, PT 예약 등의 기능을 이용 가능합니다.  
-- **트레이너**는 자신이 담당하는 회원들의 목록과 예약 목록을 볼 수 있습니다. 예약 등록 및 수정, 삭제 또한 가능합니다.  
-- **관리자**는 헬스장에 등록된 트레이너와 회원들의 정보 열람 및 수정이 가능합니다. 수동으로 트레이너와 회원을 등록하는것 또한 가능합니다. 그리고 회원들의 출입 로그를 확인할 수 있습니다.  
 
 ## 💪사용 기술 및 툴 소개
 
