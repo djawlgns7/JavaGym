@@ -8,24 +8,17 @@
 </p>
 
 ## 💪발표 자료 및 사용 기술 목록
-- 발표 자료
+- 발표 자료  
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
-    <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 30px;">
+    <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
   </a>
   <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
-    <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 30px;">
+    <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
   </a>
-  ![PDF](https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white)
-  ![PPT](https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white)
-- 사용 기술 목록
+- 사용 기술 목록  
   <a href="">
-    <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 30px;">
+    <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 20px;">
   </a>
-  ![WORD](https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white)
-  
-- [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
-- [발표 자료(PDF)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf)
-- [사용한 기술 상세](링크 추가 예정)  
 
 ## 💪시연 영상
 - 추후 유튜브 링크 추가 예정  
