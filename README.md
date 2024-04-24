@@ -9,7 +9,7 @@
 
 ## 💪발표 자료
   ![PDF](https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white)
-  ![PPT](https://img.shields.io/badge/-PPT-B7472A?logomicrosoftpowerpoint&logoColor=white)
+  ![PPT](https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white)
   ![WORD](https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white)
   
 - [발표 자료(PPT)](https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx)
