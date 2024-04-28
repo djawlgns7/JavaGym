@@ -22,7 +22,7 @@
   <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:20px"/>
 </p>
 
-- <a href="https://youtu.be/qV4lo3T2AgU?si=mThq1QaTpLxJnS7o">
+- <a href="https://youtu.be/qV4lo3T2AgU?si=mThq1QaTpLxJnS7o" target="_blank">
     <img src="https://img.shields.io/badge/-YouTube-FF0000?logo=YouTube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">
   </a>
 
