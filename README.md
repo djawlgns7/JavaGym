@@ -19,7 +19,6 @@
 <p align="center>
   <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%"/>
   <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%"/>
 </p>
 - 추후 유튜브 링크 추가 예정
 
