@@ -23,7 +23,7 @@
 </p>
 
 - <a href="">
-    <img src="https://img.shields.io/badge/-youtube-#FF0000?logo=youtube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">
+    <img src="https://img.shields.io/badge/-YouTube-FF0000?logo=youtube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">
   </a>
 
 ## 💪소개
