@@ -17,13 +17,13 @@
 
 ## 💪시연 영상
 <p align="center">
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%;margin-right:10px"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%;margin-right:10px;margin-left:10px"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:10px"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%;margin-right:20px"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%;margin-right:20px;margin-left:20px"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:20px"/>
 </p>
 
 - <a href="">
-    <img src="https://img.shields.io/badge/-youtube-red?logo=youtube&logoColor=white" alt="youtubeVideo" style="height: 20px;">
+    <img src="https://img.shields.io/badge/-YouTube-#FF0000?logo=YouTube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">
   </a>
 
 ## 💪소개
