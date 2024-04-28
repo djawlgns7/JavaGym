@@ -25,6 +25,7 @@
 - <a href="https://youtu.be/qV4lo3T2AgU?si=mThq1QaTpLxJnS7o" target="_blank">
     <img src="https://img.shields.io/badge/-YouTube-FF0000?logo=YouTube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">
   </a>
+- [<img src="https://img.shields.io/badge/-YouTube-FF0000?logo=YouTube&logoColor=white" alt="YouTubeVideo" style="height: 20px;">](https://youtu.be/qV4lo3T2AgU?si=mThq1QaTpLxJnS7o){:target="_blank"}
 
 ## 💪소개
 - **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
