@@ -16,6 +16,7 @@
 - [실행하기 위해 필요한 사항들](#실행하기-위해-필요한-사항들)
 
 ## 💪시연 영상
+<img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:70%;height:70%"/>
 - 추후 유튜브 링크 추가 예정
 
 ## 💪소개
