@@ -17,11 +17,14 @@
 
 ## 💪시연 영상
 <p align="center">
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%;margin-right:10px"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%;margin-right:10px;margin-left:10px"/>
+  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:10px"/>
 </p>
-- 추후 유튜브 링크 추가 예정
+
+- <a href="">
+    <img src="https://img.shields.io/badge/-youtube-red?logo=youtube&logoColor=white" alt="youtubeVideo" style="height: 20px;">
+  </a>
 
 ## 💪소개
 - **JavaGym**은 헬스장을 이용하는 모든 사람들을 위한 키오스크입니다.  
