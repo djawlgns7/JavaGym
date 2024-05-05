@@ -68,7 +68,7 @@
     <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
   </a>
 - 사용 기술 설명  
-  <a href="">
+  <a href="readmeResources/presentationFile/3조_특수_기능_코드_및_설명.docx">
     <img src="https://img.shields.io/badge/-PDF-2B579A?logo=microsoftword&logoColor=white" alt="microsoftword" style="height: 20px;">
   </a>
 
