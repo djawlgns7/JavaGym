@@ -1,6 +1,6 @@
 <!-- 로고 -->
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
-<img align="center" src="readmeResources/image/JavaGym_Logo.jpeg" style="width:70%;height:70%"/>
+<img align="center" src="readmeResources/image/logo_without_background.png" style="width:70%;height:70%"/>
 </h1>
 
 <p align="center">
@@ -17,9 +17,9 @@
 
 ## 💪시연 영상
 <p align="center">
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%;margin-right:20px"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%;margin-right:20px;margin-left:20px"/>
-  <img align="center" src="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:20px"/>
+  <img align="center" src="readmeResources/image/demonstrationImage1.png" style="width:30%;height:30%;margin-right:20px"/>
+  <img align="center" src="readmeResources/image/demonstrationImage2.png" style="width:30%;height:30%;margin-right:20px;margin-left:20px"/>
+  <img align="center" src="readmeResources/image/demonstrationImage3.png" style="width:30%;height:30%;margin-left:20px"/>
 </p>
 
 - <a href="https://youtu.be/qV4lo3T2AgU?si=mThq1QaTpLxJnS7o" target="_blank">
@@ -61,10 +61,10 @@
 
 ## 💪발표 자료 및 사용 기술 설명
 - 발표 자료  
-  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pdf">
+  <a href="readmeResources/presentationFile/Javagym.pdf">
     <img src="https://img.shields.io/badge/-PDF-red?logo=adobeacrobatreader&logoColor=white" alt="adobeacrobatreader" style="height: 20px;">
   </a>     
-  <a href="https://github.com/djawlgns7/JavaGym/raw/readme/readmeResources/presentationFile/Javagym.pptx">
+  <a href="readmeResources/presentationFile/Javagym.pptx">
     <img src="https://img.shields.io/badge/-PPT-B7472A?logo=microsoftpowerpoint&logoColor=white" alt="microsoftpowerpoint" style="height: 20px;">
   </a>
 - 사용 기술 설명  
